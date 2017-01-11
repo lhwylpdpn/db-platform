@@ -1,0 +1,296 @@
+﻿<html lang="zh-CN" >
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+  <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+  <script src="js/bootstrap-table.js"></script>
+  <link rel="stylesheet" href="css/bootstrap-table.css">
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap-table-filter-control.js"></script>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="js/bootstrap-table-multiple-sort.js"></script>
+  <script src="js/bootstrap-table-flat-json.js"></script>
+  <script src="js/src/load_json.js"></script>
+  <title>iOS-渠道-明细</title>
+<style>
+.test{background-color:#FFFFFF;}
+</style>
+<!--header class="main-header" style="background-image: url(title.jpg);background-size:100%;height:300px">
+
+        <div class="container">
+            <div class="row" >
+
+                <div class="col-sm-12" >
+
+                    <div class='row'>
+                    	
+                   
+      				</div>
+                </div>
+            </div>
+        </div>
+        
+    </header-->
+<body>
+
+	<nav class="navbar navbar-inverse navbar-static-top">
+
+
+<div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+
+        <li class="active"><a href="test.html">iOS-渠道-明细-600</a></li>
+        <li><a href="test_850.html">iOS-渠道-明细-850</a></li>
+        <li><a href="test_1950.html">iOS-渠道-明细-1950</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+
+</nav>
+
+
+
+<div class="container-fluid">
+<div class="row" >
+<div class="col-sm-12" >
+
+<!--div class="panel panel-default">
+  <div class="panel-heading">KPI日报
+  -->
+    <div id="toolbar">
+            <button id="button1" class="btn btn-info">概要显示</button>
+            <button id="button2" class="btn btn-info">详细显示</button>
+            <div class="btn-group">
+                <button type="button" class="btn  btn-info dropdown-toggle" data-toggle="dropdown">
+                  日期筛选
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#" id="button_7">显示七日内数据</a></li>
+                  <li><a href="#" id="button_all">显示全部数据</a></li>
+                </ul>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn  btn-info dropdown-toggle" data-toggle="dropdown">
+                  花费筛选
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#" id="button_money_">显示有花费</a></li>
+                  <li><a href="#" id="button_money_all">显示全部数据</a></li>
+                </ul>
+            </div>
+            <h5>最后同步时间 ： <span id="sync_status" class="label label-success"></span> </h5>
+
+            <!--button id="button3" class="btn btn-default">是/否分页显示</button-->
+    </div>
+<!--/div-->
+  <!--div class="panel-body" -->
+   
+         <table id="table"
+               data-toggle="table"
+               data-height="600"
+               data-url="json/test.json"
+              data-flat="true"
+               data-show-multi-sort="true" 
+               class=" table table-no-bordered"
+               data-toolbar="#toolbar"
+               style="font-size:8px;"
+             data-filter-control="true"
+             data-page-size="200"
+              data-page-list="[100, 200,500,1000,2000]"
+             data-filter-show-clear="true"
+              data-show-pagination-switch="false"
+             data-pagination="true"
+             data-sort-priority='[{"sortName": "3","sortOrder":"asc"},{"sortName":"4","sortOrder":"asc"},{"sortName":"1","sortOrder":"desc"}]'
+              >
+            <thead>
+      
+
+
+
+
+            <tr >
+                <th data-field="1"   data-sortable="true" > <button class=" btn btn-primary">日期</button></th>
+                <th data-field="2"   data-sortable="true" ><button class=" btn btn-primary">负责人</button></th>
+                <th data-field="3"   data-sortable="true" ><button class=" btn btn-primary">渠道名称</button></th>
+                <th data-field="4"   data-sortable="true" ><button class=" btn btn-primary">代理公司</button></th>
+                <!--th data-field="5"   data-sortable="true" ><button class=" btn btn-primary">点击设备</button></th>
+                <th data-field="6"   data-sortable="true" ><button class=" btn btn-primary">激活设备</button></th>
+                <th data-field="7"   data-sortable="true" ><button class=" btn btn-primary">新增设备</button></th-->
+                <th data-field="8"   data-sortable="true" ><button class=" btn btn-primary">新增账号</button></th>
+                <th data-field="9"   data-sortable="true" ><button class=" btn btn-primary">新增付费账号</button></th>
+                <th data-field="10"   data-sortable="true" ><button class=" btn btn-primary">新增付费金额</button></th>
+                <th data-field="11"   data-sortable="true" ><button class=" btn btn-primary">付费率</button></th>
+                <th data-field="cpa"   data-sortable="true"  data-formatter="cpa"><button class=" btn btn-primary">CPA</button></th>
+                <th data-field="13"   data-sortable="true" ><button class=" btn btn-primary">花费金额</button></th>
+
+
+                <th data-field="120"   data-sortable="true" ><button class=" btn btn-danger">+0回收</button></th>
+                <th data-field="121"   data-sortable="true" ><button class=" btn btn-danger">+1回收</button></th>
+                <th data-field="122"   data-sortable="true" ><button class=" btn btn-danger">+2回收</button></th>
+                <th data-field="123"   data-sortable="true" ><button class=" btn btn-danger">+3回收</button></th>
+                <th data-field="124"   data-sortable="true" ><button class=" btn btn-danger">+4回收</button></th>
+                <th data-field="125"   data-sortable="true" ><button class=" btn btn-danger">+5回收</button></th>
+                <th data-field="126"   data-sortable="true" ><button class=" btn btn-danger">+6回收</button></th>
+                <th data-field="127"   data-sortable="true" ><button class=" btn btn-danger">+7回收</button></th>
+                <th data-field="128"   data-sortable="true" ><button class=" btn btn-danger">+8回收</button></th>
+                <th data-field="129"   data-sortable="true" ><button class=" btn btn-danger">+9回收</button></th>
+
+                <th data-field="130"   data-sortable="true" ><button class=" btn btn-danger">+10回收</button></th>
+                <th data-field="131"   data-sortable="true" ><button class=" btn btn-danger">+11回收</button></th>
+                <th data-field="132"   data-sortable="true" ><button class=" btn btn-danger">+12回收</button></th>
+                <th data-field="133"   data-sortable="true" ><button class=" btn btn-danger">+13回收</button></th>
+                <th data-field="134"   data-sortable="true" ><button class=" btn btn-danger">+14回收</button></th>
+
+            </tr>
+            </thead>
+        </table>
+
+
+
+
+
+
+
+   
+<!--/div-->
+</div>
+
+
+ </div>
+</div>
+</div>
+</body>
+</html>
+<script>
+
+
+    var $table = $('#table'),
+        $button1 = $('#button'),
+        $button2 = $('#button2');
+        $button4 = $('#button4'),
+        $button5 = $('#button5');
+        $button6 = $('#button_7');
+        $button7 = $('#button_all');
+        $button8= $('#button_money_');
+        $button9= $('#button_money_all');
+    $(function () {
+        $button1.click(function () {
+           for (var i = 20; i <=79; i++) {
+                $table.bootstrapTable('showColumn', String(i));
+           };
+       
+
+        });
+        $button2.click(function () {
+          for (var i = 20; i <=79; i++) {
+                $table.bootstrapTable('hideColumn', String(i));
+           };
+           });
+
+
+        $button6.click(function () {
+      Date.prototype.Format = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}         
+          var myDate=new Date();
+          var time1 = new Date().Format("yyyy-MM-dd");
+          var time2 = new Date(myDate.valueOf()-24*60*60*1000).Format("yyyy-MM-dd");
+          var time3 = new Date(myDate.valueOf()-2*24*60*60*1000).Format("yyyy-MM-dd");
+          var time4 = new Date(myDate.valueOf()-3*24*60*60*1000).Format("yyyy-MM-dd");
+          var time5 = new Date(myDate.valueOf()-4*24*60*60*1000).Format("yyyy-MM-dd");
+          var time6 = new Date(myDate.valueOf()-5*24*60*60*1000).Format("yyyy-MM-dd");
+          var time7 = new Date(myDate.valueOf()-60*24*60*60*1000).Format("yyyy-MM-dd");
+
+          $table.bootstrapTable('filterBy', {
+                          "1": [time1,time2,time3,time4,time5,time6,time7]
+                      });
+           });
+        $button7.click(function () {
+
+          $table.bootstrapTable('destroy');
+
+          $table.bootstrapTable();
+           });
+
+        $button9.click(function () {
+
+          $table.bootstrapTable('destroy');
+
+          $table.bootstrapTable();
+           });
+
+        $button8.click(function () {
+
+          $table.bootstrapTable('remove',{field:'13',values:["0.0","","0"]});
+
+           });
+    });
+
+</script>
+
+
+<script>
+    function nameFormatter(value, row) {
+        var icon = row.id % 2 === 0 ? 'glyphicon-star' : 'glyphicon-star-empty'
+
+        return '<i class="glyphicon ' + icon + '"></i> ' + value;
+    }
+
+    function cpa(value,row) {
+  
+        if (row.cpa<=30) {
+        var color = '#FF4040';
+  
+        return '<div  style="background-color : ' + color + ';color:#FFFFFF">' +
+            
+                value +
+                '</div>';
+        }
+        else if (row.cpa>60)
+        {      
+        var color = '#191970';
+  
+        return '<div  style="background-color : ' + color + ';color:#FFFFFF">' +
+            
+                value +
+                '</div>';}
+        else
+        {return value ;}
+       
+    }
+</script>
+
+<script>
+    var $table = $('#table');
+       
+
+    $(function () {
+        
+         $('#button_7').click();
+         
+         setTimeout("$('#button_money_').click();",500);
+    });
+
+</script>
+
+

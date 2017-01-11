@@ -1,0 +1,60 @@
+<html lang="zh-CN" >
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+  <!--script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+  <script src="js/bootstrap-table.js"></script>
+  <link rel="stylesheet" href="css/bootstrap-table.css">
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap-table-filter-control.js"></script>
+  <link rel="stylesheet" href="css/bootstrap.min.css"-->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-table.css">
+ 
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-table.js"></script>
+
+<body>
+    <div class="container">
+        <h1>remove</h1>
+        <p>
+            Remove data from table, the params contains two properties:<br>
+            field: the field name of remove rows.<br>
+            values: the array of values for rows which should be removed.<br>
+            <code>$table.bootstrapTable('remove', {field: 'id', values: ids});</code>
+        </p>
+        <div id="toolbar">
+            <button id="button" class="btn btn-default">remove</button>
+        </div>
+        <table id="table"
+               data-toggle="table"
+               data-toolbar="#toolbar"
+               data-height="428"
+               data-url="json/data1.json">
+            <thead>
+            <tr>
+                <th data-field="state" data-checkbox="true"></th>
+                <th data-field="id">ID</th>
+                <th data-field="name">Item Name</th>
+                <th data-field="price">Item Price</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+<script>
+    var $table = $('#table'),
+        $button = $('#button');
+
+    $(function () {
+        $button.click(function () {
+
+            $table.bootstrapTable('remove', {
+                field: 'id',
+                values: ["0"]
+            });
+        });
+    });
+</script>
+</body>
+</html>
