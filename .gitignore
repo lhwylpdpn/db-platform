@@ -1,0 +1,15 @@
+﻿#ignore python 编译文件
+*.pyc
+
+#ignore idea 编辑器文件
+.idea/*
+
+#igorore 非程序文件
+/venv/
+/env/
+.DS_Store
+
+#log文件
+/logs/*
+
+nohup.out

@@ -1,0 +1,296 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">首页</a>
+        </li>
+
+        <li>
+            <a href="#">投放分析</a>
+        </li>
+        <li class="active">iOS-渠道-明细</li>
+        <div class="nav-search">最后同步时间: <span id="sync_status"></span></div>
+    </ul><!-- /.breadcrumb -->
+</div>
+<div class="page-content">
+
+    <script type="text/javascript" src="/static/js/bootstrap-table.js?123e"></script>
+    <!--<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>-->
+    <!--<script type="text/javascript" src="/static/js/bootstrap-table-filter-control.js"></script>-->
+    <script type="text/javascript" src="/static/js/bootstrap-table-multiple-sort.js"></script>
+    <!--<script type="text/javascript" src="/static/js/bootstrap-table-flat-json.js"></script>-->
+    <script type="text/javascript" src="/static/js/src/load_json.js"></script>
+
+    <link rel="stylesheet" href="/static/css/bootstrap-table.css">
+
+    <!--<link rel="stylesheet" href="/static/css/bootstrap.min.css">-->
+
+                <div id="toolbar">
+                    <button id="button1" class="btn btn-info btn-sm ">概要显示</button>
+                    <button id="button2" class="btn btn-info btn-sm">详细显示</button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-info btn-sm" data-toggle="dropdown">
+                            日期筛选
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#" id="button_7">显示七日内数据</a></li>
+                            <li><a href="#" id="button_all">显示全部数据</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn  btn-info btn-sm" data-toggle="dropdown">
+                            花费筛选
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#" id="button_money_">显示有花费</a></li>
+                            <li><a href="#" id="button_money_all">显示全部数据</a></li>
+                        </ul>
+                    </div>
+
+
+                    <!--button id="button3" class="btn btn-default">是/否分页显示</button-->
+                </div>
+
+
+                <table id="table"
+                       data-toggle="table"
+                       data-height="588"
+                       data-url="/static/json/test.json"
+                       data-flat="true"
+                       class=" table table-no-bordered"
+                       data-toolbar="#toolbar"
+
+                       style="font-size:8px;"
+                       data-page-size="100"
+                       data-page-list="[100, 200,500,1000,2000]"
+                       data-show-columns="false"
+
+                       data-show-pagination-switch="false"
+
+                       data-show-multi-sort="true"
+
+                       data-pagination="true"
+                       data-sort-priority='[{"sortName": "3","sortOrder":"asc"},{"sortName":"4","sortOrder":"asc"},{"sortName":"1","sortOrder":"desc"}]'
+                >
+                    <thead>
+
+
+                    <tr>
+                        <th data-field="1" data-sortable="true">
+                            <button class=" btn btn-primary btn-xs">日期　</button>
+                        </th>
+                        <th data-field="2" data-sortable="true">
+                            <button class=" btn btn-primary btn-xs">负责人</button>
+                        </th>
+                        <th data-field="3" data-sortable="true">
+                            <button class=" btn btn-primary btn-xs">渠道名称</button>
+                        </th>
+                        <th data-field="4" data-sortable="true">
+                            <button class=" btn btn-primary btn-xs">代理公司</button>
+                        </th>
+                        <!--th data-field="5"   data-sortable="true" ><button class=" btn btn-primary">点击设备</button></th>
+                        <th data-field="6"   data-sortable="true" ><button class=" btn btn-primary">激活设备</button></th>
+                        <th data-field="7"   data-sortable="true" ><button class=" btn btn-primary">新增设备</button></th-->
+                        <th data-field="8" data-sortable="true">
+                            <button class=" btn btn-primary btn-xs">新增账号</button>
+                        </th>
+                        <th data-field="9" data-sortable="true">
+                            <button class=" btn btn-primary btn-xs">新增付费账号</button>
+                        </th>
+                        <th data-field="10" data-sortable="true">
+                            <button class=" btn btn-primary btn-xs">新增付费金额</button>
+                        </th>
+                        <th data-field="11" data-sortable="true">
+                            <button class=" btn btn-primary btn-xs">付费率</button>
+                        </th>
+                        <th data-field="cpa" data-sortable="true" data-formatter="cpa">
+                            <button class=" btn btn-primary btn-xs">CPA</button>
+                        </th>
+                        <th data-field="13" data-sortable="true">
+                            <button class=" btn btn-primary btn-xs">花费金额</button>
+                        </th>
+
+
+                        <th data-field="120" data-sortable="true">
+                            <button class=" btn btn-danger btn-xs">+0回收</button>
+                        </th>
+                        <th data-field="121" data-sortable="true">
+                            <button class=" btn btn-danger btn-xs">+1回收</button>
+                        </th>
+                        <th data-field="122" data-sortable="true">
+                            <button class=" btn btn-danger btn-xs">+2回收</button>
+                        </th>
+                        <th data-field="123" data-sortable="true">
+                            <button class=" btn btn-danger btn-xs">+3回收</button>
+                        </th>
+                        <th data-field="124" data-sortable="true">
+                            <button class=" btn btn-danger btn-xs">+4回收</button>
+                        </th>
+                        <th data-field="125" data-sortable="true">
+                            <button class=" btn btn-danger btn-xs">+5回收</button>
+                        </th>
+                        <th data-field="126" data-sortable="true">
+                            <button class=" btn btn-danger btn-xs">+6回收</button>
+                        </th>
+                        <th data-field="127" data-sortable="true">
+                            <button class=" btn btn-danger btn-xs">+7回收</button>
+                        </th>
+                        <th data-field="128" data-sortable="true">
+                            <button class=" btn btn-danger btn-xs">+8回收</button>
+                        </th>
+                        <th data-field="129" data-sortable="true">
+                            <button class=" btn btn-danger btn-xs">+9回收</button>
+                        </th>
+
+                        <th data-field="130" data-sortable="true">
+                            <button class=" btn btn-danger btn-xs">+10回收</button>
+                        </th>
+                        <th data-field="131" data-sortable="true">
+                            <button class=" btn btn-danger btn-xs">+11回收</button>
+                        </th>
+                        <th data-field="132" data-sortable="true">
+                            <button class=" btn btn-danger btn-xs">+12回收</button>
+                        </th>
+                        <th data-field="133" data-sortable="true">
+                            <button class=" btn btn-danger btn-xs">+13回收</button>
+                        </th>
+                        <th data-field="134" data-sortable="true">
+                            <button class=" btn btn-danger btn-xs">+14回收</button>
+                        </th>
+
+                    </tr>
+                    </thead>
+                </table>
+
+    <script>
+        var $table = $('#table'),
+            $button1 = $('#button'),
+            $button2 = $('#button2');
+            $button4 = $('#button4'),
+            $button5 = $('#button5');
+            $button6 = $('#button_7');
+            $button7 = $('#button_all');
+            $button8= $('#button_money_');
+            $button9= $('#button_money_all');
+        $(function () {
+            $button1.click(function () {
+               for (var i = 20; i <=79; i++) {
+                    $table.bootstrapTable('showColumn', String(i));
+               };
+
+
+            });
+            $button2.click(function () {
+              for (var i = 20; i <=79; i++) {
+                    $table.bootstrapTable('hideColumn', String(i));
+               };
+               });
+
+
+            $button6.click(function () {
+          Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+              var myDate=new Date();
+              var time1 = new Date().Format("yyyy-MM-dd");
+              var time2 = new Date(myDate.valueOf()-24*60*60*1000).Format("yyyy-MM-dd");
+              var time3 = new Date(myDate.valueOf()-2*24*60*60*1000).Format("yyyy-MM-dd");
+              var time4 = new Date(myDate.valueOf()-3*24*60*60*1000).Format("yyyy-MM-dd");
+              var time5 = new Date(myDate.valueOf()-4*24*60*60*1000).Format("yyyy-MM-dd");
+              var time6 = new Date(myDate.valueOf()-5*24*60*60*1000).Format("yyyy-MM-dd");
+              var time7 = new Date(myDate.valueOf()-6*24*60*60*1000).Format("yyyy-MM-dd");
+
+              $table.bootstrapTable('filterBy', {
+                              "1": [time1,time2,time3,time4,time5,time6,time7]
+                          });
+               });
+            $button7.click(function () {
+
+              $table.bootstrapTable('destroy');
+
+              $table.bootstrapTable();
+               });
+
+            $button9.click(function () {
+
+              $table.bootstrapTable('destroy');
+
+              $table.bootstrapTable();
+               });
+
+            $button8.click(function () {
+
+              $table.bootstrapTable('remove',{field:'13',values:["0.0","","0"]});
+
+               });
+        });
+
+
+    </script>
+
+
+    <script>
+        function nameFormatter(value, row) {
+            var icon = row.id % 2 === 0 ? 'glyphicon-star' : 'glyphicon-star-empty'
+
+            return '<i class="glyphicon ' + icon + '"></i> ' + value;
+        }
+
+        function cpa(value,row) {
+
+            if (row.cpa<=30) {
+            var color = '#FF4040';
+
+            return '<div  style="background-color : ' + color + ';color:#FFFFFF">' +
+
+                    value +
+                    '</div>';
+            }
+            else if (row.cpa>60)
+            {
+            var color = '#191970';
+
+            return '<div  style="background-color : ' + color + ';color:#FFFFFF">' +
+
+                    value +
+                    '</div>';}
+            else
+            {return value ;}
+
+        }
+
+
+    </script>
+
+    <script>
+        var $table = $('#table'),
+            $button = $('#button3');
+
+        $(function () {
+            $button.click(function () {
+                $table.bootstrapTable('togglePagination');
+            });
+        });
+
+
+    </script>
+
+</div><!-- /.page-content -->
+
+{% endblock content %}
