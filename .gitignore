@@ -6,10 +6,13 @@
 
 #igorore 非程序文件
 /venv/
-/env/
+
 .DS_Store
 
 #log文件
 /logs/*
+/docs/*
+
+config.py
 
 nohup.out
