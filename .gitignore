@@ -17,5 +17,5 @@
 config.py
 
 #数据文件
-/static/json/*
+/static/json/*.json
 nohup.out
