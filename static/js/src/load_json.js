@@ -4,7 +4,7 @@ $(function() {
 		seriesCounter = 0,
 		names = ['status'];
 	
-	var path = "";
+	var path = "/static/json/";
 	$.each(names, function(i, name) {
 	
 		$.getJSON(path+ name.toLowerCase() +'.json',	function(result) {

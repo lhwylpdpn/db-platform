@@ -16,11 +16,6 @@ def index():
     return render_template("index.html", title="Zilong Home Page ")
 
 
-@app.route('/status.json')
-def statusjson():
-    return '{"time_":"2017-01-02 21:16:53"}'
-
-
 @app.route('/channelIos600')
 def channelIos600():
     return render_template("channelIos600.html", title="channelIos600")

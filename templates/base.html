@@ -184,7 +184,7 @@
                 <b class="arrow"></b>
             </li>
 
-            <li class="active open">
+            <li class="">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-desktop"></i>
 							<span class="menu-text">
@@ -200,7 +200,7 @@
 
                 <ul class="submenu">
 
-                    <li class="active">
+                    <li class="">
                         <a href="/channelIos600">
                             <i class="menu-icon fa fa-caret-right"></i>
                             iOS-渠道-明细-600
@@ -231,78 +231,78 @@
             </li>
 
 
-            <li class="">
-                <a href="#" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-pencil-square-o"></i>
-                    <span class="menu-text">
-                        人员分析
-                        <span class="badge badge-primary">1</span>
-                    </span>
+            <!--<li class="">-->
+                <!--<a href="#" class="dropdown-toggle">-->
+                    <!--<i class="menu-icon fa fa-pencil-square-o"></i>-->
+                    <!--<span class="menu-text">-->
+                        <!--人员分析-->
+                        <!--<span class="badge badge-primary">1</span>-->
+                    <!--</span>-->
 
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
+                    <!--<b class="arrow fa fa-angle-down"></b>-->
+                <!--</a>-->
 
-                <b class="arrow"></b>
+                <!--<b class="arrow"></b>-->
 
-                <ul class="submenu">
-                    <li class="">
-                        <a href="#">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            人员分析1
-                        </a>
+                <!--<ul class="submenu">-->
+                    <!--<li class="">-->
+                        <!--<a href="#">-->
+                            <!--<i class="menu-icon fa fa-caret-right"></i>-->
+                            <!--人员分析1-->
+                        <!--</a>-->
 
-                        <b class="arrow"></b>
-                    </li>
+                        <!--<b class="arrow"></b>-->
+                    <!--</li>-->
 
-                </ul>
-            </li>
+                <!--</ul>-->
+            <!--</li>-->
 
 
 
-            <li class="">
-                <a href="#" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-file-o"></i>
+            <!--<li class="">-->
+                <!--<a href="#" class="dropdown-toggle">-->
+                    <!--<i class="menu-icon fa fa-file-o"></i>-->
 
-							<span class="menu-text">
-								渠道分析
+							<!--<span class="menu-text">-->
+								<!--渠道分析-->
 
-								<span class="badge badge-primary">3</span>
-							</span>
+								<!--<span class="badge badge-primary">3</span>-->
+							<!--</span>-->
 
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
+                    <!--<b class="arrow fa fa-angle-down"></b>-->
+                <!--</a>-->
 
-                <b class="arrow"></b>
+                <!--<b class="arrow"></b>-->
 
-                <ul class="submenu">
-                    <li class="">
-                        <a href="#">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            渠道分析1
-                        </a>
+                <!--<ul class="submenu">-->
+                    <!--<li class="">-->
+                        <!--<a href="#">-->
+                            <!--<i class="menu-icon fa fa-caret-right"></i>-->
+                            <!--渠道分析1-->
+                        <!--</a>-->
 
-                        <b class="arrow"></b>
-                    </li>
+                        <!--<b class="arrow"></b>-->
+                    <!--</li>-->
 
-                    <li class="">
-                        <a href="#">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            渠道分析2
-                        </a>
+                    <!--<li class="">-->
+                        <!--<a href="#">-->
+                            <!--<i class="menu-icon fa fa-caret-right"></i>-->
+                            <!--渠道分析2-->
+                        <!--</a>-->
 
-                        <b class="arrow"></b>
-                    </li>
+                        <!--<b class="arrow"></b>-->
+                    <!--</li>-->
 
-                    <li class="">
-                        <a href="#">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            渠道分析3
-                        </a>
+                    <!--<li class="">-->
+                        <!--<a href="#">-->
+                            <!--<i class="menu-icon fa fa-caret-right"></i>-->
+                            <!--渠道分析3-->
+                        <!--</a>-->
 
-                        <b class="arrow"></b>
-                    </li>
-                </ul>
-            </li>
+                        <!--<b class="arrow"></b>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</li>-->
 
             <li class="">
                 <a href="#" class="dropdown-toggle">
@@ -321,7 +321,7 @@
                     <li class="">
                         <a href="#">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            设置用户权限
+                            敬请期待。。。
                         </a>
 
                         <b class="arrow"></b>
@@ -371,6 +371,24 @@
     </a>
 
 </div><!-- /.main-container -->
+
+<script>
+    function uiVisible(){
+    	var url=window.location.href.split("/");
+		var pname=url[url.length-1];
+
+		if(pname=="dashboard.php?id=2&edit=true"){
+			pname="dashboard.php?id=2";
+		}
+		for(var i=0;i<$("a").length;i++){
+			if($($("a")[i]).attr("href")== "/" + pname){
+				$($("a")[i]).parent("li").addClass("active");
+				$($("a")[i]).parent("li").parent("ul").parent("li").addClass("active open");
+			}
+		}
+	};
+	uiVisible();
+</script>
 
 </body>
 </html>
