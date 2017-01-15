@@ -1,3 +1,5 @@
+# This Python file uses the following encoding: utf-8
+
 from flask import Flask
 from flask import render_template
 from config import Config
@@ -13,22 +15,22 @@ app.register_blueprint(userBp)
 
 @app.route('/')
 def index():
-    return render_template("index.html", title="Zilong Home Page ")
+    return render_template("channelIos600.html", title=U"首页")
 
 
 @app.route('/channelIos600')
 def channelIos600():
-    return render_template("channelIos600.html", title="channelIos600")
+    return render_template("channelIos600.html", title=U"iOS-渠道-明细600")
 
 
 @app.route('/channelIos850')
 def channelIos850():
-    return render_template("channelIos850.html", title="channelIos850")
+    return render_template("channelIos850.html", title=U"iOS-渠道-明细850")
 
 
 @app.route('/channelIos1200')
 def channelIos1200():
-    return render_template("channelIos1200.html", title="channelIos1200")
+    return render_template("channelIos1200.html", title=U"iOS-渠道-明细1200")
 
 
 if __name__ == '__main__':

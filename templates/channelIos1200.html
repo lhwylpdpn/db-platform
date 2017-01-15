@@ -255,23 +255,22 @@
         function cpa(value,row) {
 
             if (row.cpa<=30) {
-            var color = '#FF4040';
 
-            return '<div  style="background-color : ' + color + ';color:#FFFFFF">' +
+                return '<div  class="label label-sm label-warning arrowed-in arrowed-in-right">' +
 
                     value +
                     '</div>';
             }
-            else if (row.cpa>60)
-            {
-            var color = '#191970';
+            else if (row.cpa>60) {
 
-            return '<div  style="background-color : ' + color + ';color:#FFFFFF">' +
+                return '<div  class="label label-sm label-danger arrowed arrowed-right">' +
 
                     value +
-                    '</div>';}
-            else
-            {return value ;}
+                    '</div>';
+            }
+            else {
+                return value;
+            }
 
         }
 
