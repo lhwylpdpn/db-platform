@@ -256,17 +256,17 @@
 
             if (row.cpa<=30) {
 
-                return '<div  class="label label-sm label-warning arrowed-in arrowed-in-right">' +
+                return '<b  class="blue">' +
 
                     value +
-                    '</div>';
+                    '</b>';
             }
             else if (row.cpa>60) {
 
-                return '<div  class="label label-sm label-danger arrowed arrowed-right">' +
+                return '<b  class="red">' +
 
                     value +
-                    '</div>';
+                    '</b>';
             }
             else {
                 return value;

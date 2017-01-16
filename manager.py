@@ -33,6 +33,11 @@ def channelIos1200():
     return render_template("channelIos1200.html", title=U"iOS-渠道-明细1200")
 
 
+@app.route('/iOSTotalRoi')
+def iOSTotalRoi():
+    return render_template("iOSTotalRoi.html", title=U"iOS-整体-ROI")
+
+
 if __name__ == '__main__':
     # open debug model
     app.debug = True
