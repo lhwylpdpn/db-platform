@@ -7,7 +7,7 @@ $(function() {
 	var path = "/static/json/";
 	$.each(names, function(i, name) {
 	
-		$.getJSON(path+ name.toLowerCase() +'.json',	function(result) {
+		$.getJSON(path+ name.toLowerCase() + '.json?' + Date.parse(new Date()),	function(result) {
 			
 			var data = result;
 
