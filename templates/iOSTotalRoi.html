@@ -27,7 +27,7 @@
         data-flat="true"
         class="table  table-bordered"
 
-        data-page-size="100"
+        data-page-size="20"
         data-page-list="[100, 200,500,1000,2000]"
         data-show-columns="false"
 
@@ -40,85 +40,99 @@
 
 
     <tr>
-        <th data-field="1" data-sortable="true">
-            　　总计<br><br>日期　　
+        <th data-field="1" data-sortable="true" data-height="10">
+            <b class="main">　　总计<br><br>日期　　</b>
         </th>
         <th data-field="2" data-sortable="true">
-            1232<br><br>点击设备
+            <b class="main">1232<br><br>点击设备</b>
         </th>
         <th data-field="3" data-sortable="true">
-            123123<br><br>激活设备
+            <b class="main">123123<br><br>激活设备</b>
         </th>
         <th data-field="4" data-sortable="true">
-            123423<br><br>新增设备
+            <b class="main">123423<br><br>新增设备</b>
         </th>
         <th data-field="8" data-sortable="true">
-            78788<br><br>新增账号
+            <b class="main">78788<br><br>新增账号</b>
         </th>
         <th data-field="9" data-sortable="true">
-            238467<br><br>新增付费
+            <b class="main">238467<br><br>新增付费</b>
         </th>
         <th data-field="10" data-sortable="true">
-            234234<br><br>付费金额
+            <b class="main">234234<br><br>付费金额</b>
         </th>
         <th data-field="11" data-sortable="true">
-            235345<br><br>付费率
+            <b class="main">235345<br><br>付费率</b>
         </th>
         <th data-field="cpa" data-sortable="true">
-            C234234<br><br>CPA
+            <b class="main">C234234<br><br>CPA</b>
         </th>
         <th data-field="13" data-sortable="true">
-            23423<br><br>花费金额
+            <b class="main">23423<br><br>花费金额</b>
         </th>
+
+<!-- 第一周 -->
         <th data-field="120" data-sortable="true">
-            第一周<br>2.00%<br>+0 回收
+            <b class="jishu">第一周<br>2.00%<br>+0回收</b>
         </th>
         <th data-field="121" data-sortable="true">
-            第一周<br>4.00%<br>+1 回收
+            <b class="jishu">第一周<br>4.00%<br>+1回收</b>
         </th>
         <th data-field="122" data-sortable="true">
-            第一周<br>6.00%<br>+2 回收
+            <b class="jishu">第一周<br>6.00%<br>+2回收</b>
         </th>
         <th data-field="123" data-sortable="true">
-            第一周<br>8.00%<br>+3 回收
+            <b class="jishu">第一周<br>8.00%<br>+3回收</b>
         </th>
         <th data-field="124" data-sortable="true">
-            第一周<br>10.00%<br>+4 回收
+            <b class="jishu">第一周<br>10.00%<br>+4回收</b>
         </th>
         <th data-field="125" data-sortable="true">
-            第一周<br>12.00%<br>+5 回收
+            <b class="jishu">第一周<br>12.00%<br>+5回收</b>
         </th>
         <th data-field="126" data-sortable="true">
-            第一周<br>14.00%<br>+6 回收
-        </th><th data-field="120" data-sortable="true">
-            第二周<br>2.00%<br>+0 回收
+            <b class="jishu">第一周<br>14.00%<br>+6回收</b>
+        </th>
+
+
+        <th data-field="120" data-sortable="true">
+            <b class="oushu">第二周<br>2.00%<br>+0回收</b>
         </th>
         <th data-field="121" data-sortable="true">
-            第二周<br>4.00%<br>+1 回收
+            <b class="oushu">第二周<br>4.00%<br>+1回收</b>
         </th>
         <th data-field="122" data-sortable="true">
-            第二周<br>6.00%<br>+2 回收
+            <b class="oushu">第二周<br>6.00%<br>+2回收</b>
         </th>
         <th data-field="123" data-sortable="true">
-            第二周<br>8.00%<br>+3 回收
+            <b class="oushu">第二周<br>8.00%<br>+3回收</b>
         </th>
         <th data-field="124" data-sortable="true">
-            第二周<br>10.00%<br>+4 回收
+            <b class="oushu">第二周<br>10.00%<br>+4回收</b>
         </th>
         <th data-field="125" data-sortable="true">
-            第二周<br>12.00%<br>+5 回收
+            <b class="oushu">第二周<br>12.00%<br>+5回收</b>
         </th>
         <th data-field="126" data-sortable="true">
-            第二周<br>14.00%<br>+6 回收
+            <b class="oushu">第二周<br>14.00%<br>+6回收</b>
         </th>
         <th data-field="127" data-sortable="true">
             累计分成后回收
         </th>
-        
+
     </tr>
     </thead>
     </table>
 
 </div><!-- /.page-content -->
+<script>
 
+    $(function () {
+        setTimeout('$(".main").attr("style","color:#478FCA;");', 500);
+        //setTimeout('$(".jishu").attr("style","color:blue;");', 500);
+        setTimeout('$(".oushu").attr("style","color:#DD5A43!important;");', 500);
+
+    });
+
+</script>
 {% endblock content %}
