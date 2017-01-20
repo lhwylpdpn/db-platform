@@ -284,11 +284,12 @@
         });
     </script>
 
-</script>
-    function toThousands(num) {
-    return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
-}
-</scrpit>
+    <script>
+        function toThousands(num) {
+            return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+        }
+    </script>
+
 </div><!-- /.page-content -->
 
 {% endblock content %}
