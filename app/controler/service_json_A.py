@@ -113,7 +113,7 @@ def export():
 
 
 
-	sql="SELECT concat(ROUND(b.money_0*a.p/a.dis_spend*100,2),'%'),concat(ROUND(b.money_1*a.p/a.dis_spend*100,2),'%'),concat(ROUND(b.money_2*a.p/a.dis_spend*100,2),'%'),concat(ROUND(b.money_3*a.p/a.dis_spend*100,2),'%'),concat(ROUND(b.money_4*a.p/a.dis_spend*100,2),'%'),concat(ROUND(b.money_5*a.p/a.dis_spend*100,2),'%'),concat(ROUND(b.money_6*a.p/a.dis_spend*100,2),'%'),concat(ROUND(b.money_7*a.p/a.dis_spend*100,2),'%'),concat(ROUND(b.money_8*a.p/a.dis_spend*100,2),'%'),concat(ROUND(b.money_9*a.p/a.dis_spend*100,2),'%'),concat(ROUND(b.money_10*a.p/a.dis_spend*100,2),'%'),concat(ROUND(b.money_11*a.p/a.dis_spend*100,2),'%'),concat(ROUND(b.money_12*a.p/a.dis_spend*100,2),'%'),concat(ROUND(b.money_13*a.p/a.dis_spend*100,2),'%'),concat(ROUND(b.money_14*a.p/a.dis_spend*100,2),'%') FROM `re_money` b RIGHT JOIN ( SELECT aa.*,0.686 as p FROM  (SELECT a.date,b.staff,a.channel_name,a.agent,b.dis_spend FROM  ad_action a LEFT JOIN  (SELECT DATE ,channel_name,agent,SUM(dis_spend) AS dis_spend ,staff FROM spend GROUP BY DATE,channel_name,agent ) b   ON a.date=b.date AND a.channel_name=b.channel_name AND a.agent=b.agent) aa  LEFT JOIN dis_result bb  ON aa.date=bb.date ORDER BY aa.date) a ON  a.date=b.date AND a.channel_name=b.channel_name AND a.agent=b.agent order by a.channel_name ,a.agent ,a.date desc"
+	sql="SELECT case when  a.date>=date_sub(curdate(),interval 2 day)  then concat(ROUND(b.money_0*a.p/a.dis_spend*100,2),'%') else null end ,case when  a.date>=date_sub(curdate(),interval 3 day)  then concat(ROUND(b.money_1*a.p/a.dis_spend*100,2),'%') else null end,case when  a.date>=date_sub(curdate(),interval 4 day)  then concat(ROUND(b.money_2*a.p/a.dis_spend*100,2),'%') else null end ,case when  a.date>=date_sub(curdate(),interval 5 day)  then concat(ROUND(b.money_3*a.p/a.dis_spend*100,2),'%') else null end,case when  a.date>=date_sub(curdate(),interval 5 day)  then concat(ROUND(b.money_4*a.p/a.dis_spend*100,2),'%')else null end,case when  a.date>=date_sub(curdate(),interval 7 day)  then concat(ROUND(b.money_5*a.p/a.dis_spend*100,2),'%') else null end ,case when  a.date>=date_sub(curdate(),interval 8 day)  then concat(ROUND(b.money_6*a.p/a.dis_spend*100,2),'%') else null end ,case when  a.date>=date_sub(curdate(),interval 9 day)  then concat(ROUND(b.money_7*a.p/a.dis_spend*100,2),'%') else null end ,case when  a.date>=date_sub(curdate(),interval 10 day)  then concat(ROUND(b.money_8*a.p/a.dis_spend*100,2),'%') else null end ,case when  a.date>=date_sub(curdate(),interval 11 day)  then concat(ROUND(b.money_9*a.p/a.dis_spend*100,2),'%') else null end ,case when  a.date>=date_sub(curdate(),interval 12 day)  then concat(ROUND(b.money_10*a.p/a.dis_spend*100,2),'%')else null end, case when  a.date>=date_sub(curdate(),interval 13 day)  then concat(ROUND(b.money_11*a.p/a.dis_spend*100,2),'%')else null end ,case when  a.date>=date_sub(curdate(),interval 14 day)  then concat(ROUND(b.money_12*a.p/a.dis_spend*100,2),'%') else null end ,case when  a.date>=date_sub(curdate(),interval 15 day)  then concat(ROUND(b.money_13*a.p/a.dis_spend*100,2),'%') else null end ,case when  a.date>=date_sub(curdate(),interval 16 day)  then concat(ROUND(b.money_14*a.p/a.dis_spend*100,2),'%') else null end FROM `re_money` b RIGHT JOIN ( SELECT aa.*,0.686 as p FROM  (SELECT a.date,b.staff,a.channel_name,a.agent,b.dis_spend FROM  ad_action a LEFT JOIN  (SELECT DATE ,channel_name,agent,SUM(dis_spend) AS dis_spend ,staff FROM spend GROUP BY DATE,channel_name,agent ) b   ON a.date=b.date AND a.channel_name=b.channel_name AND a.agent=b.agent) aa  LEFT JOIN dis_result bb  ON aa.date=bb.date ORDER BY aa.date) a ON  a.date=b.date AND a.channel_name=b.channel_name AND a.agent=b.agent  order by a.channel_name ,a.agent ,a.date desc;"
 	cur_1.execute(sql)
 	res=cur_1.fetchall()
 	b_money_0=[]
@@ -223,7 +223,7 @@ def test_er():
 
 
 def create_json(word):
-	file_object = open(os.getcwd()+'../../static/json/test.json','w')
+	file_object = open(os.getcwd()+'test.json','w')
 	file_object.write(word)
 	file_object.close()
 
@@ -232,7 +232,7 @@ if __name__ == '__main__':
 		try:
 			conn=pymysql.connect(host='localhost',user='root',passwd='123456',db='zilong_report',port=3306)
 			cur_1=conn.cursor()
-			import_excel()
+			#import_excel()
 			export()
 
 			cur_1.close()

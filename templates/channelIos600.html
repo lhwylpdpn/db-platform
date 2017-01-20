@@ -253,7 +253,7 @@
         }
 
         function cpa(value,row) {
-
+            var value=toThousands(value);
             if (row.cpa<=30) {
 
                 return '<b  class="blue">' +
@@ -284,6 +284,11 @@
         });
     </script>
 
+</script>
+    function toThousands(num) {
+    return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+}
+</scrpit>
 </div><!-- /.page-content -->
 
 {% endblock content %}
