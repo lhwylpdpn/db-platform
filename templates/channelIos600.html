@@ -110,7 +110,7 @@
                         <th data-field="cpa" data-sortable="true" data-formatter="cpa">
                             <button class=" btn btn-primary btn-xs">CPA</button>
                         </th>
-                        <th data-field="13" data-sortable="true">
+                        <th data-field="mo_th" data-sortable="true" data-formatter="mo_th">
                             <button class=" btn btn-primary btn-xs">花费金额</button>
                         </th>
 
@@ -236,7 +236,7 @@
 
             $button8.click(function () {
 
-              $table.bootstrapTable('remove',{field:'13',values:["0.0","","0"]});
+              $table.bootstrapTable('remove',{field:'mo_th',values:["0.0","","0"]});
 
                });
         });
@@ -253,32 +253,38 @@
         }
 
         function cpa(value,row) {
-            var value=toThousands(value);
-            if (row.cpa<=30) {
+
+            if (row.cpa<=40) {
 
                 return '<b  class="blue">' +
 
-                    value +
+                    toThousands(parseInt(value)).toString() +
                     '</b>';
             }
             else if (row.cpa>60) {
 
                 return '<b  class="red">' +
 
-                    value +
+                    toThousands(parseInt(value)).toString() +
                     '</b>';
             }
             else {
-                return value;
+                return toThousands(parseInt(value)).toString();
             }
 
         }
 
+        function mo_th(value,row) {
+     
+                return toThousands(parseInt(value)).toString();
+            
 
+        }
     </script>
 
     <script>
         $(function () {
+
              $('#button_7').click();
              setTimeout("$('#button_money_').click();",1000);
         });
