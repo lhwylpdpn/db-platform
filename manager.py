@@ -1,6 +1,6 @@
 # This Python file uses the following encoding: utf-8
 
-from flask import Flask, url_for, redirect
+from flask import Flask, url_for, redirect, request
 from flask import render_template
 from config import Config
 
@@ -23,7 +23,10 @@ def index():
 
 @app.route('/channelIos600')
 def channelIos600():
-    return render_template("channelIos600.html", title=U"iOS-渠道-明细600", sjs=random.random())
+    sjs = 0
+    if len(request.args) != 0:
+        sjs = random.random()
+    return render_template("channelIos600.html", title=U"iOS-渠道-明细600", sjs=sjs)
 
 
 @app.route('/channelIos850')
