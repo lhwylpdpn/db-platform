@@ -21,6 +21,12 @@ def index():
     return redirect(url_for('channelIos600'))
 
 
+@app.route('/login')
+def login():
+    # return render_template("index.html", title=U"首页")
+    return render_template("login.html")
+
+
 @app.route('/channelIos600')
 def channelIos600():
     sjs = 0
