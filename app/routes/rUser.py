@@ -5,6 +5,11 @@ from flask import Blueprint
 userBp = Blueprint('user', __name__, url_prefix="/user")
 
 
+@userBp.route('/login')
+def login():
+    return render_template("user/login.html")
+
+
 @userBp.route('/userlist')
 def userlist():
     userinfos = CUser().userinfos()

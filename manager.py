@@ -3,28 +3,22 @@
 from flask import Flask, url_for, redirect, request
 from flask import render_template
 from config import Config
-
 import random
-
-from app.routes.rUser import userBp
-
 
 app = Flask(__name__)
 app.secret_key = Config().SECRET_KEY
 
+from app.routes.rUser import userBp
 app.register_blueprint(userBp)
+
+from app.routes.rAuth import authBp
+app.register_blueprint(authBp)
 
 
 @app.route('/')
 def index():
     # return render_template("index.html", title=U"首页")
     return redirect(url_for('channelIos600'))
-
-
-@app.route('/login')
-def login():
-    # return render_template("index.html", title=U"首页")
-    return render_template("login.html")
 
 
 @app.route('/channelIos600')
