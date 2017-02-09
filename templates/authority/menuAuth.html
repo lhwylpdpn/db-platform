@@ -8,16 +8,131 @@
             <a href="/">首页</a>
         </li>
         <li>
-            <a href="#">渠道明细</a>
+            <a href="#">权限管理</a>
         </li>
-        <li class="active">iOS-渠道-明细</li>
+        <li class="active">菜单权限</li>
     </ul><!-- /.breadcrumb -->
 </div>
 
 <div class="page-content">
 
 
+    <div class="page-header">
+        <h1>菜单权限</h1>
+    </div><!-- /.page-header -->
 
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <form class="form-horizontal" role="form">
+
+                <div class="space-6"></div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right">选择操作用户　</label>
+
+                    <div class="col-sm-9">
+                        <div class="pos-rel">
+                            <input class="typeahead scrollable" type="text" placeholder="输入用户	"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hr hr-16 hr-dotted"></div>
+                <div class="form-group">
+                    <div class=" col-sm-3 "></div>
+                    <div class="widget-box widget-color-blue2 col-sm-9" style="width:50%;">
+                        <div class="widget-header">
+                            <h4 class="widget-title lighter smaller">选择菜单权限</h4>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main padding-8">
+                                <ul id="tree1"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hr hr-16 hr-dotted"></div>
+                <div style="text-align:center">
+                    <button class="btn btn-info ">　确　定　</button>
+                </div>
+            </form>
+
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div><!-- /.page-content -->
+
+
+<!-- ace scripts -->
+<script src="/static/ace/js/tree.min.js"></script>
+
+<!-- inline scripts related to this page -->
+<script>
+			var sampleData = initiateDemoData();//see below
+				$('#tree1').ace_tree({
+					dataSource: sampleData['dataSource1'],
+					multiSelect: true,
+					cacheItems: true,
+					'open-icon' : 'ace-icon tree-minus',
+					'close-icon' : 'ace-icon tree-plus',
+					'itemSelect' : true,
+					'folderSelect': false,
+					'selected-icon' : 'ace-icon fa fa-check',
+					'unselected-icon' : 'ace-icon fa fa-times',
+					loadingHTML : '<div class="tree-loading"><i class="ace-icon fa fa-refresh fa-spin blue"></i></div>'
+				});
+
+	function initiateDemoData(){
+		var tree_data = {
+			'personals' : {text: '首页', type: 'item'} ,
+			'for-sale' : {text: '投放分析', type: 'folder'}	,
+			'pets' : {text: '页面权限', type: 'folder'}
+
+		}
+		tree_data['for-sale']['additionalParameters'] = {
+			'children' : {
+				'appliances' : {text: 'iOS-渠道-明细1', type: 'item'},
+				'arts-crafts' : {text: 'iOS-渠道-明细2', type: 'item'},
+				'clothing' : {text: 'iOS-渠道-明细3', type: 'item'}
+			}
+		}
+		tree_data['pets']['additionalParameters'] = {
+			'children' : {
+				'cats' : {text: '页面权限', type: 'item'},
+				'dogs' : {text: '数据权限', type: 'item'}
+			}
+		}
+
+		var dataSource1 = function(options, callback){
+			var $data = null
+			if(!("text" in options) && !("type" in options)){
+				$data = tree_data;//the root tree
+				callback({ data: $data });
+				return;
+			}
+			else if("type" in options && options.type == "folder") {
+				if("additionalParameters" in options && "children" in options.additionalParameters)
+					$data = options.additionalParameters.children || {};
+				else $data = {}//no data
+			}
+
+			if($data != null)//this setTimeout is only for mimicking some random delay
+				setTimeout(function(){callback({ data: $data });} , parseInt(Math.random() * 500) + 200);
+
+			//we have used static data here
+			//but you can retrieve your data dynamically from a server using ajax call
+			//checkout examples/treeview.html and examples/treeview.js for more info
+		}
+
+
+		return {'dataSource1': dataSource1 }
+	}
+
+
+
+</script>
 
 </div><!-- /.page-content -->
 

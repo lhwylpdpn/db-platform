@@ -15,82 +15,80 @@
 </div>
 
 <div class="page-content">
-		<!-- page specific plugin styles -->
-		<link rel="stylesheet" href="/static/ace/css/bootstrap-duallistbox.min.css" />
-		<link rel="stylesheet" href="/static/ace/css/bootstrap-multiselect.min.css" />
-		<link rel="stylesheet" href="/static/ace/css/select2.min.css" />
+    <!-- page specific plugin styles -->
+    <link rel="stylesheet" href="/static/ace/css/bootstrap-duallistbox.min.css"/>
 
-		<div class="main-container ace-save-state" id="main-container">
-			<div class="main-content">
-				<div class="main-content-inner">
-					<div class="page-content">
-						<div class="page-header">
-							<h1>数据权限</h1>
-						</div><!-- /.page-header -->
+    <div class="page-header">
+        <h1>数据权限</h1>
+    </div><!-- /.page-header -->
 
-						<div class="row">
-							<div class="col-xs-12">
-								<!-- PAGE CONTENT BEGINS -->
-								<form class="form-horizontal" role="form">
-									<div class="space-6"></div>
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <form class="form-horizontal" role="form">
 
-									<div class="form-group">
-										<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="food">选择操作用户户</label>
+                <div class="space-6"></div>
 
-										<div class="col-xs-12 col-sm-9">
-											<select id="food" class="multiselect" multiple="">
-												<option value="cheese">刘浩</option>
-												<option value="tomatoes">方宝贵</option>
-												<option value="mozarella">刘淑芳</option>
-												<option value="mushrooms">刘莎</option>
-												<option value="pepperoni">李建波</option>
-											</select>
-										</div>
-									</div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right">选择操作用户　</label>
 
-									<div class="hr hr-16 hr-dotted"></div>
+                    <div class="col-sm-9">
+                        <div class="pos-rel">
+                            <!--<input id="username" class="typeahead scrollable" type="text" placeholder="输入用户	"/>-->
+                            <select id="username" class="chosen-select">
+                                <option value="">Choose a User...</option>
+                                <option value="liuhao">夏晓晓</option>
+                                <option value="AK">王丽南</option>
+                                <option value="AZ">张春桃</option>
+                                <option value="AR">方世玉</option>
+                                <option value="CA">支付宝</option>
+                                <option value="CO">周龙</option>
+                                <option value="CT">韩志峰</option>
+                                <option value="DE">毕福剑</option>
+                                <option value="FL">王振东</option>
+                                <option value="GA">程刚</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
 
-									<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-top" for="duallist">选择权限用户</label>
+                <div class="hr hr-16 hr-dotted"></div>
 
-										<div class="col-sm-8">
-											<select multiple="multiple" size="10" name="duallistbox_demo1[]" id="duallist">
-												<option value="option1">Option 1</option>
-												<option value="option2">Option 2</option>
-												<option value="option3" selected="selected">Option 3</option>
-												<option value="option4">Option 4</option>
-												<option value="option5">Option 5</option>
-												<option value="option6" selected="selected">Option 6</option>
-												<option value="option7">Option 7</option>
-												<option value="option8">Option 8</option>
-												<option value="option9">Option 9</option>
-												<option value="option0">Option 10</option>
-											</select>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-top" for="duallist">选择权限用户</label>
 
-										</div>
-									</div>
+                    <div class="col-sm-8">
+                        <select multiple="multiple" size="10" name="duallistbox_demo1[]" id="duallist">
+                            <option value="option1">夏晓晓</option>
+                            <option value="option2">王丽南</option>
+                            <option value="option3" selected="selected">张春桃</option>
+                            <option value="option4">方世玉</option>
+                            <option value="option5">支付宝</option>
+                            <option value="option6" selected="selected">周龙</option>
+                            <option value="option7">韩志峰</option>
+                            <option value="option8">毕福剑</option>
+                            <option value="option9">王振东</option>
+                            <option value="option0">程刚</option>
+                        </select>
 
-								</form>
+                    </div>
+                </div>
+            </form>
+            <div class="hr hr-16 hr-dotted"></div>
+            <div style="text-align:center">
+                <button id="tijiao" class="btn btn-info ">　确　定　</button>
+            </div>
 
-								<!-- PAGE CONTENT ENDS -->
-							</div><!-- /.col -->
-						</div><!-- /.row -->
-					</div><!-- /.page-content -->
-				</div>
-			</div><!-- /.main-content -->
-		</div><!-- /.main-container -->
 
-		<!-- page specific plugin scripts -->
-		<script src="/static/ace/js/jquery.bootstrap-duallistbox.min.js"></script>
-		<script src="/static/ace/js/jquery.raty.min.js"></script>
-		<script src="/static/ace/js/bootstrap-multiselect.min.js"></script>
-		<script src="/static/ace/js/select2.min.js"></script>
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div><!-- /.page-content -->
 
-		<!-- ace scripts -->
-		<script src="/static/ace/js/ace-elements.min.js"></script>
+<script src="/static/ace/js/jquery.bootstrap-duallistbox.min.js"></script>
+<script src="/static/ace/js/jquery.raty.min.js"></script>
 
-		<!-- inline scripts related to this page -->
-		<script type="text/javascript">
+<script type="text/javascript">
 			jQuery(function($){
 			    var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox({infoTextFiltered: '<span class="label label-purple label-lg">Filtered</span>'});
 				var container1 = demo1.bootstrapDualListbox('getContainer');
@@ -117,88 +115,20 @@
 					}*/
 				})//.find('i:not(.star-raty)').addClass('grey');
 
-
-
-				//////////////////
-				//select2
-				$('.select2').css('width','200px').select2({allowClear:true})
-				$('#select2-multiple-style .btn').on('click', function(e){
-					var target = $(this).find('input[type=radio]');
-					var which = parseInt(target.val());
-					if(which == 2) $('.select2').addClass('tag-input-style');
-					 else $('.select2').removeClass('tag-input-style');
-				});
-
-				//////////////////
-				$('.multiselect').multiselect({
-				 enableFiltering: true,
-				 enableHTML: true,
-				 buttonClass: 'btn btn-white btn-primary',
-				 templates: {
-					button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> &nbsp;<b class="fa fa-caret-down"></b></button>',
-					ul: '<ul class="multiselect-container dropdown-menu"></ul>',
-					filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
-					filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default btn-white btn-grey multiselect-clear-filter" type="button"><i class="fa fa-times-circle red2"></i></button></span>',
-					li: '<li><a tabindex="0"><label></label></a></li>',
-			        divider: '<li class="multiselect-item divider"></li>',
-			        liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'
-				 }
-				});
-
-
-				///////////////////
-
-				//typeahead.js
-				//example taken from plugin's page at: https://twitter.github.io/typeahead.js/examples/
-				var substringMatcher = function(strs) {
-					return function findMatches(q, cb) {
-						var matches, substringRegex;
-
-						// an array that will be populated with substring matches
-						matches = [];
-
-						// regex used to determine if a string contains the substring `q`
-						substrRegex = new RegExp(q, 'i');
-
-						// iterate through the pool of strings and for any string that
-						// contains the substring `q`, add it to the `matches` array
-						$.each(strs, function(i, str) {
-							if (substrRegex.test(str)) {
-								// the typeahead jQuery plugin expects suggestions to a
-								// JavaScript object, refer to typeahead docs for more info
-								matches.push({ value: str });
-							}
-						});
-
-						cb(matches);
-					}
-				 }
-
-				 $('input.typeahead').typeahead({
-					hint: true,
-					highlight: true,
-					minLength: 1
-				 }, {
-					name: 'states',
-					displayKey: 'value',
-					source: substringMatcher(ace.vars['US_STATES']),
-					limit: 10
-				 });
-
-
-				///////////////
-
-
-				//in ajax mode, remove remaining elements before leaving page
-				$(document).one('ajaxloadstart.page', function(e) {
-					$('[class*=select2]').remove();
-					$('select[name="duallistbox_demo1[]"]').bootstrapDualListbox('destroy');
-					$('.rating').raty('destroy');
-					$('.multiselect').multiselect('destroy');
-				});
-
 			});
-		</script>
+
+    $("#tijiao").click(function(){
+        var opthonList = $("select[name='duallistbox_demo1[]_helper2']").html()
+        var userList = new Array();
+        for( var i=0 ; i<$(opthonList).length ; i++){
+            userList[i]=$($(opthonList)[i]).attr("value");
+        }
+        alert( userList );
+        alert( $("#username").val());
+    })
+
+
+</script>
 
 
 </div><!-- /.page-content -->

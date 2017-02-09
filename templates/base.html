@@ -385,11 +385,13 @@
     	var url=window.location.href.split("/");
 		var pname=url[url.length-1];
 
-		if(pname=="dashboard.php?id=2&edit=true"){
-			pname="dashboard.php?id=2";
+		if(pname==""){
+			pname="index";
 		}
+
 		for(var i=0;i<$("a").length;i++){
-			if($($("a")[i]).attr("href")== "/" + pname){
+			//if($($("a")[i]).attr("href")== "/" + pname){
+			if( $($("a")[i]).attr("href").indexOf( pname ) >=0){
 				$($("a")[i]).parent("li").addClass("active");
 				$($("a")[i]).parent("li").parent("ul").parent("li").addClass("active open");
 			}
