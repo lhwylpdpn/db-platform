@@ -1,3 +1,7 @@
+{% if not session['username'] %}
+    <script>location.href = "/user/login";</script>
+{% endif %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,7 +103,7 @@
                         <img class="nav-user-photo" src="/static/ace/images/avatars/avatar2.png" alt="Jason's Photo"/>
 								<span class="user-info">
 									<small>Welcome</small>
-									小蛙
+									{{ session['username'] }}
 								</span>
 
                         <i class="ace-icon fa fa-caret-down"></i>
@@ -123,7 +127,7 @@
                         <li class="divider"></li>
 
                         <li>
-                            <a href="/user/login">
+                            <a href="/user/loginout">
                                 <i class="ace-icon fa fa-power-off"></i>
                                 退出
                             </a>
