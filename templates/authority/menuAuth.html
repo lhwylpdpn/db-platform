@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="hr hr-16 hr-dotted"></div>
-                <div style="text-align:center">
+                <div style="text-align:center" id="tijiao">
                     <button class="btn btn-info ">　确　定　</button>
                 </div>
             </form>
@@ -93,9 +93,21 @@
 		}
 		tree_data['for-sale']['additionalParameters'] = {
 			'children' : {
-				'appliances' : {text: 'iOS-渠道-明细1', type: 'item'},
+				'appliances' : {text: 'iOS-渠道-明细1', type: 'folder'},
 				'arts-crafts' : {text: 'iOS-渠道-明细2', type: 'item'},
 				'clothing' : {text: 'iOS-渠道-明细3', type: 'item'}
+			}
+		}
+		tree_data['for-sale']['additionalParameters']['children']['appliances']['additionalParameters'] = {
+			'children' : {
+				'classics' : {text: 'Classics', type: 'item'},
+				'convertibles' : {text: 'Convertibles', type: 'item'},
+				'coupes' : {text: 'Coupes', type: 'item'},
+				'hatchbacks' : {text: 'Hatchbacks', type: 'item'},
+				'hybrids' : {text: 'Hybrids', type: 'item'},
+				'suvs' : {text: 'SUVs', type: 'item'},
+				'sedans' : {text: 'Sedans', type: 'item'},
+				'trucks' : {text: 'Trucks', type: 'item'}
 			}
 		}
 		tree_data['pets']['additionalParameters'] = {
@@ -130,7 +142,10 @@
 		return {'dataSource1': dataSource1 }
 	}
 
-
+    $("#tijiao").click(function(){
+        var aaa = $($(".tree-selected")[2]).children("span").children("span").html()
+        alert(aaa);
+    })
 
 </script>
 
