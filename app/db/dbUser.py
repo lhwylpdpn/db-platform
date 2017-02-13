@@ -3,7 +3,7 @@
     DATE : 20160920
 
 """
-from config import Config
+from Config import Config
 from app.db.dbBase import DBConnect
 
 
