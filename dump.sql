@@ -58,9 +58,8 @@ DROP TABLE IF EXISTS `login_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `login_info` (
-  `user_id` int(11) NOT NULL,
-  `login_time` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
+  `user_id` int(11) DEFAULT NULL,
+  `login_time` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -615,15 +614,14 @@ DROP TABLE IF EXISTS `user_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_info` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) DEFAULT NULL,
   `password` varchar(45) DEFAULT NULL,
   `sys_up_time` varchar(45) DEFAULT NULL,
   `status` varchar(45) DEFAULT NULL COMMENT '0,正常:1,初始化状态;2,失效状态',
   `user_up_time` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `password_UNIQUE` (`password`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -635,4 +633,4 @@ CREATE TABLE `user_info` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-02-07 16:59:24
+-- Dump completed on 2017-02-13 10:02:52
