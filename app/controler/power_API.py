@@ -2,7 +2,7 @@
 import sys
 from flask import session
 from app.db.dbBase import DBConnect
-from config import Config
+from Config import Config
 
 
 # moke login function
@@ -49,6 +49,6 @@ def login_log(userid):
 	conn.close()
 
 if __name__ == '__main__':
-	print(login('liuhao','12345678'))
+	print(login_in('liuhao','12345678'))
     
 

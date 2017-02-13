@@ -2,7 +2,7 @@
 
 from flask import Flask, url_for, redirect, request
 from flask import render_template
-from config import Config
+from Config import Config
 import random
 
 app = Flask(__name__)
