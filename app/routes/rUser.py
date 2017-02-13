@@ -14,7 +14,7 @@ def login():
 def loginaction():
     username = request.args.get('username')
     password = request.args.get('password')
-    loginresult = login_in(username, password)
+    loginresult = login_in_M(username, password)
     return loginresult
 
 

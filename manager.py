@@ -29,19 +29,14 @@ def channelIos600():
     return render_template("channelIos600.html", title=U"iOS-渠道-明细600", sjs=sjs)
 
 
-@app.route('/channelIos850')
-def channelIos850():
-    return render_template("channelIos850.html", title=U"iOS-渠道-明细850", sjs=random.random())
-
-
-@app.route('/channelIos1200')
-def channelIos1200():
-    return render_template("channelIos1200.html", title=U"iOS-渠道-明细1200", sjs=random.random())
-
-
 @app.route('/iOSTotalRoi')
 def iOSTotalRoi():
     return render_template("iOSTotalRoi.html", title=U"iOS-整体-ROI", sjs=random.random())
+
+
+@app.route('/expecting')
+def expecting():
+    return render_template("expecting.html", title=U"敬请期待")
 
 
 if __name__ == '__main__':

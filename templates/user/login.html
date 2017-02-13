@@ -81,10 +81,10 @@
                                         <div class="space"></div>
 
                                         <div class="clearfix">
-                                            <label class="inline">
-                                                <input type="checkbox" class="ace"/>
-                                                <span class="lbl"> 记住我</span>
-                                            </label>
+                                            <!--<label class="inline">-->
+                                                <!--<input type="checkbox" class="ace"/>-->
+                                                <!--<span class="lbl"> 记住我</span>-->
+                                            <!--</label>-->
 
                                             <button type="button" class="width-35 pull-right btn btn-sm btn-primary"
                                                     id="loginButton">
@@ -276,12 +276,14 @@
         var basetip = '<i class="ace-icon fa fa-exclamation-triangle"></i>'
         var username = $("#Username").val();
         if(username == ""){
-            $("#logintip").show().html(basetip + " 用户名不能为空。。。");
+            $("#logintip").show().html(basetip + " 用户名不能为空。");
+            $("#Username").focus();
             return;
         }
         var password = $("#Password").val();
         if(password == ""){
-            $("#logintip").show().html(basetip + " 密码不能为空。。。");
+            $("#logintip").show().html(basetip + " 密码不能为空。");
+            $("#Password").focus();
             return;
         }
         $.ajax({
@@ -300,6 +302,17 @@
         });
 
     });
+    //处理回车事件
+    $(function(){
+        document.onkeydown = function(e){
+        var ev = document.all ? window.event : e;
+        if(ev.keyCode==13) {
+           $("#loginButton").trigger("click");
+     }
+}
+});
+
+
 
 </script>
 </body>
