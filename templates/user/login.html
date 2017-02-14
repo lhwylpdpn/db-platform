@@ -105,12 +105,12 @@
                                         </a>
                                     </div>
 
-                                    <div>
-                                        <a href="#" data-target="#signup-box" class="user-signup-link">
-                                            新用户注册
-                                            <i class="ace-icon fa fa-arrow-right"></i>
-                                        </a>
-                                    </div>
+                                    <!--<div>-->
+                                        <!--<a href="#" data-target="#signup-box" class="user-signup-link">-->
+                                            <!--新用户注册-->
+                                            <!--<i class="ace-icon fa fa-arrow-right"></i>-->
+                                        <!--</a>-->
+                                    <!--</div>-->
                                 </div>
                             </div><!-- /.widget-body -->
                         </div><!-- /.login-box -->
@@ -125,27 +125,28 @@
 
                                     <div class="space-6"></div>
                                     <p>
-                                        输入账号发送给管理员进行密码重置
+                                        <!--输入账号发送给管理员进行密码重置-->
+                                        请联系管理员进行密码重置
                                     </p>
 
-                                    <form>
-                                        <fieldset>
-                                            <label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control"
-                                                                   placeholder="Email"/>
-															<i class="ace-icon fa fa-envelope"></i>
-														</span>
-                                            </label>
+                                    <!--<form>-->
+                                        <!--<fieldset>-->
+                                            <!--<label class="block clearfix">-->
+														<!--<span class="block input-icon input-icon-right">-->
+															<!--<input type="email" class="form-control"-->
+                                                                   <!--placeholder="Email"/>-->
+															<!--<i class="ace-icon fa fa-envelope"></i>-->
+														<!--</span>-->
+                                            <!--</label>-->
 
-                                            <div class="clearfix">
-                                                <button type="button" class="width-35 pull-right btn btn-sm btn-danger">
-                                                    <i class="ace-icon fa fa-lightbulb-o"></i>
-                                                    <span class="bigger-110">发送</span>
-                                                </button>
-                                            </div>
-                                        </fieldset>
-                                    </form>
+                                            <!--<div class="clearfix">-->
+                                                <!--<button type="button" class="width-35 pull-right btn btn-sm btn-danger">-->
+                                                    <!--<i class="ace-icon fa fa-lightbulb-o"></i>-->
+                                                    <!--<span class="bigger-110">发送</span>-->
+                                                <!--</button>-->
+                                            <!--</div>-->
+                                        <!--</fieldset>-->
+                                    <!--</form>-->
                                 </div><!-- /.widget-main -->
 
                                 <div class="toolbar center">
@@ -293,7 +294,8 @@
                 if(data["status"] == "0"){
                     location.href = "/";
                 }else if(data["status"] == "1"){
-                    alert("login success need xiugai key");
+                    alert("您使用初始密码进行登录,请及时修改。");
+                    location.href = "/user/modifypassword";
                 }else if(data["status"] == "-1"){
                     $("#logintip").show().html(basetip + data["body"]);
 

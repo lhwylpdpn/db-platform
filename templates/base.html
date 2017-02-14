@@ -1,5 +1,17 @@
 {% if not session['username'] %}
     <script>location.href = "/user/login";</script>
+
+{% elif session['mustModPass'] == "1" %}
+    <script src="/static/ace/js/jquery-1.11.3.min.js"></script>
+    <script>
+        $.get("/user/cancelMustModPass",function(data){
+            if(data == "1"){
+                location.href = "/user/modifypassword";
+            }
+        });
+
+    </script>
+
 {% endif %}
 
 <!DOCTYPE html>
@@ -118,7 +130,7 @@
                         <!--</li>-->
 
                         <li>
-                        <a href="#">
+                        <a href="/user/modifypassword">
                         <i class="ace-icon fa fa-user"></i>
                         修改密码
                         </a>
@@ -830,7 +842,11 @@
 
 		if(pname==""){
 			pname="index";
-		}
+		};
+
+		if(pname=="modifypassword"){
+		    pname="index";
+		};
 
 		for(var i=0;i<$("a").length;i++){
 			//if($($("a")[i]).attr("href")== "/" + pname){

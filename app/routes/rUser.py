@@ -14,7 +14,7 @@ def login():
 def loginaction():
     username = request.args.get('username')
     password = request.args.get('password')
-    loginresult = login_in_M(username, password)
+    loginresult = login_in(username, password)
     return loginresult
 
 
@@ -22,6 +22,17 @@ def loginaction():
 def loginout():
     session.pop('username', None)
     return redirect(url_for('index', title='Good Bye'))
+
+
+@userBp.route('/modifypassword')
+def modifypassword():
+    return render_template("user/modifypassword.html")
+
+
+@userBp.route('/cancelMustModPass')
+def cancelMustModPass():
+    session['mustModPass'] = '2'
+    return "1"
 
 
 @userBp.route('/userlist')

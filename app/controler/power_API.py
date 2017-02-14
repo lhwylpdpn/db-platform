@@ -1,9 +1,10 @@
-coding=UTF-8
+# This Python file uses the following encoding: utf-8
 import sys
 from flask import session
 from app.db.dbBase import DBConnect
 from Config import Config
 # 非flask运行测试用
+# coding=UTF-8
 # import sys
 # sys.path.append("..")
 # from db.dbBase import DBConnect
@@ -33,6 +34,8 @@ def login_in(username,password):
 				session['username'] = username
 				result='{"status":"0"}'
 			if r[0]=="1":
+				session['username'] = username
+				session['mustModPass'] = '1'
 				result='{"status":"1"}'
 		login_log(r[1])
 	elif len(rs)<1:
