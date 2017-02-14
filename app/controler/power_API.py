@@ -134,8 +134,35 @@ def power_list(usernames):# 输入需要获取权限的用户名、返回权限l
 
 	return result 
 ################################################################################
+
+def power_list_update(usernames,poweritems):#
+
+	if len(usernames)!=len(poweritems):
+		return '{"status":"-1","body":"接口输入参数错误,用户名和权限数组长度不同"}'
+	if len(usernames)<1:
+		return '{"status":"-1","body":"接口输入参数错误,用户名或权限不能为空"}'
+	try:
+
+		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
+		cursor = conn.cursor()
+		sql=""
+		for x in xrange(0,len(usernames)):
+
+			sql=sql+"update  power_info set power_user_list ='"+str(",".join(poweritems[x]))+"' where user_id in (select id from user_info where username='"+str(usernames[x])+"');"
+
+		cursor.execute(sql)
+		cursor.close()
+		conn.commit()
+		conn.close()
+		return '{"status":"0"}'
+	except Exception, e:
+
+		return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
+
 if __name__ == '__main__':
-	test=["admin","liuhao"]
+	test=["liuhao","admin"]
+	test2=[["liuhao"],["liuhao","admin"]]
+	print(power_list_update(test,test2))
+    test=["admin","liuhao"]
 	print(power_list(test))
-    
 
