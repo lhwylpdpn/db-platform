@@ -1,9 +1,9 @@
 # This Python file uses the following encoding: utf-8
-import sys
+import sys 
 from flask import session
 from app.db.dbBase import DBConnect
 from Config import Config
-# 非flask运行测试用
+# 非flask运行测试用 
 # coding=UTF-8
 # import sys
 # sys.path.append("..")
@@ -135,7 +135,7 @@ def power_list(usernames):# 输入需要获取权限的用户名、返回权限l
 	return result 
 ################################################################################
 
-def power_list_update(usernames,poweritems):#
+def power_list_update(usernames,poweritems):#usernames是一维数组传入用户名，poweritems是二维数组，传入每个用户名的权限数组
 
 	if len(usernames)!=len(poweritems):
 		return '{"status":"-1","body":"接口输入参数错误,用户名和权限数组长度不同"}'
