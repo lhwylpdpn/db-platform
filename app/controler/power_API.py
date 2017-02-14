@@ -10,7 +10,7 @@ from Config import Config
 # from db.dbBase import DBConnect
 # sys.path.append("../..")
 # from Config import Config
-# moke login function
+
 def login_in_M(username,password):
 	session['username'] = username
 	result = '{"status":"0"}'
@@ -99,27 +99,43 @@ def passwd_update(username,password):#强制更新传入用户新密码，后台
 # 获取用户权限接口########################################################
 def power_list(usernames):# 输入需要获取权限的用户名、返回权限list，如果输入是空，返回所有
 	users = ""
-	power =[]
+	power_r =[]
+	user_r=[]
 	result=""
+	conn = DBConnect.db_connect(Config.DATABASE_MAIN)
+	cursor = conn.cursor()
+	
 	if len(usernames)==0:
-		result='{"status":"-1","body":"suoyou shuju"}'
+		sql="select username,power_user_list from power_info a ,user_info b where a.user_id=b.id"
 	elif len(usernames)>=1:
-		users=",".join(map(str,usernames))
-		print(users)
-		return 1
+		users="','".join(map(str,usernames))
+		sql="select username,power_user_list from power_info a ,user_info b where a.user_id=b.id and b.username in ('"+users+"')"
 	else:
 		result='{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
+		cursor.close()
+		conn.close()
 		return result
+	cursor.execute(sql)
+	rs=cursor.fetchall()
+	if len(rs)>=1:
+		for r in rs:
+			user_r.append(r[0])
+			power_r.append(r[1])
+		result='{"status":"0","body":[{'
+		for x in xrange(0,len(user_r)):
+			result=result+'"'+str(user_r[x])+'":"'+str(power_r[x])+'",'
+		result="".join(list(result)[0:len(list(result))-1])
+		result=result+'}]}'
+	else:
+		result='{"status":"0"}'
+	cursor.close()
+	conn.close()
 
-
-	sql="select username,power_user_list from power_info a ,user_info b where a.user_id=b.id and b.username in ()"
-
-	
 
 	return result 
 ################################################################################
 if __name__ == '__main__':
-	test=[1,3,4,5]
+	test=["admin","liuhao"]
 	print(power_list(test))
     
 
