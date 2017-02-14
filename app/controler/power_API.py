@@ -11,11 +11,6 @@ from Config import Config
 # sys.path.append("../..")
 # from Config import Config
 
-def login_in_M(username,password):
-	session['username'] = username
-	result = '{"status":"0"}'
-	return result
-
 
 def login_in(username,password):
 	user = username
@@ -63,7 +58,7 @@ def passwd_update(username,password):#强制更新传入用户新密码，后台
 	if pwd.strip()=="":
 		sql_2 = "update user_info set password='1',user_up_time=now() ,status='1' where username='"+str(user)+"' and status='0'"
 	else:
-		sql_2 = "update user_info set password='"+str(pwd)+"',status='0' ,user_up_time=now() where username='"+str(user)+"' and status='1'"
+		sql_2 = "update user_info set password='"+str(pwd)+"',status='0' ,user_up_time=now() where username='"+str(user)+"' and status in ('1','0')"
 	conn = DBConnect.db_connect(Config.DATABASE_MAIN)
 	cursor = conn.cursor()
 	cursor.execute(sql_1)
@@ -86,6 +81,8 @@ def passwd_update(username,password):#强制更新传入用户新密码，后台
 		conn.commit()
 		conn.close()
 		result='{"status":"0"}'
+		#密码更新成功后需要去掉强制更新标识
+		session.pop('mustModPass', None)
 		return result
 	except Exception, e:
 		cursor.close()
@@ -159,10 +156,10 @@ def power_list_update(usernames,poweritems):#usernames是一维数组传入用�
 
 		return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
 
-if __name__ == '__main__':
-	test=["liuhao","admin"]
-	test2=[["liuhao"],["liuhao","admin"]]
-	print(power_list_update(test,test2))
-    test=["admin","liuhao"]
-	print(power_list(test))
+# if __name__ == '__main__':
+# 	test=["liuhao","admin"]
+# 	test2=[["liuhao"],["liuhao","admin"]]
+# 	print(power_list_update(test,test2))
+#     test=["admin","liuhao"]
+# 	print(power_list(test))
 
