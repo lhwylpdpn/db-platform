@@ -1,14 +1,14 @@
 # coding=UTF-8
-# import sys
-# from flask import session
-# from app.db.dbBase import DBConnect
-# from Config import Config
-# 非flask运行测试用
 import sys
-sys.path.append("..")
-from db.dbBase import DBConnect
-sys.path.append("../..")
+from flask import session
+from app.db.dbBase import DBConnect
 from Config import Config
+# # 非flask运行测试用
+# import sys
+# sys.path.append("..")
+# from db.dbBase import DBConnect
+# sys.path.append("../..")
+# from Config import Config
 
 def login_in_M(username,password):
 	session['username'] = username
