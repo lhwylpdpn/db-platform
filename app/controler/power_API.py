@@ -118,11 +118,11 @@ def power_list(usernames):# 输入需要获取权限的用户名、返回权限l
 		for r in rs:
 			user_r.append(r[0])
 			power_r.append(r[1])
-		result='{"status":"0","body":[{'
+		result='{"status":"0","body":{'
 		for x in xrange(0,len(user_r)):
 			result=result+'"'+str(user_r[x])+'":"'+str(power_r[x])+'",'
 		result="".join(list(result)[0:len(list(result))-1])
-		result=result+'}]}'
+		result=result+'}}'
 	else:
 		result='{"status":"0"}'
 	cursor.close()
