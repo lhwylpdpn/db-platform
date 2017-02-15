@@ -36,17 +36,10 @@
                         <div class="pos-rel">
                             <!--<input id="username" class="typeahead scrollable" type="text" placeholder="输入用户	"/>-->
                             <select id="username" class="chosen-select">
-                                <option value="">Choose a User...</option>
-                                <option value="liuhao">夏晓晓</option>
-                                <option value="AK">王丽南</option>
-                                <option value="AZ">张春桃</option>
-                                <option value="AR">方世玉</option>
-                                <option value="CA">支付宝</option>
-                                <option value="CO">周龙</option>
-                                <option value="CT">韩志峰</option>
-                                <option value="DE">毕福剑</option>
-                                <option value="FL">王振东</option>
-                                <option value="GA">程刚</option>
+                                <option value="">Choose a User</option>
+                                {% for i in userlist:%}
+                                <option value="{{ i[0] }}">{{ i[0] }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -59,16 +52,16 @@
 
                     <div class="col-sm-8">
                         <select multiple="multiple" size="10" name="duallistbox_demo1[]" id="duallist">
-                            <option value="option1">夏晓晓</option>
-                            <option value="option2">王丽南</option>
-                            <option value="option3" selected="selected">张春桃</option>
-                            <option value="option4">方世玉</option>
-                            <option value="option5">支付宝</option>
-                            <option value="option6" selected="selected">周龙</option>
-                            <option value="option7">韩志峰</option>
-                            <option value="option8">毕福剑</option>
-                            <option value="option9">王振东</option>
-                            <option value="option0">程刚</option>
+                            <!--<option value="option1">夏晓晓</option>-->
+                            <!--<option value="option2">王丽南</option>-->
+                            <!--<option value="option3" selected="selected">张春桃</option>-->
+                            <!--<option value="option4">方世玉</option>-->
+                            <!--<option value="option5">支付宝</option>-->
+                            <!--<option value="option6" selected="selected">周龙</option>-->
+                            <!--<option value="option7">韩志峰</option>-->
+                            <!--<option value="option8">毕福剑</option>-->
+                            <!--<option value="option9">王振东</option>-->
+                            <!--<option value="option0">程刚</option>-->
                         </select>
 
                     </div>
