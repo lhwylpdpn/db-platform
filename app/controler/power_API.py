@@ -1,18 +1,21 @@
 # This Python file uses the following encoding: utf-8
-# import sys 
-# from flask import session
-# from app.db.dbBase import DBConnect
-# from Config import Config
-# 非flask运行测试用 
-#coding=UTF-8
 import sys
 import os
 import shutil
 import re
-sys.path.append("..")
-from db.dbBase import DBConnect
-sys.path.append("../..")
+from flask import session
+from app.db.dbBase import DBConnect
 from Config import Config
+# 非flask运行测试用 
+#coding=UTF-8
+# import sys
+# import os
+# import shutil
+# import re
+# sys.path.append("..")
+# from db.dbBase import DBConnect
+# sys.path.append("../..")
+# from Config import Config
 
 
 def login_in(username,password):
@@ -169,6 +172,7 @@ def get_business_json(filename,username):#usernames是一维数组传入用户�
 # 正则筛选
 # 返回json
 	result=""
+	pattern=[]
 	pwd="../../static/json/"+str(filename)
 	if os.path.exists(pwd):
 		shutil.copyfile(pwd,str(filename))
@@ -180,41 +184,31 @@ def get_business_json(filename,username):#usernames是一维数组传入用户�
 	finally:
 		f.close()
 	os.remove(str(filename))
-	pattern=re.findall(r'{[^\\}]+'+str(username)+'[^\\}]+}',context)
-	
-	for x in xrange(0,len(pattern)):
-		result=result+pattern[x]+","
-	result=result[0:len(result)-1]
-	result='{"status":"0","body":'+result+"}"
+	conn = DBConnect.db_connect(Config.DATABASE_MAIN)
+	cursor = conn.cursor()
+	sql="select power_user_list from power_info a ,user_info b where a.user_id=b.id and username in ('"+str(username)+"') and b.status in (0,1)"
+	cursor.execute(sql)
+	rs=cursor.fetchall()
+	if len(rs)!=1:
+		return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
+	else:
+		for r in rs:
+			reg=re.split(",",r[0])
+			for x in xrange(0,len(reg)):
+				print(reg[x])
+				pattern=pattern+re.findall(r"{[^\}]+"+str(reg[x])+"[^\}]+.}",context)
+
+	result=",".join(pattern)
+	result='{"status":"0","body":'+result+'}'
 	return result
-	# if len(usernames)!=len(poweritems):
-	# 	return '{"status":"-1","body":"接口输入参数错误,用户名和权限数组长度不同"}'
-	# if len(usernames)<1:
-	# 	return '{"status":"-1","body":"接口输入参数错误,用户名或权限不能为空"}'
-	# try:
-
-	# 	conn = DBConnect.db_connect(Config.DATABASE_MAIN)
-	# 	cursor = conn.cursor()
-	# 	sql=""
-	# 	for x in xrange(0,len(usernames)):
-
-	# 		sql=sql+"update  power_info set power_user_list ='"+str(",".join(poweritems[x]))+"' where user_id in (select id from user_info where username='"+str(usernames[x])+"');"
-
-	# 	cursor.execute(sql)
-	# 	cursor.close()
-	# 	conn.commit()
-	# 	conn.close()
-	# 	return '{"status":"0"}'
-	# except Exception, e:
-
-	# 	return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
 
 
-if __name__ == '__main__':
-	print(get_business_json("test.json","zhouhao"))
+
+#if __name__ == '__main__':
+#	print(get_business_json("test.json","admin"))
 # 	test=["liuhao","admin"]
 # 	test2=[["liuhao"],["liuhao","admin"]]
 # 	print(power_list_update(test,test2))
 	#test=["admin","liuhao"]
-	#print(power_list(test))
+#	print(power_list(test))
 
