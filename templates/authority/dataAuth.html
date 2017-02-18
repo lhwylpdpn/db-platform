@@ -37,8 +37,13 @@
                             <!--<input id="username" class="typeahead scrollable" type="text" placeholder="输入用户	"/>-->
                             <select id="username" class="chosen-select">
                                 <option value="">Choose a User</option>
-                                {% for i in userlist:%}
-                                <option value="{{ i[0] }}">{{ i[0] }}</option>
+                                {% for i in userlist: %}
+
+                                    {% if selectedUser == i[0]:%}
+                                        <option value="{{ i[0] }}" selected="selected">{{ i[0] }}</option>
+                                    {% else: %}
+                                        <option value="{{ i[0] }}">{{ i[0] }}</option>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                         </div>
@@ -52,16 +57,15 @@
 
                     <div class="col-sm-8">
                         <select multiple="multiple" size="10" name="duallistbox_demo1[]" id="duallist">
-                            <!--<option value="option1">夏晓晓</option>-->
-                            <!--<option value="option2">王丽南</option>-->
-                            <!--<option value="option3" selected="selected">张春桃</option>-->
-                            <!--<option value="option4">方世玉</option>-->
-                            <!--<option value="option5">支付宝</option>-->
-                            <!--<option value="option6" selected="selected">周龙</option>-->
-                            <!--<option value="option7">韩志峰</option>-->
-                            <!--<option value="option8">毕福剑</option>-->
-                            <!--<option value="option9">王振东</option>-->
-                            <!--<option value="option0">程刚</option>-->
+                            {% for i in userlist:%}
+                                {% if selectedUser == i[0]:%}
+                                    <!--将自己排除在权限列表里-->
+                                {% elif i[1] == "selected": %}
+                                    <option value="{{ i[0] }}" selected="selected">{{ i[0] }}</option>
+                                {% else: %}
+                                    <option value="{{ i[0] }}">{{ i[0] }}</option>
+                                {% endif %}
+                            {% endfor %}
                         </select>
 
                     </div>
@@ -110,14 +114,32 @@
 
 			});
 
+    $("#username").change(function() {
+        var username = $(this).val();
+        if(username){
+            location.href = "/auth/dataAuth/" + username;
+        }
+    });
+
     $("#tijiao").click(function(){
         var opthonList = $("select[name='duallistbox_demo1[]_helper2']").html()
         var userList = new Array();
         for( var i=0 ; i<$(opthonList).length ; i++){
             userList[i]=$($(opthonList)[i]).attr("value");
         }
-        alert( userList );
-        alert( $("#username").val());
+        var username = $("#username").val();
+
+        $.ajax({
+            url: "/auth/updateDataAuth?username=" + username + "&userlist=" + userList,
+            dataType : "json",
+            success: function(data){
+                if(data["status"] == "0"){
+                    alert(data["body"]);
+                }else if(data["status"] == "-1"){
+                    alert(data["body"]);
+                }
+            }
+        });
     })
 
 
