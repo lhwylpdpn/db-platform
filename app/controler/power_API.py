@@ -130,7 +130,7 @@ def power_list(usernames):# 输入需要获取权限的用户名、返回权限l
 		result="".join(list(result)[0:len(list(result))-1])
 		result=result+'}}'
 	else:
-		result='{"status":"0"}'
+		result='{"status":"0","body":{}}'
 	cursor.close()
 	conn.close()
 
