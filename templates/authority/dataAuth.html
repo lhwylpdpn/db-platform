@@ -73,6 +73,8 @@
             </form>
             <div class="hr hr-16 hr-dotted"></div>
             <div style="text-align:center">
+                <label class="text-warning bigger-110 red center" id="logintip" style="display:none;"></label>
+                <br/>
                 <button id="tijiao" class="btn btn-info ">　确　定　</button>
             </div>
 
@@ -122,21 +124,42 @@
     });
 
     $("#tijiao").click(function(){
+
+        var basetip = '<i class="ace-icon fa fa-exclamation-triangle"></i>'
+        $("#logintip").hide();
+
+        //清空filter
+        if($($(".filter")[0]).val() != ""){
+            $("#logintip").show().html(basetip + "请 show all 去掉filter后,再保存。");
+            $($(".filter")[0]).focus();
+            return;
+        }else if($($(".filter")[1]).val() != ""){
+            $("#logintip").show().html(basetip + "请 show all 去掉filter后,再保存。");
+            $($(".filter")[1]).focus();
+            return;
+        }
+
         var opthonList = $("select[name='duallistbox_demo1[]_helper2']").html()
         var userList = new Array();
         for( var i=0 ; i<$(opthonList).length ; i++){
             userList[i]=$($(opthonList)[i]).attr("value");
         }
+
         var username = $("#username").val();
+        //判断是否选择操作用户
+        if(!username){
+            $("#logintip").show().html(basetip + "请选择要操作的用户");
+            return;
+        }
 
         $.ajax({
             url: "/auth/updateDataAuth?username=" + username + "&userlist=" + userList,
             dataType : "json",
             success: function(data){
                 if(data["status"] == "0"){
-                    alert(data["body"]);
+                    alert("操作成功");
                 }else if(data["status"] == "-1"){
-                    alert(data["body"]);
+                    $("#logintip").show().html(basetip + data["body"] );
                 }
             }
         });

@@ -48,7 +48,13 @@ def dataAuthU(username):
 def updateDataAuth():
     username = request.args.get('username')
     userlist = request.args.get('userlist')
-    result = power_list_update()
+    if userlist :
+        newuserlist = userlist.split(",")
+        newuserlist.append(username)  # 系统设计需要把自己加到权限列表里
+    else:
+        newuserlist = [username]
+    print userlist
+    result = power_list_update([username], [newuserlist])
     return result
 
 
