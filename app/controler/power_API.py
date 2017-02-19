@@ -174,6 +174,7 @@ def get_business_json(filename,username):#usernames是一维数组传入用户�
 	result=""
 	pattern=[]
 	pwd="../../static/json/"+str(filename)
+	pwd="./static/json/"+str(filename)  # flask 项目当前目录是zilong根目录
 	if os.path.exists(pwd):
 		shutil.copyfile(pwd,str(filename))
 	f=open(str(filename))
@@ -199,7 +200,7 @@ def get_business_json(filename,username):#usernames是一维数组传入用户�
 				pattern=pattern+re.findall(r"{[^\}]+"+str(reg[x])+"[^\}]+.}",context)
 
 	result=",".join(pattern)
-	result='{"status":"0","body":'+result+'}'
+	result='{"status":"0","body":['+result+']}'
 	return result
 
 
