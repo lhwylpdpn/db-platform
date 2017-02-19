@@ -158,6 +158,7 @@
             success: function(data){
                 if(data["status"] == "0"){
                     alert("操作成功");
+                    location.href = '/auth/dataAuth'
                 }else if(data["status"] == "-1"){
                     $("#logintip").show().html(basetip + data["body"] );
                 }

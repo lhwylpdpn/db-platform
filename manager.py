@@ -1,6 +1,6 @@
 # This Python file uses the following encoding: utf-8
 
-from flask import Flask, url_for, redirect, request
+from flask import Flask, url_for, redirect, request, json, session
 from flask import render_template
 from Config import Config
 import random
@@ -13,6 +13,8 @@ app.register_blueprint(userBp)
 
 from app.routes.rAuth import authBp
 app.register_blueprint(authBp)
+
+from app.controler.power_API import get_business_json
 
 
 @app.route('/')
@@ -27,6 +29,12 @@ def channelIos600():
     if len(request.args) != 0:
         sjs = random.random()
     return render_template("channelIos600.html", title=U"iOS-渠道-明细600", sjs=sjs)
+
+
+@app.route('/channelIos600Json')
+def channelIos600Json():
+    jsons = json.loads(get_business_json("test.json", session["username"])  )  # 字符串传化为json 对象
+    return json.dumps(jsons["body"])
 
 
 @app.route('/iOSTotalRoi')
