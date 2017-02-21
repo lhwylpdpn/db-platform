@@ -72,6 +72,31 @@ def import_excel():
 			sql=sql.strip(',')+";"
 			print("4sql ok ")
 			cur_1.execute(sql)
+def user_info_create():
+	user_DB=[]
+	user_file=[]
+	sql=""
+	sql_get_file="SELECT staff FROM spend where length(staff)>1 group by staff "
+	sql_get_user_info="SELECT username FROM user_info group by username"
+	cur_1.execute(sql_get_file)
+	rs=cur_1.fetchall()
+
+	if len(rs)>0:
+		for r in rs:
+			user_file.append(r[0])
+	cur_1.execute(sql_get_user_info)
+	rs=cur_1.fetchall()
+
+	if len(rs)>0:
+		for r in rs:
+			user_DB.append(r[0])
+
+	for x in xrange(0,len(user_file)):
+		if user_file[x] not in user_DB:
+			sql=sql+"insert into user_info values(null,'"+user_file[x]+"',1,now(),1,now());insert into power_info select id,username from user_info where status=1 and username='"+user_file[x]+"';"
+	if len(sql)>1:
+		cur_1.execute(sql)
+
 def export():
 	date_=[]
 	channel_name=[]
@@ -233,8 +258,8 @@ if __name__ == '__main__':
 			conn=pymysql.connect(host='localhost',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
 			cur_1=conn.cursor()
 			import_excel()
+			user_info_create()
 			export()
-
 			cur_1.close()
 			conn.commit()
 			conn.close()
