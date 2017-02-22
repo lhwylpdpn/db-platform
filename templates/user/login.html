@@ -65,14 +65,14 @@
                                     <fieldset>
                                         <label class="block clearfix">
                                             <span class="block input-icon input-icon-right">
-                                                <input type="text" class="form-control" placeholder="Username" id="Username"/>
+                                                <input type="text" class="form-control" placeholder="请输入用户名" id="Username"/>
                                                 <i class="ace-icon fa fa-user"></i>
                                             </span>
                                         </label>
 
                                         <label class="block clearfix">
 											<span class="block input-icon input-icon-right">
-												<input type="password" class="form-control" placeholder="Password" id="Password"/>
+												<input type="password" class="form-control" placeholder="请输入密码" id="Password"/>
                                                 <i class="ace-icon fa fa-lock"></i>
                                             </span>
                                         </label>
@@ -256,6 +256,9 @@
     <script src="/static/ace/js/jquery-1.11.3.min.js"></script>
     <![endif]-->
 
+    <script src="/static/ace/js/bootstrap.min.js"></script>
+    <script src="/static/ace/js/bootbox.js"></script>
+
 <script type="text/javascript">
     if('ontouchstart' in document.documentElement) document.write("<script src='/static/ace/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		
@@ -294,8 +297,8 @@
                 if(data["status"] == "0"){
                     location.href = "/";
                 }else if(data["status"] == "1"){
-                    alert("您使用初始密码进行登录,请及时修改。");
-                    location.href = "/user/modifypassword";
+                    bootbox.alert("您使用初始密码进行登录,请及时修改。", function(){ location.href = "/user/modifypassword"; });
+
                 }else if(data["status"] == "-1"){
                     $("#logintip").show().html(basetip + data["body"]);
 

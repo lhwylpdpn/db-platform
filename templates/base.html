@@ -82,6 +82,8 @@
     <script src="/static/ace/js/ace.min.js"></script>
 
     <!-- inline scripts related to this page -->
+    <script src="/static/ace/js/bootbox.js"></script>
+
 </head>
 
 <body class="no-skin">
@@ -774,7 +776,7 @@
 
                 <ul class="submenu">
                     <li class="">
-                        <a href="/auth/menuAuth">
+                        <a href="/expecting">
                             <i class="menu-icon fa fa-caret-right"></i>
                             页面权限
                         </a>
@@ -845,6 +847,10 @@
 		};
 
 		if(pname=="modifypassword"){
+		    pname="index";
+		};
+
+		if(pname=="expecting"){
 		    pname="index";
 		};
 

@@ -27,7 +27,7 @@ def loginout():
 
 @userBp.route('/modifypassword')
 def modifypassword():
-    return render_template("user/modifypassword.html")
+    return render_template("user/modifyPassword.html")
 
 
 @userBp.route('/modifypasswordaction')
@@ -52,4 +52,4 @@ def cancelMustModPass():
 def userlist():
     userinfos = CUser().userinfos()
     size = len(userinfos)
-    return render_template('user/userlist.html', size=size, userinfos=userinfos)
+    return render_template('user/userList.html', size=size, userinfos=userinfos)

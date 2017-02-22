@@ -28,7 +28,7 @@ def channelIos600():
     sjs = 0
     if len(request.args) != 0:
         sjs = random.random()
-    return render_template("channelIos600.html", title=U"iOS-渠道-明细600", sjs=sjs)
+    return render_template("channelIos600.html", title=U"iOS-渠道-明细", sjs=sjs)
 
 
 @app.route('/channelIos600Json')
