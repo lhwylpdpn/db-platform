@@ -33,7 +33,7 @@ def channelIos600():
 
 @app.route('/channelIos600Json')
 def channelIos600Json():
-    jsons = json.loads(get_business_json("test.json", session["username"])  )  # 字符串传化为json 对象
+    jsons = json.loads(get_business_json("test.json", session["username"]))  # 字符串传化为json 对象
     return json.dumps(jsons["body"])
 
 

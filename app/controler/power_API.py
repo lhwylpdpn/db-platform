@@ -33,6 +33,7 @@ def login_in(username,password):
 		for r in rs:
 			if r[0]=="0":
 				session['username'] = username
+				session['zhanshi'] = Config.ADMIN
 				result='{"status":"0"}'
 			if r[0]=="1":
 				session['username'] = username

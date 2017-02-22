@@ -22,6 +22,7 @@ def loginaction():
 @userBp.route('/loginout')
 def loginout():
     session.pop('username', None)
+    session.pop('zhanshi', None)
     return redirect(url_for('index', title='Good Bye'))
 
 

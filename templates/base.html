@@ -760,6 +760,7 @@
                 </ul>
             </li>
 
+            {% if session['username'] in session['zhanshi']: %}
             <!--###################################################################  权限管理  ########-->
             <li class="">
                 <a href="#" class="dropdown-toggle">
@@ -794,7 +795,7 @@
 
                 </ul>
             </li>
-
+            {% endif %}
         </ul><!-- /.nav-list -->
 
         <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
