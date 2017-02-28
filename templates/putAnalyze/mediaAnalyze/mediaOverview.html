@@ -8,16 +8,157 @@
             <a href="/">首页</a>
         </li>
         <li>
-            <a href="#">渠道明细</a>
+            <a href="#">投放分析</a>
         </li>
-        <li class="active">iOS-渠道-明细</li>
+        <li>
+            <a href="#">媒体分析</a>
+        </li>
+        <li class="active">媒体概览</li>
+        <div class="nav-search">最后同步时间: <span id="sync_status"></span></div>
     </ul><!-- /.breadcrumb -->
 </div>
-
 <div class="page-content">
 
-mediaOverview
+    <script type="text/javascript" src="/static/js/bootstrap-table.js"></script>
+    <!--<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>-->
+    <!--<script type="text/javascript" src="/static/js/bootstrap-table-filter-control.js"></script>-->
+    <script type="text/javascript" src="/static/js/bootstrap-table-multiple-sort.js"></script>
+    <!--<script type="text/javascript" src="/static/js/bootstrap-table-flat-json.js"></script>-->
+    <script type="text/javascript" src="/static/js/src/load_json.js"></script>
+
+    <link rel="stylesheet" href="/static/css/bootstrap-table.css">
+
+    <!--<link rel="stylesheet" href="/static/css/bootstrap.min.css">-->
+
+    <div id="toolbar">
+        <button id="button1" class="btn btn-info btn-sm ">概要显示</button>
+        <button id="button2" class="btn btn-info btn-sm">详细显示</button>
+        <div class="btn-group">
+            <button type="button" class="btn btn-info btn-sm" data-toggle="dropdown">
+                日期筛选
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#" id="button_7">显示七日内数据</a></li>
+                <li><a href="#" id="button_all">显示全部数据</a></li>
+            </ul>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn  btn-info btn-sm" data-toggle="dropdown">
+                花费筛选
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#" id="button_money_">显示有花费</a></li>
+                <li><a href="#" id="button_money_all">显示全部数据</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>document.write('<table id="table" data-height=' + ($(window).height() - 100) + ' " ');</script>
+    data-toggle="table"
+    data-url="/channelIos600Json?{{sjs}}"
+    data-flat="true"
+    class=" table table-no-bordered"
+    data-toolbar="#toolbar"
+
+    style="font-size:8px;"
+    data-page-size="100"
+    data-page-list="[100, 200,500,1000,2000]"
+    data-show-columns="false"
+
+    data-show-pagination-switch="false"
+
+    data-show-multi-sort="true"
+
+    data-pagination="true"
+    data-sort-priority='[{"sortName":
+    "3","sortOrder":"asc"},{"sortName":"4","sortOrder":"asc"},{"sortName":"1","sortOrder":"desc"}]'
+    >
+    <thead>
+    <tr>
+        <th data-field="1" data-sortable="true">
+            <button class=" btn btn-primary btn-xs">日期　</button>
+        </th>
+        <th data-field="2" data-sortable="true">
+            <button class=" btn btn-primary btn-xs">点击设备</button>
+        </th>
+        <th data-field="3" data-sortable="true">
+            <button class=" btn btn-primary btn-xs">激活设备</button>
+        </th>
+        <th data-field="4" data-sortable="true">
+            <button class=" btn btn-primary btn-xs">新增设备</button>
+        </th>
+        <th data-field="5" data-sortable="true">
+            <button class=" btn btn-primary btn-xs">新增总账号</button>
+        </th>
+        <th data-field="6" data-sortable="true">
+            <button class=" btn btn-primary btn-xs">纯新增账号</button>
+        </th>
+        <th data-field="7" data-sortable="true">
+            <button class=" btn btn-primary btn-xs">回流账号</button>
+        </th>
+        <th data-field="8" data-sortable="true">
+            <button class=" btn btn-primary btn-xs">付费账号</button>
+        </th>
+        <th data-field="9" data-sortable="true">
+            <button class=" btn btn-primary btn-xs">付费率</button>
+        </th>
+        <th data-field="10" data-sortable="true">
+            <button class=" btn btn-primary btn-xs">折后花费</button>
+        </th>
+        <th data-field="11" data-sortable="true">
+            <button class=" btn btn-primary btn-xs">CPA</button>
+        </th>
+        <th data-field="12" data-sortable="true">
+            <button class=" btn btn-primary btn-xs">累计流水</button>
+        </th>
+        <th data-field="13" data-sortable="true">
+            <button class=" btn btn-primary btn-xs">分成比例</button>
+        </th>
+        <th data-field="14" data-sortable="true">
+            <button class=" btn btn-primary btn-xs">+3回收</button>
+        </th>
+        <th data-field="15" data-sortable="true">
+            <button class=" btn btn-primary btn-xs">累计净收入</button>
+        </th>
+        <th data-field="16" data-sortable="true">
+            <button class=" btn btn-primary btn-xs">ROI</button>
+        </th>
+    </tr>
+    </thead>
+    <script>document.write('</table>');</script>
+
 
 </div><!-- /.page-content -->
+<script type="text/javascript">
+    $("#button_7").click(function () {
+        Date.prototype.Format = function (fmt) { //author: meizz
+            var o = {
+                "M+": this.getMonth() + 1, //月份
+                "d+": this.getDate(), //日
+                "h+": this.getHours(), //小时
+                "m+": this.getMinutes(), //分
+                "s+": this.getSeconds(), //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                "S": this.getMilliseconds() //毫秒
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        }
+        var myDate=new Date();
+        var time1 = new Date().Format("yyyy-MM-dd");
+        var time2 = new Date(myDate.valueOf()-24*60*60*1000).Format("yyyy-MM-dd");
+        var time3 = new Date(myDate.valueOf()-2*24*60*60*1000).Format("yyyy-MM-dd");
+        var time4 = new Date(myDate.valueOf()-3*24*60*60*1000).Format("yyyy-MM-dd");
+        var time5 = new Date(myDate.valueOf()-4*24*60*60*1000).Format("yyyy-MM-dd");
+        var time6 = new Date(myDate.valueOf()-5*24*60*60*1000).Format("yyyy-MM-dd");
+        var time7 = new Date(myDate.valueOf()-6*24*60*60*1000).Format("yyyy-MM-dd");
 
+        $("#table").bootstrapTable('filterBy', {"1": [time1,time2,time3,time4,time5,time6,time7] });
+    });
+
+</script>
 {% endblock content %}
