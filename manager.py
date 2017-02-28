@@ -14,6 +14,9 @@ app.register_blueprint(userBp)
 from app.routes.rAuth import authBp
 app.register_blueprint(authBp)
 
+from app.routes.rAnalyze import analyzeBp
+app.register_blueprint(analyzeBp)
+
 from app.controler.power_API import get_business_json
 
 
@@ -45,6 +48,11 @@ def iOSTotalRoi():
 @app.route('/expecting')
 def expecting():
     return render_template("expecting.html", title=U"敬请期待")
+
+
+@app.route('/widget')
+def widget():
+    return render_template("demoWidgets.html", title=U"面板")
 
 
 if __name__ == '__main__':
