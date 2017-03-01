@@ -60,6 +60,60 @@
         </div>
     </div>
 
+    <div class="col-xs-12 col-sm-12 widget-container-col ui-sortable" id="widget-container-col-4">
+        <div class="widget-box ui-sortable-handle" id="widget-box-5">
+            <div class="widget-header">
+                <h5 class="widget-title">Default Widget Box</h5>
+
+                <div class="widget-toolbar">
+                    <div class="widget-menu">
+                        <a href="#" data-action="settings" data-toggle="dropdown">
+                            <i class="ace-icon fa fa-bars"></i>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-right dropdown-light-blue dropdown-caret dropdown-closer">
+                            <li>
+                                <a data-toggle="tab" href="#dropdown1">Option#1</a>
+                            </li>
+
+                            <li>
+                                <a data-toggle="tab" href="#dropdown2">Option#2</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a href="#" data-action="fullscreen" class="orange2">
+                        <i class="ace-icon fa fa-expand"></i>
+                    </a>
+
+                    <a href="#" data-action="reload">
+                        <i class="ace-icon fa fa-refresh"></i>
+                    </a>
+
+                    <a href="#" data-action="collapse">
+                        <i class="ace-icon fa fa-chevron-up"></i>
+                    </a>
+
+                    <a href="#" data-action="close">
+                        <i class="ace-icon fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main">
+                    <p class="alert alert-info">
+                        Nunc aliquam enim ut arcu aliquet adipiscing. Fusce dignissim volutpat justo non consectetur.
+                        Nulla fringilla eleifend consectetur.
+                    </p>
+                    <p class="alert alert-success">
+                        Raw denim you probably haven't heard of them jean shorts Austin.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="text-center">
         <button type="reset" id="reset-widgets" class="btn btn-danger btn-white btn-bold btn-round">
             重置
@@ -192,7 +246,9 @@
 			});
 
 
-
+        $("#navbar").hide();
+        $("#sidebar").hide();
+        setTimeout('$("#footerbar").hide();',3000);
 
 
 
