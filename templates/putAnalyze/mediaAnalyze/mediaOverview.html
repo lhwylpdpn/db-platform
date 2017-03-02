@@ -14,67 +14,58 @@
             <a href="#">媒体分析</a>
         </li>
         <li class="active">媒体概览</li>
-        <div class="nav-search">最后同步时间: <span id="sync_status"></span></div>
     </ul><!-- /.breadcrumb -->
 </div>
 <div class="page-content">
 
     <script type="text/javascript" src="/static/js/bootstrap-table.js"></script>
-    <!--<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>-->
-    <!--<script type="text/javascript" src="/static/js/bootstrap-table-filter-control.js"></script>-->
     <script type="text/javascript" src="/static/js/bootstrap-table-multiple-sort.js"></script>
-    <!--<script type="text/javascript" src="/static/js/bootstrap-table-flat-json.js"></script>-->
-    <script type="text/javascript" src="/static/js/src/load_json.js"></script>
 
     <link rel="stylesheet" href="/static/css/bootstrap-table.css">
 
-    <!--<link rel="stylesheet" href="/static/css/bootstrap.min.css">-->
 
-    <div id="toolbar">
-        <button id="button1" class="btn btn-info btn-sm ">概要显示</button>
-        <button id="button2" class="btn btn-info btn-sm">详细显示</button>
-        <div class="btn-group">
-            <button type="button" class="btn btn-info btn-sm" data-toggle="dropdown">
-                日期筛选
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="#" id="button_7">显示七日内数据</a></li>
-                <li><a href="#" id="button_all">显示全部数据</a></li>
-            </ul>
+    <div class="btn-group">
+        <button type="button" class="btn btn-white btn-sm btn-primary">昨日</button>
+        <button type="button" class="btn btn-white btn-sm btn-primary">前日</button>
+        <button type="button" class="btn btn-white btn-sm btn-primary">近7天</button>
+        <button type="button" class="btn btn-white btn-sm btn-primary">近15天</button>
+        <button type="button" class="btn btn-white btn-sm btn-primary">近30天</button>
+        <button type="button" class="btn btn-white btn-sm btn-primary">历史所有</button>
+        <button type="button" class="btn btn-white btn-sm btn-primary">2017-02-01 --- 2017-02-30</button>
+    </div>
+    <p></p>
+    <div class="btn-group">
+        <button type="button" class="btn btn-white btn-sm btn-primary">高级筛选</button>
+        <button type="button" class="btn btn-white btn-sm btn-primary">iOS ×</button>
+        <button type="button" class="btn btn-white btn-sm btn-primary">投放 ×</button>
+        <button type="button" class="btn btn-white btn-sm btn-primary">刘浩 ×</button>
+        <button type="button" class="btn btn-white btn-sm btn-primary">CPA ×</button>
+        清空筛选
+    </div>
+    <p></p>
+    <div id="main-widget-container">
+
+        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-2">
+            <div class="widget-box " id="widget-box-2">
+                <p class="alert alert-info">
+                    443,232<br/>
+                    2344<br/>
+                    新增设备<br/>
+                </p>
+            </div>
+        </div>       <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-3">
+            <div class="widget-box" id="widget-box-3">
+                <p class="alert alert-info">
+                    443,232<br/>
+                    2344<br/>
+                    新增设备<br/>
+                </p>
+            </div>
         </div>
-        <div class="btn-group">
-            <button type="button" class="btn  btn-info btn-sm" data-toggle="dropdown">
-                花费筛选
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="#" id="button_money_">显示有花费</a></li>
-                <li><a href="#" id="button_money_all">显示全部数据</a></li>
-            </ul>
-        </div>
+
     </div>
 
-    <script>document.write('<table id="table" data-height=' + ($(window).height() - 100) + ' " ');</script>
-    data-toggle="table"
-    data-url="/channelIos600Json?{{sjs}}"
-    data-flat="true"
-    class=" table table-no-bordered"
-    data-toolbar="#toolbar"
-
-    style="font-size:8px;"
-    data-page-size="100"
-    data-page-list="[100, 200,500,1000,2000]"
-    data-show-columns="false"
-
-    data-show-pagination-switch="false"
-
-    data-show-multi-sort="true"
-
-    data-pagination="true"
-    data-sort-priority='[{"sortName":
-    "3","sortOrder":"asc"},{"sortName":"4","sortOrder":"asc"},{"sortName":"1","sortOrder":"desc"}]'
-    >
+    <script>document.write('<table id="table" data-height=' + ($(window).height() - 100) + '>');</script>
     <thead>
     <tr>
         <th data-field="1" data-sortable="true">
@@ -108,7 +99,7 @@
             <button class=" btn btn-primary btn-xs">折后花费</button>
         </th>
         <th data-field="11" data-sortable="true">
-            <button class=" btn btn-primary btn-xs">CPA</button>
+            <button class=" btn btn-primary btn-xs">C P A</button>
         </th>
         <th data-field="12" data-sortable="true">
             <button class=" btn btn-primary btn-xs">累计流水</button>
@@ -123,7 +114,7 @@
             <button class=" btn btn-primary btn-xs">累计净收入</button>
         </th>
         <th data-field="16" data-sortable="true">
-            <button class=" btn btn-primary btn-xs">ROI</button>
+            <button class=" btn btn-primary btn-xs">R O I</button>
         </th>
     </tr>
     </thead>
@@ -131,34 +122,130 @@
 
 
 </div><!-- /.page-content -->
+<script src="/static/ace/js/jquery-ui.custom.min.js"></script><!--拖拽需要的js-->
 <script type="text/javascript">
-    $("#button_7").click(function () {
-        Date.prototype.Format = function (fmt) { //author: meizz
-            var o = {
-                "M+": this.getMonth() + 1, //月份
-                "d+": this.getDate(), //日
-                "h+": this.getHours(), //小时
-                "m+": this.getMinutes(), //分
-                "s+": this.getSeconds(), //秒
-                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-                "S": this.getMilliseconds() //毫秒
-            };
-            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-            for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-            return fmt;
-        }
-        var myDate=new Date();
-        var time1 = new Date().Format("yyyy-MM-dd");
-        var time2 = new Date(myDate.valueOf()-24*60*60*1000).Format("yyyy-MM-dd");
-        var time3 = new Date(myDate.valueOf()-2*24*60*60*1000).Format("yyyy-MM-dd");
-        var time4 = new Date(myDate.valueOf()-3*24*60*60*1000).Format("yyyy-MM-dd");
-        var time5 = new Date(myDate.valueOf()-4*24*60*60*1000).Format("yyyy-MM-dd");
-        var time6 = new Date(myDate.valueOf()-5*24*60*60*1000).Format("yyyy-MM-dd");
-        var time7 = new Date(myDate.valueOf()-6*24*60*60*1000).Format("yyyy-MM-dd");
+			jQuery(function($) {
 
-        $("#table").bootstrapTable('filterBy', {"1": [time1,time2,time3,time4,time5,time6,time7] });
-    });
+
+
+
+
+				// widget boxes
+				// widget box drag & drop example
+			    $('.widget-container-col').sortable({
+			        connectWith: '.widget-container-col',
+					items:'> .widget-box',
+					handle: ace.vars['touch'] ? '.widget-title' : false,
+					cancel: '.fullscreen',
+					opacity:0.8,
+					revert:true,
+					forceHelperSize:true,
+					placeholder: 'widget-placeholder',
+					forcePlaceholderSize:true,
+					tolerance:'pointer',
+					start: function(event, ui) {
+						//when an element is moved, it's parent becomes empty with almost zero height.
+						//we set a min-height for it to be large enough so that later we can easily drop elements back onto it
+						ui.item.parent().css({'min-height':ui.item.height()})
+						//ui.sender.css({'min-height':ui.item.height() , 'background-color' : '#F5F5F5'})
+					},
+					update: function(event, ui) {
+						ui.item.parent({'min-height':''})
+						//p.style.removeProperty('background-color');
+
+
+						//save widget positions
+						var widget_order = {}
+						$('.widget-container-col').each(function() {
+							var container_id = $(this).attr('id');
+							widget_order[container_id] = []
+
+
+							$(this).find('> .widget-box').each(function() {
+								var widget_id = $(this).attr('id');
+								widget_order[container_id].push(widget_id);
+								//now we know each container contains which widgets
+							});
+						});
+
+						ace.data.set('mediaOverview', 'widget-order', widget_order, null, true);
+					}
+			    });
+
+
+
+
+
+				//when a widget is shown/hidden/closed, we save its state for later retrieval
+				$(document).on('shown.ace.widget hidden.ace.widget closed.ace.widget', '.widget-box', function(event) {
+					var widgets = ace.data.get('mediaOverview', 'widget-state', true);
+					if(widgets == null) widgets = {}
+
+					var id = $(this).attr('id');
+					widgets[id] = event.type;
+					ace.data.set('mediaOverview', 'widget-state', widgets, null, true);
+				});
+
+
+
+
+
+
+
+				(function() {
+					//restore widget order
+					var container_list = ace.data.get('mediaOverview', 'widget-order', true);
+					if(container_list) {
+						for(var container_id in container_list) if(container_list.hasOwnProperty(container_id)) {
+
+							var widgets_inside_container = container_list[container_id];
+							if(widgets_inside_container.length == 0) continue;
+
+							for(var i = 0; i < widgets_inside_container.length; i++) {
+								var widget = widgets_inside_container[i];
+								$('#'+widget).appendTo('#'+container_id);
+							}
+
+						}
+					}
+
+
+					//restore widget state
+					var widgets = ace.data.get('mediaOverview', 'widget-state', true);
+					if(widgets != null) {
+						for(var id in widgets) if(widgets.hasOwnProperty(id)) {
+							var state = widgets[id];
+							var widget = $('#'+id);
+							if
+							(
+								(state == 'shown' && widget.hasClass('collapsed'))
+								||
+								(state == 'hidden' && !widget.hasClass('collapsed'))
+							)
+							{
+								widget.widget_box('toggleFast');
+							}
+							else if(state == 'closed') {
+								widget.widget_box('closeFast');
+							}
+						}
+					}
+
+					//reset saved positions and states
+					$('#reset-widgets').on('click', function() {
+						ace.data.remove('mediaOverview', 'widget-state');
+						ace.data.remove('mediaOverview', 'widget-order');
+						document.location.reload();
+					});
+
+				})();
+
+			});
+
+
+        $("#navbar").hide();
+        $("#sidebar").hide();
+        setTimeout('$("#footerbar").hide();',3000);
 
 </script>
 {% endblock content %}

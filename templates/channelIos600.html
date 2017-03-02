@@ -56,7 +56,7 @@
                     <!--button id="button3" class="btn btn-default">是/否分页显示</button-->
                 </div>
 
-                <script>document.write('<table id="table" data-height=' + ($(window).height() - 100) + ' " ');</script>
+                <script>document.write('<table id="table" class="table table-bordered table-hover" data-height=' + ($(window).height() - 100) + ' " ');</script>
 
                        data-toggle="table"
                        data-url="/channelIos600Json?{{sjs}}"
@@ -64,7 +64,6 @@
                        class=" table table-no-bordered"
                        data-toolbar="#toolbar"
 
-                       style="font-size:8px;"
                        data-page-size="100"
                        data-page-list="[100, 200,500,1000,2000]"
                        data-show-columns="false"
@@ -81,91 +80,84 @@
 
                     <tr>
                         <th data-field="1" data-sortable="true">
-                            <button class=" btn btn-primary btn-xs">日期　</button>
+                            　日期　
                         </th>
                         <th data-field="2" data-sortable="true">
-                            <button class=" btn btn-primary btn-xs">负责人</button>
+                            负责人
                         </th>
                         <th data-field="3" data-sortable="true">
-                            <button class=" btn btn-primary btn-xs">渠道名称</button>
+                            渠道名称
                         </th>
                         <th data-field="4" data-sortable="true">
-                            <button class=" btn btn-primary btn-xs">代理公司</button>
+                            代理公司
                         </th>
-                        <!--th data-field="5"   data-sortable="true" ><button class=" btn btn-primary">点击设备</button></th>
-                        <th data-field="6"   data-sortable="true" ><button class=" btn btn-primary">激活设备</button></th>
-                        <th data-field="7"   data-sortable="true" ><button class=" btn btn-primary">新增设备</button></th-->
-                        <th data-field="8" data-sortable="true" data-align="right" >
-                            <button class=" btn btn-primary btn-xs">新增账号</button>
-                        </th>
+                        <th data-field="8" data-sortable="true" data-align="right" >新增账号</th>
                         <th data-field="9" data-sortable="true" data-align="right" >
-                            <button class=" btn btn-primary btn-xs">新增付费账号</button>
+                            新增付费账号
                         </th>
                         <th data-field="10" data-sortable="true" data-align="right" >
-                            <button class=" btn btn-primary btn-xs">新增付费金额</button>
+                            新增付费金额
                         </th>
                         <th data-field="11" data-sortable="true">
-                            <button class=" btn btn-primary btn-xs">付费率</button>
+                            付费率
                         </th>
                         <th data-field="cpa" data-sortable="true" data-formatter="cpa">
-                            <button class=" btn btn-primary btn-xs">CPA</button>
+                            CPA
                         </th>
                         <th data-field="mo_th" data-sortable="true" data-formatter="mo_th">
-                            <button class=" btn btn-primary btn-xs">花费金额</button>
+                            花费金额
                         </th>
 
+                        <th data-field="hs0" data-sortable="true" data-formatter="hs0">
+                            <font color="#F89406">+0回收</font>
+                        </th>
+                        <th data-field="hs1" data-sortable="true" data-formatter="hs1">
+                            <font color="#F89406">+1回收</font>
+                        </th>
+                        <th data-field="hs2" data-sortable="true" data-formatter="hs2">
+                            <font color="#F89406">+2回收</font>
+                        </th>
+                        <th data-field="hs3" data-sortable="true" data-formatter="hs3">
+                            <font color="#F89406">+3回收</font>
+                        </th>
+                        <th data-field="hs4" data-sortable="true" data-formatter="hs4">
+                            <font color="#F89406">+4回收</font>
+                        </th>
+                        <th data-field="hs5" data-sortable="true" data-formatter="hs5">
+                            <font color="#F89406">+5回收</font>
+                        </th>
+                        <th data-field="hs6" data-sortable="true" data-formatter="hs6">
+                            <font color="#F89406">+6回收</font>
+                        </th>
+                        <th data-field="hs7" data-sortable="true" data-formatter="hs7">
+                            <font color="#F89406">+07回收</font>
+                        </th>
+                        <th data-field="hs8" data-sortable="true" data-formatter="hs8">
+                            <font color="#F89406">+8回收</font>
+                        </th>
+                        <th data-field="hs9" data-sortable="true" data-formatter="hs9">
+                            <font color="#F89406">+9回收</font>
+                        </th>
 
-                        <th data-field="120" data-sortable="true">
-                            <button class=" btn btn-danger btn-xs">+0回收</button>
+                        <th data-field="hs10" data-sortable="true" data-formatter="hs10">
+                            <font color="#F89406">+10回收</font>
                         </th>
-                        <th data-field="121" data-sortable="true">
-                            <button class=" btn btn-danger btn-xs">+1回收</button>
+                        <th data-field="hs11" data-sortable="true" data-formatter="hs11">
+                            <font color="#F89406">+11回收</font>
                         </th>
-                        <th data-field="122" data-sortable="true">
-                            <button class=" btn btn-danger btn-xs">+2回收</button>
+                        <th data-field="hs12" data-sortable="true" data-formatter="hs12">
+                            <font color="#F89406">+12回收</font>
                         </th>
-                        <th data-field="123" data-sortable="true">
-                            <button class=" btn btn-danger btn-xs">+3回收</button>
+                        <th data-field="hs13" data-sortable="true" data-formatter="hs13">
+                            <font color="#F89406">+13回收</font>
                         </th>
-                        <th data-field="124" data-sortable="true">
-                            <button class=" btn btn-danger btn-xs">+4回收</button>
-                        </th>
-                        <th data-field="125" data-sortable="true">
-                            <button class=" btn btn-danger btn-xs">+5回收</button>
-                        </th>
-                        <th data-field="126" data-sortable="true">
-                            <button class=" btn btn-danger btn-xs">+6回收</button>
-                        </th>
-                        <th data-field="127" data-sortable="true">
-                            <button class=" btn btn-danger btn-xs">+7回收</button>
-                        </th>
-                        <th data-field="128" data-sortable="true">
-                            <button class=" btn btn-danger btn-xs">+8回收</button>
-                        </th>
-                        <th data-field="129" data-sortable="true">
-                            <button class=" btn btn-danger btn-xs">+9回收</button>
-                        </th>
-
-                        <th data-field="130" data-sortable="true">
-                            <button class=" btn btn-danger btn-xs">+10回收</button>
-                        </th>
-                        <th data-field="131" data-sortable="true">
-                            <button class=" btn btn-danger btn-xs">+11回收</button>
-                        </th>
-                        <th data-field="132" data-sortable="true">
-                            <button class=" btn btn-danger btn-xs">+12回收</button>
-                        </th>
-                        <th data-field="133" data-sortable="true">
-                            <button class=" btn btn-danger btn-xs">+13回收</button>
-                        </th>
-                        <th data-field="134" data-sortable="true">
-                            <button class=" btn btn-danger btn-xs">+14回收</button>
+                        <th data-field="hs14" data-sortable="true" data-formatter="hs14">
+                            <font color="#F89406">+14回收</font>
                         </th>
 
                     </tr>
                     </thead>
                 </table>
-
     <script>
         var $table = $('#table'),
             $button1 = $('#button'),
@@ -275,10 +267,149 @@
         }
 
         function mo_th(value,row) {
-     
-                return toThousands(parseInt(value)).toString();
-            
 
+                return toThousands(parseInt(value)).toString();
+
+
+        }
+
+        var formatStyle1 = '<div class="label la1bel-sm label-warning">'
+        var formatStyle2 = ' %</div>'
+        var formatValue = 2
+        function hs0(value,row){
+            if ( row.hs0 >= formatValue*(1+0) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs0 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function hs1(value,row){
+            if ( row.hs1 >= formatValue*(1+1) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs1 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function hs2(value,row){
+            if ( row.hs2 >= formatValue*(1+2) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs2 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function hs3(value,row){
+            if ( row.hs3 >= formatValue*(1+3) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs3 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function hs4(value,row){
+            if ( row.hs4 >= formatValue*(1+4) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs4 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function hs5(value,row){
+            if ( row.hs5 >= formatValue*(1+5) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs5 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function hs6(value,row){
+            if ( row.hs6 >= formatValue*(1+6) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs6 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function hs7(value,row){
+            if ( row.hs7 >= formatValue*(1+7) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs7 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function hs8(value,row){
+            if ( row.hs8 >= formatValue*(1+8) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs8 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function hs9(value,row){
+            if ( row.hs9 >= formatValue*(1+9) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs9 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function hs10(value,row){
+            if ( row.hs10 >= formatValue*(1+10) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs10 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function hs11(value,row){
+            if ( row.hs11 >= formatValue*(1+11) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs11 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function hs12(value,row){
+            if ( row.hs12 >= formatValue*(1+12) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs12 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function hs13(value,row){
+            if ( row.hs13 >= formatValue*(1+13) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs13 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function hs14(value,row){
+            if ( row.hs14 >= formatValue*(1+14) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs14 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
         }
     </script>
 
