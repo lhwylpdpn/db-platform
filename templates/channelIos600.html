@@ -160,120 +160,101 @@
                 </table>
     <script>
         var $table = $('#table'),
-            $button1 = $('#button'),
-            $button2 = $('#button2');
-            $button4 = $('#button4'),
-            $button5 = $('#button5');
-            $button6 = $('#button_7');
-            $button7 = $('#button_all');
-            $button8= $('#button_money_');
-            $button9= $('#button_money_all');
+        $button1 = $('#button'),
+        $button2 = $('#button2');
+        $button4 = $('#button4'),
+        $button5 = $('#button5');
+        $button6 = $('#button_7');
+        $button7 = $('#button_all');
+        $button8= $('#button_money_');
+        $button9= $('#button_money_all');
         $(function () {
             $button1.click(function () {
-               for (var i = 20; i <=79; i++) {
+                for (var i = 20; i <=79; i++) {
                     $table.bootstrapTable('showColumn', String(i));
-               };
-
-
+                    setTimeout('bilibili()',1500);
+                };
             });
             $button2.click(function () {
-              for (var i = 20; i <=79; i++) {
+                for (var i = 20; i <=79; i++) {
                     $table.bootstrapTable('hideColumn', String(i));
-               };
-               });
-
+                };
+                setTimeout('bilibili()',1500);
+            });
 
             $button6.click(function () {
-          Date.prototype.Format = function (fmt) { //author: meizz
-        var o = {
-            "M+": this.getMonth() + 1, //月份
-            "d+": this.getDate(), //日
-            "h+": this.getHours(), //小时
-            "m+": this.getMinutes(), //分
-            "s+": this.getSeconds(), //秒
-            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-            "S": this.getMilliseconds() //毫秒
-        };
-        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
-              var myDate=new Date();
-              var time1 = new Date().Format("yyyy-MM-dd");
-              var time2 = new Date(myDate.valueOf()-24*60*60*1000).Format("yyyy-MM-dd");
-              var time3 = new Date(myDate.valueOf()-2*24*60*60*1000).Format("yyyy-MM-dd");
-              var time4 = new Date(myDate.valueOf()-3*24*60*60*1000).Format("yyyy-MM-dd");
-              var time5 = new Date(myDate.valueOf()-4*24*60*60*1000).Format("yyyy-MM-dd");
-              var time6 = new Date(myDate.valueOf()-5*24*60*60*1000).Format("yyyy-MM-dd");
-              var time7 = new Date(myDate.valueOf()-6*24*60*60*1000).Format("yyyy-MM-dd");
+                Date.prototype.Format = function (fmt) { //author: meizz
+                    var o = {
+                        "M+": this.getMonth() + 1, //月份
+                        "d+": this.getDate(), //日
+                        "h+": this.getHours(), //小时
+                        "m+": this.getMinutes(), //分
+                        "s+": this.getSeconds(), //秒
+                        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                        "S": this.getMilliseconds() //毫秒
+                    };
+                    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+                    for (var k in o)
+                        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                    return fmt;
+                }
+                var myDate=new Date();
+                var time1 = new Date().Format("yyyy-MM-dd");
+                var time2 = new Date(myDate.valueOf()-24*60*60*1000).Format("yyyy-MM-dd");
+                var time3 = new Date(myDate.valueOf()-2*24*60*60*1000).Format("yyyy-MM-dd");
+                var time4 = new Date(myDate.valueOf()-3*24*60*60*1000).Format("yyyy-MM-dd");
+                var time5 = new Date(myDate.valueOf()-4*24*60*60*1000).Format("yyyy-MM-dd");
+                var time6 = new Date(myDate.valueOf()-5*24*60*60*1000).Format("yyyy-MM-dd");
+                var time7 = new Date(myDate.valueOf()-6*24*60*60*1000).Format("yyyy-MM-dd");
 
-              $table.bootstrapTable('filterBy', {
-                              "1": [time1,time2,time3,time4,time5,time6,time7]
-                          });
-               });
+                $table.bootstrapTable('filterBy', { "1": [time1,time2,time3,time4,time5,time6,time7] });
+                setTimeout('bilibili()',1500);
+            });
+
             $button7.click(function () {
-
-              $table.bootstrapTable('destroy');
-
-              $table.bootstrapTable();
-               });
+                $table.bootstrapTable('destroy');
+                $table.bootstrapTable();
+                setTimeout('bilibili()',1500);
+            });
 
             $button9.click(function () {
-
-              $table.bootstrapTable('destroy');
-
-              $table.bootstrapTable();
-               });
+                $table.bootstrapTable('destroy');
+                $table.bootstrapTable();
+                setTimeout('bilibili()',1500);
+            });
 
             $button8.click(function () {
-
-              $table.bootstrapTable('remove',{field:'mo_th',values:["0.0","","0"]});
-
-               });
+                $table.bootstrapTable('remove',{field:'mo_th',values:["0.0","","0"]});
+                setTimeout('bilibili()',1500);
+            });
         });
-
-
     </script>
 
 
     <script>
         function nameFormatter(value, row) {
             var icon = row.id % 2 === 0 ? 'glyphicon-star' : 'glyphicon-star-empty'
-
             return '<i class="glyphicon ' + icon + '"></i> ' + value;
         }
 
         function cpa(value,row) {
-
             if (row.cpa<=40) {
-
                 return '<b  class="blue">' +
-
-                    toThousands(parseInt(value)).toString() +
-                    '</b>';
+                    toThousands(parseInt(value)).toString() + '</b>';
             }
             else if (row.cpa>60) {
-
-                return '<b  class="red">' +
-
-                    toThousands(parseInt(value)).toString() +
-                    '</b>';
+                return '<b  class="red">' + toThousands(parseInt(value)).toString() + '</b>';
             }
             else {
                 return toThousands(parseInt(value)).toString();
             }
-
         }
 
         function mo_th(value,row) {
-
                 return toThousands(parseInt(value)).toString();
-
-
         }
 
-        var formatStyle1 = '<div class="label label-warning" style="background-color:#F5DEB3;">'
+        var formatStyle1 = '<div class="my-parent-style">'
         var formatStyle2 = ' %</div>'
         var formatValue = 2
         function hs0(value,row){
@@ -418,12 +399,17 @@
 
              $('#button_7').click();
              setTimeout("$('#button_money_').click();",1000);
+             setTimeout('bilibili()',1500);
         });
     </script>
 
     <script>
         function toThousands(num) {
             return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+        }
+
+        function bilibili(){
+            $($(".my-parent-style").parent("td")).css({ color: "#FFFFFF", background: "#F89406" });
         }
     </script>
 
