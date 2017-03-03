@@ -138,7 +138,7 @@ def export():
 
 
 
-	sql="SELECT case when  a.date<=date_sub(curdate(),interval 1 day)  then concat(ROUND(b.money_0*a.p/a.dis_spend*100,2),'%') else null end ,case when  a.date<=date_sub(curdate(),interval 2 day)  then concat(ROUND(b.money_1*a.p/a.dis_spend*100,2),'%') else null end,case when  a.date<=date_sub(curdate(),interval 3 day)  then concat(ROUND(b.money_2*a.p/a.dis_spend*100,2),'%') else null end ,case when  a.date<=date_sub(curdate(),interval 4 day)  then concat(ROUND(b.money_3*a.p/a.dis_spend*100,2),'%') else null end,case when  a.date<=date_sub(curdate(),interval 5 day)  then concat(ROUND(b.money_4*a.p/a.dis_spend*100,2),'%')else null end,case when  a.date<=date_sub(curdate(),interval 6 day)  then concat(ROUND(b.money_5*a.p/a.dis_spend*100,2),'%') else null end ,case when  a.date<=date_sub(curdate(),interval 7 day)  then concat(ROUND(b.money_6*a.p/a.dis_spend*100,2),'%') else null end ,case when  a.date<=date_sub(curdate(),interval 8 day)  then concat(ROUND(b.money_7*a.p/a.dis_spend*100,2),'%') else null end ,case when  a.date<=date_sub(curdate(),interval 9 day)  then concat(ROUND(b.money_8*a.p/a.dis_spend*100,2),'%') else null end ,case when  a.date<=date_sub(curdate(),interval 10 day)  then concat(ROUND(b.money_9*a.p/a.dis_spend*100,2),'%') else null end ,case when  a.date<=date_sub(curdate(),interval 11 day)  then concat(ROUND(b.money_10*a.p/a.dis_spend*100,2),'%')else null end, case when  a.date<=date_sub(curdate(),interval 12 day)  then concat(ROUND(b.money_11*a.p/a.dis_spend*100,2),'%')else null end ,case when  a.date<=date_sub(curdate(),interval 13 day)  then concat(ROUND(b.money_12*a.p/a.dis_spend*100,2),'%') else null end ,case when  a.date<=date_sub(curdate(),interval 14 day)  then concat(ROUND(b.money_13*a.p/a.dis_spend*100,2),'%') else null end ,case when  a.date<=date_sub(curdate(),interval 15 day)  then concat(ROUND(b.money_14*a.p/a.dis_spend*100,2),'%') else null end FROM `re_money` b RIGHT JOIN ( SELECT aa.*,0.686 as p FROM  (SELECT a.date,b.staff,a.channel_name,a.agent,b.dis_spend FROM  ad_action a LEFT JOIN  (SELECT DATE ,channel_name,agent,SUM(dis_spend) AS dis_spend ,staff FROM spend GROUP BY DATE,channel_name,agent ) b   ON a.date=b.date AND a.channel_name=b.channel_name AND a.agent=b.agent) aa  LEFT JOIN dis_result bb  ON aa.date=bb.date ORDER BY aa.date) a ON  a.date=b.date AND a.channel_name=b.channel_name AND a.agent=b.agent  order by a.channel_name ,a.agent ,a.date desc;"
+	sql="SELECT case when  a.date<=date_sub(curdate(),interval 1 day)  then concat(ROUND(b.money_0*a.p/a.dis_spend*100,2),'') else null end ,case when  a.date<=date_sub(curdate(),interval 2 day)  then concat(ROUND(b.money_1*a.p/a.dis_spend*100,2),'') else null end,case when  a.date<=date_sub(curdate(),interval 3 day)  then concat(ROUND(b.money_2*a.p/a.dis_spend*100,2),'') else null end ,case when  a.date<=date_sub(curdate(),interval 4 day)  then concat(ROUND(b.money_3*a.p/a.dis_spend*100,2),'') else null end,case when  a.date<=date_sub(curdate(),interval 5 day)  then concat(ROUND(b.money_4*a.p/a.dis_spend*100,2),'')else null end,case when  a.date<=date_sub(curdate(),interval 6 day)  then concat(ROUND(b.money_5*a.p/a.dis_spend*100,2),'') else null end ,case when  a.date<=date_sub(curdate(),interval 7 day)  then concat(ROUND(b.money_6*a.p/a.dis_spend*100,2),'') else null end ,case when  a.date<=date_sub(curdate(),interval 8 day)  then concat(ROUND(b.money_7*a.p/a.dis_spend*100,2),'') else null end ,case when  a.date<=date_sub(curdate(),interval 9 day)  then concat(ROUND(b.money_8*a.p/a.dis_spend*100,2),'') else null end ,case when  a.date<=date_sub(curdate(),interval 10 day)  then concat(ROUND(b.money_9*a.p/a.dis_spend*100,2),'') else null end ,case when  a.date<=date_sub(curdate(),interval 11 day)  then concat(ROUND(b.money_10*a.p/a.dis_spend*100,2),'')else null end, case when  a.date<=date_sub(curdate(),interval 12 day)  then concat(ROUND(b.money_11*a.p/a.dis_spend*100,2),'')else null end ,case when  a.date<=date_sub(curdate(),interval 13 day)  then concat(ROUND(b.money_12*a.p/a.dis_spend*100,2),'') else null end ,case when  a.date<=date_sub(curdate(),interval 14 day)  then concat(ROUND(b.money_13*a.p/a.dis_spend*100,2),'') else null end ,case when  a.date<=date_sub(curdate(),interval 15 day)  then concat(ROUND(b.money_14*a.p/a.dis_spend*100,2),'') else null end FROM `re_money` b RIGHT JOIN ( SELECT aa.*,0.686 as p FROM  (SELECT a.date,b.staff,a.channel_name,a.agent,b.dis_spend FROM  ad_action a LEFT JOIN  (SELECT DATE ,channel_name,agent,SUM(dis_spend) AS dis_spend ,staff FROM spend GROUP BY DATE,channel_name,agent ) b   ON a.date=b.date AND a.channel_name=b.channel_name AND a.agent=b.agent) aa  LEFT JOIN dis_result bb  ON aa.date=bb.date ORDER BY aa.date) a ON  a.date=b.date AND a.channel_name=b.channel_name AND a.agent=b.agent  order by a.channel_name ,a.agent ,a.date desc;"
 	cur_1.execute(sql)
 	res=cur_1.fetchall()
 	b_money_0=[]
@@ -180,21 +180,21 @@ def export():
 		word=word+'"1":"'+str(date_[i])[0:10]+'",'+'"2":"'+str(staff[i])+'",'+'"3":"'+str(channel_name[i])+'",'+'"4":"'+str(agent[i])+'",'+'"5":"'+str(ad_click[i])+'",'
 		word=word+'"6":"'+str(ad_action[i])+'",'+'"7":"'+str(ad_action_new[i])+'",'+'"8":"'+str(ad_account_new[i])+'",'+'"9":"'+str(ad_account_new_pay[i])+'",'+'"10":"'+str(ad_account_new_paymoney[i])+'",'
 		word=word+'"11":"'+str(fufeilv[i])+'",'+'"cpa":"'+str(cpa[i])+'",'+'"mo_th":"'+str(dis_spend[i])+'",'
-		word=word+'"120":"'+str(b_money_0[i])+'",'
-		word=word+'"121":"'+str(b_money_1[i])+'",'
-		word=word+'"122":"'+str(b_money_2[i])+'",'
-		word=word+'"123":"'+str(b_money_3[i])+'",'
-		word=word+'"124":"'+str(b_money_4[i])+'",'
-		word=word+'"125":"'+str(b_money_5[i])+'",'
-		word=word+'"126":"'+str(b_money_6[i])+'",'
-		word=word+'"127":"'+str(b_money_7[i])+'",'
-		word=word+'"128":"'+str(b_money_8[i])+'",'
-		word=word+'"129":"'+str(b_money_9[i])+'",'
-		word=word+'"130":"'+str(b_money_10[i])+'",'
-		word=word+'"131":"'+str(b_money_11[i])+'",'
-		word=word+'"132":"'+str(b_money_12[i])+'",'
-		word=word+'"133":"'+str(b_money_13[i])+'",'
-		word=word+'"134":"'+str(b_money_14[i])+'"'
+		word=word+'"hs0":"'+str(b_money_0[i])+'",'
+		word=word+'"hs1":"'+str(b_money_1[i])+'",'
+		word=word+'"hs2":"'+str(b_money_2[i])+'",'
+		word=word+'"hs3":"'+str(b_money_3[i])+'",'
+		word=word+'"hs4":"'+str(b_money_4[i])+'",'
+		word=word+'"hs5":"'+str(b_money_5[i])+'",'
+		word=word+'"hs6":"'+str(b_money_6[i])+'",'
+		word=word+'"hs7":"'+str(b_money_7[i])+'",'
+		word=word+'"hs8":"'+str(b_money_8[i])+'",'
+		word=word+'"hs9":"'+str(b_money_9[i])+'",'
+		word=word+'"hs10":"'+str(b_money_10[i])+'",'
+		word=word+'"hs11":"'+str(b_money_11[i])+'",'
+		word=word+'"hs12":"'+str(b_money_12[i])+'",'
+		word=word+'"hs13":"'+str(b_money_13[i])+'",'
+		word=word+'"hs14":"'+str(b_money_14[i])+'"'
 		if i==len(res)-1:
 			word=word+'}'+'\n'
 		else:
