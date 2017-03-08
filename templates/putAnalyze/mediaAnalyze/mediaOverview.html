@@ -25,23 +25,15 @@
     <link rel="stylesheet" href="/static/css/Fliter.css">
 
     <div class="btn-group">
-        <button type="button" class="btn btn-white btn-sm btn-primary">昨日</button>
-        <button type="button" class="btn btn-white btn-sm btn-primary">前日</button>
-        <button type="button" class="btn btn-white btn-sm btn-primary">近7天</button>
-        <button type="button" class="btn btn-white btn-sm btn-primary">近15天</button>
-        <button type="button" class="btn btn-white btn-sm btn-primary">近30天</button>
-        <button type="button" class="btn btn-white btn-sm btn-primary">历史所有</button>
-        <button type="button" class="btn btn-white btn-sm btn-primary">2017-02-01 --- 2017-02-30</button>
+        <button id ="time-1" type="button" class="btn btn-white btn-sm btn-primary">昨日</button>
+        <button id ="time-2" type="button" class="btn btn-white btn-sm btn-primary">前日</button>
+        <button id ="time-7" type="button" class="btn btn-white btn-sm btn-primary">近7天</button>
+        <button id ="time-15" type="button" class="btn btn-white btn-sm btn-primary">近15天</button>
+        <button id ="time-30" type="button" class="btn btn-white btn-sm btn-primary">近30天</button>
+        <button id ="timeAll" type="button" class="btn btn-white btn-sm btn-primary">历史所有</button>
+        <button id ="timeFromTo" type="button" class="btn btn-white btn-sm btn-primary">2017-02-01 --- 2017-02-30</button>
     </div>
     <p></p>
-    <!--<div class="btn-group">-->
-        <!--<button type="button" class="btn btn-white btn-sm btn-primary">高级筛选</button>-->
-        <!--<button type="button" class="btn btn-white btn-sm btn-primary">iOS ×</button>-->
-        <!--<button type="button" class="btn btn-white btn-sm btn-primary">投放 ×</button>-->
-        <!--<button type="button" class="btn btn-white btn-sm btn-primary">刘浩 ×</button>-->
-        <!--<button type="button" class="btn btn-white btn-sm btn-primary">CPA ×</button>-->
-        <!--清空筛选-->
-    <!--</div>-->
     <div>
         <div id="demo1"></div>
         <div id="demo2"></div>
@@ -55,7 +47,7 @@
         <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-1" >
             <div class="widget-box " id="widget-box-1">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div style="font-size:20px;color:#000" class="infobox-content">443,232</div>
+                    <div style="font-size:15px;color:#000" class="infobox-content">443,232</div>
                     <div class="infobox-content">2344</div>
                     <div class="infobox-content">新增设备</div>
                 </div>
@@ -64,7 +56,7 @@
         <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-2">
             <div class="widget-box " id="widget-box-2">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div style="font-size:20px;color:#000" class="infobox-content">443,232</div>
+                    <div style="font-size:15px;color:#000" class="infobox-content">443,232</div>
                     <div class="infobox-content">2344</div>
                     <div class="infobox-content">新增设备</div>
                 </div>
@@ -73,7 +65,7 @@
         <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-3">
             <div class="widget-box" id="widget-box-3">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div style="font-size:20px;color:#000" class="infobox-content">443,232</div>
+                    <div style="font-size:15px;color:#000" class="infobox-content">443,232</div>
                     <div class="infobox-content">2344</div>
                     <div class="infobox-content">新增设备</div>
                 </div>
@@ -82,7 +74,7 @@
         <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-4">
             <div class="widget-box" id="widget-box-4">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div style="font-size:20px;color:#000" class="infobox-content">443,232</div>
+                    <div style="font-size:15px;color:#000" class="infobox-content">443,232</div>
                     <div class="infobox-content">2344</div>
                     <div class="infobox-content">新增设备</div>
                 </div>
@@ -91,7 +83,7 @@
         <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-5">
             <div class="widget-box" id="widget-box-5">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div style="font-size:20px;color:#000" class="infobox-content">443,232</div>
+                    <div style="font-size:15px;color:#000" class="infobox-content">443,232</div>
                     <div class="infobox-content">2344</div>
                     <div class="infobox-content">新增设备</div>
                 </div>
@@ -100,7 +92,7 @@
         <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-6">
             <div class="widget-box" id="widget-box-6">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div style="font-size:20px;color:#000" class="infobox-content">443,232</div>
+                    <div style="font-size:15px;color:#000" class="infobox-content">443,232</div>
                     <div class="infobox-content">2344</div>
                     <div class="infobox-content">新增设备</div>
                 </div>
@@ -117,21 +109,21 @@
         <script>document.write('<table id="table" class="table table-bordered table-hover" data-height=' + ($(window).height() - 300) + '>');</script>
         <thead>
             <tr>
-                <th data-field="1" data-sortable="true">　日期　</th>
-                <th data-field="2" data-sortable="true">点击设备</th>
-                <th data-field="3" data-sortable="true">激活设备</th>
-                <th data-field="4" data-sortable="true">新增设备</th>
-                <th data-field="5" data-sortable="true">新增总账号</th>
-                <th data-field="6" data-sortable="true">纯新增账号</th>
-                <th data-field="7" data-sortable="true">回流账号</th>
-                <th data-field="8" data-sortable="true">付费账号</th>
-                <th data-field="9" data-sortable="true">付费率</th>
-                <th data-field="10" data-sortable="true">折后花费</th>
-                <th data-field="11" data-sortable="true">C P A</th>
-                <th data-field="12" data-sortable="true">累计流水</th>
-                <th data-field="13" data-sortable="true">分成比例</th>
-                <th data-field="14" data-sortable="true">累计净收入</th>
-                <th data-field="15" data-sortable="true">R O I</th>
+                <th data-field="date_time" data-sortable="true">　日期　</th>
+                <th data-field="ad_click" data-sortable="true">点击设备</th>
+                <th data-field="ad_action" data-sortable="true">激活设备</th>
+                <th data-field="ad_action_new" data-sortable="true">新增设备</th>
+                <th data-field="ad_account_new" data-sortable="true">新增总账号</th>
+                <th data-field="double_new" data-sortable="true">纯新增账号</th>
+                <th data-field="back_user" data-sortable="true">回流账号</th>
+                <th data-field="paid_account" data-sortable="true">付费账号</th>
+                <th data-field="fufeilv" data-sortable="true">付费率</th>
+                <th data-field="spend" data-sortable="true">折后花费</th>
+                <th data-field="CPA" data-sortable="true">C P A</th>
+                <th data-field="cumulative_flow" data-sortable="true">累计流水</th>
+                <th data-field="dis" data-sortable="true">分成比例</th>
+                <th data-field="cumulative_moeny" data-sortable="true">累计净收入</th>
+                <th data-field="ROI" data-sortable="true">R O I</th>
             </tr>
         </thead>
         <script>document.write('</table>');</script>
@@ -166,11 +158,20 @@
 
 </div><!-- /.page-content -->
 
-<script type="text/javascript">
+<script type="text/javascript"> <!-- 初始化table -->
     $("#table").bootstrapTable({
-        url: "/channelIos600Json?{{sjs}}",
-        pagination: true //每页行数
+        url: "/analyze/mediaOverviewJson?{{sjs}}",
+        pagination: true, //开启分页
+        pageSize: 100,
     });
+
+</script>
+
+<script type="text/javascript"> <!-- 日历筛选 -->
+    function filterTime(fromTime,toTime){
+        var fromToTime = [fromTime,toTime];
+        $("#table").bootstrapTable('filterBy',{date_time : fromToTime});
+    }
 
 </script>
 
