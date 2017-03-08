@@ -1,0 +1,455 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">首页</a>
+        </li>
+        <li>
+            <a href="#">投放分析</a>
+        </li>
+        <li>
+            <a href="#">媒体分析</a>
+        </li>
+        <li class="active">媒体概览</li>
+    </ul><!-- /.breadcrumb -->
+</div>
+<div class="page-content">
+
+    <script type="text/javascript" src="/static/js/bootstrap-table.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap-table-multiple-sort.js"></script>
+
+    <link rel="stylesheet" href="/static/css/bootstrap-table.css">
+    <link rel="stylesheet" href="/static/css/Fliter.css">
+
+    <div class="btn-group">
+        <button type="button" class="btn btn-white btn-sm btn-primary">昨日</button>
+        <button type="button" class="btn btn-white btn-sm btn-primary">前日</button>
+        <button type="button" class="btn btn-white btn-sm btn-primary">近7天</button>
+        <button type="button" class="btn btn-white btn-sm btn-primary">近15天</button>
+        <button type="button" class="btn btn-white btn-sm btn-primary">近30天</button>
+        <button type="button" class="btn btn-white btn-sm btn-primary">历史所有</button>
+        <button type="button" class="btn btn-white btn-sm btn-primary">2017-02-01 --- 2017-02-30</button>
+    </div>
+    <p></p>
+    <!--<div class="btn-group">-->
+        <!--<button type="button" class="btn btn-white btn-sm btn-primary">高级筛选</button>-->
+        <!--<button type="button" class="btn btn-white btn-sm btn-primary">iOS ×</button>-->
+        <!--<button type="button" class="btn btn-white btn-sm btn-primary">投放 ×</button>-->
+        <!--<button type="button" class="btn btn-white btn-sm btn-primary">刘浩 ×</button>-->
+        <!--<button type="button" class="btn btn-white btn-sm btn-primary">CPA ×</button>-->
+        <!--清空筛选-->
+    <!--</div>-->
+    <div>
+        <div id="demo1"></div>
+        <div id="demo2"></div>
+        <div id="demo3"></div>
+        <div id="demo4"></div>
+        <button id="chaxun">查询</button>
+    </div>
+    <div class="hr hr-8 hr-dotted"></div>
+    <div id="main-widget-container" style="height:86px;background:#EEEEEE">
+
+        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-1" >
+            <div class="widget-box " id="widget-box-1">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div style="font-size:20px;color:#000" class="infobox-content">443,232</div>
+                    <div class="infobox-content">2344</div>
+                    <div class="infobox-content">新增设备</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-2">
+            <div class="widget-box " id="widget-box-2">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div style="font-size:20px;color:#000" class="infobox-content">443,232</div>
+                    <div class="infobox-content">2344</div>
+                    <div class="infobox-content">新增设备</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-3">
+            <div class="widget-box" id="widget-box-3">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div style="font-size:20px;color:#000" class="infobox-content">443,232</div>
+                    <div class="infobox-content">2344</div>
+                    <div class="infobox-content">新增设备</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-4">
+            <div class="widget-box" id="widget-box-4">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div style="font-size:20px;color:#000" class="infobox-content">443,232</div>
+                    <div class="infobox-content">2344</div>
+                    <div class="infobox-content">新增设备</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-5">
+            <div class="widget-box" id="widget-box-5">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div style="font-size:20px;color:#000" class="infobox-content">443,232</div>
+                    <div class="infobox-content">2344</div>
+                    <div class="infobox-content">新增设备</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-6">
+            <div class="widget-box" id="widget-box-6">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div style="font-size:20px;color:#000" class="infobox-content">443,232</div>
+                    <div class="infobox-content">2344</div>
+                    <div class="infobox-content">新增设备</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hr hr-8 hr-dotted"></div>
+
+    <div align="right">
+        <button type="button" class="btn btn-white btn-sm btn-primary">收起表格</button>
+    </div>
+
+    <div>
+        <script>document.write('<table id="table" class="table table-bordered table-hover" data-height=' + ($(window).height() - 300) + '>');</script>
+        <thead>
+            <tr>
+                <th data-field="1" data-sortable="true">　日期　</th>
+                <th data-field="2" data-sortable="true">点击设备</th>
+                <th data-field="3" data-sortable="true">激活设备</th>
+                <th data-field="4" data-sortable="true">新增设备</th>
+                <th data-field="5" data-sortable="true">新增总账号</th>
+                <th data-field="6" data-sortable="true">纯新增账号</th>
+                <th data-field="7" data-sortable="true">回流账号</th>
+                <th data-field="8" data-sortable="true">付费账号</th>
+                <th data-field="9" data-sortable="true">付费率</th>
+                <th data-field="10" data-sortable="true">折后花费</th>
+                <th data-field="11" data-sortable="true">C P A</th>
+                <th data-field="12" data-sortable="true">累计流水</th>
+                <th data-field="13" data-sortable="true">分成比例</th>
+                <th data-field="14" data-sortable="true">累计净收入</th>
+                <th data-field="15" data-sortable="true">R O I</th>
+            </tr>
+        </thead>
+        <script>document.write('</table>');</script>
+    </div>
+    <div class="widget-box ui-sortable-handle" id="widget-box-7">
+        <div class="widget-header">
+            <h5 class="widget-title">趋势图</h5>
+
+            <div class="widget-toolbar">
+                <a href="#" data-action="fullscreen" class="orange2">
+                    <i class="ace-icon fa fa-expand"></i>
+                </a>
+
+                <a href="#" data-action="reload">
+                    <i class="ace-icon fa fa-refresh"></i>
+                </a>
+
+                <a href="#" data-action="collapse">
+                    <i class="ace-icon fa fa-chevron-up"></i>
+                </a>
+
+                <a href="#" data-action="close">
+                    <i class="ace-icon fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="widget-body">
+            <div id="container" style="min-width:400px;height:300px"></div>
+        </div>
+    </div>
+
+</div><!-- /.page-content -->
+
+<script type="text/javascript">
+    $("#table").bootstrapTable({
+        url: "/channelIos600Json?{{sjs}}",
+        pagination: true //每页行数
+    });
+
+</script>
+
+<script src="/static/js/Filter.js"></script><!--筛选需要的js-->
+<script type="text/javascript">
+    var data=[
+    {
+        "id": 1,
+        "text": 1
+    },
+    {
+        "id": 2,
+        "text": 2
+    },
+    {
+        "id": "3",
+        "text": 3
+    },
+    {
+        "id": 4,
+        "text": 4
+    },
+    {
+        "id": 5,
+        "text": 5
+    },
+    {
+        "id": 6,
+        "text": "呜呜"
+    }];
+
+    var demo1 = $('#demo1').comboboxfilter({
+        url: '',
+        text: "等等",
+        scope: 'FilterQuery3',
+        data:data,
+		onChange:function(newValue){
+		$('#demo10').val(newValue);
+		newValue1 = newValue;
+		}
+    });
+    var demo2 = $('#demo2').comboboxfilter({
+        url: '',
+        text: "等等",
+        scope: 'FilterQuery3',
+        multiple: true,
+        data:data,
+        onChange:function(newValue){
+            $('#demo20').val(newValue);
+        }
+    });
+    var demo3 = $('#demo3').comboboxfilter({
+        url: '',
+        text: "哈喽",
+        scope: 'FilterQuery3',
+        multiple: true,
+        data:data,
+        onChange:function(newValue){
+            $('#demo30').val(newValue);
+        }
+    });
+    var demo4 = $('#demo4').comboboxfilter({
+        url: '',
+        text: "店铺",
+        scope: 'FilterQuery3',
+        multiple: true,
+        data:data,
+        onChange:function(newValue){
+            $('#demo40').val(newValue);
+        }
+    });
+
+    $("#chaxun").click(function(){
+        console.log(demo1.returnValue($("#demo1")));
+        console.log(demo2.returnValue($("#demo2")));
+        console.log(demo3.returnValue($("#demo3")));
+        console.log(demo4.returnValue($("#demo4")));
+    });
+
+</script>
+
+<script src="/static/js/highcharts.js"></script><!--图表需要的js-->
+<script type="text/javascript">
+$(function () {
+    Highcharts.setOptions({
+        timezoneOffset: -8
+    });
+    $.getJSON('//data.jianshukeji.com/jsonp?filename=json/usdeur.json&callback=?', function (data) {
+        $('#container').highcharts({
+            chart: {
+                zoomType: 'x'
+            },
+            title: {
+                text: '美元兑欧元汇率走势图'
+            },
+            <!--subtitle: {-->
+                <!--text: document.ontouchstart === undefined ?-->
+                <!--'鼠标拖动可以进行缩放' : '手势操作进行缩放'-->
+            <!--},-->
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    millisecond: '%H:%M:%S.%L',
+                    second: '%H:%M:%S',
+                    minute: '%H:%M',
+                    hour: '%H:%M',
+                    day: '%m-%d',
+                    week: '%m-%d',
+                    month: '%Y-%m',
+                    year: '%Y'
+                }
+            },
+            tooltip: {
+                dateTimeLabelFormats: {
+                    millisecond: '%H:%M:%S.%L',
+                    second: '%H:%M:%S',
+                    minute: '%H:%M',
+                    hour: '%H:%M',
+                    day: '%Y-%m-%d',
+                    week: '%m-%d',
+                    month: '%Y-%m',
+                    year: '%Y'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Exchange rate'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: {
+                            x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: 1
+                        },
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    marker: {
+                        radius: 2
+                    },
+                    lineWidth: 1,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+            series: [{
+                type: 'area',
+                name: '美元兑欧元',
+                data: data
+            }]
+        });
+    });
+});
+
+</script>
+<script src="/static/ace/js/jquery-ui.custom.min.js"></script><!--拖拽需要的js-->
+<script type="text/javascript">
+jQuery(function($) {
+    // widget boxes
+    // widget box drag & drop example
+    $('.widget-container-col').sortable({
+        connectWith: '.widget-container-col',
+		items:'> .widget-box',
+	    handle: ace.vars['touch'] ? '.widget-title' : false,
+	    cancel: '.fullscreen',
+	    opacity:0.8,
+	    revert:true,
+	    forceHelperSize:true,
+	    placeholder: 'widget-placeholder',
+	    forcePlaceholderSize:true,
+	    tolerance:'pointer',
+		start: function(event, ui) {
+		    //when an element is moved, it's parent becomes empty with almost zero height.
+		    //we set a min-height for it to be large enough so that later we can easily drop elements back onto it
+		    ui.item.parent().css({'min-height':ui.item.height()})
+		    //ui.sender.css({'min-height':ui.item.height() , 'background-color' : '#F5F5F5'})
+		},
+	    update: function(event, ui) {
+		    ui.item.parent({'min-height':''})
+		    //p.style.removeProperty('background-color');
+
+
+		    //save widget positions
+		    var widget_order = {}
+		    $('.widget-container-col').each(function() {
+			    var container_id = $(this).attr('id');
+			    widget_order[container_id] = []
+
+
+			    $(this).find('> .widget-box').each(function() {
+		            var widget_id = $(this).attr('id');
+		            widget_order[container_id].push(widget_id);
+		            //now we know each container contains which widgets
+			    });
+			});
+
+		    ace.data.set('mediaOverview', 'widget-order', widget_order, null, true);
+		}
+	});
+
+
+    //when a widget is shown/hidden/closed, we save its state for later retrieval
+    $(document).on('shown.ace.widget hidden.ace.widget closed.ace.widget', '.widget-box', function(event) {
+        var widgets = ace.data.get('mediaOverview', 'widget-state', true);
+        if(widgets == null) widgets = {}
+
+        var id = $(this).attr('id');
+        widgets[id] = event.type;
+	    ace.data.set('mediaOverview', 'widget-state', widgets, null, true);
+    });
+
+
+    (function() {
+        //restore widget order
+	    var container_list = ace.data.get('mediaOverview', 'widget-order', true);
+	    if(container_list) {
+		    for(var container_id in container_list) if(container_list.hasOwnProperty(container_id)) {
+
+                var widgets_inside_container = container_list[container_id];
+                if(widgets_inside_container.length == 0) continue;
+
+                for(var i = 0; i < widgets_inside_container.length; i++) {
+                    var widget = widgets_inside_container[i];
+                    $('#'+widget).appendTo('#'+container_id);
+                }
+
+            }
+	    }
+
+
+        //restore widget state
+        var widgets = ace.data.get('mediaOverview', 'widget-state', true);
+        if(widgets != null) {
+            for(var id in widgets) if(widgets.hasOwnProperty(id)) {
+                var state = widgets[id];
+                var widget = $('#'+id);
+                if
+                (
+                    (state == 'shown' && widget.hasClass('collapsed'))
+                    ||
+                    (state == 'hidden' && !widget.hasClass('collapsed'))
+                )
+                {
+                    widget.widget_box('toggleFast');
+                }
+                else if(state == 'closed') {
+                    widget.widget_box('closeFast');
+                }
+            }
+        }
+
+        //reset saved positions and states
+        $('#reset-widgets').on('click', function() {
+            ace.data.remove('mediaOverview', 'widget-state');
+            ace.data.remove('mediaOverview', 'widget-order');
+            document.location.reload();
+        });
+
+    })();
+
+});
+
+
+        $("#navbar").hide();
+        $("#sidebar").hide();
+        setTimeout('$("#footerbar").hide();',3000);
+
+</script>
+{% endblock content %}
