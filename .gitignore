@@ -1,4 +1,4 @@
-﻿#ignore python 编译文件
+#ignore python 编译文件
 *.pyc
 
 #ignore idea 编辑器文件
