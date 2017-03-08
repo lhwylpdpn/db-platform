@@ -236,7 +236,7 @@
             }
         }
         function cpa(value,row) {
-            if (row.cpa<=40) {
+            if (row.cpa<=40 && row.cpa>0) {
                 return '<div class="my-parent-style-F89406">' +
                     toThousands(parseInt(value)).toString() + '</div>';
             }
