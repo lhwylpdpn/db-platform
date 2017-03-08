@@ -120,7 +120,62 @@ def user_info_create():
 			sql=sql+"insert into user_info values(null,'"+user_file[x]+"',1,now(),1,now());insert into power_info select id,username from user_info where status=1 and username='"+user_file[x]+"';"
 	if len(sql)>1:
 		cur_1.execute(sql)
+def export_media_1():
+	sql="""SELECT 
+a.channel_name,a.agent,b.staff,a.date,
+ad_click,
+ad_action,
+ad_action_new ,
+a.ad_account_new,
+a.double_new , 
+a.huiliu ,
+a.fufeizhanghao
+,sum(b.dis_spend),
+round(sum(b.dis_spend)/a.ad_account_new,2) as cpa 
+,a.money 
 
+FROM (select DATE_FORMAT(substring_index(ad_action_time," ",1),"%Y-%m-%d") as date,
+channel_name,agent,count(game_userid) as ad_account_new,
+sum(case when a.game_type='ÐÂÔö' then 1 else 0 end) as double_new , 
+sum(case when a.game_type='»ØÁ÷' then 1 else 0 end) as huiliu,
+sum(case when a.game_pay_money>0 then 1 else 0 end) as fufeizhanghao,
+sum(game_pay_money) as money
+from ad_detail_IDFA a group by DATE_FORMAT(substring_index(ad_action_time," ",1),"%Y-%m-%d"),channel_name,agent) a,
+spend b,(select DATE_FORMAT(substring_index(date," ",1),"%Y-%m-%d") as date_time,channel_name,agent,sum(ad_click) as ad_click,sum(ad_action) as ad_action,sum(ad_action_new) as ad_action_new from ad_action group by date,channel_name,agent) c 
+where a.date=c.date_time
+and a.channel_name=c.channel_name 
+and a.agent=c.agent
+and a.date=b.date 
+and a.channel_name=b.channel_name 
+and a.agent=b.agent
+group by a.date,a.channel_name,a.agent"""
+	cur_1.execute(sql)
+	res=cur_1.fetchall()
+	word="[\n"
+	if len(res)>1:
+		for r in res:
+			word=word+'{'
+			word=word+'"channel_name":"'+str(r[0])+'",'
+			word=word+'"agent":"'+str(r[1])+'",'
+			word=word+'"staff":"'+str(r[2])+'",'
+			word=word+'"date_time":"'+str(r[3])+'",'
+			word=word+'"ad_click":"'+str(r[4])+'",'
+			word=word+'"ad_action":"'+str(r[5])+'",'
+			word=word+'"ad_action_new":"'+str(r[6])+'",'
+			word=word+'"ad_account_new":"'+str(r[7])+'",'
+			word=word+'"double_new":"'+str(r[8])+'",'
+			word=word+'"back_user":"'+str(r[9])+'",'
+			word=word+'"paid_account":"'+str(r[10])+'",'
+			word=word+'"fufeilv":"'+str(round(float(r[10])/float(r[7])*100,2))+'",'
+			word=word+'"spend":"'+str(r[11])+'",'
+			word=word+'"CPA":"'+str(r[12])+'",'
+			word=word+'"cumulative_flow":"'+str(r[13])+'",'
+			word=word+'"dis":"'+str(48.02)+'",'
+			word=word+'"cumulative_moeny":"'+str(float(r[13])*48.02/100)+'",'
+			word=word+'"ROI":"'+str(round(float(r[13])*48.02/100/float(r[11])))+'"'
+			word=word+'}'+',\n'
+		word=word[0:-2]+"\n]"
+		create_json(word,"media_1")
 def export():
 	date_=[]
 	channel_name=[]
@@ -227,23 +282,11 @@ def export():
 
 
 
-	create_json(word.replace('"None"','""'))
+	create_json(word.replace('"None"','""'),"test")
 
 
 	print("1ok")
 	print time.asctime(time.localtime(time.time()))
-
-def test():
-	book=load_workbook('test.xlsx')
-	export_sheet=book.get_sheet_by_name("test") 
-	for i in range(3,export_sheet.max_row):
-
-		for j in range(1,export_sheet.max_column):
-	
-
-			export_sheet.cell(row=i,column=j,value="")
-	book.save('test.xlsx')
-
 
 
 
@@ -271,33 +314,33 @@ def test_er():
 	file_object.close()
 
 
-def create_json(word):
-	file_object = open(os.getcwd()+'/../../static/json/test.json','w')
+def create_json(word,name):
+	file_object = open(os.getcwd()+'/../../static/json/'+name+'.json','w')
 	file_object.write(word)
 	file_object.close()
 
-if __name__ == '__main__':
-	while(1):
-		try:
-			conn=pymysql.connect(host='localhost',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
-			cur_1=conn.cursor()
-			import_excel()
-			user_info_create()
-			export()
-			cur_1.close()
-			conn.commit()
-			conn.close()
-			print time.asctime(time.localtime(time.time()))
-			test_ok()
-		except Exception, e:
-			print(e)
+#if __name__ == '__main__':
+	# while(1):
+	# 	try:
+	# 		conn=pymysql.connect(host='localhost',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
+	# 		cur_1=conn.cursor()
+	# 		import_excel()
+	# 		user_info_create()
+	# 		export()
+	# 		cur_1.close()
+	# 		conn.commit()
+	# 		conn.close()
+	# 		print time.asctime(time.localtime(time.time()))
+	# 		test_ok()
+	# 	except Exception, e:
+	# 		print(e)
 			
-		print time.asctime(time.localtime(time.time()))
-		time.sleep(3000)
-# if __name__ == '__main__':
-# 	conn=pymysql.connect(host='localhost',user='root',passwd='123456',db='zilong_report',port=3306)
-# 	cur_1=conn.cursor()
-# 	import_csv()
-# 	cur_1.close()
-# 	conn.commit()
-# 	conn.close()
+	# 	print time.asctime(time.localtime(time.time()))
+	# 	time.sleep(3000)
+if __name__ == '__main__':
+	conn=pymysql.connect(host='localhost',user='root',passwd='123456',db='zilong_report',port=3306)
+	cur_1=conn.cursor()
+	export_media_1()
+	cur_1.close()
+	conn.commit()
+	conn.close()
