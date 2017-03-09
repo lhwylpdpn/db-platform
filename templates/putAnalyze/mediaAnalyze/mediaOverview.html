@@ -25,11 +25,11 @@
     <link rel="stylesheet" href="/static/css/Fliter.css">
 
     <div class="btn-group">
-        <button id ="time-1" type="button" class="btn btn-white btn-sm btn-primary">昨日</button>
-        <button id ="time-2" type="button" class="btn btn-white btn-sm btn-primary">前日</button>
-        <button id ="time-7" type="button" class="btn btn-white btn-sm btn-primary">近7天</button>
-        <button id ="time-15" type="button" class="btn btn-white btn-sm btn-primary">近15天</button>
-        <button id ="time-30" type="button" class="btn btn-white btn-sm btn-primary">近30天</button>
+        <button id ="time_1" type="button" class="btn btn-white btn-sm btn-primary">昨日</button>
+        <button id ="time_2" type="button" class="btn btn-white btn-sm btn-primary">前日</button>
+        <button id ="time_7" type="button" class="btn btn-white btn-sm btn-primary">近7天</button>
+        <button id ="time_15" type="button" class="btn btn-white btn-sm btn-primary">近15天</button>
+        <button id ="time_30" type="button" class="btn btn-white btn-sm btn-primary">近30天</button>
         <button id ="timeAll" type="button" class="btn btn-white btn-sm btn-primary">历史所有</button>
         <button id ="timeFromTo" type="button" class="btn btn-white btn-sm btn-primary">2017-02-01 --- 2017-02-30</button>
     </div>
@@ -39,7 +39,9 @@
         <div id="demo2"></div>
         <div id="demo3"></div>
         <div id="demo4"></div>
-        <button id="chaxun">查询</button>
+         <div align="center">
+            <button id="chaxun" class="btn btn-white btn-sm btn-primary">查询</button>
+        </div>
     </div>
     <div class="hr hr-8 hr-dotted"></div>
     <div id="main-widget-container" style="height:86px;background:#EEEEEE">
@@ -101,9 +103,9 @@
     </div>
     <div class="hr hr-8 hr-dotted"></div>
 
-    <div align="right">
-        <button type="button" class="btn btn-white btn-sm btn-primary">收起表格</button>
-    </div>
+    <!--<div align="right">-->
+        <!--<button id="showHideTable" class="btn btn-white btn-sm btn-primary">收起表格</button>-->
+    <!--</div>-->
 
     <div>
         <script>document.write('<table id="table" class="table table-bordered table-hover" data-height=' + ($(window).height() - 300) + '>');</script>
@@ -130,6 +132,8 @@
     </div>
     <div class="widget-box ui-sortable-handle" id="widget-box-7">
         <div class="widget-header">
+            <h5 class="widget-title">趋势图</h5>
+            <h5 class="widget-title">趋势图</h5>
             <h5 class="widget-title">趋势图</h5>
 
             <div class="widget-toolbar">
@@ -165,14 +169,92 @@
         pageSize: 100,
     });
 
+    $("#showHideTable").click(function(){
+        $(".bootstrap-table").hide();
+    });
+
 </script>
 
 <script type="text/javascript"> <!-- 日历筛选 -->
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+
+    //入参 2016-01-10格式的字符串
     function filterTime(fromTime,toTime){
-        var fromToTime = [fromTime,toTime];
+        var fromTimeCuo = Date.parse(new Date(fromTime));
+        var toTimeCuo = Date.parse(new Date(toTime));
+        var tianshu = (toTimeCuo - fromTimeCuo)/1000/60/60/24;
+
+        var fromToTime = [fromTime];
+        var flag = fromTimeCuo
+        for (var i = 0 ; i < tianshu ; i++ ){
+            flag = flag+1000*60*60*24;
+            fromToTime.push( new Date(flag).Format("yyyy-MM-dd") );
+        }
+        <!--console.log(fromToTime);-->
         $("#table").bootstrapTable('filterBy',{date_time : fromToTime});
     }
 
+    $("#time_1").click(function(){
+        var time = new Date();
+        var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
+        console.log(timeTo);
+        filterTime(timeTo, timeTo);
+    });
+    $("#time_2").click(function(){
+        var time = new Date();
+        var timeTo = new Date(time - 1000*60*60*24*2).Format("yyyy-MM-dd");
+        console.log(timeTo);
+        filterTime(timeTo, timeTo);
+    });
+    $("#time_7").click(function(){
+        var time = new Date();
+        var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
+        var timeFrom = new Date(time - 1000*60*60*24*7).Format("yyyy-MM-dd");
+        console.log(timeTo,timeFrom);
+        filterTime(timeFrom, timeTo);
+    });
+    $("#time_15").click(function(){
+        var time = new Date();
+        var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
+        var timeFrom = new Date(time - 1000*60*60*24*15).Format("yyyy-MM-dd");
+        console.log(timeTo,timeFrom);
+        filterTime(timeFrom, timeTo);
+    });
+    $("#time_30").click(function(){
+        var time = new Date();
+        var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
+        var timeFrom = new Date(time - 1000*60*60*24*30).Format("yyyy-MM-dd");
+        console.log(timeTo,timeFrom);
+        filterTime(timeFrom, timeTo);
+    });
+    $("#timeAll").click(function(){
+        var time = new Date();
+        var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
+        var timeFrom = "2015-01-01";
+        console.log(timeTo,timeFrom);
+        filterTime(timeFrom, timeTo);
+    });
+    $("#timeFromTo").click(function(){
+        var time = new Date();
+        var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
+        var timeFrom = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
+        console.log(timeTo,timeFrom);
+        filterTime(timeFrom, timeTo);
+    });
 </script>
 
 <script src="/static/js/Filter.js"></script><!--筛选需要的js-->
@@ -448,9 +530,9 @@ jQuery(function($) {
 });
 
 
-        $("#navbar").hide();
-        $("#sidebar").hide();
-        setTimeout('$("#footerbar").hide();',3000);
+        <!--$("#navbar").hide();-->
+        <!--$("#sidebar").hide();-->
+        <!--setTimeout('$("#footerbar").hide();',3000);-->
 
 </script>
 {% endblock content %}
