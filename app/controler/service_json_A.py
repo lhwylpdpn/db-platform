@@ -23,7 +23,6 @@ def import_csv():
 			#statinfo.append(os.stat(os.getcwd()+"/src/"+names).st_ctime)
 			newlist.append(names)
 	for r in newlist:
-		print(r)
 		if  not r.find("Daily_xzff_detail_2017-02-27"):#投放转化
 			filename=""+r
 			filenode=open(filename)
@@ -35,6 +34,31 @@ def import_csv():
 			print("1sql ok")
 				#time.sleep(10)
 			cur_1.execute(sql)
+def import_excel_add():
+	test = []
+	test= os.listdir("/data1/bidata/")
+	context=[]
+	newlist=[]
+	sql=""
+	statinfo=[]
+	for names in test:
+
+		if names.endswith(".csv"):
+			#statinfo.append(os.stat(os.getcwd()+"/src/"+names).st_ctime)
+			newlist.append(names)
+
+	for r in newlist:
+		if  not r.find("tffy_"+str(datetime.datetime.now().strftime('%Y-%m-%d'))):
+			filename=""+r
+
+			filenode=open(filename)
+			reader=csv.reader(filenode)
+			reader.next()
+			for row in reader:
+				sql=sql+"delete from spend  where date='"+str(row[0])+"' and channel_name='"+str(row[4])+"' and agent='"+str(row[5])+"' and gamename='"+str(row[1])+"' and platform='"+str(row[2])+"' and class_A='"+str(row[3])+"' and class_ad='"+str(row[6])+"';"
+				sql=sql+"insert into spend values (null,'"+str(row[0])+"','"+str(row[1])+"','"+str(row[2])+"','"+str(row[3])+"','"+str(row[4])+"','"+str(row[5])+"','"+str(row[6])+"','"+str(row[7])+"','"+str(row[8])+"','"+str(row[9])+"','"+str(row[9])+"','"+str(row[10])+"','"+str(row[11])+"','"+str(row[12])+"','"+str(row[13])+"');"
+				cur_1.execute(sql)
+			print("5sql ok")
 def import_excel():
 	test = []
 	test= os.listdir("/data1/bidata/1452827692979/")
@@ -48,8 +72,7 @@ def import_excel():
 			newlist.append(names)
 
 	for r in newlist:
-		print(r)
-	
+
 		if  not r.find("Daily_lchy_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))):#投放转化
 			filename="/data1/bidata/1452827692979/"+r
 			filenode=open(filename)
@@ -96,6 +119,8 @@ def import_excel():
 			sql=sql.strip(',')+";"
 			print("4sql ok ")
 			cur_1.execute(sql)
+
+
 def user_info_create():
 	user_DB=[]
 	user_file=[]
@@ -253,12 +278,43 @@ def export():
 			b_money_13.append(r[13])
 			b_money_14.append(r[14])
 
+
+
+	#2017.3.9  增加留存部分的输出
+	
+	sql="""SELECT retention1,retention2,retention3,retention4,retention5,retention6 FROM  ad_action a 
+ 	LEFT JOIN
+ 	retention b
+ 	on a.date=b._date
+ 	and a.channel_name=b.channel_name
+ 	and a.agent=b.agent
+ 	order by a.channel_name ,a.agent ,a.date desc"""	
+ 	cur_1.execute(sql)
+	res=cur_1.fetchall()
+	retention1=[]
+	retention2=[]
+	retention3=[]
+	retention4=[]
+	retention5=[]
+	retention6=[]
+	if len(res)>0:
+		for r in res:
+			retention1.append(r[0])
+			retention2.append(r[1])
+			retention3.append(r[2])
+			retention4.append(r[3])
+			retention5.append(r[4])
+			retention6.append(r[5])
+
+
+
+
 	word="["
 	for i in xrange(0,len(res)):
 		word=word+'{'
 		word=word+'"1":"'+str(date_[i])[0:10]+'",'+'"2":"'+str(staff[i])+'",'+'"3":"'+str(channel_name[i])+'",'+'"4":"'+str(agent[i])+'",'+'"5":"'+str(ad_click[i])+'",'
 		word=word+'"6":"'+str(ad_action[i])+'",'+'"7":"'+str(ad_action_new[i])+'",'+'"8":"'+str(ad_account_new[i])+'",'+'"9":"'+str(ad_account_new_pay[i])+'",'+'"10":"'+str(ad_account_new_paymoney[i])+'",'
-		word=word+'"11":"'+str(fufeilv[i])+'",'+'"cpa":"'+str(cpa[i])+'",'+'"mo_th":"'+str(dis_spend[i])+'",'
+		word=word+'"ffl":"'+str(fufeilv[i])+'",'+'"cpa":"'+str(cpa[i])+'",'+'"mo_th":"'+str(dis_spend[i])+'",'
 		word=word+'"hs0":"'+str(b_money_0[i])+'",'
 		word=word+'"hs1":"'+str(b_money_1[i])+'",'
 		word=word+'"hs2":"'+str(b_money_2[i])+'",'
@@ -266,14 +322,20 @@ def export():
 		word=word+'"hs4":"'+str(b_money_4[i])+'",'
 		word=word+'"hs5":"'+str(b_money_5[i])+'",'
 		word=word+'"hs6":"'+str(b_money_6[i])+'",'
-		word=word+'"hs7":"'+str(b_money_7[i])+'",'
-		word=word+'"hs8":"'+str(b_money_8[i])+'",'
-		word=word+'"hs9":"'+str(b_money_9[i])+'",'
-		word=word+'"hs10":"'+str(b_money_10[i])+'",'
-		word=word+'"hs11":"'+str(b_money_11[i])+'",'
-		word=word+'"hs12":"'+str(b_money_12[i])+'",'
-		word=word+'"hs13":"'+str(b_money_13[i])+'",'
-		word=word+'"hs14":"'+str(b_money_14[i])+'"'
+		#word=word+'"hs7":"'+str(b_money_7[i])+'",'
+		#word=word+'"hs8":"'+str(b_money_8[i])+'",'
+		#word=word+'"hs9":"'+str(b_money_9[i])+'",'
+		#word=word+'"hs10":"'+str(b_money_10[i])+'",'
+		#word=word+'"hs11":"'+str(b_money_11[i])+'",'
+		#word=word+'"hs12":"'+str(b_money_12[i])+'",'
+		#word=word+'"hs13":"'+str(b_money_13[i])+'",'
+		#word=word+'"hs14":"'+str(b_money_14[i])+'"'
+		word=word+'"lc1":"'+str(retention1[i])+'",'
+		word=word+'"lc2":"'+str(retention2[i])+'",'
+		word=word+'"lc3":"'+str(retention3[i])+'",'
+		word=word+'"lc4":"'+str(retention4[i])+'",'
+		word=word+'"lc5":"'+str(retention5[i])+'",'
+		word=word+'"lc6":"'+str(retention6[i])+'",'		
 		if i==len(res)-1:
 			word=word+'}'+'\n'
 		else:
@@ -340,7 +402,8 @@ def create_json(word,name):
 if __name__ == '__main__':
 	conn=pymysql.connect(host='localhost',user='root',passwd='123456',db='zilong_report',port=3306)
 	cur_1=conn.cursor()
-	export_media_1()
+	import_excel()
+	import_excel_add()
 	cur_1.close()
 	conn.commit()
 	conn.close()
