@@ -286,7 +286,7 @@ def export():
 
 	#2017.3.9  增加留存部分的输出
 	
-	sql="""SELECT retention1,retention2,retention3,retention4,retention5,retention6 FROM  ad_action a 
+	sql="""SELECT retention1*100,retention2*100,retention3*100,retention4*100,retention5*100,retention6*100 FROM  ad_action a 
  	LEFT JOIN
  	(select * from retention group by channel_name ,agent ,_date having count(*)=1) b
  	on a.date=b._date
