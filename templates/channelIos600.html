@@ -229,10 +229,10 @@
 
         function ffl(value, row){
             if(row.ffl >= 4){
-                return '<div class="my-parent-style-F89406">' + toThousands(parseInt(value)).toString() + '</div>';
+                return '<div class="my-parent-style-F89406">' + toThousands(parseInt(value)).toString() + '%</div>';
             }
             else{
-                return toThousands(parseInt(value)).toString();
+                return toThousands(parseInt(value)).toString() + '%';
             }
         }
         function cpa(value,row) {

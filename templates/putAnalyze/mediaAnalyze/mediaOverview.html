@@ -289,37 +289,29 @@
 
 <script src="/static/js/Filter.js"></script><!--筛选需要的js-->
 <script type="text/javascript">
-    var data=[
-    {
-        "id": 1,
-        "text": 1
-    },
-    {
-        "id": 2,
-        "text": 2
-    },
-    {
-        "id": "3",
-        "text": 3
-    },
-    {
-        "id": 4,
-        "text": 4
-    },
-    {
-        "id": 5,
-        "text": 5
-    },
-    {
-        "id": 6,
-        "text": "呜呜"
-    }];
+    var channel_name = [];
+    var agent = {};
+    var staff = {};
+    $.getJSON("/static/json/media_1.json", function(data){
+        for(var i = 0 ; i<data.length ; i++){
+            if(channel_name.indexOf("id") ){
+
+            }
+            var flag = {};
+            console.log(data[i]["channel_name"]);
+            flag.id=data[i]["channel_name"];
+            flag.text=data[i]["channel_name"];
+            channel_name.push(flag);
+        }
+    })
+    console.log(channel_name);
 
     var demo1 = $('#demo1').comboboxfilter({
         url: '',
-        text: "等等",
+        text: "渠道",
         scope: 'FilterQuery3',
-        data:data,
+        multiple: true,
+        data:channel_name,
 		onChange:function(newValue){
 		$('#demo10').val(newValue);
 		newValue1 = newValue;
@@ -327,32 +319,22 @@
     });
     var demo2 = $('#demo2').comboboxfilter({
         url: '',
-        text: "等等",
+        text: "代理商",
         scope: 'FilterQuery3',
         multiple: true,
-        data:data,
+        data:agent,
         onChange:function(newValue){
             $('#demo20').val(newValue);
         }
     });
     var demo3 = $('#demo3').comboboxfilter({
         url: '',
-        text: "哈喽",
+        text: "负责人",
         scope: 'FilterQuery3',
         multiple: true,
-        data:data,
+        data:staff,
         onChange:function(newValue){
             $('#demo30').val(newValue);
-        }
-    });
-    var demo4 = $('#demo4').comboboxfilter({
-        url: '',
-        text: "店铺",
-        scope: 'FilterQuery3',
-        multiple: true,
-        data:data,
-        onChange:function(newValue){
-            $('#demo40').val(newValue);
         }
     });
 
@@ -360,7 +342,6 @@
         console.log(demo1.returnValue($("#demo1")));
         console.log(demo2.returnValue($("#demo2")));
         console.log(demo3.returnValue($("#demo3")));
-        console.log(demo4.returnValue($("#demo4")));
     });
 
 </script>
