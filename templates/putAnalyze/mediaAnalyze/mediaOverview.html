@@ -41,13 +41,13 @@
         <div id="demo1"></div>
         <div id="demo2"></div>
         <div id="demo3"></div>
-        <div id="demo4"></div>
+        <!--<div id="demo4"></div>-->
          <div align="center">
             <button id="chaxun" class="btn btn-white btn-sm btn-primary">查询</button>
         </div>
     </div>
     <div class="hr hr-8 hr-dotted"></div>
-    <div id="main-widget-container" style="height:86px;background:#EEEEEE">
+    <div id="main-widget-container" style="height:84px;background:#EEEEEE;display:none">
 
         <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-1" >
             <div class="widget-box " id="widget-box-1">
@@ -104,7 +104,6 @@
             </div>
         </div>
     </div>
-    <div class="hr hr-8 hr-dotted"></div>
 
     <!--<div align="right">-->
         <!--<button id="showHideTable" class="btn btn-white btn-sm btn-primary">收起表格</button>-->
@@ -114,6 +113,9 @@
         <script>document.write('<table id="table" class="table table-bordered table-hover" data-height=' + ($(window).height() - 300) + '>');</script>
         <thead>
             <tr>
+                <th data-field="channel_name" data-sortable="true">　渠道　</th>
+                <th data-field="agent" data-sortable="true">代理商</th>
+                <th data-field="staff" data-sortable="true">负责人</th>
                 <th data-field="date_time" data-sortable="true">　日期　</th>
                 <th data-field="ad_click" data-sortable="true">点击设备</th>
                 <th data-field="ad_action" data-sortable="true">激活设备</th>
@@ -176,6 +178,12 @@
         $(".bootstrap-table").hide();
     });
 
+    //以下三列用于筛选 不需要显示
+    $("#table").bootstrapTable('hideColumn', 'channel_name');
+    $("#table").bootstrapTable('hideColumn', 'agent');
+    $("#table").bootstrapTable('hideColumn', 'staff');
+
+
 </script>
 
 <script type="text/javascript"> <!-- 日历筛选 -->
@@ -197,6 +205,9 @@
 
     //入参 2016-01-10格式的字符串
     function filterTime(fromTime,toTime){
+        //先将条件筛选清空
+        $(".J_FilterQueryClear").trigger("click");
+
         var fromTimeCuo = Date.parse(new Date(fromTime));
         var toTimeCuo = Date.parse(new Date(toTime));
         var tianshu = (toTimeCuo - fromTimeCuo)/1000/60/60/24;
@@ -289,60 +300,166 @@
 
 <script src="/static/js/Filter.js"></script><!--筛选需要的js-->
 <script type="text/javascript">
+
+    var demo1 = null;
     var channel_name = [];
-    var agent = {};
-    var staff = {};
     $.getJSON("/static/json/media_1.json", function(data){
         for(var i = 0 ; i<data.length ; i++){
-            if(channel_name.indexOf("id") ){
-
+            var flagId=data[i]["channel_name"];
+            var flagText=data[i]["channel_name"];
+            if(channel_name.length != 0){ //判断数组是否为空,为空直接就push
+                var flag = true;
+                for(var j = 0 ; j<channel_name.length ; j++){
+                    if(channel_name[j]["id"] == flagId){
+                        flag = false;
+                    }
+                }
+                if(flag){
+                    channel_name.push({"id": flagId ,"text": flagText});
+                }
+            }else{
+                channel_name.push({"id": flagId ,"text": flagText});
             }
-            var flag = {};
-            console.log(data[i]["channel_name"]);
-            flag.id=data[i]["channel_name"];
-            flag.text=data[i]["channel_name"];
-            channel_name.push(flag);
         }
-    })
-    console.log(channel_name);
 
-    var demo1 = $('#demo1').comboboxfilter({
-        url: '',
-        text: "渠道",
-        scope: 'FilterQuery3',
-        multiple: true,
-        data:channel_name,
-		onChange:function(newValue){
-		$('#demo10').val(newValue);
-		newValue1 = newValue;
-		}
-    });
-    var demo2 = $('#demo2').comboboxfilter({
-        url: '',
-        text: "代理商",
-        scope: 'FilterQuery3',
-        multiple: true,
-        data:agent,
-        onChange:function(newValue){
-            $('#demo20').val(newValue);
-        }
-    });
-    var demo3 = $('#demo3').comboboxfilter({
-        url: '',
-        text: "负责人",
-        scope: 'FilterQuery3',
-        multiple: true,
-        data:staff,
-        onChange:function(newValue){
-            $('#demo30').val(newValue);
-        }
+        demo1 = $('#demo1').comboboxfilter({
+            url: '',
+            text: "渠道",
+            scope: 'FilterQuery3',
+            multiple: true,
+            data:channel_name,
+            onChange:function(newValue){
+            $('#demo10').val(newValue);
+                newValue1 = newValue;
+            }
+        });
     });
 
+    var demo2 = null;
+    var agent = [];
+    $.getJSON("/static/json/media_1.json", function(data){
+         for(var i = 0 ; i<data.length ; i++){
+            var flagId=data[i]["agent"];
+            var flagText=data[i]["agent"];
+            if(agent.length != 0){ //判断数组是否为空,为空直接就push
+                var flag = true;
+                for(var j = 0 ; j<agent.length ; j++){
+                    if(agent[j]["id"] == flagId){
+                        flag = false;
+                    }
+                }
+                if(flag){
+                    agent.push({"id": flagId ,"text": flagText});
+                }
+            }else{
+                agent.push({"id": flagId ,"text": flagText});
+            }
+        }
+
+        demo2 = $('#demo2').comboboxfilter({
+            url: '',
+            text: "代理商",
+            scope: 'FilterQuery3',
+            multiple: true,
+            data:agent,
+            onChange:function(newValue){
+                $('#demo20').val(newValue);
+            newValue1 = newValue;
+            }
+        });
+    });
+
+    var demo3 = null;
+    var staff = [];
+    $.getJSON("/static/json/media_1.json", function(data){
+         for(var i = 0 ; i<data.length ; i++){
+            var flagId=data[i]["staff"];
+            var flagText=data[i]["staff"];
+            if(staff.length != 0){ //判断数组是否为空,为空直接就push
+                var flag = true;
+                for(var j = 0 ; j<staff.length ; j++){
+                    if(staff[j]["id"] == flagId){
+                        flag = false;
+                    }
+                }
+                if(flag){
+                    staff.push({"id": flagId ,"text": flagText});
+                }
+            }else{
+                staff.push({"id": flagId ,"text": flagText});
+            }
+        }
+
+        demo3 = $('#demo3').comboboxfilter({
+            url: '',
+            text: "负责人",
+            scope: 'FilterQuery3',
+            multiple: true,
+            data:staff,
+            onChange:function(newValue){
+                $('#demo30').val(newValue);
+            newValue1 = newValue;
+            }
+        });
+    });
+
+
+    // 时间筛选+条件筛选
     $("#chaxun").click(function(){
         console.log(demo1.returnValue($("#demo1")));
         console.log(demo2.returnValue($("#demo2")));
         console.log(demo3.returnValue($("#demo3")));
+
+        var fromTime = $("#timeFrom").val();
+        var toTime = $("#timeTo").val();
+
+        var fromTimeCuo = Date.parse(new Date(fromTime));
+        var toTimeCuo = Date.parse(new Date(toTime));
+        var tianshu = (toTimeCuo - fromTimeCuo)/1000/60/60/24;
+
+        var fromToTime = [fromTime];
+        var flag = fromTimeCuo
+        for (var i = 0 ; i < tianshu ; i++ ){
+            flag = flag+1000*60*60*24;
+            fromToTime.push( new Date(flag).Format("yyyy-MM-dd") );
+        }
+
+        var channel_name_filter = [];
+        if(demo1.returnValue($("#demo1")) != ""){    //demo1 是渠道
+            channel_name_filter = demo1.returnValue($("#demo1")).split(",");
+        }else{  //如果等于""
+            for(var i = 0 ; i< channel_name.length; i++){
+                channel_name_filter.push(channel_name[i]["id"]);
+            }
+        }
+
+        var agent_filter = [];
+        if(demo2.returnValue($("#demo2")) != ""){    //demo2 是代理商
+            agent_filter = demo2.returnValue($("#demo2")).split(",");
+        }else{  //如果等于""
+            for(var i = 0 ; i< agent.length; i++){
+                agent_filter.push(agent[i]["id"]);
+            }
+        }
+
+        var staff_filter = [];
+        if(demo3.returnValue($("#demo3")) != ""){   //demo3 是负责人
+            staff_filter = demo3.returnValue($("#demo3")).split(",");
+        }else{  //如果等于""
+            for(var i = 0 ; i< staff.length; i++){
+                staff_filter.push(staff[i]["id"]);
+            }
+        }
+
+        $("#table").bootstrapTable('filterBy',{
+            date_time : fromToTime,
+            channel_name : channel_name_filter,
+            agent : agent_filter,
+            staff : staff_filter
+        });
+
     });
+
 
 </script>
 
