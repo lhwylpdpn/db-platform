@@ -47,7 +47,7 @@
         </div>
     </div>
     <div class="hr hr-8 hr-dotted"></div>
-    <div id="main-widget-container" style="height:84px;background:#EEEEEE;display:none">
+    <div id="main-widget-container" style="height:84px;background:#EEEEEE">
 
         <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-1" >
             <div class="widget-box " id="widget-box-1">
@@ -171,7 +171,7 @@
     $("#table").bootstrapTable({
         url: "/analyze/mediaOverviewJson?{{sjs}}",
         pagination: true, //开启分页
-        pageSize: 100,
+        pageSize: 20,
     });
 
     $("#showHideTable").click(function(){
@@ -303,7 +303,14 @@
 
     var demo1 = null;
     var channel_name = [];
-    $.getJSON("/static/json/media_1.json", function(data){
+
+    var demo2 = null;
+    var agent = [];
+
+    var demo3 = null;
+    var staff = [];
+
+    $.getJSON("/analyze/mediaOverviewJson?{{sjs}}", function(data){
         for(var i = 0 ; i<data.length ; i++){
             var flagId=data[i]["channel_name"];
             var flagText=data[i]["channel_name"];
@@ -333,12 +340,9 @@
                 newValue1 = newValue;
             }
         });
-    });
 
-    var demo2 = null;
-    var agent = [];
-    $.getJSON("/static/json/media_1.json", function(data){
-         for(var i = 0 ; i<data.length ; i++){
+
+        for(var i = 0 ; i<data.length ; i++){
             var flagId=data[i]["agent"];
             var flagText=data[i]["agent"];
             if(agent.length != 0){ //判断数组是否为空,为空直接就push
@@ -367,12 +371,9 @@
             newValue1 = newValue;
             }
         });
-    });
 
-    var demo3 = null;
-    var staff = [];
-    $.getJSON("/static/json/media_1.json", function(data){
-         for(var i = 0 ; i<data.length ; i++){
+
+        for(var i = 0 ; i<data.length ; i++){
             var flagId=data[i]["staff"];
             var flagText=data[i]["staff"];
             if(staff.length != 0){ //判断数组是否为空,为空直接就push

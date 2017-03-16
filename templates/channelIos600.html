@@ -194,14 +194,16 @@
                 }
                 var myDate=new Date();
                 var time1 = new Date().Format("yyyy-MM-dd");
-                var time2 = new Date(myDate.valueOf()-24*60*60*1000).Format("yyyy-MM-dd");
+                var time2 = new Date(myDate.valueOf()-1*24*60*60*1000).Format("yyyy-MM-dd");
                 var time3 = new Date(myDate.valueOf()-2*24*60*60*1000).Format("yyyy-MM-dd");
                 var time4 = new Date(myDate.valueOf()-3*24*60*60*1000).Format("yyyy-MM-dd");
                 var time5 = new Date(myDate.valueOf()-4*24*60*60*1000).Format("yyyy-MM-dd");
                 var time6 = new Date(myDate.valueOf()-5*24*60*60*1000).Format("yyyy-MM-dd");
                 var time7 = new Date(myDate.valueOf()-6*24*60*60*1000).Format("yyyy-MM-dd");
+                var time8 = new Date(myDate.valueOf()-7*24*60*60*1000).Format("yyyy-MM-dd");
 
-                $table.bootstrapTable('filterBy', { "1": [time1,time2,time3,time4,time5,time6,time7] });
+
+                $table.bootstrapTable('filterBy', { "1": [time1,time2,time3,time4,time5,time6,time7,time8] });
             });
 
             $button7.click(function () {
