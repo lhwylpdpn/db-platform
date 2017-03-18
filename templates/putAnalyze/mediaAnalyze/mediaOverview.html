@@ -42,18 +42,19 @@
         <div id="demo2"></div>
         <div id="demo3"></div>
         <!--<div id="demo4"></div>-->
+        
          <div align="center">
             <button id="chaxun" class="btn btn-white btn-sm btn-primary">查询</button>
         </div>
     </div>
     <div class="hr hr-8 hr-dotted"></div>
-    <div id="main-widget-container" style="height:84px;background:#EEEEEE">
+    <div id="main-widget-container" styledelete="height:84px;background:#EEEEEE">
 
         <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-1" >
             <div class="widget-box " id="widget-box-1">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div style="font-size:15px;color:#000" class="infobox-content">443,232</div>
-                    <div class="infobox-content">2344</div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content"></div>
                     <div class="infobox-content">新增设备</div>
                 </div>
             </div>
@@ -61,45 +62,45 @@
         <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-2">
             <div class="widget-box " id="widget-box-2">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div style="font-size:15px;color:#000" class="infobox-content">443,232</div>
-                    <div class="infobox-content">2344</div>
-                    <div class="infobox-content">新增设备</div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">新增总账号</div>
                 </div>
             </div>
         </div>
         <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-3">
             <div class="widget-box" id="widget-box-3">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div style="font-size:15px;color:#000" class="infobox-content">443,232</div>
-                    <div class="infobox-content">2344</div>
-                    <div class="infobox-content">新增设备</div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">付费账号</div>
                 </div>
             </div>
         </div>
         <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-4">
             <div class="widget-box" id="widget-box-4">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div style="font-size:15px;color:#000" class="infobox-content">443,232</div>
-                    <div class="infobox-content">2344</div>
-                    <div class="infobox-content">新增设备</div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">累计流水</div>
                 </div>
             </div>
         </div>
         <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-5">
             <div class="widget-box" id="widget-box-5">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div style="font-size:15px;color:#000" class="infobox-content">443,232</div>
-                    <div class="infobox-content">2344</div>
-                    <div class="infobox-content">新增设备</div>
+                    <div class="infobox-co1ntent"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">折后花费</div>
                 </div>
             </div>
         </div>
         <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-6">
             <div class="widget-box" id="widget-box-6">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div style="font-size:15px;color:#000" class="infobox-content">443,232</div>
-                    <div class="infobox-content">2344</div>
-                    <div class="infobox-content">新增设备</div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">分成后ROI</div>
                 </div>
             </div>
         </div>
@@ -110,7 +111,7 @@
     <!--</div>-->
 
     <div>
-        <script>document.write('<table id="table" class="table table-bordered table-hover" data-height=' + ($(window).height() - 300) + '>');</script>
+        <script>document.write('<table id="table" data-sort-name="date_time" data-sort-order="desc" class="table table-bordered table-hover" data-height=' + ($(window).height() - 300) + '>');</script>
         <thead>
             <tr>
                 <th data-field="channel_name" data-sortable="true">　渠道　</th>
@@ -137,9 +138,20 @@
     </div>
     <div class="widget-box ui-sortable-handle" id="widget-box-7">
         <div class="widget-header">
-            <h5 class="widget-title">趋势图</h5>
-            <h5 class="widget-title">趋势图</h5>
-            <h5 class="widget-title">趋势图</h5>
+            <h5 id="ad_click" class="widget-title">点击设备|</h5>
+            <h5 class="widget-title">激活设备|</h5>
+            <h5 class="widget-title">新增设备|</h5>
+            <h5 class="widget-title">新增总账号|</h5>
+            <h5 class="widget-title">纯新增账号|</h5>
+            <h5 class="widget-title">回流账号|</h5>
+            <h5 class="widget-title">付费账号|</h5>
+            <h5 class="widget-title">付费率|</h5>
+            <h5 class="widget-title">折后花费|</h5>
+            <h5 class="widget-title">C P A|</h5>
+            <h5 class="widget-title">累计流水|</h5>
+            <h5 class="widget-title">分成比例|</h5>
+            <h5 class="widget-title">累计净收入|</h5>
+            <h5 class="widget-title">R O I</h5>
 
             <div class="widget-toolbar">
                 <a href="#" data-action="fullscreen" class="orange2">
@@ -184,7 +196,7 @@
     $("#table").bootstrapTable('hideColumn', 'staff');
 
 
-</script>
+</script><!-- 初始化table -->
 
 <script type="text/javascript"> <!-- 日历筛选 -->
     Date.prototype.Format = function (fmt) { //author: meizz
@@ -220,6 +232,9 @@
         }
         <!--console.log(fromToTime);-->
         $("#table").bootstrapTable('filterBy',{date_time : fromToTime});
+
+        //日期筛选完成后,设置piece chartdata
+        setPieceChart();
     }
 
     $("#time_1").click(function(){
@@ -229,7 +244,7 @@
 
         $("#timeFrom").val(timeTo);
         $("#timeTo").val(timeTo);
-
+        //???????????????设置背景颜色,和其他去掉背景颜色,下边的同样需要
         filterTime(timeTo, timeTo);
     });
     $("#time_2").click(function(){
@@ -296,7 +311,7 @@
     var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
     $("#timeTo").val(timeTo);
 
-</script>
+</script><!-- 日历筛选 -->
 
 <script src="/static/js/Filter.js"></script><!--筛选需要的js-->
 <script type="text/javascript">
@@ -459,6 +474,9 @@
             staff : staff_filter
         });
 
+        //条件筛选完成后,重新设置 piece chart
+        setPieceChart();
+
     });
 
 
@@ -466,17 +484,13 @@
 
 <script src="/static/js/highcharts.js"></script><!--图表需要的js-->
 <script type="text/javascript">
-$(function () {
-    Highcharts.setOptions({
-        timezoneOffset: -8
-    });
-    $.getJSON('//data.jianshukeji.com/jsonp?filename=json/usdeur.json&callback=?', function (data) {
+    function setChart(title,data){
         $('#container').highcharts({
             chart: {
                 zoomType: 'x'
             },
             title: {
-                text: '美元兑欧元汇率走势图'
+                text: title
             },
             <!--subtitle: {-->
                 <!--text: document.ontouchstart === undefined ?-->
@@ -509,7 +523,7 @@ $(function () {
             },
             yAxis: {
                 title: {
-                    text: 'Exchange rate'
+                    text: '个/元'
                 }
             },
             legend: {
@@ -543,14 +557,81 @@ $(function () {
             },
             series: [{
                 type: 'area',
-                name: '美元兑欧元',
+                name: '数量',
                 data: data
             }]
         });
-    });
-});
+    }
 
-</script>
+</script><!--图表需要的js setChart(data)-->
+
+<script type="text/javascript"><!--筛选后的数据处理-->
+
+    var ad_click_dataS = [];
+
+    function setPieceChart(){ //设置快的数据和获取chart的数据
+        var dataS = $("#table").bootstrapTable('getData');
+
+        //处理piece
+        var adActionNew = 0; //ad_action_new
+        var adAccountNew = 0;  //ad_account_new
+        var paidAccount = 0; //paid_account
+        var cumulativeFlow = 0; //cumulative_flow
+        var spend = 0; //spend
+        var ROI = 0; //ROI
+        var dataLength = dataS.length;
+
+        //处理chartdata //先将数据清空
+        ad_click_dataS = [];
+
+        for(var i=0 ; i<dataLength;i++){
+            adActionNew = adActionNew + Number(dataS[i]["ad_action_new"]);
+            adAccountNew = adAccountNew + Number(dataS[i]["ad_account_new"]);
+            paidAccount = paidAccount + Number(dataS[i]["paid_account"]);
+            cumulativeFlow = cumulativeFlow + Number(dataS[i]["cumulative_flow"]);
+            spend = spend + Number(dataS[i]["spend"]);
+            ROI = ROI + Number(dataS[i]["ROI"]);
+
+            var UTCdata = Date.parse(new Date(dataS[i]["date_time"]));
+
+            var ad_click_data = Number(dataS[i]["ad_click"]);
+            ad_click_dataS.push([UTCdata,ad_click_data]);
+
+        }
+
+        $($("#widget-box-1").children("div").children("div")[0]).text(adActionNew);
+        $($("#widget-box-1").children("div").children("div")[1]).text( (adActionNew/dataLength).toFixed(2));
+
+        $($("#widget-box-2").children("div").children("div")[0]).text(adAccountNew);
+        $($("#widget-box-2").children("div").children("div")[1]).text( (adAccountNew/dataLength).toFixed(2));
+
+        $($("#widget-box-3").children("div").children("div")[0]).text(paidAccount);
+        $($("#widget-box-3").children("div").children("div")[1]).text( (paidAccount/dataLength).toFixed(2));
+
+        $($("#widget-box-4").children("div").children("div")[0]).text(cumulativeFlow.toFixed(2));
+        $($("#widget-box-4").children("div").children("div")[1]).text( (cumulativeFlow/dataLength).toFixed(2));
+
+        $($("#widget-box-5").children("div").children("div")[0]).text(spend.toFixed(2));
+        $($("#widget-box-5").children("div").children("div")[1]).text( (spend/dataLength).toFixed(2));
+
+        $($("#widget-box-6").children("div").children("div")[0]).text(ROI.toFixed(2));
+        $($("#widget-box-6").children("div").children("div")[1]).text( (ROI/dataLength).toFixed(2));
+
+        $("#ad_click").trigger("click");
+
+    }
+
+    setTimeout("setPieceChart();",1000);
+
+    $("#ad_click").click(function(){
+        //???????????????设置背景颜色,和其他去掉背景颜色
+        setChart("点击设备",ad_click_dataS);
+    })
+
+    //???????????????????????
+
+</script><!--筛选后的数据处理-->
+
 <script src="/static/ace/js/jquery-ui.custom.min.js"></script><!--拖拽需要的js-->
 <script type="text/javascript">
 jQuery(function($) {
@@ -658,10 +739,7 @@ jQuery(function($) {
 
 });
 
-
-        <!--$("#navbar").hide();-->
-        <!--$("#sidebar").hide();-->
-        <!--setTimeout('$("#footerbar").hide();',3000);-->
-
 </script>
+
+
 {% endblock content %}
