@@ -41,9 +41,8 @@
         <div id="demo1"></div>
         <div id="demo2"></div>
         <div id="demo3"></div>
-        <!--<div id="demo4"></div>-->
-        
-         <div align="center">
+
+        <div align="center">
             <button id="chaxun" class="btn btn-white btn-sm btn-primary">查询</button>
         </div>
     </div>
@@ -137,21 +136,21 @@
         <script>document.write('</table>');</script>
     </div>
     <div class="widget-box ui-sortable-handle" id="widget-box-7">
-        <div class="widget-header">
-            <h5 id="ad_click" class="widget-title">点击设备|</h5>
-            <h5 class="widget-title">激活设备|</h5>
-            <h5 class="widget-title">新增设备|</h5>
-            <h5 class="widget-title">新增总账号|</h5>
-            <h5 class="widget-title">纯新增账号|</h5>
-            <h5 class="widget-title">回流账号|</h5>
-            <h5 class="widget-title">付费账号|</h5>
-            <h5 class="widget-title">付费率|</h5>
-            <h5 class="widget-title">折后花费|</h5>
-            <h5 class="widget-title">C P A|</h5>
-            <h5 class="widget-title">累计流水|</h5>
-            <h5 class="widget-title">分成比例|</h5>
-            <h5 class="widget-title">累计净收入|</h5>
-            <h5 class="widget-title">R O I</h5>
+        <div class="widget-header" style="padding-top:2px">
+            <button id="ad_click" class="widget-title">点击设备</button>
+            <button id="ad_action" class="widget-title">激活设备</button>
+            <button id="ad_action_new" class="widget-title">新增设备</button>
+            <button id="ad_account_new" class="widget-title">新增总账号</button>
+            <button id="double_new" class="widget-title">纯新增账号</button>
+            <button id="back_user" class="widget-title">回流账号</button>
+            <button id="paid_account" class="widget-title">付费账号</button>
+            <button id="fufeilv" class="widget-title">付费率</button>
+            <button id="spend" class="widget-title">折后花费</button>
+            <button id="CPA" class="widget-title"> C P A </button>
+            <button id="cumulative_flow" class="widget-title">累计流水</button>
+            <button id="dis" class="widget-title">分成比例</button>
+            <button id="cumulative_moeny" class="widget-title">累计净收入</button>
+            <button id="ROI" class="widget-title"> R O I </button>
 
             <div class="widget-toolbar">
                 <a href="#" data-action="fullscreen" class="orange2">
@@ -568,6 +567,19 @@
 <script type="text/javascript"><!--筛选后的数据处理-->
 
     var ad_click_dataS = [];
+    var ad_action_dataS = [];
+    var ad_action_new_dataS = [];
+    var ad_account_new_dataS = [];
+    var double_new_dataS = [];
+    var back_user_dataS = [];
+    var paid_account_dataS =[];
+    var fufeilv_dataS = [];
+    var spend_dataS = [];
+    var CPA_dataS = [];
+    var cumulative_flow_dataS = [];
+    var dis_dataS = [];
+    var cumulative_moeny_dataS = [];
+    var ROI_dataS = [];
 
     function setPieceChart(){ //设置快的数据和获取chart的数据
         var dataS = $("#table").bootstrapTable('getData');
@@ -583,6 +595,19 @@
 
         //处理chartdata //先将数据清空
         ad_click_dataS = [];
+        ad_action_dataS = [];
+        ad_action_new_dataS =[];
+        ad_account_new_dataS =[];
+        double_new_dataS = [];
+        back_user_dataS = [];
+        paid_account_dataS = [];
+        fufeilv_dataS = [];
+        spend_dataS = [];
+        CPA_dataS = [];
+        cumulative_flow_dataS = [];
+        dis_dataS = [];
+        cumulative_moeny_dataS = [];
+        ROI_dataS = [];
 
         for(var i=0 ; i<dataLength;i++){
             adActionNew = adActionNew + Number(dataS[i]["ad_action_new"]);
@@ -596,6 +621,47 @@
 
             var ad_click_data = Number(dataS[i]["ad_click"]);
             ad_click_dataS.push([UTCdata,ad_click_data]);
+
+            var ad_action_data = Number(dataS[i]["ad_action"]);
+            ad_action_dataS.push([UTCdata,ad_action_data]);
+
+            var ad_action_new_data = Number(dataS[i]["ad_action_new"]);
+            ad_action_new_dataS.push([UTCdata,ad_action_new_data]);
+
+            var ad_account_new_data = Number(dataS[i]["ad_account_new"]);
+            ad_account_new_dataS.push([UTCdata,ad_account_new_data]);
+
+            var double_new_data = Number(dataS[i]["double_new"]);
+            double_new_dataS.push([UTCdata,double_new_data]);
+
+            var back_user_data = Number(dataS[i]["back_user"]);
+            back_user_dataS.push([UTCdata,back_user_data]);
+
+            var paid_account_data = Number(dataS[i]["paid_account"]);
+            paid_account_dataS.push([UTCdata,paid_account_data]);
+
+            var fufeilv_data = Number(dataS[i]["fufeilv"]);
+            fufeilv_dataS.push([UTCdata,fufeilv_data]);
+
+            var spend_data = Number(dataS[i]["spend"]);
+            spend_dataS.push([UTCdata,spend_data]);
+
+            var CPA_data = Number(dataS[i]["CPA"]);
+            CPA_dataS.push([UTCdata,CPA_data]);
+
+            var cumulative_flow_data = Number(dataS[i]["cumulative_flow"]);
+            cumulative_flow_dataS.push([UTCdata,cumulative_flow_data]);
+
+            var dis_data = Number(dataS[i]["dis"]);
+            dis_dataS.push([UTCdata,dis_data]);
+
+            var cumulative_moeny_data = Number(dataS[i]["cumulative_moeny"]);
+            cumulative_moeny_dataS.push([UTCdata,cumulative_moeny_data]);
+
+            var ROI_data = Number(dataS[i]["ROI"]);
+            ROI_dataS.push([UTCdata,ROI_data]);
+
+
 
         }
 
@@ -628,8 +694,70 @@
         setChart("点击设备",ad_click_dataS);
     })
 
-    //???????????????????????
+    $("#ad_action").click(function(){
 
+        setChart("激活设备",ad_action_dataS);
+    })
+
+    $("#ad_action_new").click(function(){
+        //???????????????
+        setChart("新增设备",ad_action_new_dataS);
+    })
+
+    $("#ad_account_new").click(function(){
+        //???????????????
+        setChart("新增总账号",ad_account_new_dataS);
+    })
+
+    $("#double_new").click(function(){
+        //???????????????
+        setChart("纯新增账号",double_new_dataS);
+    })
+
+    $("#back_user").click(function(){
+        //???????????????
+        setChart("回流账号",back_user_dataS);
+    })
+
+    $("#paid_account").click(function(){
+        //???????????????
+        setChart("付费账号",paid_account_dataS);
+    })
+
+    $("#fufeilv").click(function(){
+        //???????????????
+        setChart("付费率",fufeilv_dataS);
+    })
+
+    $("#spend").click(function(){
+        //???????????????
+        setChart("折后花费",spend_dataS);
+    })
+
+    $("#CPA").click(function(){
+        //???????????????
+        setChart("C P A",CPA_dataS);
+    })
+
+    $("#cumulative_flow").click(function(){
+        //???????????????
+        setChart("累计流水",cumulative_flow_dataS);
+    })
+
+    $("#dis").click(function(){
+        //???????????????
+        setChart("分成比例",dis_dataS);
+    })
+
+    $("#cumulative_moeny").click(function(){
+        //???????????????
+        setChart("累计净收入",cumulative_moeny_dataS);
+    })
+
+    $("#ROI").click(function(){
+        //???????????????cumulative_moeny
+        setChart("R O I",ROI_dataS);
+    })
 </script><!--筛选后的数据处理-->
 
 <script src="/static/ace/js/jquery-ui.custom.min.js"></script><!--拖拽需要的js-->
