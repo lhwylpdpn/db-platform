@@ -73,7 +73,9 @@ def import_excel():
 
 	for r in newlist:
 
-		if  not r.find("Daily_lchy_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))):#投放转化
+		if  not r.find("Daily_lchy_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))) and r.find("new")<0:#投放转化
+			print(r)
+			print(r.find("new"))
 			filename="/data1/bidata/1452827692979/"+r
 			filenode=open(filename)
 			reader=csv.reader(filenode)
@@ -85,7 +87,10 @@ def import_excel():
 				#time.sleep(10)
 			cur_1.execute(sql)
 	
-		if  not r.find("Daily_tfzh_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))):#投放转化
+		if  not r.find("Daily_tfzh_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))) and r.find("new")<0:#投放转化
+			print(r)
+			print(r.find("new"))
+			print(r.find("Daily_tfzh_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))))
 			filename="/data1/bidata/1452827692979/"+r
 			filenode=open(filename)
 			reader=csv.reader(filenode)
@@ -97,7 +102,8 @@ def import_excel():
 				#time.sleep(10)
 			cur_1.execute(sql)
 
-		if  not r.find("Daily_zbhs_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))):#投放转化
+		if  not r.find("Daily_zbhs_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))) and r.find("new")<0:#投放转化
+			print(r)
 			filename="/data1/bidata/1452827692979/"+r
 			filenode=open(filename)
 			reader=csv.reader(filenode)
@@ -110,6 +116,7 @@ def import_excel():
 			cur_1.execute(sql)
 
 		if  not r.find("LaunchPaymentAll"):#投放转化
+			print(r)
 			filename="/data1/bidata/"+r
 			filenode=open(filename)
 			reader=csv.reader(filenode)
@@ -286,13 +293,19 @@ def export():
 
 	#2017.3.9  增加留存部分的输出
 	
-	sql="""SELECT retention1*100,retention2*100,retention3*100,retention4*100,retention5*100,retention6*100 FROM  ad_action a 
- 	LEFT JOIN
- 	(select * from retention group by channel_name ,agent ,_date having count(*)=1) b
- 	on a.date=b._date
- 	and a.channel_name=b.channel_name
- 	and a.agent=b.agent
- 	order by a.channel_name ,a.agent ,a.date desc"""	
+	sql="""SELECT case when  a.date<=date_sub(curdate(),interval 2 day) then retention1*100 else null end
+		,case when  a.date<=date_sub(curdate(),interval 3 day) then retention2*100 else null end
+		,case when  a.date<=date_sub(curdate(),interval 4 day) then retention3*100 else null end
+		,case when  a.date<=date_sub(curdate(),interval 5 day) then retention4*100 else null end
+		,case when  a.date<=date_sub(curdate(),interval 6 day) then retention5*100 else null end
+		,case when  a.date<=date_sub(curdate(),interval 7 day) then retention6*100 else null end
+		 FROM  ad_action a 
+		 	LEFT JOIN
+		 	(select * from retention group by channel_name ,agent ,_date having count(*)=1) b
+		 	on a.date=b._date
+		 	and a.channel_name=b.channel_name
+		 	and a.agent=b.agent
+		 	order by a.channel_name ,a.agent ,a.date desc"""	
  	cur_1.execute(sql)
 	res2=cur_1.fetchall()
 	retention1=[]
@@ -303,7 +316,7 @@ def export():
 	retention6=[]
 	print(len(res2))
 	if len(res2)>1:
-		for r in res:
+		for r in res2:
 			retention1.append(r[0])
 			retention2.append(r[1])
 			retention3.append(r[2])
@@ -340,7 +353,7 @@ def export():
 		word=word+'"lc3":"'+str(retention3[i])+'",'
 		word=word+'"lc4":"'+str(retention4[i])+'",'
 		word=word+'"lc5":"'+str(retention5[i])+'",'
-		word=word+'"lc6":"'+str(retention6[i])+'",'		
+		word=word+'"lc6":"'+str(retention6[i])+'"'		
 		if i==len(res)-1:
 			word=word+'}'+'\n'
 		else:
