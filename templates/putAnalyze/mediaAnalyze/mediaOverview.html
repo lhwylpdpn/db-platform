@@ -180,7 +180,7 @@
 
 <script type="text/javascript"> <!-- 初始化table -->
     $("#table").bootstrapTable({
-        url: "/analyze/mediaOverviewJson?{{sjs}}",
+        url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name&agent&staff",
         pagination: true, //开启分页
         pageSize: 20,
     });
@@ -229,7 +229,9 @@
             flag = flag+1000*60*60*24;
             fromToTime.push( new Date(flag).Format("yyyy-MM-dd") );
         }
-        <!--console.log(fromToTime);-->
+        //重新请求数据
+        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name&agent&staff" } );
+
         $("#table").bootstrapTable('filterBy',{date_time : fromToTime});
 
         //日期筛选完成后,设置piece chartdata
@@ -324,7 +326,7 @@
     var demo3 = null;
     var staff = [];
 
-    $.getJSON("/analyze/mediaOverviewJson?{{sjs}}", function(data){
+    $.getJSON("/analyze/mediaOverviewJsonTJ?{{sjs}}", function(data){
         for(var i = 0 ; i<data.length ; i++){
             var flagId=data[i]["channel_name"];
             var flagText=data[i]["channel_name"];
@@ -439,38 +441,16 @@
             fromToTime.push( new Date(flag).Format("yyyy-MM-dd") );
         }
 
-        var channel_name_filter = [];
-        if(demo1.returnValue($("#demo1")) != ""){    //demo1 是渠道
-            channel_name_filter = demo1.returnValue($("#demo1")).split(",");
-        }else{  //如果等于""
-            for(var i = 0 ; i< channel_name.length; i++){
-                channel_name_filter.push(channel_name[i]["id"]);
-            }
-        }
+        var channel_name_filter = demo1.returnValue($("#demo1"));
 
-        var agent_filter = [];
-        if(demo2.returnValue($("#demo2")) != ""){    //demo2 是代理商
-            agent_filter = demo2.returnValue($("#demo2")).split(",");
-        }else{  //如果等于""
-            for(var i = 0 ; i< agent.length; i++){
-                agent_filter.push(agent[i]["id"]);
-            }
-        }
+        var agent_filter = demo2.returnValue($("#demo2"));
 
-        var staff_filter = [];
-        if(demo3.returnValue($("#demo3")) != ""){   //demo3 是负责人
-            staff_filter = demo3.returnValue($("#demo3")).split(",");
-        }else{  //如果等于""
-            for(var i = 0 ; i< staff.length; i++){
-                staff_filter.push(staff[i]["id"]);
-            }
-        }
+        var staff_filter = demo3.returnValue($("#demo3"));
+
+        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name=" + channel_name_filter + "&agent=" + agent_filter + "&staff=" + staff_filter} );
 
         $("#table").bootstrapTable('filterBy',{
             date_time : fromToTime,
-            channel_name : channel_name_filter,
-            agent : agent_filter,
-            staff : staff_filter
         });
 
         //条件筛选完成后,重新设置 piece chart
