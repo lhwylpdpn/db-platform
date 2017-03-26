@@ -124,13 +124,13 @@
                 <th data-field="double_new" data-sortable="true">纯新增账号</th>
                 <th data-field="back_user" data-sortable="true">回流账号</th>
                 <th data-field="paid_account" data-sortable="true">付费账号</th>
-                <th data-field="fufeilv" data-sortable="true">付费率</th>
-                <th data-field="spend" data-sortable="true">折后花费</th>
+                <th data-field="fufeilv" data-sortable="true" data-formatter="fufeilv" data-align="right">付费率</th>
+                <th data-field="spend" data-sortable="true" data-formatter="spend" data-align="right">折后花费</th>
                 <th data-field="CPA" data-sortable="true">C P A</th>
-                <th data-field="cumulative_flow" data-sortable="true">累计流水</th>
+                <th data-field="cumulative_flow" data-sortable="true" data-formatter="cumulative_flow" data-align="right">累计流水</th>
                 <th data-field="dis" data-sortable="true">分成比例</th>
-                <th data-field="cumulative_moeny" data-sortable="true">累计净收入</th>
-                <th data-field="ROI" data-sortable="true">R O I</th>
+                <th data-field="cumulative_moeny" data-sortable="true" data-formatter="cumulative_moeny" data-align="right">累计净收入</th>
+                <th data-field="ROI" data-sortable="true" data-formatter="ROI" data-align="right">R O I</th>
             </tr>
         </thead>
         <script>document.write('</table>');</script>
@@ -153,13 +153,13 @@
             <button id="ROI" class="widget-title"> R O I </button>
 
             <div class="widget-toolbar">
-                <a href="#" data-action="fullscreen" class="orange2">
-                    <i class="ace-icon fa fa-expand"></i>
-                </a>
+                <!--<a href="#" data-action="fullscreen" class="orange2">-->
+                    <!--<i class="ace-icon fa fa-expand"></i>-->
+                <!--</a>-->
 
-                <a href="#" data-action="reload">
-                    <i class="ace-icon fa fa-refresh"></i>
-                </a>
+                <!--<a href="#" data-action="reload">-->
+                    <!--<i class="ace-icon fa fa-refresh"></i>-->
+                <!--</a>-->
 
                 <a href="#" data-action="collapse">
                     <i class="ace-icon fa fa-chevron-up"></i>
@@ -235,7 +235,7 @@
         $("#table").bootstrapTable('filterBy',{date_time : fromToTime});
 
         //日期筛选完成后,设置piece chartdata
-        setPieceChart();
+        setTimeout("setPieceChart();",1000);
     }
 
     $("#time_1").click(function(){
@@ -454,7 +454,7 @@
         });
 
         //条件筛选完成后,重新设置 piece chart
-        setPieceChart();
+        setTimeout("setPieceChart();",1000);
 
     });
 
@@ -463,7 +463,7 @@
 
 <script src="/static/js/highcharts.js"></script><!--图表需要的js-->
 <script type="text/javascript">
-    function setChart(title,data){
+    function setChart(title,danwei,data){
         $('#container').highcharts({
             chart: {
                 zoomType: 'x'
@@ -502,7 +502,7 @@
             },
             yAxis: {
                 title: {
-                    text: '个/元'
+                    text: danwei
                 }
             },
             legend: {
@@ -671,72 +671,72 @@
 
     $("#ad_click").click(function(){
         //???????????????设置背景颜色,和其他去掉背景颜色
-        setChart("点击设备",ad_click_dataS);
+        setChart("点击设备","单位:个",ad_click_dataS);
     })
 
     $("#ad_action").click(function(){
 
-        setChart("激活设备",ad_action_dataS);
+        setChart("激活设备","单位:个",ad_action_dataS);
     })
 
     $("#ad_action_new").click(function(){
         //???????????????
-        setChart("新增设备",ad_action_new_dataS);
+        setChart("新增设备","单位:个",ad_action_new_dataS);
     })
 
     $("#ad_account_new").click(function(){
         //???????????????
-        setChart("新增总账号",ad_account_new_dataS);
+        setChart("新增总账号","单位:个",ad_account_new_dataS);
     })
 
     $("#double_new").click(function(){
         //???????????????
-        setChart("纯新增账号",double_new_dataS);
+        setChart("纯新增账号","单位:个",double_new_dataS);
     })
 
     $("#back_user").click(function(){
         //???????????????
-        setChart("回流账号",back_user_dataS);
+        setChart("回流账号","单位:个",back_user_dataS);
     })
 
     $("#paid_account").click(function(){
-        //???????????????
-        setChart("付费账号",paid_account_dataS);
+        //??????????????
+        setChart("付费账号","单位:个",paid_account_dataS);
     })
 
     $("#fufeilv").click(function(){
         //???????????????
-        setChart("付费率",fufeilv_dataS);
+        setChart("付费率","单位:百分百",fufeilv_dataS);
     })
 
     $("#spend").click(function(){
         //???????????????
-        setChart("折后花费",spend_dataS);
+        setChart("折后花费","单位:元",spend_dataS);
     })
 
     $("#CPA").click(function(){
         //???????????????
-        setChart("C P A",CPA_dataS);
+        setChart("C P A","单位:元",CPA_dataS);
     })
 
     $("#cumulative_flow").click(function(){
         //???????????????
-        setChart("累计流水",cumulative_flow_dataS);
+        setChart("累计流水","单位:元",cumulative_flow_dataS);
     })
 
     $("#dis").click(function(){
         //???????????????
-        setChart("分成比例",dis_dataS);
+        setChart("分成比例","单位:百分百",dis_dataS);
     })
 
     $("#cumulative_moeny").click(function(){
         //???????????????
-        setChart("累计净收入",cumulative_moeny_dataS);
+        setChart("累计净收入","单位:元",cumulative_moeny_dataS);
     })
 
     $("#ROI").click(function(){
         //???????????????cumulative_moeny
-        setChart("R O I",ROI_dataS);
+        setChart("R O I","单位:百分百",ROI_dataS);
     })
 </script><!--筛选后的数据处理-->
 
@@ -849,5 +849,42 @@ jQuery(function($) {
 
 </script>
 
+<script type="text/javascript"> <!--开始设置数据格式-->
+    //千分位转化
+    function toThousands(num) {
+        return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+    }
+
+    function spend(value,row) {
+        var values = value.toString().split(".");
+        if(typeof(values[1]) == "undefined"){
+            return toThousands(values[0]).toString();
+        }else{
+            return toThousands(values[0]).toString() + "."+ values[1];
+        }
+    }
+    function cumulative_flow(value,row) {
+        var values = value.toString().split(".");
+        if(typeof(values[1]) == "undefined"){
+            return toThousands(values[0]).toString();
+        }else{
+            return toThousands(values[0]).toString() + "."+ values[1];
+        }
+    }
+    function cumulative_moeny(value,row) {
+        var values = value.toString().split(".");
+        if(typeof(values[1]) == "undefined"){
+            return toThousands(values[0]).toString();
+        }else{
+            return toThousands(values[0]).toString() + "."+ values[1];
+        }
+    }
+    function fufeilv(value,row) {
+        return value + "%";
+    }
+    function ROI(value,row) {
+        return value + "%";
+    }
+</script>
 
 {% endblock content %}
