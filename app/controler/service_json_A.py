@@ -1039,7 +1039,7 @@ def export():
 
 	#2017.3.9  增加留存部分的输出
 	
-	sql="""SELECT b._date,case when  a.date<=date_sub(curdate(),interval 2 day) then retention1*100 else null end
+	sql="""SELECT case when  a.date<=date_sub(curdate(),interval 2 day) then retention1*100 else null end
 		,case when  a.date<=date_sub(curdate(),interval 3 day) then retention2*100 else null end
 		,case when  a.date<=date_sub(curdate(),interval 4 day) then retention3*100 else null end
 		,case when  a.date<=date_sub(curdate(),interval 5 day) then retention4*100 else null end
@@ -1062,7 +1062,7 @@ def export():
 	retention6=[]
 	print(len(res2))
 	if len(res2)>1:
-		for r in res:
+		for r in res2:
 			retention1.append(r[0])
 			retention2.append(r[1])
 			retention3.append(r[2])
@@ -1099,7 +1099,7 @@ def export():
 		word=word+'"lc3":"'+str(retention3[i])+'",'
 		word=word+'"lc4":"'+str(retention4[i])+'",'
 		word=word+'"lc5":"'+str(retention5[i])+'",'
-		word=word+'"lc6":"'+str(retention6[i])+'",'		
+		word=word+'"lc6":"'+str(retention6[i])+'"'		
 		if i==len(res)-1:
 			word=word+'}'+'\n'
 		else:
@@ -1146,34 +1146,36 @@ def create_json(word,name):
 	file_object.close()
 
 if __name__ == '__main__':
-	# while(1):
-	# 	try:
-	# 		conn=pymysql.connect(host='localhost',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
-	# 		cur_1=conn.cursor()
-	# 		import_excel()
-	# 		import_excel_add()
-	# 		user_info_create()
-	# 		export()
-	# 		cur_1.close()
-	# 		conn.commit()
-	# 		conn.close()
-	# 		print time.asctime(time.localtime(time.time()))
-	# 		test_ok()
-	# 	except Exception, e:
-	# 		print(e)
+	while(1):
+		try:
+			conn=pymysql.connect(host='localhost',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
+			cur_1=conn.cursor()
+			import_excel()
+			import_excel_add()
+			user_info_create()
+			export()
+			import_csv()
+			export_media_1()
+			cur_1.close()
+			conn.commit()
+			conn.close()
+			print time.asctime(time.localtime(time.time()))
+			test_ok()
+		except Exception, e:
+			print(e)
 			
-	# 	print time.asctime(time.localtime(time.time()))
-	# 	time.sleep(900)
+		print time.asctime(time.localtime(time.time()))
+		time.sleep(900)
 
-	conn=pymysql.connect(host='localhost',user='root',passwd='123456',db='zilong_report',port=3306)
-	cur_1=conn.cursor()
-	#import_excel()
-	#import_excel_add()
-	import_csv()
-	export_media_1()
-	#user_info_create()
-	#export()
-	cur_1.close()
-	conn.commit()
-	conn.close()
-	print time.asctime(time.localtime(time.time()))
+	# conn=pymysql.connect(host='localhost',user='root',passwd='123456',db='zilong_report',port=3306)
+	# cur_1=conn.cursor()
+	# #import_excel()
+	# #import_excel_add()
+	# import_csv()
+	# export_media_1()
+	# #user_info_create()
+	# #export()
+	# cur_1.close()
+	# conn.commit()
+	# conn.close()
+	# print time.asctime(time.localtime(time.time()))
