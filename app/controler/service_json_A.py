@@ -14,7 +14,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 def import_csv():
 	test = []
-	pwd="/data1/bidata/"
+	pwd="/data1/bidata/1452827692979/"
 	test= os.listdir(pwd)
 	newlist=[]
 	statinfo=[]
@@ -24,8 +24,8 @@ def import_csv():
 			#statinfo.append(os.stat(os.getcwd()+"/src/"+names).st_ctime)
 			newlist.append(names)
 	for r in newlist:
-		if  not r.find("Daily_xzff_detail_"+str(datetime.datetime.now().strftime('%Y-%m-%d'))):
-			filename=""+r
+		if  not r.find("Daily_xzff_detail_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))):
+			filename="/data1/bidata/1452827692979/"+r
 			filenode=open(filename)
 			reader=csv.reader(filenode)
 			reader.next()
@@ -70,7 +70,7 @@ def import_excel_add():
 			print("5sql ok")
 def import_excel():
 	#pwd="/Users/liuhao/Desktop/zilong/app/controler/"
-	pwd="/data1/bidata/"
+	pwd="/data1/bidata/1452827692979/"
 	test = []
 	test= os.listdir(pwd+"")
 
@@ -81,11 +81,10 @@ def import_excel():
 		if names.endswith(".csv"):
 			#statinfo.append(os.stat(os.getcwd()+"/src/"+names).st_ctime)
 			newlist.append(names)
-	print(newlist)
 	for r in newlist:
 
-		if  not r.find("Daily_lchy_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))):#投放转化
-			filename=pwd+"1452827692979/"+r
+		if  not r.find("11Daily_lchy_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))) and r.find("new")<0:#投放转化
+			filename=pwd+""+r
 			print(filename)
 			filenode=open(filename)
 			reader=csv.reader(filenode)
@@ -97,9 +96,9 @@ def import_excel():
 				#time.sleep(10)
 			cur_1.execute(sql)
 	
-		if  not r.find("Daily_tfzh_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))):#投放转化
+		if  not r.find("11Daily_tfzh_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))) and r.find("new")<0:#投放转化
 
-			filename=pwd+"1452827692979/"+r
+			filename=pwd+""+r
 			print(filename)
 			filenode=open(filename)
 			reader=csv.reader(filenode)
@@ -111,8 +110,8 @@ def import_excel():
 				#time.sleep(10)
 			cur_1.execute(sql)
 
-		if  not r.find("Daily_zbhs_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))):#投放转化
-			filename=pwd+"1452827692979/"+r
+		if  not r.find("11Daily_zbhs_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))) and r.find("new")<0:#投放转化
+			filename=pwd+""+r
 			print(filename)
 			filenode=open(filename)
 			reader=csv.reader(filenode)
@@ -124,8 +123,8 @@ def import_excel():
 				#time.sleep(10)
 			cur_1.execute(sql)
 
-		if  not r.find("LaunchPaymentAll"):#投放转化
-			filename=pwd+r
+		if  not r.find("11LaunchPaymentAll"):#投放转化
+			filename="/data1/bidata/"+r
 			print(filename)
 			filenode=open(filename)
 			reader=csv.reader(filenode)
@@ -1146,25 +1145,36 @@ def create_json(word,name):
 	file_object.close()
 
 if __name__ == '__main__':
+
 	while(1):
+		# try:
+		# 	conn=pymysql.connect(host='localhost',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
+		# 	cur_1=conn.cursor()
+		# 	import_excel()
+		# 	import_excel_add()
+		# 	user_info_create()
+		# 	export()
+		# 	cur_1.close()
+		# 	conn.commit()
+		# 	conn.close()
+		# except Exception, e:
+		# 	print(e)
+		# print(3)
 		try:
 			conn=pymysql.connect(host='localhost',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
 			cur_1=conn.cursor()
-			import_excel()
-			import_excel_add()
-			user_info_create()
-			export()
+			print(1)
 			import_csv()
 			export_media_1()
 			cur_1.close()
 			conn.commit()
 			conn.close()
 			print time.asctime(time.localtime(time.time()))
-			test_ok()
 		except Exception, e:
 			print(e)
-			
+		test_ok()
 		print time.asctime(time.localtime(time.time()))
+		print("wait")
 		time.sleep(900)
 
 	# conn=pymysql.connect(host='localhost',user='root',passwd='123456',db='zilong_report',port=3306)
