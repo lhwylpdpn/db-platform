@@ -105,14 +105,24 @@ def mediaOverviewJson():
 
     # 计算 fufeilv CPA ROI
     for ii in range(len(newjson)):
-        newjson[ii]["fufeilv"] = newjson[ii]["paid_account"] / float(newjson[ii]["ad_account_new"])  # fufeilv
-        newjson[ii]["CPA"] = newjson[ii]["spend"] / float(newjson[ii]["ad_account_new"])  # CPA
-        newjson[ii]["ROI"] = newjson[ii]["cumulative_moeny"] / float(newjson[ii]["spend"])  # ROI
+        if float(newjson[ii]["ad_account_new"]) != 0:
+            newjson[ii]["fufeilv"] = newjson[ii]["paid_account"] / float(newjson[ii]["ad_account_new"])  # fufeilv
+            newjson[ii]["CPA"] = newjson[ii]["spend"] / float(newjson[ii]["ad_account_new"])  # CPA
+
+            newjson[ii]["fufeilv"] = round(newjson[ii]["fufeilv"], 2)
+            newjson[ii]["CPA"] = round(newjson[ii]["CPA"], 2)
+
+        else:
+            newjson[ii]["fufeilv"] = '-'
+            newjson[ii]["CPA"] = '-'
+
+        if float(newjson[ii]["spend"]) != 0:
+            newjson[ii]["ROI"] = newjson[ii]["cumulative_moeny"] / float(newjson[ii]["spend"])  # ROI
+            newjson[ii]["ROI"] = round(newjson[ii]["ROI"], 2)
+        else:
+            newjson[ii]["ROI"] = '-'
 
         # 将float 保留2位小数
-        newjson[ii]["fufeilv"] = round(newjson[ii]["fufeilv"], 2)
-        newjson[ii]["CPA"] = round(newjson[ii]["CPA"], 2)
-        newjson[ii]["ROI"] = round(newjson[ii]["ROI"], 2)
         newjson[ii]["spend"] = round(newjson[ii]["spend"], 2)
         newjson[ii]["cumulative_flow"] = round(newjson[ii]["cumulative_flow"], 2)
         newjson[ii]["dis"] = round(newjson[ii]["dis"], 2)

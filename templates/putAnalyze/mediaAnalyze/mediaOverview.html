@@ -880,10 +880,14 @@ jQuery(function($) {
         }
     }
     function fufeilv(value,row) {
-        return value + "%";
+        if(value != "-"){
+            return value + "%";
+        }
     }
     function ROI(value,row) {
-        return value + "%";
+        if(value != "-"){
+            return value + "%";
+        }
     }
 </script>
 
