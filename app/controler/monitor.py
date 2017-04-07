@@ -81,7 +81,7 @@ def collect_data():
 	word+="}"
 	create_json(word,"monitor")
 def create_json(word,name):
-	file_object = open(os.getcwd()+'/../../static/json/'+name+'.json','w')
+	file_object = open(os.getcwd()+'/../../../html/json/'+name+'.json','w')
 	file_object.write(word)
 	file_object.close()
 if __name__ == '__main__':
