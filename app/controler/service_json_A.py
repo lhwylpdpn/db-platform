@@ -83,7 +83,7 @@ def import_excel():
 			newlist.append(names)
 	for r in newlist:
 
-		if  not r.find("11Daily_lchy_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))) and r.find("new")<0:#投放转化
+		if  not r.find("Daily_lchy_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))) and r.find("new")<0:#投放转化
 			filename=pwd+""+r
 			print(filename)
 			filenode=open(filename)
@@ -96,7 +96,7 @@ def import_excel():
 				#time.sleep(10)
 			cur_1.execute(sql)
 	
-		if  not r.find("11Daily_tfzh_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))) and r.find("new")<0:#投放转化
+		if  not r.find("Daily_tfzh_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))) and r.find("new")<0:#投放转化
 
 			filename=pwd+""+r
 			print(filename)
@@ -110,20 +110,20 @@ def import_excel():
 				#time.sleep(10)
 			cur_1.execute(sql)
 
-		if  not r.find("11Daily_zbhs_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))) and r.find("new")<0:#投放转化
+		if  not r.find("Daily_zbhs_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))) and r.find("new")<0:#投放转化
 			filename=pwd+""+r
 			print(filename)
 			filenode=open(filename)
 			reader=csv.reader(filenode)
 			sql="truncate zilong_report.re_money;insert into zilong_report.re_money values "
 			for row in reader:
-				sql=sql+"('"+"','".join(row)+"'),"
+				sql=sql+"('"+"','".join(row[0:369])+"'),"
 			sql=sql.strip(',')+";"
 			print("3sql ok")
 				#time.sleep(10)
 			cur_1.execute(sql)
 
-		if  not r.find("11LaunchPaymentAll"):#投放转化
+		if  not r.find("LaunchPaymentAll"):#投放转化
 			filename="/data1/bidata/"+r
 			print(filename)
 			filenode=open(filename)
@@ -929,7 +929,7 @@ group by a.date,a.channel_name,a.agent
 	res=cur_1.fetchall()
 	word="[\n"
 	print(len(res))
-	if len(res)>1:
+	if len(res)>=1:
 		for r in res:
 			word=word+'{'
 			word=word+'"channel_name":"'+str(r[0])+'",'
@@ -1143,23 +1143,24 @@ def create_json(word,name):
 	file_object = open(os.getcwd()+'/../../static/json/'+name+'.json','w')
 	file_object.write(word)
 	file_object.close()
+	print("create_json_"+name)
 
 if __name__ == '__main__':
 
 	while(1):
-		# try:
-		# 	conn=pymysql.connect(host='localhost',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
-		# 	cur_1=conn.cursor()
-		# 	import_excel()
-		# 	import_excel_add()
-		# 	user_info_create()
-		# 	export()
-		# 	cur_1.close()
-		# 	conn.commit()
-		# 	conn.close()
-		# except Exception, e:
-		# 	print(e)
-		# print(3)
+		try:
+			conn=pymysql.connect(host='localhost',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
+			cur_1=conn.cursor()
+			import_excel()
+			import_excel_add()
+			user_info_create()
+			export()
+			cur_1.close()
+			conn.commit()
+			conn.close()
+		except Exception, e:
+			print(e)
+		print(3)
 		try:
 			conn=pymysql.connect(host='localhost',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
 			cur_1=conn.cursor()
