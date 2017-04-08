@@ -110,30 +110,30 @@
     <!--</div>-->
 
     <div>
-        <script>document.write('<table id="table" data-sort-name="date_time" data-sort-order="desc" class="table table-bordered table-hover" data-height=' + ($(window).height() - 300) + '>');</script>
-        <thead>
-            <tr>
-                <th data-field="channel_name" data-sortable="true">　渠道　</th>
-                <th data-field="agent" data-sortable="true">代理商</th>
-                <th data-field="staff" data-sortable="true">负责人</th>
-                <th data-field="date_time" data-sortable="true">　日期　</th>
-                <th data-field="ad_click" data-sortable="true">点击设备</th>
-                <th data-field="ad_action" data-sortable="true">激活设备</th>
-                <th data-field="ad_action_new" data-sortable="true">新增设备</th>
-                <th data-field="ad_account_new" data-sortable="true">新增总账号</th>
-                <th data-field="double_new" data-sortable="true">纯新增账号</th>
-                <th data-field="back_user" data-sortable="true">回流账号</th>
-                <th data-field="paid_account" data-sortable="true">付费账号</th>
-                <th data-field="fufeilv" data-sortable="true" data-formatter="fufeilv" data-align="right">付费率</th>
-                <th data-field="spend" data-sortable="true" data-formatter="spend" data-align="right">折后花费</th>
-                <th data-field="CPA" data-sortable="true">C P A</th>
-                <th data-field="cumulative_flow" data-sortable="true" data-formatter="cumulative_flow" data-align="right">累计流水</th>
-                <th data-field="dis" data-sortable="true">分成比例</th>
-                <th data-field="cumulative_moeny" data-sortable="true" data-formatter="cumulative_moeny" data-align="right">累计净收入</th>
-                <th data-field="ROI" data-sortable="true" data-formatter="ROI" data-align="right">R O I</th>
-            </tr>
-        </thead>
-        <script>document.write('</table>');</script>
+        <table id="table" data-sort-name="date_time" data-sort-order="desc" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th data-field="channel_name" data-sortable="true">　渠道　</th>
+                    <th data-field="agent" data-sortable="true">代理商</th>
+                    <th data-field="staff" data-sortable="true">负责人</th>
+                    <th data-field="date_time" data-sortable="true">　日期　</th>
+                    <th data-field="ad_click" data-sortable="true">点击设备</th>
+                    <th data-field="ad_action" data-sortable="true">激活设备</th>
+                    <th data-field="ad_action_new" data-sortable="true">新增设备</th>
+                    <th data-field="ad_account_new" data-sortable="true">新增总账号</th>
+                    <th data-field="double_new" data-sortable="true">纯新增账号</th>
+                    <th data-field="back_user" data-sortable="true">回流账号</th>
+                    <th data-field="paid_account" data-sortable="true">付费账号</th>
+                    <th data-field="fufeilv" data-sortable="true" data-formatter="fufeilv" data-align="right">付费率</th>
+                    <th data-field="spend" data-sortable="true" data-formatter="spend" data-align="right">折后花费</th>
+                    <th data-field="CPA" data-sortable="true">C P A</th>
+                    <th data-field="cumulative_flow" data-sortable="true" data-formatter="cumulative_flow" data-align="right">累计流水</th>
+                    <th data-field="dis" data-sortable="true">分成比例</th>
+                    <th data-field="cumulative_moeny" data-sortable="true" data-formatter="cumulative_moeny" data-align="right">累计净收入</th>
+                    <th data-field="ROI" data-sortable="true" data-formatter="ROI" data-align="right">R O I</th>
+                </tr>
+            </thead>
+        </table>
     </div>
     <div class="widget-box ui-sortable-handle" id="widget-box-7">
         <div class="widget-header" style="padding-top:2px">
@@ -182,7 +182,7 @@
     $("#table").bootstrapTable({
         url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name&agent&staff",
         pagination: true, //开启分页
-        pageSize: 20,
+        pageSize: 10,
     });
 
     $("#showHideTable").click(function(){
@@ -889,6 +889,6 @@ jQuery(function($) {
             return value + "%";
         }
     }
-</script>
+</script><!--结束设置数据格式-->
 
 {% endblock content %}

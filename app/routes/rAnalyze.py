@@ -113,14 +113,14 @@ def mediaOverviewJson():
             newjson[ii]["CPA"] = round(newjson[ii]["CPA"], 2)
 
         else:
-            newjson[ii]["fufeilv"] = '-'
-            newjson[ii]["CPA"] = '-'
+            newjson[ii]["fufeilv"] = '0'
+            newjson[ii]["CPA"] = '0'
 
         if float(newjson[ii]["spend"]) != 0:
             newjson[ii]["ROI"] = newjson[ii]["cumulative_moeny"] / float(newjson[ii]["spend"])  # ROI
             newjson[ii]["ROI"] = round(newjson[ii]["ROI"], 2)
         else:
-            newjson[ii]["ROI"] = '-'
+            newjson[ii]["ROI"] = '0'
 
         # 将float 保留2位小数
         newjson[ii]["spend"] = round(newjson[ii]["spend"], 2)
