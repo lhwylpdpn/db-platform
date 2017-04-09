@@ -8,6 +8,7 @@ from app.controler.power_API import get_business_json
 analyzeBp = Blueprint('analyze', __name__, url_prefix="/analyze")
 
 
+# 媒体概览相关
 @analyzeBp.route('/mediaOverview')
 def mediaOverview():
     return render_template("putAnalyze/mediaAnalyze/mediaOverview.html", title=U"媒体概览", sjs=random.random())
@@ -129,3 +130,10 @@ def mediaOverviewJson():
         newjson[ii]["cumulative_moeny"] = round(newjson[ii]["cumulative_moeny"], 2)
 
     return json.dumps(newjson)  # 将dict 转化成 字符串
+
+
+# 新增转化相关
+@analyzeBp.route('/newTransfer')
+def newTransfer():
+    return render_template("putAnalyze/mediaAnalyze/newTransfer.html", title=U"新增转化", sjs=random.random())
+

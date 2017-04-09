@@ -1,0 +1,936 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">首页</a>
+        </li>
+        <li>
+            <a href="#">投放分析</a>
+        </li>
+        <li>
+            <a href="#">媒体分析</a>
+        </li>
+        <li class="active">新增转化</li>
+    </ul><!-- /.breadcrumb -->
+</div>
+<div class="page-content">
+
+    <script type="text/javascript" src="/static/js/bootstrap-table.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap-table-multiple-sort.js"></script>
+
+    <link rel="stylesheet" href="/static/css/bootstrap-table.css">
+    <link rel="stylesheet" href="/static/css/Fliter.css">
+
+    <div class="btn-group">
+        <button id ="time_1" type="button" class="btn btn-white btn-sm btn-primary">昨日</button>
+        <button id ="time_2" type="button" class="btn btn-white btn-sm btn-primary">前日</button>
+        <button id ="time_7" type="button" class="btn btn-white btn-sm btn-primary">近7天</button>
+        <button id ="time_15" type="button" class="btn btn-white btn-sm btn-primary">近15天</button>
+        <button id ="time_30" type="button" class="btn btn-white btn-sm btn-primary">近30天</button>
+        <button id ="timeAll" type="button" class="btn btn-white btn-sm btn-primary">历史所有</button>
+        <!--<button id ="timeFromTo" type="button" class="btn btn-white btn-sm btn-primary">2017-02-01 -&#45;&#45; 2017-02-30</button>-->
+    </div>|
+    <input id="timeFrom" type="date" class="btn btn-white btn-sm btn-primary" value="" style="height:27px">--
+    <input id="timeTo" type="date" class="btn btn-white btn-sm btn-primary" value="" style="height:27px">
+
+    <p></p>
+    <div>
+        <div id="demo1"></div>
+        <div id="demo2"></div>
+        <div id="demo3"></div>
+
+        <div align="center">
+            <button id="chaxun" class="btn btn-white btn-sm btn-primary">查询</button>
+        </div>
+    </div>
+    <div class="hr hr-8 hr-dotted"></div>
+    <div id="main-widget-container" styledelete="height:84px;background:#EEEEEE">
+
+        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-1" >
+            <div class="widget-box " id="widget-box-1">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">广告点击设备</div>
+                </div>
+            </div>
+            <div class="widget-box " id="widget-box-11">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">广告激活设备</div>
+                </div>
+            </div>
+            <div class="widget-box " id="widget-box-111">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">自然激活设备</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-2">
+            <div class="widget-box " id="widget-box-2">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">----------></div>
+                </div>
+            </div>
+            <div class="widget-box " id="widget-box-22">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">总计新增账号</div>
+                </div>
+            </div>
+            <div class="widget-box " id="widget-box-222">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">自然新增账号</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-3">
+            <div class="widget-box" id="widget-box-3">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">回流账号</div>
+                </div>
+            </div>
+            <div class="widget-box" id="widget-box-33">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">纯新增账号</div>
+                </div>
+            </div>
+            <div class="widget-box" id="widget-box-333">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div class="infobox-content">.</div>
+                    <div class="infobox-content">----------></div>
+                    <div class="infobox-content">.</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-4">
+            <div class="widget-box" id="widget-box-4">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">活跃5分钟账号</div>
+                </div>
+            </div><div class="widget-box" id="widget-box-44">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">活跃5分钟账号</div>
+                </div>
+            </div><div class="widget-box" id="widget-box-444">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">活跃5分钟账号</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-5">
+            <div class="widget-box" id="widget-box-5">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div class="infobox-co1ntent"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">31级以上玩家</div>
+                </div>
+            </div><div class="widget-box" id="widget-box-55">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div class="infobox-co1ntent"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">31级以上玩家</div>
+                </div>
+            </div><div class="widget-box" id="widget-box-555">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div class="infobox-co1ntent"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">31级以上玩家</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-6">
+            <div class="widget-box" id="widget-box-6">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">当日活跃级别</div>
+                </div>
+            </div>
+            <div class="widget-box" id="widget-box-66">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">当日活跃级别</div>
+                </div>
+            </div>
+            <div class="widget-box" id="widget-box-666">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content"></div>
+                    <div class="infobox-content">当日活跃级别</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <table id="table" data-sort-name="date_time" data-sort-order="desc" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th data-field="channel_name" data-sortable="true">　渠道　</th>
+                    <th data-field="agent" data-sortable="true">代理商</th>
+                    <th data-field="staff" data-sortable="true">负责人</th>
+                    <th data-field="date_time" data-sortable="true">　日期　</th>
+                    <th data-field="ad_click" data-sortable="true">花费总额</th>
+                    <th data-field="ad_action" data-sortable="true">点击设备</th>
+                    <th data-field="ad_action_new" data-sortable="true">激活设备</th>
+                    <th data-field="ad_account_new" data-sortable="true">新增设备</th>
+                    <th data-field="double_new" data-sortable="true">登录账号总数</th>
+                    <th data-field="back_user" data-sortable="true">回流账号</th>
+                    <th data-field="paid_account" data-sortable="true">纯新增账号</th>
+                    <th data-field="fufeilv" data-sortable="true">创建角色</th>
+                    <th data-field="spend" data-sortable="true">活跃5分钟</th>
+                    <th data-field="CPA" data-sortable="true">31级以上用户</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="widget-box ui-sortable-handle" id="widget-box-7">
+        <div class="widget-header" style="padding-top:2px">
+            <button id="ad_click" class="widget-title">花费总额</button>
+            <button id="ad_action" class="widget-title">点击设备</button>
+            <button id="ad_action_new" class="widget-title">激活设备</button>
+            <button id="ad_account_new" class="widget-title">新增设备</button>
+            <button id="double_new" class="widget-title">登录账号总数</button>
+            <button id="back_user" class="widget-title">回流账号</button>
+            <button id="paid_account" class="widget-title">纯新增账号</button>
+            <button id="fufeilv" class="widget-title">创建角色</button>
+            <button id="spend" class="widget-title">活跃5分钟</button>
+            <button id="CPA" class="widget-title">31级以上用户</button>
+            <div class="widget-toolbar">
+                <!--<a href="#" data-action="fullscreen" class="orange2">-->
+                    <!--<i class="ace-icon fa fa-expand"></i>-->
+                <!--</a>-->
+
+                <!--<a href="#" data-action="reload">-->
+                    <!--<i class="ace-icon fa fa-refresh"></i>-->
+                <!--</a>-->
+
+                <a href="#" data-action="collapse">
+                    <i class="ace-icon fa fa-chevron-up"></i>
+                </a>
+
+                <a href="#" data-action="close">
+                    <i class="ace-icon fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="widget-body">
+            <div id="container" style="min-width:400px;height:300px"></div>
+        </div>
+    </div>
+
+</div><!-- /.page-content -->
+
+<script type="text/javascript"> <!-- 初始化table -->
+    $("#table").bootstrapTable({
+        url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name&agent&staff",
+        pagination: true, //开启分页
+        pageSize: 10,
+    });
+
+    $("#showHideTable").click(function(){
+        $(".bootstrap-table").hide();
+    });
+
+    //以下三列用于筛选 不需要显示
+    $("#table").bootstrapTable('hideColumn', 'channel_name');
+    $("#table").bootstrapTable('hideColumn', 'agent');
+    $("#table").bootstrapTable('hideColumn', 'staff');
+
+
+</script><!-- 初始化table -->
+
+<script type="text/javascript"> <!-- 日历筛选 -->
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+
+    //入参 2016-01-10格式的字符串
+    function filterTime(fromTime,toTime){
+        //先将条件筛选清空
+        $(".J_FilterQueryClear").trigger("click");
+
+        var fromTimeCuo = Date.parse(new Date(fromTime));
+        var toTimeCuo = Date.parse(new Date(toTime));
+        var tianshu = (toTimeCuo - fromTimeCuo)/1000/60/60/24;
+
+        var fromToTime = [fromTime];
+        var flag = fromTimeCuo
+        for (var i = 0 ; i < tianshu ; i++ ){
+            flag = flag+1000*60*60*24;
+            fromToTime.push( new Date(flag).Format("yyyy-MM-dd") );
+        }
+        //重新请求数据
+        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name&agent&staff" } );
+
+        $("#table").bootstrapTable('filterBy',{date_time : fromToTime});
+
+        //日期筛选完成后,设置piece chartdata
+        setTimeout("setPieceChart();",1000);
+    }
+
+    $("#time_1").click(function(){
+        var time = new Date();
+        var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
+        console.log(timeTo);
+
+        $("#timeFrom").val(timeTo);
+        $("#timeTo").val(timeTo);
+        //???????????????设置背景颜色,和其他去掉背景颜色,下边的同样需要
+        filterTime(timeTo, timeTo);
+    });
+    $("#time_2").click(function(){
+        var time = new Date();
+        var timeTo = new Date(time - 1000*60*60*24*2).Format("yyyy-MM-dd");
+        console.log(timeTo);
+        $("#timeFrom").val(timeTo);
+        $("#timeTo").val(timeTo);
+        filterTime(timeTo, timeTo);
+    });
+    $("#time_7").click(function(){
+        var time = new Date();
+        var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
+        var timeFrom = new Date(time - 1000*60*60*24*7).Format("yyyy-MM-dd");
+        console.log(timeTo,timeFrom);
+        $("#timeFrom").val(timeFrom);
+        $("#timeTo").val(timeTo);
+        filterTime(timeFrom, timeTo);
+    });
+    $("#time_15").click(function(){
+        var time = new Date();
+        var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
+        var timeFrom = new Date(time - 1000*60*60*24*15).Format("yyyy-MM-dd");
+        console.log(timeTo,timeFrom);
+        $("#timeFrom").val(timeFrom);
+        $("#timeTo").val(timeTo);
+        filterTime(timeFrom, timeTo);
+    });
+    $("#time_30").click(function(){
+        var time = new Date();
+        var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
+        var timeFrom = new Date(time - 1000*60*60*24*30).Format("yyyy-MM-dd");
+        console.log(timeTo,timeFrom);
+        $("#timeFrom").val(timeFrom);
+        $("#timeTo").val(timeTo);
+        filterTime(timeFrom, timeTo);
+    });
+    $("#timeAll").click(function(){
+        var time = new Date();
+        var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
+        var timeFrom = "2015-01-01";
+        console.log(timeTo,timeFrom);
+        $("#timeFrom").val(timeFrom);
+        $("#timeTo").val(timeTo);
+        filterTime(timeFrom, timeTo);
+    });
+    $("#timeFrom").change(function(){
+        var timeFrom = $(this).val();
+        var timeTo = $("#timeTo").val();
+        filterTime(timeFrom, timeTo);
+
+    });
+    $("#timeTo").change(function(){
+        var timeTo = $(this).val();
+        var timeFrom = $("#timeFrom").val();
+        filterTime(timeFrom, timeTo);
+
+    });
+
+    //初始化From To
+    $("#timeFrom").val("2015-01-01");
+
+    var time = new Date();
+    var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
+    $("#timeTo").val(timeTo);
+
+</script><!-- 日历筛选 -->
+
+<script src="/static/js/Filter.js"></script><!--筛选需要的js-->
+<script type="text/javascript">
+
+    var demo1 = null;
+    var channel_name = [];
+
+    var demo2 = null;
+    var agent = [];
+
+    var demo3 = null;
+    var staff = [];
+
+    $.getJSON("/analyze/mediaOverviewJsonTJ?{{sjs}}", function(data){
+        for(var i = 0 ; i<data.length ; i++){
+            var flagId=data[i]["channel_name"];
+            var flagText=data[i]["channel_name"];
+            if(channel_name.length != 0){ //判断数组是否为空,为空直接就push
+                var flag = true;
+                for(var j = 0 ; j<channel_name.length ; j++){
+                    if(channel_name[j]["id"] == flagId){
+                        flag = false;
+                    }
+                }
+                if(flag){
+                    channel_name.push({"id": flagId ,"text": flagText});
+                }
+            }else{
+                channel_name.push({"id": flagId ,"text": flagText});
+            }
+        }
+
+        demo1 = $('#demo1').comboboxfilter({
+            url: '',
+            text: "渠道",
+            scope: 'FilterQuery3',
+            multiple: true,
+            data:channel_name,
+            onChange:function(newValue){
+            $('#demo10').val(newValue);
+                newValue1 = newValue;
+            }
+        });
+
+
+        for(var i = 0 ; i<data.length ; i++){
+            var flagId=data[i]["agent"];
+            var flagText=data[i]["agent"];
+            if(agent.length != 0){ //判断数组是否为空,为空直接就push
+                var flag = true;
+                for(var j = 0 ; j<agent.length ; j++){
+                    if(agent[j]["id"] == flagId){
+                        flag = false;
+                    }
+                }
+                if(flag){
+                    agent.push({"id": flagId ,"text": flagText});
+                }
+            }else{
+                agent.push({"id": flagId ,"text": flagText});
+            }
+        }
+
+        demo2 = $('#demo2').comboboxfilter({
+            url: '',
+            text: "代理商",
+            scope: 'FilterQuery3',
+            multiple: true,
+            data:agent,
+            onChange:function(newValue){
+                $('#demo20').val(newValue);
+            newValue1 = newValue;
+            }
+        });
+
+
+        for(var i = 0 ; i<data.length ; i++){
+            var flagId=data[i]["staff"];
+            var flagText=data[i]["staff"];
+            if(staff.length != 0){ //判断数组是否为空,为空直接就push
+                var flag = true;
+                for(var j = 0 ; j<staff.length ; j++){
+                    if(staff[j]["id"] == flagId){
+                        flag = false;
+                    }
+                }
+                if(flag){
+                    staff.push({"id": flagId ,"text": flagText});
+                }
+            }else{
+                staff.push({"id": flagId ,"text": flagText});
+            }
+        }
+
+        demo3 = $('#demo3').comboboxfilter({
+            url: '',
+            text: "负责人",
+            scope: 'FilterQuery3',
+            multiple: true,
+            data:staff,
+            onChange:function(newValue){
+                $('#demo30').val(newValue);
+            newValue1 = newValue;
+            }
+        });
+    });
+
+
+    // 时间筛选+条件筛选
+    $("#chaxun").click(function(){
+        console.log(demo1.returnValue($("#demo1")));
+        console.log(demo2.returnValue($("#demo2")));
+        console.log(demo3.returnValue($("#demo3")));
+
+        var fromTime = $("#timeFrom").val();
+        var toTime = $("#timeTo").val();
+
+        var fromTimeCuo = Date.parse(new Date(fromTime));
+        var toTimeCuo = Date.parse(new Date(toTime));
+        var tianshu = (toTimeCuo - fromTimeCuo)/1000/60/60/24;
+
+        var fromToTime = [fromTime];
+        var flag = fromTimeCuo
+        for (var i = 0 ; i < tianshu ; i++ ){
+            flag = flag+1000*60*60*24;
+            fromToTime.push( new Date(flag).Format("yyyy-MM-dd") );
+        }
+
+        var channel_name_filter = demo1.returnValue($("#demo1"));
+
+        var agent_filter = demo2.returnValue($("#demo2"));
+
+        var staff_filter = demo3.returnValue($("#demo3"));
+
+        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name=" + channel_name_filter + "&agent=" + agent_filter + "&staff=" + staff_filter} );
+
+        $("#table").bootstrapTable('filterBy',{
+            date_time : fromToTime,
+        });
+
+        //条件筛选完成后,重新设置 piece chart
+        setTimeout("setPieceChart();",1000);
+
+    });
+
+
+</script>
+
+<script src="/static/js/highcharts.js"></script><!--图表需要的js-->
+<script type="text/javascript">
+    function setChart(title,danwei,data){
+        $('#container').highcharts({
+            chart: {
+                zoomType: 'x'
+            },
+            title: {
+                text: title
+            },
+            <!--subtitle: {-->
+                <!--text: document.ontouchstart === undefined ?-->
+                <!--'鼠标拖动可以进行缩放' : '手势操作进行缩放'-->
+            <!--},-->
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    millisecond: '%H:%M:%S.%L',
+                    second: '%H:%M:%S',
+                    minute: '%H:%M',
+                    hour: '%H:%M',
+                    day: '%m-%d',
+                    week: '%m-%d',
+                    month: '%Y-%m',
+                    year: '%Y'
+                }
+            },
+            tooltip: {
+                dateTimeLabelFormats: {
+                    millisecond: '%H:%M:%S.%L',
+                    second: '%H:%M:%S',
+                    minute: '%H:%M',
+                    hour: '%H:%M',
+                    day: '%Y-%m-%d',
+                    week: '%m-%d',
+                    month: '%Y-%m',
+                    year: '%Y'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: danwei
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: {
+                            x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: 1
+                        },
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    marker: {
+                        radius: 2
+                    },
+                    lineWidth: 1,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+            series: [{
+                type: 'area',
+                name: '数量',
+                data: data
+            }]
+        });
+    }
+
+</script><!--图表需要的js setChart(data)-->
+
+<script type="text/javascript"><!--筛选后的数据处理-->
+
+    var ad_click_dataS = [];
+    var ad_action_dataS = [];
+    var ad_action_new_dataS = [];
+    var ad_account_new_dataS = [];
+    var double_new_dataS = [];
+    var back_user_dataS = [];
+    var paid_account_dataS =[];
+    var fufeilv_dataS = [];
+    var spend_dataS = [];
+    var CPA_dataS = [];
+    var cumulative_flow_dataS = [];
+    var dis_dataS = [];
+    var cumulative_moeny_dataS = [];
+    var ROI_dataS = [];
+
+    function setPieceChart(){ //设置快的数据和获取chart的数据
+        var dataS = $("#table").bootstrapTable('getData');
+
+        //处理piece
+        var adActionNew = 0; //ad_action_new
+        var adAccountNew = 0;  //ad_account_new
+        var paidAccount = 0; //paid_account
+        var cumulativeFlow = 0; //cumulative_flow
+        var spend = 0; //spend
+        var ROI = 0; //ROI
+        var dataLength = dataS.length;
+
+        //处理chartdata //先将数据清空
+        ad_click_dataS = [];
+        ad_action_dataS = [];
+        ad_action_new_dataS =[];
+        ad_account_new_dataS =[];
+        double_new_dataS = [];
+        back_user_dataS = [];
+        paid_account_dataS = [];
+        fufeilv_dataS = [];
+        spend_dataS = [];
+        CPA_dataS = [];
+        cumulative_flow_dataS = [];
+        dis_dataS = [];
+        cumulative_moeny_dataS = [];
+        ROI_dataS = [];
+
+        for(var i=0 ; i<dataLength;i++){
+            adActionNew = adActionNew + Number(dataS[i]["ad_action_new"]);
+            adAccountNew = adAccountNew + Number(dataS[i]["ad_account_new"]);
+            paidAccount = paidAccount + Number(dataS[i]["paid_account"]);
+            cumulativeFlow = cumulativeFlow + Number(dataS[i]["cumulative_flow"]);
+            spend = spend + Number(dataS[i]["spend"]);
+            ROI = ROI + Number(dataS[i]["ROI"]);
+
+            var UTCdata = Date.parse(new Date(dataS[i]["date_time"]));
+
+            var ad_click_data = Number(dataS[i]["ad_click"]);
+            ad_click_dataS.push([UTCdata,ad_click_data]);
+
+            var ad_action_data = Number(dataS[i]["ad_action"]);
+            ad_action_dataS.push([UTCdata,ad_action_data]);
+
+            var ad_action_new_data = Number(dataS[i]["ad_action_new"]);
+            ad_action_new_dataS.push([UTCdata,ad_action_new_data]);
+
+            var ad_account_new_data = Number(dataS[i]["ad_account_new"]);
+            ad_account_new_dataS.push([UTCdata,ad_account_new_data]);
+
+            var double_new_data = Number(dataS[i]["double_new"]);
+            double_new_dataS.push([UTCdata,double_new_data]);
+
+            var back_user_data = Number(dataS[i]["back_user"]);
+            back_user_dataS.push([UTCdata,back_user_data]);
+
+            var paid_account_data = Number(dataS[i]["paid_account"]);
+            paid_account_dataS.push([UTCdata,paid_account_data]);
+
+            var fufeilv_data = Number(dataS[i]["fufeilv"]);
+            fufeilv_dataS.push([UTCdata,fufeilv_data]);
+
+            var spend_data = Number(dataS[i]["spend"]);
+            spend_dataS.push([UTCdata,spend_data]);
+
+            var CPA_data = Number(dataS[i]["CPA"]);
+            CPA_dataS.push([UTCdata,CPA_data]);
+
+            var cumulative_flow_data = Number(dataS[i]["cumulative_flow"]);
+            cumulative_flow_dataS.push([UTCdata,cumulative_flow_data]);
+
+            var dis_data = Number(dataS[i]["dis"]);
+            dis_dataS.push([UTCdata,dis_data]);
+
+            var cumulative_moeny_data = Number(dataS[i]["cumulative_moeny"]);
+            cumulative_moeny_dataS.push([UTCdata,cumulative_moeny_data]);
+
+            var ROI_data = Number(dataS[i]["ROI"]);
+            ROI_dataS.push([UTCdata,ROI_data]);
+
+
+
+        }
+
+        $($("#widget-box-1").children("div").children("div")[0]).text(adActionNew);
+        $($("#widget-box-1").children("div").children("div")[1]).text( (adActionNew/dataLength).toFixed(2));
+
+        $($("#widget-box-2").children("div").children("div")[0]).text(adAccountNew);
+        $($("#widget-box-2").children("div").children("div")[1]).text( (adAccountNew/dataLength).toFixed(2));
+
+        $($("#widget-box-3").children("div").children("div")[0]).text(paidAccount);
+        $($("#widget-box-3").children("div").children("div")[1]).text( (paidAccount/dataLength).toFixed(2));
+
+        $($("#widget-box-4").children("div").children("div")[0]).text(cumulativeFlow.toFixed(2));
+        $($("#widget-box-4").children("div").children("div")[1]).text( (cumulativeFlow/dataLength).toFixed(2));
+
+        $($("#widget-box-5").children("div").children("div")[0]).text(spend.toFixed(2));
+        $($("#widget-box-5").children("div").children("div")[1]).text( (spend/dataLength).toFixed(2));
+
+        $($("#widget-box-6").children("div").children("div")[0]).text(ROI.toFixed(2));
+        $($("#widget-box-6").children("div").children("div")[1]).text( (ROI/dataLength).toFixed(2));
+
+        $("#ad_click").trigger("click");
+
+    }
+
+    setTimeout("setPieceChart();",1000);
+
+    $("#ad_click").click(function(){
+        //???????????????设置背景颜色,和其他去掉背景颜色
+        setChart("点击设备","单位:个",ad_click_dataS);
+    })
+
+    $("#ad_action").click(function(){
+
+        setChart("激活设备","单位:个",ad_action_dataS);
+    })
+
+    $("#ad_action_new").click(function(){
+        //???????????????
+        setChart("新增设备","单位:个",ad_action_new_dataS);
+    })
+
+    $("#ad_account_new").click(function(){
+        //???????????????
+        setChart("新增总账号","单位:个",ad_account_new_dataS);
+    })
+
+    $("#double_new").click(function(){
+        //???????????????
+        setChart("纯新增账号","单位:个",double_new_dataS);
+    })
+
+    $("#back_user").click(function(){
+        //???????????????
+        setChart("回流账号","单位:个",back_user_dataS);
+    })
+
+    $("#paid_account").click(function(){
+        //??????????????
+        setChart("付费账号","单位:个",paid_account_dataS);
+    })
+
+    $("#fufeilv").click(function(){
+        //???????????????
+        setChart("付费率","单位:百分百",fufeilv_dataS);
+    })
+
+    $("#spend").click(function(){
+        //???????????????
+        setChart("折后花费","单位:元",spend_dataS);
+    })
+
+    $("#CPA").click(function(){
+        //???????????????
+        setChart("C P A","单位:元",CPA_dataS);
+    })
+
+    $("#cumulative_flow").click(function(){
+        //???????????????
+        setChart("累计流水","单位:元",cumulative_flow_dataS);
+    })
+
+    $("#dis").click(function(){
+        //???????????????
+        setChart("分成比例","单位:百分百",dis_dataS);
+    })
+
+    $("#cumulative_moeny").click(function(){
+        //???????????????
+        setChart("累计净收入","单位:元",cumulative_moeny_dataS);
+    })
+
+    $("#ROI").click(function(){
+        //???????????????cumulative_moeny
+        setChart("R O I","单位:百分百",ROI_dataS);
+    })
+</script><!--筛选后的数据处理-->
+
+<script src="/static/ace/js/jquery-ui.custom.min.js"></script><!--拖拽需要的js-->
+<script type="text/javascript">
+jQuery(function($) {
+    // widget boxes
+    // widget box drag & drop example
+    $('.widget-container-col').sortable({
+        connectWith: '.widget-container-col',
+		items:'> .widget-box',
+	    handle: ace.vars['touch'] ? '.widget-title' : false,
+	    cancel: '.fullscreen',
+	    opacity:0.8,
+	    revert:true,
+	    forceHelperSize:true,
+	    placeholder: 'widget-placeholder',
+	    forcePlaceholderSize:true,
+	    tolerance:'pointer',
+		start: function(event, ui) {
+		    //when an element is moved, it's parent becomes empty with almost zero height.
+		    //we set a min-height for it to be large enough so that later we can easily drop elements back onto it
+		    ui.item.parent().css({'min-height':ui.item.height()})
+		    //ui.sender.css({'min-height':ui.item.height() , 'background-color' : '#F5F5F5'})
+		},
+	    update: function(event, ui) {
+		    ui.item.parent({'min-height':''})
+		    //p.style.removeProperty('background-color');
+
+
+		    //save widget positions
+		    var widget_order = {}
+		    $('.widget-container-col').each(function() {
+			    var container_id = $(this).attr('id');
+			    widget_order[container_id] = []
+
+
+			    $(this).find('> .widget-box').each(function() {
+		            var widget_id = $(this).attr('id');
+		            widget_order[container_id].push(widget_id);
+		            //now we know each container contains which widgets
+			    });
+			});
+
+		    ace.data.set('mediaOverview', 'widget-order', widget_order, null, true);
+		}
+	});
+
+
+    //when a widget is shown/hidden/closed, we save its state for later retrieval
+    $(document).on('shown.ace.widget hidden.ace.widget closed.ace.widget', '.widget-box', function(event) {
+        var widgets = ace.data.get('mediaOverview', 'widget-state', true);
+        if(widgets == null) widgets = {}
+
+        var id = $(this).attr('id');
+        widgets[id] = event.type;
+	    ace.data.set('mediaOverview', 'widget-state', widgets, null, true);
+    });
+
+
+    (function() {
+        //restore widget order
+	    var container_list = ace.data.get('mediaOverview', 'widget-order', true);
+	    if(container_list) {
+		    for(var container_id in container_list) if(container_list.hasOwnProperty(container_id)) {
+
+                var widgets_inside_container = container_list[container_id];
+                if(widgets_inside_container.length == 0) continue;
+
+                for(var i = 0; i < widgets_inside_container.length; i++) {
+                    var widget = widgets_inside_container[i];
+                    $('#'+widget).appendTo('#'+container_id);
+                }
+
+            }
+	    }
+
+
+        //restore widget state
+        var widgets = ace.data.get('mediaOverview', 'widget-state', true);
+        if(widgets != null) {
+            for(var id in widgets) if(widgets.hasOwnProperty(id)) {
+                var state = widgets[id];
+                var widget = $('#'+id);
+                if
+                (
+                    (state == 'shown' && widget.hasClass('collapsed'))
+                    ||
+                    (state == 'hidden' && !widget.hasClass('collapsed'))
+                )
+                {
+                    widget.widget_box('toggleFast');
+                }
+                else if(state == 'closed') {
+                    widget.widget_box('closeFast');
+                }
+            }
+        }
+
+        //reset saved positions and states
+        $('#reset-widgets').on('click', function() {
+            ace.data.remove('mediaOverview', 'widget-state');
+            ace.data.remove('mediaOverview', 'widget-order');
+            document.location.reload();
+        });
+
+    })();
+
+});
+
+</script>
+
+<script type="text/javascript"> <!--开始设置数据格式-->
+    //千分位转化
+    function toThousands(num) {
+        return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+    }
+
+    <!--function spend(value,row) {-->
+        <!--var values = value.toString().split(".");-->
+        <!--if(typeof(values[1]) == "undefined"){-->
+            <!--return toThousands(values[0]).toString();-->
+        <!--}else{-->
+            <!--return toThousands(values[0]).toString() + "."+ values[1];-->
+        <!--}-->
+    <!--}-->
+
+</script><!--结束设置数据格式-->
+
+{% endblock content %}
