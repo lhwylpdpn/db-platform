@@ -9,8 +9,10 @@ monitorBp = Blueprint('monitor', __name__, url_prefix="/monitor")
 def index():
 	loginlist="3333"
 	return render_template("monitor/monitor.html",title=U"网站统计",loginlist=loginlist)
+
+
 @monitorBp.route('/monitorJson')
 def monitorJson():
-    jsons = json.loads(monitor_data())  # 字符串传化为json 对象
-    print(jsons)
-    return json.dumps(jsons)
+	jsons = json.loads(monitor_data())  # 字符串传化为json 对象
+	print(jsons)
+	return json.dumps(jsons)
