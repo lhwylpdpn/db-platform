@@ -291,7 +291,7 @@ def monitor_data():# 收集监控所需要的系统文件数据
 	word="["
 	for x in xrange(0,len(value)):
 		status=""
-		if value[x][1]<datetime.date.today():
+		if value[x][1]=="0":
 			status="error"
 		else:
 			status="ok"
