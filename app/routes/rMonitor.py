@@ -10,7 +10,7 @@ def index():
     return render_template("monitor/monitor.html",title=U"网站统计")
 
 
-@app.route('/monitorJson')
+@monitorBp.route('/monitorJson')
 def monitorJson():
     jsons = json.loads(monitor_data())  # 字符串传化为json 对象
     print json.dumps(jsons["body"])
