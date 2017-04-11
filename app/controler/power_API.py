@@ -288,11 +288,11 @@ def monitor_data():# 收集监控所需要的系统文件数据
 		#print(time.asctime(time.localtime(statinfo.st_mtime)))
 	else:
 		value.append(["test_json","0"])	
-	word="{"
+	word="["
 	for x in xrange(0,len(value)):
-		word+='"'+str(value[x][0])+'":"'+str(value[x][1])+'",'
+		word+='{"file":"'+str(value[x][0])+'","time":"'+str(value[x][1])+'"},'
 	word=word[0:-1]
-	word+="}"
+	word+="]"
 	return word
 #if __name__ == '__main__':
 #	print(get_business_json("test.json","admin"))
