@@ -178,6 +178,48 @@
 
 </div><!-- /.page-content -->
 
+<script type="text/javascript"> <!--开始设置数据格式-->
+    //千分位转化
+    function toThousands(num) {
+        return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+    }
+
+    function spend(value,row) {
+        var values = value.toString().split(".");
+        if(typeof(values[1]) == "undefined"){
+            return toThousands(values[0]).toString();
+        }else{
+            return toThousands(values[0]).toString() + "."+ values[1];
+        }
+    }
+    function cumulative_flow(value,row) {
+        var values = value.toString().split(".");
+        if(typeof(values[1]) == "undefined"){
+            return toThousands(values[0]).toString();
+        }else{
+            return toThousands(values[0]).toString() + "."+ values[1];
+        }
+    }
+    function cumulative_moeny(value,row) {
+        var values = value.toString().split(".");
+        if(typeof(values[1]) == "undefined"){
+            return toThousands(values[0]).toString();
+        }else{
+            return toThousands(values[0]).toString() + "."+ values[1];
+        }
+    }
+    function fufeilv(value,row) {
+        if(value != "-"){
+            return value + "%";
+        }
+    }
+    function ROI(value,row) {
+        if(value != "-"){
+            return value + "%";
+        }
+    }
+</script><!--结束设置数据格式-->
+
 <script type="text/javascript"> <!-- 初始化table -->
     $("#table").bootstrapTable({
         url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name&agent&staff",
@@ -849,47 +891,5 @@ jQuery(function($) {
 });
 
 </script>
-
-<script type="text/javascript"> <!--开始设置数据格式-->
-    //千分位转化
-    function toThousands(num) {
-        return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
-    }
-
-    function spend(value,row) {
-        var values = value.toString().split(".");
-        if(typeof(values[1]) == "undefined"){
-            return toThousands(values[0]).toString();
-        }else{
-            return toThousands(values[0]).toString() + "."+ values[1];
-        }
-    }
-    function cumulative_flow(value,row) {
-        var values = value.toString().split(".");
-        if(typeof(values[1]) == "undefined"){
-            return toThousands(values[0]).toString();
-        }else{
-            return toThousands(values[0]).toString() + "."+ values[1];
-        }
-    }
-    function cumulative_moeny(value,row) {
-        var values = value.toString().split(".");
-        if(typeof(values[1]) == "undefined"){
-            return toThousands(values[0]).toString();
-        }else{
-            return toThousands(values[0]).toString() + "."+ values[1];
-        }
-    }
-    function fufeilv(value,row) {
-        if(value != "-"){
-            return value + "%";
-        }
-    }
-    function ROI(value,row) {
-        if(value != "-"){
-            return value + "%";
-        }
-    }
-</script><!--结束设置数据格式-->
 
 {% endblock content %}
