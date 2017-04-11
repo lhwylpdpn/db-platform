@@ -175,8 +175,8 @@ round(sum(b.dis_spend)/a.ad_account_new,2) as cpa
 ,d.money
 FROM (select DATE_FORMAT(substring_index(ad_action_time," ",1),"%Y-%m-%d") as date,
 channel_name,agent,count(game_userid) as ad_account_new,
-sum(case when a.game_type='ÐÂÔö' then 1 else 0 end) as double_new , 
-sum(case when a.game_type='»ØÁ÷' then 1 else 0 end) as huiliu,
+sum(case when a.game_type='æ–°å¢ž' then 1 else 0 end) as double_new , 
+sum(case when a.game_type='å›žæµ' then 1 else 0 end) as huiliu,
 sum(case when a.game_pay_money>0 then 1 else 0 end) as fufeizhanghao
 from ad_detail_IDFA a group by DATE_FORMAT(substring_index(ad_action_time," ",1),"%Y-%m-%d"),channel_name,agent) a,
 spend b,
@@ -940,6 +940,8 @@ group by a.date,a.channel_name,a.agent
 			word=word+'"ad_action":"'+str(int(r[5]))+'",'
 			word=word+'"ad_action_new":"'+str(int(r[6]))+'",'
 			word=word+'"ad_account_new":"'+str(int(r[7]))+'",'
+			print(str(int(r[8])))
+			print(r[8])
 			word=word+'"double_new":"'+str(int(r[8]))+'",'
 			word=word+'"back_user":"'+str(int(r[9]))+'",'
 			word=word+'"paid_account":"'+str(int(r[10]))+'",'
