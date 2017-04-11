@@ -205,7 +205,93 @@ def get_business_json(filename,username):#usernames是一维数组传入用户�
 	return result
 
 
+def monitor_data():# 收集监控所需要的系统文件数据
+	value=[]
+	#for wanggang
+	pwd_yuan="/data1/bidata"
 
+	if  os.path.exists(pwd_yuan+"/LaunchPaymentAll.csv"):
+		statinfo=os.stat(pwd_yuan+"/LaunchPaymentAll.csv")
+		value.append(["LaunchPaymentAll",time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(statinfo.st_mtime))])
+	else:
+		value.append(["LaunchPaymentAll","0"])
+
+	if  os.path.exists(pwd_yuan+"/1452827692979/Daily_lchy_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv"):
+		statinfo=os.stat(pwd_yuan+"/1452827692979/Daily_lchy_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv")
+		value.append(["Daily_lchy",time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(statinfo.st_mtime))])
+	else:
+		value.append(["Daily_lchy","0"])
+
+	if  os.path.exists(pwd_yuan+"/1452827692979/Daily_tfzh_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv"):
+		statinfo=os.stat(pwd_yuan+"/1452827692979/Daily_tfzh_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv")
+		value.append(["Daily_tfzh",time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(statinfo.st_mtime))])
+	else:
+		value.append(["Daily_tfzh","0"])
+
+	if  os.path.exists(pwd_yuan+"/1452827692979/Daily_zbhs_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv"):
+		statinfo=os.stat(pwd_yuan+"/1452827692979/Daily_zbhs_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv")
+		value.append(["Daily_zbhs",time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(statinfo.st_mtime))])
+	else:
+		value.append(["Daily_zbhs","0"])
+
+
+
+		
+	#for zengliang
+
+	pwd_yuan="/data1/bidata"
+	print(pwd_yuan+"/tffy_"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv");
+	print(os.path.exists(pwd_yuan+"/tffy_"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv"));
+	if  os.path.exists(pwd_yuan+"/tffy_"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv"):
+		
+		statinfo=os.stat(pwd_yuan+"/tffy_"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv")
+		#print(statinfo.st_mtime)
+		value.append(["tffy_", time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(statinfo.st_mtime))])
+	else:
+		value.append(["tffy_","0"])
+
+
+	#process id,monitor ,service_json_A,manager
+	process_list = os.popen("ps -ef |grep monitor.py |awk '{print $2}'").readlines()
+	print(len(process_list))
+	if len(process_list)>2:
+		value.append(["monitor",time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))])
+		#print(time.asctime("monitor",time.localtime(statinfo.st_mtime)))
+	else:
+		value.append(["monitor","0"])
+	process_list = os.popen("ps -ef |grep service_json_A.py |awk '{print $2}'").readlines()
+	print(len(process_list))
+	if len(process_list)>2:
+		value.append(["service_json_A",time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))])
+	else:
+		value.append(["service_json_A","0"])
+	process_list = os.popen("ps -ef |grep manager.py |awk '{print $2}'").readlines()
+	print(len(process_list))
+	if len(process_list)>3:
+		value.append(["manager",time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))])
+	else:
+		value.append(["manager","0"])
+
+
+
+
+	# for json tongbu zengquexing
+
+	pwd_yuan="/var/www/zilong_new/static/json"
+	if  os.path.exists(pwd_yuan+"/test.json"):
+		
+		statinfo=os.stat(pwd_yuan+"/test.json")
+		#print(statinfo.st_mtime)
+		value.append(["test_json", time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(statinfo.st_mtime))])
+		#print(time.asctime(time.localtime(statinfo.st_mtime)))
+	else:
+		value.append(["test_json","0"])	
+	word="{"
+	for x in xrange(0,len(value)):
+		word+='"'+str(value[x][0])+'":"'+str(value[x][1])+'",'
+	word=word[0:-1]
+	word+="}"
+	return word
 #if __name__ == '__main__':
 #	print(get_business_json("test.json","admin"))
 # 	test=["liuhao","admin"]
