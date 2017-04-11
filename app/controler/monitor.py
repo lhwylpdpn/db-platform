@@ -9,9 +9,14 @@ def collect_data():
 	print(pwd_yuan+"/1452827692979/Daily_lchy_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv");
 	print(pwd_yuan+"/1452827692979/Daily_tfzh_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv");
 	print(pwd_yuan+"/1452827692979/Daily_zbhs_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv");
+	print(os.path.exists(pwd_yuan+"/LaunchPaymentAll.csv"))
+	print( os.path.exists(pwd_yuan+"/1452827692979/Daily_lchy_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv"))
+	print(os.path.exists(pwd_yuan+"/1452827692979/Daily_tfzh_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv"))
+	print( os.path.exists(pwd_yuan+"/1452827692979/Daily_zbhs_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv"))
 	if  os.path.exists(pwd_yuan+"/LaunchPaymentAll.csv") and os.path.exists(pwd_yuan+"/1452827692979/Daily_lchy_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv") and os.path.exists(pwd_yuan+"/1452827692979/Daily_tfzh_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv") and os.path.exists(pwd_yuan+"/1452827692979/Daily_zbhs_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv"):
-		
+
 		statinfo=os.stat(pwd_yuan+"/LaunchPaymentAll.csv")
+		print("1",time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(statinfo.st_mtime)))
 		#print(statinfo.st_mtime)
 		value.append(["files",time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(statinfo.st_mtime))])
 	else:
