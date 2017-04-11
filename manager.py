@@ -17,6 +17,11 @@ app.register_blueprint(authBp)
 from app.routes.rAnalyze import analyzeBp
 app.register_blueprint(analyzeBp)
 
+
+from app.routes.rMonitor import monitorBp
+app.register_blueprint(monitorBp)
+
+
 from app.controler.power_API import get_business_json
 
 

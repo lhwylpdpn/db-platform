@@ -28,7 +28,6 @@ def import_csv():
 			filename="/data1/bidata/1452827692979/"+r
 			filenode=open(filename)
 			reader=csv.reader(filenode)
-			reader.next()
 			time_tag=str(datetime.datetime.now().strftime('%Y-%m-%d'))
 			sql="delete from ad_detail_IDFA  where csv_update_time='"+time_tag+"';"
 			#print(sql)
@@ -175,8 +174,8 @@ round(sum(b.dis_spend)/a.ad_account_new,2) as cpa
 ,d.money
 FROM (select DATE_FORMAT(substring_index(ad_action_time," ",1),"%Y-%m-%d") as date,
 channel_name,agent,count(game_userid) as ad_account_new,
-sum(case when a.game_type='æ–°å¢ž' then 1 else 0 end) as double_new , 
-sum(case when a.game_type='å›žæµ' then 1 else 0 end) as huiliu,
+sum(case when a.game_type='new' then 1 else 0 end) as double_new , 
+sum(case when a.game_type='back' then 1 else 0 end) as huiliu,
 sum(case when a.game_pay_money>0 then 1 else 0 end) as fufeizhanghao
 from ad_detail_IDFA a group by DATE_FORMAT(substring_index(ad_action_time," ",1),"%Y-%m-%d"),channel_name,agent) a,
 spend b,
