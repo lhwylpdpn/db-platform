@@ -13,5 +13,4 @@ def index():
 @monitorBp.route('/monitorJson')
 def monitorJson():
     jsons = json.loads(monitor_data())  # 字符串传化为json 对象
-    print json.dumps(jsons["body"])
-    return json.dumps(jsons["body"])
+    return json.dumps(jsons)
