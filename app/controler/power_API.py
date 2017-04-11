@@ -290,7 +290,12 @@ def monitor_data():# 收集监控所需要的系统文件数据
 		value.append(["test_json","0"])	
 	word="["
 	for x in xrange(0,len(value)):
-		word+='{"file":"'+str(value[x][0])+'","time":"'+str(value[x][1])+'"},'
+		status=""
+		if value[x][1]<datetime.date.today():
+			status="error"
+		else:
+			status="ok"
+		word+='{"file":"'+str(value[x][0])+'","time":"'+str(value[x][1])+'","status":"'+status+'"},'
 	word=word[0:-1]
 	word+="]"
 	return word
