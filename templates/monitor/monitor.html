@@ -28,7 +28,7 @@
         <div class="col-xs-6 col-sm-6 widget-container-col" id="widget-container-col-1" >
                 <div class="widget-box widget-color-dark ui-sortable-handle" id="widget-box-7" style="opacity: 1;">
                                                     <div class="widget-header widget-header-small">
-                                                        <h6 class="widget-title smaller">{% for count in login_count -%}{{ count }}{%- endfor %}</h6>
+                                                        <h6 class="widget-title smaller">菜单访问统计</h6>
 
                                                         <div class="widget-toolbar no-border">
                                                             <label>
@@ -39,7 +39,7 @@
 
                                                         <div class="widget-toolbar">
                                                             <span class="label label-warning">
-                                                                1.2%
+                                                                {{ login_count }}
                                                                 <i class="ace-icon fa fa-arrow-down"></i>
                                                             </span>
                                                             <span class="badge badge-info">info</span>
@@ -225,11 +225,7 @@ $(function () {
             type: 'pie',
             name: '登录次数统计',
             data: [
-                ['admin',   45.0],
-                ['chenlin',    26.8],
-
-                ['zhuohao',    8.5],
-                ['other',   0.7]
+        {% for name in username -%}{{ name|safe  }},{%- endfor %}
             ]
         }]
     });
