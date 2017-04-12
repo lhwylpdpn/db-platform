@@ -367,3 +367,50 @@ def menu_click_write(username,menu_url,time_click):#username 代表登录的人�
 		return '{"status":"0"}'
 	except Exception, e:
 		return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
+
+
+
+def monitor_menu():
+	result=""
+	name=[]
+	Transfer_menu_name=[]
+	Transfer_menu_name.append(['/monitor/monitor','网站监控'])
+	Transfer_menu_name.append(['/analyze/mediaOverview','媒体概览'])
+	Transfer_menu_name.append(['/channelIos600','iOS-渠道-明细'])
+	Transfer_menu_name.append(['/analyze/newTransfer','新增转化'])
+	for x in xrange(0,len(Transfer_menu_name)):
+		name.append(Transfer_menu_name[x][0])
+
+
+	try:
+		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
+		cursor = conn.cursor()
+		test=[["/monitor/monitor",'网站监控'],['/analyze/mediaOverview','媒体概览'],['/channelIos600','iOS-渠道-明细'],['/analyze/newTransfer','新增转化']]
+		sql="select menu_url,count(*) from menu_click group  by menu_url"
+		cursor.execute(sql)
+		rs=cursor.fetchall()
+		if len(rs)<=0:
+			return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
+		else:
+			for x in xrange(0,len(rs)):
+	
+				try:
+					result+='{"url":"'+str(Transfer_menu_name[name.index(str(rs[x][0]))][1])+'","count":"'+str(rs[x][1])+'"},'
+				except Exception, e:
+					continue
+				
+			result=result[0:-1]
+		result='{"status":"0","body":['+result+']}'
+
+		cursor.close()
+		conn.commit()
+		conn.close()
+		return result
+	except Exception, e:
+		print(e)
+		return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
+
+
+
+
+

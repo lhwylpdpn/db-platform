@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="/static/ace/css/bootstrap-duallistbox.min.css"/>
     <link rel="stylesheet" href="/static/css/bootstrap-table.css">
     <div class="page-header">
-        <h1>{% for name in username -%}{{ name }}{%- endfor %}</h1>
+        <h1>网站监控/统计</h1>
     </div><!-- /.page-header -->   
 
   <div id="main-widget-container" >
@@ -104,7 +104,7 @@
 
                                                         <div class="widget-toolbar">
                                                             <span class="label label-warning">
-                                                                1.2%
+                                                               总计: {{ menu_count }}
                                                                 <i class="ace-icon fa fa-arrow-down"></i>
                                                             </span>
                                                             <span class="badge badge-info">info</span>
@@ -260,11 +260,7 @@ $(function () {
             type: 'pie',
             name: '菜单访问占比',
             data: [
-                ['媒体概览',   45.0],
-                ['渠道明细',       26.8],
-
-                ['系统管理',    8.5],
-                ['其他',   0.7]
+             {% for menu in menulist -%}{{ menu|safe  }},{%- endfor %}
             ]
         }]
     });
