@@ -4,7 +4,7 @@ from flask import Flask, url_for, redirect, request, json, session
 from flask import render_template
 from Config import Config
 import random
-
+import time
 app = Flask(__name__)
 app.secret_key = Config().SECRET_KEY
 
@@ -24,6 +24,12 @@ app.register_blueprint(monitorBp)
 
 from app.controler.power_API import get_business_json
 
+
+from app.controler.power_API import menu_click_write
+
+@app.before_request
+def before_request():
+    menu_click_write(session["username"],request.url,time.asctime(time.localtime(time.time())))
 
 @app.route('/')
 def index():

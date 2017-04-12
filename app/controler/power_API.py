@@ -315,7 +315,7 @@ def monitor_data():# 收集监控所需要的系统文件数据
 
 ################################################################################
 
-def monitor_menu():#usernames是一维数组传入用户名，poweritems是二维数组，传入每个用户名的权限数组
+def monitor_login():
 
 	try:
 		result=""
@@ -341,15 +341,29 @@ def monitor_menu():#usernames是一维数组传入用户名，poweritems是二�
 		return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
 
 
+
+
+
 #数据返回接口##############################################################################
 
 
-# if __name__ == '__main__':
-# 	jsons=json.loads(monitor_menu())
-# 	username=[]
-# 	login_count=[]
-# 	for x in xrange(1,len(jsons["body"])):
-# 		username.append(str(jsons["body"][x]["name"]))
-# 		login_count.append(str(jsons["body"][x]["time"]))
-# 	print(username)
-# 	print(login_count)
+
+
+
+def menu_click_write(username,menu_url,time_click):#username 代表登录的人，menu_url 代表访问链接 time 代表访问时间
+
+	try:
+		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
+		cursor = conn.cursor()
+		name=str(username)
+		menu=str(menu_url)
+		time=str(time_click)
+		sql="insert into menu_click values (null,'"+name+"','"+menu+"','"+time+"');"
+		cursor.execute(sql)
+
+		cursor.close()
+		conn.commit()
+		conn.close()
+		return '{"status":"0"}'
+	except Exception, e:
+		return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'

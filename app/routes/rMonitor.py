@@ -9,16 +9,13 @@ monitorBp = Blueprint('monitor', __name__, url_prefix="/monitor")
 def index():
 	username=[]
 	login_count=0
-	jsons = json.loads(monitor_menu())
-	print(jsons)
-	print(jsons["status"])
-	print(jsons["body"])
-	for x in xrange(0,len(jsons["body"])):
-		username.append("['"+str(jsons["body"][x]["name"])+"',"+str(jsons["body"][x]["time"])+"]")
-		login_count+=int(jsons["body"][x]["time"])
-
+	jsons = json.loads(monitor_login())
 
 	if jsons["status"]=="0":
+		for x in xrange(0,len(jsons["body"])):
+			username.append("['"+str(jsons["body"][x]["name"])+"',"+str(jsons["body"][x]["time"])+"]")
+			login_count+=int(jsons["body"][x]["time"])
+
 		return render_template("monitor/monitor.html",title=U"网站统计",username=username,login_count=login_count)
 	else:
 		return render_template("error.html")
@@ -28,3 +25,6 @@ def monitorJson():
 	jsons = json.loads(monitor_data())  # 字符串传化为json 对象
 	print(jsons)
 	return json.dumps(jsons)
+
+
+
