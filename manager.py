@@ -29,7 +29,8 @@ from app.controler.power_API import menu_click_write
 
 @app.before_request
 def before_request():
-    menu_click_write(session["username"],request.path,time.strftime( '%Y-%m-%d %X', time.localtime(time.time())))
+    if len(session["username"])>0:
+        menu_click_write(session["username"],request.path,time.strftime( '%Y-%m-%d %X', time.localtime(time.time())))
 
 @app.route('/')
 def index():
