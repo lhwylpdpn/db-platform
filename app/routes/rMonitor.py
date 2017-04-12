@@ -1,7 +1,7 @@
 # This Python file uses the following encoding: utf-8
 from flask import render_template, request, Blueprint, session, redirect, url_for, json
 from app.controler.power_API import monitor_data
-from app.controler.power_API import monitor_menu
+from app.controler.power_API import monitor_login
 monitorBp = Blueprint('monitor', __name__, url_prefix="/monitor")
 
 
