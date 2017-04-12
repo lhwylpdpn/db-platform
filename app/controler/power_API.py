@@ -1,13 +1,13 @@
 # This Python file uses the following encoding: utf-8
-import sys
-import os
-import shutil
-import re
-from flask import session
-from app.db.dbBase import DBConnect
-from Config import Config
-import time
-import datetime
+# import sys
+# import os
+# import shutil
+# import re
+# from flask import session
+# from app.db.dbBase import DBConnect
+# from Config import Config
+# import time
+# import datetime
 # 非flask运行测试用 
 #coding=UTF-8
 # import sys
@@ -314,13 +314,13 @@ def monitor_data():# 收集监控所需要的系统文件数据
 
 ################################################################################
 
-def monitor_menu(date_start):#usernames是一维数组传入用户名，poweritems是二维数组，传入每个用户名的权限数组
+def monitor_menu():#usernames是一维数组传入用户名，poweritems是二维数组，传入每个用户名的权限数组
 
 	try:
 		result=""
 		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
 		cursor = conn.cursor()
-		sql="select a.`username`,count(b.`login_time`) from `user_info` a ,`login_info` b where a.`id` =b.`user_id` and b.login_time>'"+str(date_start)+"' group by username"
+		sql="select a.`username`,count(b.`login_time`) from `user_info` a ,`login_info` b where a.`id` =b.`user_id`   group by username"
 		cursor.execute(sql)
 		rs=cursor.fetchall()
 		if len(rs)<=0:

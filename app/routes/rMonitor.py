@@ -1,14 +1,14 @@
 # This Python file uses the following encoding: utf-8
 from flask import render_template, request, Blueprint, session, redirect, url_for, json
 from app.controler.power_API import monitor_data
-
+from app.controler.power_API import monitor_menu
 monitorBp = Blueprint('monitor', __name__, url_prefix="/monitor")
 
 
 @monitorBp.route('/monitor')
 def index():
 	loginlist="3333"
-	return render_template("monitor/monitor.html",title=U"网站统计",loginlist=loginlist)
+	return render_template("monitor/monitor.html",title=U"网站统计",loginlist=monitor_menu())
 
 
 @monitorBp.route('/monitorJson')
