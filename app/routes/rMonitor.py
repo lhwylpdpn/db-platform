@@ -7,13 +7,21 @@ monitorBp = Blueprint('monitor', __name__, url_prefix="/monitor")
 
 @monitorBp.route('/monitor')
 def index():
+	username=[]
+	login_count=[]
 	jsons = json.loads(monitor_menu())
 	print(jsons)
 	print(jsons["status"])
 	print(jsons["body"])
+	for x in xrange(1,len(jsons["body"])):
+		username.append(str(jsons["body"][x]["name"]))
+		login_count.append(str(jsons["body"][x]["time"]))
 
-	return render_template("monitor/monitor.html",title=U"网站统计",loginlist=monitor_menu())
 
+	if jsons["status"]==0:
+		return render_template("monitor/monitor.html",title=U"网站统计",username=username,login_count=login_count)
+	else 
+		return render_template("error.html")
 
 @monitorBp.route('/monitorJson')
 def monitorJson():

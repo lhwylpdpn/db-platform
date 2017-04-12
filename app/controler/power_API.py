@@ -1,25 +1,26 @@
 # This Python file uses the following encoding: utf-8
-import sys
-import os
-import shutil
-import re
-from flask import session
-from app.db.dbBase import DBConnect
-from Config import Config
-import time
-import datetime
-# 非flask运行测试用 
-#coding=UTF-8
 # import sys
 # import os
 # import shutil
 # import re
-# sys.path.append("..")
-# from db.dbBase import DBConnect
-# sys.path.append("../..")
+# from flask import session
+# from app.db.dbBase import DBConnect
 # from Config import Config
 # import time
 # import datetime
+# 非flask运行测试用 
+#coding=UTF-8
+import sys
+import os
+import shutil
+import re
+sys.path.append("..")
+from db.dbBase import DBConnect
+sys.path.append("../..")
+from Config import Config
+import time
+import datetime
+import json
 
 def login_in(username,password):
 	user = username
@@ -330,14 +331,12 @@ def monitor_menu():#usernames是一维数组传入用户名，poweritems是二�
 				result+='{"name":"'+str(r[0])+'","time":"'+str(r[1])+'"},'
 			result=result[0:-1]
 		result='{"status":"0","body":['+result+']}'
-		return result
-		print(result)
 
 		cursor.execute(sql)
 		cursor.close()
 		conn.commit()
 		conn.close()
-		return '{"status":"0"}'
+		return result
 	except Exception, e:
 		return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
 
@@ -345,3 +344,12 @@ def monitor_menu():#usernames是一维数组传入用户名，poweritems是二�
 #数据返回接口##############################################################################
 
 
+if __name__ == '__main__':
+	jsons=json.loads(monitor_menu())
+	username=[]
+	login_count=[]
+	for x in xrange(1,len(jsons["body"])):
+		username.append(str(jsons["body"][x]["name"]))
+		login_count.append(str(jsons["body"][x]["time"]))
+	print(username)
+	print(login_count)
