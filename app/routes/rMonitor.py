@@ -18,9 +18,9 @@ def index():
 		for x in xrange(0,len(jsons["body"])):
 			username.append("['"+str(jsons["body"][x]["name"])+"',"+str(jsons["body"][x]["time"])+"]")
 			login_count+=int(jsons["body"][x]["time"])
-		for x in xrange(0,jsons_menu["body"]):
-			menulist.append("['"+str(jsons["body"][x]["url"])+"',"+str(jsons["body"][x]["count"])+"]")
-			menu_count+=int(jsons["body"][x]["count"])
+		for x in xrange(0,len(jsons_menu["body"])):
+			menulist.append("['"+str(jsons_menu["body"][x]["url"])+"',"+str(jsons_menu["body"][x]["count"])+"]")
+			menu_count+=int(jsons_menu["body"][x]["count"])
 		return render_template("monitor/monitor.html",title=U"网站统计",username=username,login_count=login_count,menulist=menulist,menu_count=menu_count)
 	else:
 		return render_template("error.html")

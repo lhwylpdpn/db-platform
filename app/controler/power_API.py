@@ -370,6 +370,7 @@ def menu_click_write(username,menu_url,time_click):#username 代表登录的人�
 
 
 
+
 def monitor_menu():
 	result=""
 	name=[]
@@ -401,7 +402,7 @@ def monitor_menu():
 				
 			result=result[0:-1]
 		result='{"status":"0","body":['+result+']}'
-
+		result=result.decode("utf-8")
 		cursor.close()
 		conn.commit()
 		conn.close()
