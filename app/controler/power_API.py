@@ -18,7 +18,8 @@ import datetime
 # from db.dbBase import DBConnect
 # sys.path.append("../..")
 # from Config import Config
-
+# import time
+# import datetime
 
 def login_in(username,password):
 	user = username
@@ -236,7 +237,11 @@ def monitor_data():# 收集监控所需要的系统文件数据
 	else:
 		value.append(["Daily_zbhs","0"])
 
-
+	if  os.path.exists(pwd_yuan+"/1452827692979/Daily_xzff_detail_"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv"):
+		statinfo=os.stat(pwd_yuan+"/1452827692979/Daily_xzff_detail_"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv")
+		value.append(["Daily_xzff_detail",time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(statinfo.st_mtime))])
+	else:
+		value.append(["Daily_xzff_detail","0"])
 
 		
 	#for zengliang
@@ -306,4 +311,37 @@ def monitor_data():# 收集监控所需要的系统文件数据
 # 	print(power_list_update(test,test2))
 	#test=["admin","liuhao"]
 #	print(power_list(test))
+
+################################################################################
+
+def monitor_menu(date_start):#usernames是一维数组传入用户名，poweritems是二维数组，传入每个用户名的权限数组
+
+	try:
+		result=""
+		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
+		cursor = conn.cursor()
+		sql="select a.`username`,count(b.`login_time`) from `user_info` a ,`login_info` b where a.`id` =b.`user_id` and b.login_time>'"+str(date_start)+"' group by username"
+		cursor.execute(sql)
+		rs=cursor.fetchall()
+		if len(rs)<=0:
+			return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
+		else:
+			for r in rs:
+				result+='{"name":"'+str(r[0])+'","time":"'+str(r[1])+'"},'
+			result=result[0:-1]
+		result='{"status":"0","body":['+result+']}'
+		return result
+		print(result)
+
+		cursor.execute(sql)
+		cursor.close()
+		conn.commit()
+		conn.close()
+		return '{"status":"0"}'
+	except Exception, e:
+		return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
+
+
+#数据返回接口##############################################################################
+
 
