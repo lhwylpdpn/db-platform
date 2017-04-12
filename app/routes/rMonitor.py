@@ -7,7 +7,11 @@ monitorBp = Blueprint('monitor', __name__, url_prefix="/monitor")
 
 @monitorBp.route('/monitor')
 def index():
-	loginlist="3333"
+	jsons = json.loads(monitor_menu())
+	print(jsons)
+	print(jsons["status"])
+	print(jsons["body"])
+
 	return render_template("monitor/monitor.html",title=U"网站统计",loginlist=monitor_menu())
 
 
