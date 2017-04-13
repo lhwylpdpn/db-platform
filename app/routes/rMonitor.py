@@ -32,7 +32,7 @@ def index():
 			pv_count+=int(jsons_pv["body"][x]["count"])
 		return render_template("monitor/monitor.html",title=U"网站统计",username=username,login_count=login_count,menulist=menulist,menu_count=menu_count,pv_list=pv_list,pv_count=pv_count)
 	else:
-		return render_template("error.html")
+		return render_template("error.html", title=U"error")
 
 
 @monitorBp.route('/monitorJson')

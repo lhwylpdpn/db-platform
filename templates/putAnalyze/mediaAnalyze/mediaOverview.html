@@ -52,8 +52,8 @@
         <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-1" >
             <div class="widget-box " id="widget-box-1">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content"></div>
+                    <div class="infobox-content">计算中...</div>
+                    <div class="infobox-content">计算中...</div>
                     <div class="infobox-content">新增设备</div>
                 </div>
             </div>
@@ -61,8 +61,8 @@
         <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-2">
             <div class="widget-box " id="widget-box-2">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content"></div>
+                    <div class="infobox-content">计算中...</div>
+                    <div class="infobox-content">计算中...</div>
                     <div class="infobox-content">新增总账号</div>
                 </div>
             </div>
@@ -70,8 +70,8 @@
         <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-3">
             <div class="widget-box" id="widget-box-3">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content"></div>
+                    <div class="infobox-content">计算中...</div>
+                    <div class="infobox-content">计算中...</div>
                     <div class="infobox-content">付费账号</div>
                 </div>
             </div>
@@ -79,8 +79,8 @@
         <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-4">
             <div class="widget-box" id="widget-box-4">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content"></div>
+                    <div class="infobox-content">计算中...</div>
+                    <div class="infobox-content">计算中...</div>
                     <div class="infobox-content">累计流水</div>
                 </div>
             </div>
@@ -88,8 +88,8 @@
         <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-5">
             <div class="widget-box" id="widget-box-5">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-co1ntent"></div>
-                    <div class="infobox-content"></div>
+                    <div class="infobox-content">计算中...</div>
+                    <div class="infobox-content">计算中...</div>
                     <div class="infobox-content">折后花费</div>
                 </div>
             </div>
@@ -97,8 +97,8 @@
         <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-6">
             <div class="widget-box" id="widget-box-6">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content"></div>
+                    <div class="infobox-content">计算中...</div>
+                    <div class="infobox-content">计算中...</div>
                     <div class="infobox-content">分成后ROI</div>
                 </div>
             </div>
@@ -148,7 +148,7 @@
             <button id="spend" class="widget-title">折后花费</button>
             <button id="CPA" class="widget-title"> C P A </button>
             <button id="cumulative_flow" class="widget-title">累计流水</button>
-          <!--  <button id="dis" class="widget-title">分成比例</button> -->
+            <!--<button id="dis" class="widget-title">分成比例</button> -->
             <button id="cumulative_moeny" class="widget-title">累计净收入</button>
             <button id="ROI" class="widget-title"> R O I </button>
 
@@ -318,7 +318,7 @@
         $("#table").bootstrapTable('filterBy',{date_time : fromToTime});
 
         //日期筛选完成后,设置piece chartdata
-        setTimeout("setPieceChart();",1000);
+        setTimeout("setPieceChart();",2000);
     }
 
     $("#time_1").click(function(){
@@ -537,7 +537,7 @@
         });
 
         //条件筛选完成后,重新设置 piece chart
-        setTimeout("setPieceChart();",1000);
+        setTimeout("setPieceChart();",2000);
 
     });
 
@@ -750,7 +750,7 @@
 
     }
 
-    setTimeout("setPieceChart();",1000);
+    setTimeout("setPieceChart();",2000);
 
     $("#ad_click").click(function(){
         //???????????????设置背景颜色,和其他去掉背景颜色
@@ -807,11 +807,10 @@
         setChart("累计流水","单位:元",cumulative_flow_dataS);
     })
 
-  /*  $("#dis").click(function(){
+    $("#dis").click(function(){
         //???????????????
         setChart("分成比例","单位:百分百",dis_dataS);
-    }) 
-    */
+    })
 
     $("#cumulative_moeny").click(function(){
         //???????????????
