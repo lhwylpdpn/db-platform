@@ -119,7 +119,7 @@ def mediaOverviewJson():
 
         if float(newjson[ii]["spend"]) != 0:
             newjson[ii]["ROI"] = newjson[ii]["cumulative_moeny"] / float(newjson[ii]["spend"])  # ROI
-            newjson[ii]["ROI"] = round(newjson[ii]["ROI"], 2)*100
+            newjson[ii]["ROI"] = round(newjson[ii]["ROI"]*100, 2)
         else:
             newjson[ii]["ROI"] = '0'
 

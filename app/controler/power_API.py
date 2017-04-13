@@ -231,6 +231,7 @@ def staff_rename(result):
 	result=result.replace("lijinquan", "李晋泉")
 	result=result.replace("qingxuetao", "秦雪涛")
 	result=result.replace("liusihan", "刘思涵")
+	result=result.replace("zhengcaitong", "郑彩彤")
 	return result
 
 def monitor_data():# 收集监控所需要的系统文件数据
@@ -318,6 +319,15 @@ def monitor_data():# 收集监控所需要的系统文件数据
 		#print(time.asctime(time.localtime(statinfo.st_mtime)))
 	else:
 		value.append(["test_json","0"])	
+
+	if  os.path.exists(pwd_yuan+"/media_1.json"):
+		
+		statinfo=os.stat(pwd_yuan+"/media_1.json")
+		#print(statinfo.st_mtime)
+		value.append(["media_1.json", time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(statinfo.st_mtime))])
+		#print(time.asctime(time.localtime(statinfo.st_mtime)))
+	else:
+		value.append(["media_1.json","0"])	
 	word="["
 	for x in xrange(0,len(value)):
 		status=""
@@ -436,6 +446,50 @@ def monitor_menu():
 		return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
 
 
+def monitor_pv():
+	result=""
+	name=[]
+	date=[]
+	count=[]
+	Transfer_menu_name=[]
+	Transfer_menu_name.append(['/monitor/monitor','网站监控'])
+	Transfer_menu_name.append(['/analyze/mediaOverview','媒体概览'])
+	Transfer_menu_name.append(['/channelIos600','iOS-渠道-明细'])
+	Transfer_menu_name.append(['/analyze/newTransfer','新增转化'])
+	for x in xrange(0,len(Transfer_menu_name)):
+		name.append(Transfer_menu_name[x][0])
 
 
-
+	try:
+		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
+		cursor = conn.cursor()
+		sql="SELECT  menu_url,UNIX_TIMESTAMP(DATE_FORMAT(TIME, '%Y-%m-%d')),COUNT(*)  FROM  `menu_click` GROUP BY menu_url,UNIX_TIMESTAMP(DATE_FORMAT(TIME, '%Y-%m-%d'))"
+		cursor.execute(sql)
+		rs=cursor.fetchall()
+		if len(rs)<=0:
+			return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
+		else:
+			for x in xrange(0,len(rs)):
+	
+				try:
+					Transfer_menu_name[name.index(str(rs[x][0]))][1]
+					if date.count(str(rs[x][1]))>0:
+						count[date.index(str(rs[x][1]))]=int(count[date.index(str(rs[x][1]))])+int(rs[x][2])
+					else:
+						date.append(str(rs[x][1]))
+						count.append(int(rs[x][2]))
+					
+				except Exception, e:
+					continue
+			for x in xrange(0,len(date)):
+				result+='{"date":"'+str(date[x])+'","count":"'+str(count[x])+'"},'
+			result=result[0:-1]
+		result='{"status":"0","body":['+result+']}'
+		result=result.decode("utf-8")
+		cursor.close()
+		conn.commit()
+		conn.close()
+		return result
+	except Exception, e:
+		print(e)
+		return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'

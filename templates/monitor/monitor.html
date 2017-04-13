@@ -160,12 +160,26 @@
 
 <script src="/static/ace/js/jquery.bootstrap-duallistbox.min.js"></script>
 <script src="/static/ace/js/jquery.raty.min.js"></script>
+
+<script src="/static/js/highcharts.js"></script><!--图表需要的js-->
 <script type="text/javascript">
+    
+function status_css(value,row) {
+    if (row.status=="ok") {
+        return '<div><span class="label label-success arrowed-in arrowed-in-right">' +
+            value + '</span></div>';
+     
+    }
 
+    else {
+         return '<div><span class="label label-warning">' +
+            value + '</span></div>';
+  
+    }
+}
+$(function () {
 
-
-function setchart_pv(data) {
-        $('#container3').highcharts({
+     $('#container3').highcharts({
             chart: {
                 zoomType: 'x'
             },
@@ -238,38 +252,14 @@ function setchart_pv(data) {
             series: [{
                 type: 'area',
                 name: '展示次数',
-                data: data
+                data: [
+
+  {% for name in pv_list -%}{{ name|safe  }},{%- endfor %}
+                ]
             }]
         });
-    };
-
-
-
-</script>
-
-
-<script src="/static/js/highcharts.js"></script><!--图表需要的js-->
-<script type="text/javascript">
     
-function status_css(value,row) {
-    if (row.status=="ok") {
-        return '<div><span class="label label-success arrowed-in arrowed-in-right">' +
-            value + '</span></div>';
-     
-    }
 
-    else {
-         return '<div><span class="label label-warning">' +
-            value + '</span></div>';
-  
-    }
-}
-$(function () {
-
-    setchart_pv()
-
-
-   // Radialize the colors
 
 
     $('#container2').highcharts({
