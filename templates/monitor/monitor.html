@@ -160,105 +160,11 @@
 
 <script src="/static/ace/js/jquery.bootstrap-duallistbox.min.js"></script>
 <script src="/static/ace/js/jquery.raty.min.js"></script>
-
-
-
-<script src="/static/js/highcharts.js"></script><!--图表需要的js-->
 <script type="text/javascript">
-    
-function status_css(value,row) {
-    if (row.status=="ok") {
-        return '<div><span class="label label-success arrowed-in arrowed-in-right">' +
-            value + '</span></div>';
-     
-    }
-
-    else {
-         return '<div><span class="label label-warning">' +
-            value + '</span></div>';
-  
-    }
-}
-$(function () {
 
 
 
-
-   // Radialize the colors
-
-
-    $('#container2').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false
-        },
-        title: {
-            text: '登录次数统计'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.y}',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                    },
-                    connectorColor: 'silver'
-                }
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: '登录次数统计',
-            data: [
-        {% for name in username -%}{{ name|safe  }},{%- endfor %}
-            ]
-        }]
-    });
-    // 构建图表
-    $('#container').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false
-        },
-        title: {
-            text: '菜单访问统计'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                    },
-                    connectorColor: 'silver'
-                }
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: '菜单访问占比',
-            data: [
-             {% for menu in menulist -%}{{ menu|safe  }},{%- endfor %}
-            ]
-        }]
-    });
-
-
- $.getJSON([[Date.UTC(2013,5,2),0.7695],[Date.UTC(2013,5,3),0.7648]], function (data) {
+function setchart_pv(data) {
         $('#container3').highcharts({
             chart: {
                 zoomType: 'x'
@@ -335,7 +241,108 @@ $(function () {
                 data: data
             }]
         });
+    };
+
+
+
+</script>
+
+
+<script src="/static/js/highcharts.js"></script><!--图表需要的js-->
+<script type="text/javascript">
+    
+function status_css(value,row) {
+    if (row.status=="ok") {
+        return '<div><span class="label label-success arrowed-in arrowed-in-right">' +
+            value + '</span></div>';
+     
+    }
+
+    else {
+         return '<div><span class="label label-warning">' +
+            value + '</span></div>';
+  
+    }
+}
+$(function () {
+
+    setchart_pv()
+
+
+   // Radialize the colors
+
+
+    $('#container2').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: '登录次数统计'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.y}',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    },
+                    connectorColor: 'silver'
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: '登录次数统计',
+            data: [
+        {% for name in username -%}{{ name|safe  }},{%- endfor %}
+            ]
+        }]
     });
+    // 构建图表
+    $('#container').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: '菜单访问统计'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    },
+                    connectorColor: 'silver'
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: '菜单访问占比',
+            data: [
+             {% for menu in menulist -%}{{ menu|safe  }},{%- endfor %}
+            ]
+        }]
+    });
+
+
 });
 
 
