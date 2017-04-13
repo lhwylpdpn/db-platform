@@ -179,6 +179,13 @@
 </div><!-- /.page-content -->
 
 <script type="text/javascript"> <!--开始设置数据格式-->
+    // 对json进行按照指定key排序
+    function sortByKey(array, key) {
+        return array.sort(function(a, b) {
+            var x = a[key]; var y = b[key];
+            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+        });
+    }
 
     /*
     将数值四舍五入后格式化.
@@ -645,7 +652,7 @@
     var ROI_dataS = [];
 
     function setPieceChart(){ //设置快的数据和获取chart的数据
-        var dataS = $("#table").bootstrapTable('getData');
+        var dataS = sortByKey( $("#table").bootstrapTable('getData'), "date_time");
 
         //处理piece
         var adActionNew = 0; //ad_action_new
