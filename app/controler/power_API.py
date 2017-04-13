@@ -206,8 +206,32 @@ def get_business_json(filename,username):#usernames是一维数组传入用户�
 
 	result=",".join(pattern)
 	result='{"status":"0","body":['+result+']}'
-	return result
+	return staff_rename(result)
 
+#################################################
+
+#人名替换部分
+def staff_rename(result):
+
+	result=result.replace("chenlin", "陈琳")
+	result=result.replace("hanpeng", "韩鹏")
+	result=result.replace("lisihan", "刘思涵")
+	result=result.replace("luojiaming", "罗家明")
+	result=result.replace("qinxuetao", "秦雪涛")
+	result=result.replace("tongfangfang", "陈琳")
+	result=result.replace("wangyaxin", "王雅馨")
+	result=result.replace("zhangmeng", "张萌")
+	result=result.replace("zhangshuang", "张爽")
+	result=result.replace("zhaojia", "赵佳")
+	result=result.replace("zhouhao", "周浩")
+	result=result.replace("zhangkaiwang", "张凯旺")
+	result=result.replace("zhangkaiwangg", "张凯旺")
+	result=result.replace("jinboxin", "金博鑫")
+	result=result.replace("sunyueqiao", "孙月乔")
+	result=result.replace("lijinquan", "李晋泉")
+	result=result.replace("qingxuetao", "秦雪涛")
+	result=result.replace("liusihan", "刘思涵")
+	return result
 
 def monitor_data():# 收集监控所需要的系统文件数据
 	value=[]
