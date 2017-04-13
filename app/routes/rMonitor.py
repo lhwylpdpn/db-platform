@@ -34,6 +34,7 @@ def index():
 	else:
 		return render_template("error.html")
 
+
 @monitorBp.route('/monitorJson')
 def monitorJson():
 	jsons = json.loads(monitor_data())  # 字符串传化为json 对象
