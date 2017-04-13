@@ -185,15 +185,7 @@ $(function () {
 
 
    // Radialize the colors
-    Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
-        return {
-            radialGradient: { cx: 0.5, cy: 0.3, r: 0.7 },
-            stops: [
-                [0, color],
-                [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
-            ]
-        };
-    });
+
 
     $('#container2').highcharts({
         chart: {
@@ -266,7 +258,7 @@ $(function () {
     });
 
 
- $.getJSON('https://data.jianshukeji.com/jsonp?filename=json/usdeur.json&callback=?', function (data) {
+ $.getJSON([[Date.UTC(2013,5,2),0.7695],[Date.UTC(2013,5,3),0.7648]], function (data) {
         $('#container3').highcharts({
             chart: {
                 zoomType: 'x'
@@ -354,5 +346,3 @@ $(function () {
 </div><!-- /.page-content -->
 
 {% endblock content %}
-
-

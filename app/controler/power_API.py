@@ -238,8 +238,8 @@ def monitor_data():# 收集监控所需要的系统文件数据
 	else:
 		value.append(["Daily_zbhs","0"])
 
-	if  os.path.exists(pwd_yuan+"/1452827692979/Daily_xzff_detail_"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv"):
-		statinfo=os.stat(pwd_yuan+"/1452827692979/Daily_xzff_detail_"+str(datetime.datetime.now().strftime('%Y-%m-%d'))+".csv")
+	if  os.path.exists(pwd_yuan+"/1452827692979/Daily_xzff_detail_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv"):
+		statinfo=os.stat(pwd_yuan+"/1452827692979/Daily_xzff_detail_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
 		value.append(["Daily_xzff_detail",time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(statinfo.st_mtime))])
 	else:
 		value.append(["Daily_xzff_detail","0"])
