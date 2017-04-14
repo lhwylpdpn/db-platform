@@ -232,6 +232,7 @@ def staff_rename(result):
 	result=result.replace("qingxuetao", "秦雪涛")
 	result=result.replace("liusihan", "刘思涵")
 	result=result.replace("zhengcaitong", "郑彩彤")
+	result=result.replace("other", "其他")
 	return result
 
 def monitor_data():# 收集监控所需要的系统文件数据
@@ -355,7 +356,7 @@ def monitor_login():
 		result=""
 		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
 		cursor = conn.cursor()
-		sql="select a.`username`,count(b.`login_time`) from `user_info` a ,`login_info` b where a.`id` =b.`user_id`   group by username"
+		sql="select a.`username`,count(b.`login_time`) from `user_info` a ,`login_info` b where a.`id` =b.`user_id`  and a.username!='admin'  group by username"
 		cursor.execute(sql)
 		rs=cursor.fetchall()
 		if len(rs)<=0:
@@ -385,7 +386,9 @@ def monitor_login():
 
 
 def menu_click_write(username,menu_url,time_click):#username 代表登录的人，menu_url 代表访问链接 time 代表访问时间
-
+	if username="admin":
+		return '{"status":"0"}'
+		break
 	try:
 		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
 		cursor = conn.cursor()
