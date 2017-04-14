@@ -388,7 +388,7 @@ def monitor_login():
 def menu_click_write(username,menu_url,time_click):#username 代表登录的人，menu_url 代表访问链接 time 代表访问时间
 	if username="admin":
 		return '{"status":"0"}'
-		break
+
 	try:
 		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
 		cursor = conn.cursor()
