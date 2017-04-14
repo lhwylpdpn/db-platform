@@ -23,6 +23,7 @@ import datetime
 # import json
 
 def login_in(username,password):
+	print("runlogin")
 	user = username
 	pwd = password
 	result=""
@@ -38,6 +39,7 @@ def login_in(username,password):
 			if r[0]=="0":
 				session['username'] = username
 				session['zhanshi'] = Config.ADMIN
+				print(Config.ADMIN,session['zhanshi'] )
 				result='{"status":"0"}'
 			if r[0]=="1":
 				session['username'] = username
@@ -366,7 +368,7 @@ def monitor_login():
 				result+='{"name":"'+str(r[0])+'","time":"'+str(r[1])+'"},'
 			result=result[0:-1]
 		result='{"status":"0","body":['+result+']}'
-
+		result=staff_rename(result)
 		cursor.execute(sql)
 		cursor.close()
 		conn.commit()
@@ -386,7 +388,7 @@ def monitor_login():
 
 
 def menu_click_write(username,menu_url,time_click):#username 代表登录的人，menu_url 代表访问链接 time 代表访问时间
-	if username="admin":
+	if username=="admin":
 		return '{"status":"0"}'
 
 	try:

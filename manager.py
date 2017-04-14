@@ -30,14 +30,13 @@ from app.controler.power_API import menu_click_write
 @app.before_request
 def before_request():
     print(session)
-    if 'username' in session:
-        print(1)
+    if 'username' in session
         menu_click_write(session["username"],request.path,time.strftime( '%Y-%m-%d %X', time.localtime(time.time())))
 
 @app.route('/')
 def index():
     # return render_template("index.html", title=U"首页")
-    return redirect(url_for('channelIos600'))
+    return redirect(url_for('expecting'))
 
 
 @app.route('/channelIos600')
