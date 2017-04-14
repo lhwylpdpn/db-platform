@@ -369,6 +369,7 @@ def monitor_login():
 			result=result[0:-1]
 		result='{"status":"0","body":['+result+']}'
 		result=staff_rename(result)
+		result=result.decode("utf-8")
 		cursor.execute(sql)
 		cursor.close()
 		conn.commit()
