@@ -735,14 +735,14 @@
 
         }
 
-        $($("#widget-box-1").children("div").children("div")[0]).text("总计 " + adActionNew);
-        $($("#widget-box-1").children("div").children("div")[1]).text("平均 " + (adActionNew/dataLength).toFixed(0));
+        $($("#widget-box-1").children("div").children("div")[0]).text("总计 " + toThousands(adActionNew));
+        $($("#widget-box-1").children("div").children("div")[1]).text("平均 " + toThousands((adActionNew/dataLength).toFixed(0)));
 
-        $($("#widget-box-2").children("div").children("div")[0]).text("总计 " + adAccountNew);
-        $($("#widget-box-2").children("div").children("div")[1]).text("平均 " +  (adAccountNew/dataLength).toFixed(0));
+        $($("#widget-box-2").children("div").children("div")[0]).text("总计 " + toThousands(adAccountNew));
+        $($("#widget-box-2").children("div").children("div")[1]).text("平均 " + toThousands((adAccountNew/dataLength).toFixed(0)));
 
-        $($("#widget-box-3").children("div").children("div")[0]).text("总计 " + paidAccount);
-        $($("#widget-box-3").children("div").children("div")[1]).text("平均 " +  (paidAccount/dataLength).toFixed(0));
+        $($("#widget-box-3").children("div").children("div")[0]).text("总计 " + toThousands(paidAccount));
+        $($("#widget-box-3").children("div").children("div")[1]).text("平均 " + toThousands((paidAccount/dataLength).toFixed(0)));
 
         $($("#widget-box-4").children("div").children("div")[0]).text("总计 " + formatNumber (cumulativeFlow, 2, 1));
         $($("#widget-box-4").children("div").children("div")[1]).text("平均 " + formatNumber ( (cumulativeFlow/dataLength), 2, 1));
