@@ -28,8 +28,9 @@ def index():
 			menu_count+=int(jsons_menu["body"][x]["count"])
 		for x in xrange(0,len(jsons_pv["body"])):
 
-			pv_list.append("['"+jsons_pv["body"][x]["date"]+"',"+str(jsons_pv["body"][x]["count"])+"]")
-			pv_count+=int(jsons_pv["body"][x]["count"])
+			pv_list.append("["+str(jsons_pv["body"][x]["date"])+","+str(jsons_pv["body"][x]["count"])+"]")
+			print(pv_list)
+			#pv_count+=int(jsons_pv["body"][x]["count"])
 		return render_template("monitor/monitor.html",title=U"网站统计",username=username,login_count=login_count,menulist=menulist,menu_count=menu_count,pv_list=pv_list,pv_count=pv_count)
 	else:
 		return render_template("error.html", title=U"error")

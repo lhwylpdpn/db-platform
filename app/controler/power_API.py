@@ -472,7 +472,7 @@ def monitor_pv():
 	try:
 		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
 		cursor = conn.cursor()
-		sql="SELECT  menu_url,UNIX_TIMESTAMP(DATE_FORMAT(TIME, '%Y-%m-%d')),COUNT(*)  FROM  `menu_click` GROUP BY menu_url,UNIX_TIMESTAMP(DATE_FORMAT(TIME, '%Y-%m-%d'))"
+		sql="SELECT  menu_url,concat(UNIX_TIMESTAMP(DATE_FORMAT(TIME, '%Y-%m-%d')),'000'),COUNT(*)  FROM  `menu_click` GROUP BY menu_url,UNIX_TIMESTAMP(DATE_FORMAT(TIME, '%Y-%m-%d'))"
 		cursor.execute(sql)
 		rs=cursor.fetchall()
 		if len(rs)<=0:
