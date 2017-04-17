@@ -309,7 +309,10 @@ def monitor_data():# 收集监控所需要的系统文件数据
 	else:
 		value.append(["manager","0"])
 
-
+	if len(process_list)>3:
+		value.append(["csv_import_A",time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))])
+	else:
+		value.append(["csv_import_A","0"])
 
 
 	# for json tongbu zengquexing
