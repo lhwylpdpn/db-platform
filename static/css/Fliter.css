@@ -490,3 +490,7 @@
 .hotel-filter-list-min .filter-more .open {
 	display: block;
 }
+
+.filter-tag {
+    width: 130px
+}
