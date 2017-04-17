@@ -235,6 +235,7 @@ def staff_rename(result):
 	result=result.replace("liusihan", "刘思涵")
 	result=result.replace("zhengcaitong", "郑彩彤")
 	result=result.replace("other", "其他")
+	result=result.replace("linxu", "林旭")
 	return result
 
 def monitor_data():# 收集监控所需要的系统文件数据
@@ -368,8 +369,7 @@ def monitor_login():
 				result+='{"name":"'+str(r[0])+'","time":"'+str(r[1])+'"},'
 			result=result[0:-1]
 		result='{"status":"0","body":['+result+']}'
-		result=staff_rename(result)
-		result=result.decode("utf-8")
+
 		cursor.execute(sql)
 		cursor.close()
 		conn.commit()
