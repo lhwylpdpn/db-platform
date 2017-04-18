@@ -139,5 +139,9 @@ def newTransfer():
     return render_template("putAnalyze/mediaAnalyze/newTransfer.html", title=U"新增转化", sjs=random.random())
 #留存活跃相关
 @analyzeBp.route('/mediaRetention')
-def mediaOverview():
+def mediaRetention():
     return render_template("putAnalyze/mediaAnalyze/mediaRetention.html", title=U"留存活跃", sjs=random.random())
+
+@analyzeBp.route('/mediaRetentionJson')
+def mediaOverviewJson():
+    jsons = json.loads(get_business_json("media_3.json", session["username"]))["body"]  # 字符串传化为json 对象 dict

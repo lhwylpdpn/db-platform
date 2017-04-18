@@ -48,78 +48,324 @@
     </div>
     <div class="hr hr-8 hr-dotted"></div>
     
+<div id="main-widget-container" >
+       
 
-    <!--<div align="right">-->
-        <!--<button id="showHideTable" class="btn btn-white btn-sm btn-primary">收起表格</button>-->
-    <!--</div>-->
+            <div class=" col-sm-6 widget-container-col ui-sortable" id="widget-container-col-1">
+                                                        <div class="widget-box ui-sortable-handle" id="widget-box-1"  >
+                                                            <div class="widget-header">
+                                                                <h5 class="widget-title">用户留存情况</h5>
 
-    <div>
-        <table id="table" data-sort-name="date_time" data-sort-order="desc" class="table table-bordered table-hover">
+                                                                <div class="widget-toolbar">
+                                                                    <div class="widget-menu">
+                                                                        <a href="#" data-action="settings" data-toggle="dropdown" aria-expanded="false">
+                                                                            <i class="ace-icon fa fa-bars"></i>
+                                                                        </a>
+
+                                                                        <ul class="dropdown-menu dropdown-menu-right dropdown-light-blue dropdown-caret dropdown-closer">
+                                                                            <li class="active">
+                                                                                <a data-toggle="tab" href="#dropdown1" aria-expanded="true">留存量</a>
+                                                                            </li>
+
+                                                                            <li class="active">
+                                                                                <a data-toggle="tab" href="#dropdown2" aria-expanded="true">留存率</a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+
+                                                  
+                                                                    </a>
+
+                                                                    <a href="#" data-action="reload">
+                                                                        <i class="ace-icon fa fa-refresh"></i>
+                                                                    </a>
+
+                                                                    <a href="#" data-action="collapse">
+                                                                        <i class="ace-icon fa fa-chevron-up"></i>
+                                                                    </a>
+
+                                                                    <a href="#" data-action="close">
+                                                                        <i class="ace-icon fa fa-times"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="widget-body">
+        <table id="table" data-sort-name="date_time" data-sort-order="desc" class="table table-no-bordered "
+        data-pagination="true"  
+        data-page-list="[10,20,50,100]"
+        data-height="300"
+        >
             <thead>
                 <tr>
-                    <th data-field="channel_name" data-sortable="true">　渠道　</th>
-                    <th data-field="agent" data-sortable="true">代理商</th>
-                    <th data-field="staff" data-sortable="true">负责人</th>
-                    <th data-field="date_time" data-sortable="true">　日期　</th>
-                    <th data-field="ad_click" data-sortable="true">点击设备</th>
-                    <th data-field="ad_action" data-sortable="true">激活设备</th>
-                    <th data-field="ad_action_new" data-sortable="true">新增设备</th>
-                    <th data-field="ad_account_new" data-sortable="true">新增总账号</th>
-                    <th data-field="double_new" data-sortable="true">纯新增账号</th>
-                    <th data-field="back_user" data-sortable="true">回流账号</th>
-                    <th data-field="paid_account" data-sortable="true">付费账号</th>
-                    <th data-field="fufeilv" data-sortable="true" data-formatter="fufeilv" data-align="right">付费率</th>
-                    <th data-field="spend" data-sortable="true" data-formatter="spend" data-align="right">折后花费</th>
-                    <th data-field="CPA" data-sortable="true">C P A</th>
-                    <th data-field="cumulative_flow" data-sortable="true" data-formatter="cumulative_flow" data-align="right">累计流水</th>
-                    <!-- <th data-field="dis" data-sortable="true">分成比例</th> -->
-                    <th data-field="cumulative_moeny" data-sortable="true" data-formatter="cumulative_moeny" data-align="right">累计净收入</th>
-                    <th data-field="ROI" data-sortable="true" data-formatter="ROI" data-align="right">R O I</th>
+                    <th data-field="game_id" data-sortable="true"  >游戏名称</th>
+                    <th data-field="platform" data-sortable="true" >平台</th>
+                    <th data-field="channel_name" data-sortable="true"  >渠道</th>
+                    <th data-field="agent" data-sortable="true" >代理商</th>
+                    <th data-field="staff" data-sortable="true"  >负责人</th>
+                    <th data-field="date_" data-sortable="true">　日期　</th>
+                    <th data-field="re_0" data-sortable="true">day0</th>
+                    <th data-field="re_1" data-sortable="true">day1</th>
+                    <th data-field="re_2" data-sortable="true">day2</th>
+                    <th data-field="re_3" data-sortable="true">day3</th>
+                    <th data-field="re_4" data-sortable="true">day4</th>
+                    <th data-field="re_5" data-sortable="true">day5</th>
+                    <th data-field="re_6" data-sortable="true">day6</th>
+
+
                 </tr>
             </thead>
         </table>
-    </div>
-    <div class="widget-box ui-sortable-handle" id="widget-box-7">
-        <div class="widget-header" style="padding-top:2px">
-            <button id="ad_click" class="widget-title">点击设备</button>
-            <button id="ad_action" class="widget-title">激活设备</button>
-            <button id="ad_action_new" class="widget-title">新增设备</button>
-            <button id="ad_account_new" class="widget-title">新增总账号</button>
-            <button id="double_new" class="widget-title">纯新增账号</button>
-            <button id="back_user" class="widget-title">回流账号</button>
-            <button id="paid_account" class="widget-title">付费账号</button>
-            <button id="fufeilv" class="widget-title">付费率</button>
-            <button id="spend" class="widget-title">折后花费</button>
-            <button id="CPA" class="widget-title"> C P A </button>
-            <button id="cumulative_flow" class="widget-title">累计流水</button>
-            <!--<button id="dis" class="widget-title">分成比例</button> -->
-            <button id="cumulative_moeny" class="widget-title">累计净收入</button>
-            <button id="ROI" class="widget-title"> R O I </button>
-
-            <div class="widget-toolbar">
-                <!--<a href="#" data-action="fullscreen" class="orange2">-->
-                    <!--<i class="ace-icon fa fa-expand"></i>-->
-                <!--</a>-->
-
-                <!--<a href="#" data-action="reload">-->
-                    <!--<i class="ace-icon fa fa-refresh"></i>-->
-                <!--</a>-->
-
-                <a href="#" data-action="collapse">
-                    <i class="ace-icon fa fa-chevron-up"></i>
-                </a>
-
-                <a href="#" data-action="close">
-                    <i class="ace-icon fa fa-times"></i>
-                </a>
+                                                            </div>
+                                                        </div>
             </div>
-        </div>
+   
 
-        <div class="widget-body">
-            <div id="container" style="min-width:400px;height:300px"></div>
-        </div>
-    </div>
+            <div class="col-xs-12 col-sm-6 widget-container-col ui-sortable" id="widget-container-col-1" style="min-height: 210px;">
+                                                                <div class="widget-box ui-sortable-handle" id="widget-box-1" style="opacity: 1;">
+                                                                    <div class="widget-header">
+                                                                        <h5 class="widget-title">Default Widget Box</h5>
+
+                                                                        <div class="widget-toolbar">
+                                                                            <div class="widget-menu">
+                                                                                <a href="#" data-action="settings" data-toggle="dropdown" aria-expanded="false">
+                                                                                    <i class="ace-icon fa fa-bars"></i>
+                                                                                </a>
+
+                                                                                <ul class="dropdown-menu dropdown-menu-right dropdown-light-blue dropdown-caret dropdown-closer">
+                                                                                    <li class="active">
+                                                                                        <a data-toggle="tab" href="#dropdown1" aria-expanded="true">Option#1</a>
+                                                                                    </li>
+
+                                                                                    <li class="active">
+                                                                                        <a data-toggle="tab" href="#dropdown2" aria-expanded="true">Option#2</a>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+
+                                                                            
+
+                                                                            <a href="#" data-action="reload">
+                                                                                <i class="ace-icon fa fa-refresh"></i>
+                                                                            </a>
+
+                                                                            <a href="#" data-action="collapse">
+                                                                                <i class="ace-icon fa fa-chevron-up"></i>
+                                                                            </a>
+
+                                                                            <a href="#" data-action="close">
+                                                                                <i class="ace-icon fa fa-times"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="widget-body" style="display: block;">
+                                                                        <div class="widget-main ace-scroll scroll-disabled" style="position: relative;"><div class="scroll-track" style="display: none;"><div class="scroll-bar" style="top: 0px;"></div></div><div class="scroll-content">
+                                                                            <p class="alert alert-info">
+                                                                                Nunc aliquam enim ut arcu aliquet adipiscing. Fusce dignissim volutpat justo non consectetur. Nulla fringilla eleifend consectetur.
+                                                                            </p>
+                                                                            <p class="alert alert-success">
+                                                                                Raw denim you probably haven't heard of them jean shorts Austin.
+                                                                            </p>
+                                                                        </div></div>
+                                                                    </div>
+                                                                </div>
+                    </div>
+           
+
+
+</div>
+
+</div>
 
 </div><!-- /.page-content -->
+
+<script>
+    var $table = $('#table');
+
+    $(function () {
+
+
+    $("#table").bootstrapTable({
+        url: "/analyze/mediaRetentionJson?{{sjs}}&channel_name&agent&staff",
+        pagination: true, //开启分页
+        pageSize: 10,
+    });
+
+       $table.bootstrapTable('hideColumn', 'game_id');
+       $table.bootstrapTable('hideColumn', 'platform');
+       $table.bootstrapTable('hideColumn', 'channel_name');
+       $table.bootstrapTable('hideColumn', 'agent');
+       $table.bootstrapTable('hideColumn', 'staff');
+    });
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+    var demo1 = null;
+    var channel_name = [];
+
+    var demo2 = null;
+    var agent = [];
+
+    var demo3 = null;
+    var staff = [];
+
+    $.getJSON("/analyze/mediaOverviewJsonTJ?{{sjs}}", function(data){
+        for(var i = 0 ; i<data.length ; i++){
+            var flagId=data[i]["channel_name"];
+            var flagText=data[i]["channel_name"];
+            if(channel_name.length != 0){ //判断数组是否为空,为空直接就push
+                var flag = true;
+                for(var j = 0 ; j<channel_name.length ; j++){
+                    if(channel_name[j]["id"] == flagId){
+                        flag = false;
+                    }
+                }
+                if(flag){
+                    channel_name.push({"id": flagId ,"text": flagText});
+                }
+            }else{
+                channel_name.push({"id": flagId ,"text": flagText});
+            }
+        }
+
+        demo1 = $('#demo1').comboboxfilter({
+            url: '',
+            text: "渠道",
+            scope: 'FilterQuery3',
+            multiple: true,
+            data:channel_name,
+            onChange:function(newValue){
+            $('#demo10').val(newValue);
+                newValue1 = newValue;
+            }
+        });
+
+
+        for(var i = 0 ; i<data.length ; i++){
+            var flagId=data[i]["agent"];
+            var flagText=data[i]["agent"];
+            if(agent.length != 0){ //判断数组是否为空,为空直接就push
+                var flag = true;
+                for(var j = 0 ; j<agent.length ; j++){
+                    if(agent[j]["id"] == flagId){
+                        flag = false;
+                    }
+                }
+                if(flag){
+                    agent.push({"id": flagId ,"text": flagText});
+                }
+            }else{
+                agent.push({"id": flagId ,"text": flagText});
+            }
+        }
+
+        demo2 = $('#demo2').comboboxfilter({
+            url: '',
+            text: "代理商",
+            scope: 'FilterQuery3',
+            multiple: true,
+            data:agent,
+            onChange:function(newValue){
+                $('#demo20').val(newValue);
+            newValue1 = newValue;
+            }
+        });
+
+
+        for(var i = 0 ; i<data.length ; i++){
+            var flagId=data[i]["staff"];
+            var flagText=data[i]["staff"];
+            if(staff.length != 0){ //判断数组是否为空,为空直接就push
+                var flag = true;
+                for(var j = 0 ; j<staff.length ; j++){
+                    if(staff[j]["id"] == flagId){
+                        flag = false;
+                    }
+                }
+                if(flag){
+                    staff.push({"id": flagId ,"text": flagText});
+                }
+            }else{
+                staff.push({"id": flagId ,"text": flagText});
+            }
+        }
+
+        demo3 = $('#demo3').comboboxfilter({
+            url: '',
+            text: "负责人",
+            scope: 'FilterQuery3',
+            multiple: true,
+            data:staff,
+            onChange:function(newValue){
+                $('#demo30').val(newValue);
+            newValue1 = newValue;
+            }
+        });
+    });
+
+
+    // 时间筛选+条件筛选
+    $("#chaxun").click(function(){
+        console.log(demo1.returnValue($("#demo1")));
+        console.log(demo2.returnValue($("#demo2")));
+        console.log(demo3.returnValue($("#demo3")));
+
+        var fromTime = $("#timeFrom").val();
+        var toTime = $("#timeTo").val();
+
+        var fromTimeCuo = Date.parse(new Date(fromTime));
+        var toTimeCuo = Date.parse(new Date(toTime));
+        var tianshu = (toTimeCuo - fromTimeCuo)/1000/60/60/24;
+
+        var fromToTime = [fromTime];
+        var flag = fromTimeCuo
+        for (var i = 0 ; i < tianshu ; i++ ){
+            flag = flag+1000*60*60*24;
+            fromToTime.push( new Date(flag).Format("yyyy-MM-dd") );
+        }
+
+        var channel_name_filter = demo1.returnValue($("#demo1"));
+
+        var agent_filter = demo2.returnValue($("#demo2"));
+
+        var staff_filter = demo3.returnValue($("#demo3"));
+
+        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name=" + channel_name_filter + "&agent=" + agent_filter + "&staff=" + staff_filter} );
+
+        $("#table").bootstrapTable('filterBy',{
+            date_time : fromToTime,
+        });
+
+        //条件筛选完成后,重新设置 piece chart
+        setTimeout("setPieceChart();",2000);
+
+    });
 
 {% endblock content %}
