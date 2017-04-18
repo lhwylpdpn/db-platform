@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">首页</a>
+        </li>
+        <li>
+            <a href="#">投放分析</a>
+        </li>
+        <li>
+            <a href="#">媒体分析</a>
+        </li>
+        <li class="active">媒体概览</li>
+    </ul><!-- /.breadcrumb -->
+</div>
+<div class="page-content">
+
+    <script type="text/javascript" src="/static/js/bootstrap-table.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap-table-multiple-sort.js"></script>
+
+    <link rel="stylesheet" href="/static/css/bootstrap-table.css">
+    <link rel="stylesheet" href="/static/css/Fliter.css">
+
+    <div class="btn-group">
+        <button id ="time_1" type="button" class="btn btn-white btn-sm btn-primary">昨日</button>
+        <button id ="time_2" type="button" class="btn btn-white btn-sm btn-primary">前日</button>
+        <button id ="time_7" type="button" class="btn btn-white btn-sm btn-primary">近7天</button>
+        <button id ="time_15" type="button" class="btn btn-white btn-sm btn-primary">近15天</button>
+        <button id ="time_30" type="button" class="btn btn-white btn-sm btn-primary">近30天</button>
+        <button id ="timeAll" type="button" class="btn btn-white btn-sm btn-primary">历史所有</button>
+        <!--<button id ="timeFromTo" type="button" class="btn btn-white btn-sm btn-primary">2017-02-01 -&#45;&#45; 2017-02-30</button>-->
+    </div>|
+    <input id="timeFrom" type="date" class="btn btn-white btn-sm btn-primary" value="" style="height:27px">--
+    <input id="timeTo" type="date" class="btn btn-white btn-sm btn-primary" value="" style="height:27px">
+
+    <p></p>
+    <div>
+        <div id="demo1"></div>
+        <div id="demo2"></div>
+        <div id="demo3"></div>
+
+        <div align="center">
+            <button id="chaxun" class="btn btn-white btn-sm btn-primary">查询</button>
+        </div>
+    </div>
+    <div class="hr hr-8 hr-dotted"></div>
+    
+
+    <!--<div align="right">-->
+        <!--<button id="showHideTable" class="btn btn-white btn-sm btn-primary">收起表格</button>-->
+    <!--</div>-->
+
+    <div>
+        <table id="table" data-sort-name="date_time" data-sort-order="desc" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th data-field="channel_name" data-sortable="true">　渠道　</th>
+                    <th data-field="agent" data-sortable="true">代理商</th>
+                    <th data-field="staff" data-sortable="true">负责人</th>
+                    <th data-field="date_time" data-sortable="true">　日期　</th>
+                    <th data-field="ad_click" data-sortable="true">点击设备</th>
+                    <th data-field="ad_action" data-sortable="true">激活设备</th>
+                    <th data-field="ad_action_new" data-sortable="true">新增设备</th>
+                    <th data-field="ad_account_new" data-sortable="true">新增总账号</th>
+                    <th data-field="double_new" data-sortable="true">纯新增账号</th>
+                    <th data-field="back_user" data-sortable="true">回流账号</th>
+                    <th data-field="paid_account" data-sortable="true">付费账号</th>
+                    <th data-field="fufeilv" data-sortable="true" data-formatter="fufeilv" data-align="right">付费率</th>
+                    <th data-field="spend" data-sortable="true" data-formatter="spend" data-align="right">折后花费</th>
+                    <th data-field="CPA" data-sortable="true">C P A</th>
+                    <th data-field="cumulative_flow" data-sortable="true" data-formatter="cumulative_flow" data-align="right">累计流水</th>
+                    <!-- <th data-field="dis" data-sortable="true">分成比例</th> -->
+                    <th data-field="cumulative_moeny" data-sortable="true" data-formatter="cumulative_moeny" data-align="right">累计净收入</th>
+                    <th data-field="ROI" data-sortable="true" data-formatter="ROI" data-align="right">R O I</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="widget-box ui-sortable-handle" id="widget-box-7">
+        <div class="widget-header" style="padding-top:2px">
+            <button id="ad_click" class="widget-title">点击设备</button>
+            <button id="ad_action" class="widget-title">激活设备</button>
+            <button id="ad_action_new" class="widget-title">新增设备</button>
+            <button id="ad_account_new" class="widget-title">新增总账号</button>
+            <button id="double_new" class="widget-title">纯新增账号</button>
+            <button id="back_user" class="widget-title">回流账号</button>
+            <button id="paid_account" class="widget-title">付费账号</button>
+            <button id="fufeilv" class="widget-title">付费率</button>
+            <button id="spend" class="widget-title">折后花费</button>
+            <button id="CPA" class="widget-title"> C P A </button>
+            <button id="cumulative_flow" class="widget-title">累计流水</button>
+            <!--<button id="dis" class="widget-title">分成比例</button> -->
+            <button id="cumulative_moeny" class="widget-title">累计净收入</button>
+            <button id="ROI" class="widget-title"> R O I </button>
+
+            <div class="widget-toolbar">
+                <!--<a href="#" data-action="fullscreen" class="orange2">-->
+                    <!--<i class="ace-icon fa fa-expand"></i>-->
+                <!--</a>-->
+
+                <!--<a href="#" data-action="reload">-->
+                    <!--<i class="ace-icon fa fa-refresh"></i>-->
+                <!--</a>-->
+
+                <a href="#" data-action="collapse">
+                    <i class="ace-icon fa fa-chevron-up"></i>
+                </a>
+
+                <a href="#" data-action="close">
+                    <i class="ace-icon fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="widget-body">
+            <div id="container" style="min-width:400px;height:300px"></div>
+        </div>
+    </div>
+
+</div><!-- /.page-content -->
+
+{% endblock content %}
