@@ -136,20 +136,20 @@
     </div>
     <div class="widget-box ui-sortable-handle" id="widget-box-7">
         <div class="widget-header" style="padding-top:2px">
-            <button id="ad_click" class="widget-title">点击设备</button>
-            <button id="ad_action" class="widget-title">激活设备</button>
-            <button id="ad_action_new" class="widget-title">新增设备</button>
-            <button id="ad_account_new" class="widget-title">新增总账号</button>
-            <button id="double_new" class="widget-title">纯新增账号</button>
-            <button id="back_user" class="widget-title">回流账号</button>
-            <button id="paid_account" class="widget-title">付费账号</button>
-            <button id="fufeilv" class="widget-title">付费率</button>
-            <button id="spend" class="widget-title">折后花费</button>
-            <button id="CPA" class="widget-title"> C P A </button>
-            <button id="cumulative_flow" class="widget-title">累计流水</button>
-            <!--<button id="dis" class="widget-title">分成比例</button> -->
-            <button id="cumulative_moeny" class="widget-title">累计净收入</button>
-            <button id="ROI" class="widget-title"> R O I </button>
+            <button id="ad_click" class="chart-title widget-title">点击设备</button>
+            <button id="ad_action" class="chart-title">激活设备</button>
+            <button id="ad_action_new" class="chart-title">新增设备</button>
+            <button id="ad_account_new" class="chart-title">新增总账号</button>
+            <button id="double_new" class="chart-title">纯新增账号</button>
+            <button id="back_user" class="chart-title">回流账号</button>
+            <button id="paid_account" class="chart-title">付费账号</button>
+            <button id="fufeilv" class="chart-title">付费率</button>
+            <button id="spend" class="chart-title">折后花费</button>
+            <button id="CPA" class="chart-title"> C P A </button>
+            <button id="cumulative_flow" class="chart-title">累计流水</button>
+            <!--<button id="dis" class="chart-title">分成比例</button> -->
+            <button id="cumulative_moeny" class="chart-title">累计净收入</button>
+            <button id="ROI" class="chart-title"> R O I </button>
 
             <div class="widget-toolbar">
                 <!--<a href="#" data-action="fullscreen" class="orange2">-->
@@ -784,72 +784,100 @@
     setTimeout("setPieceChart();",2000);
 
     $("#ad_click").click(function(){
-        //???????????????设置背景颜色,和其他去掉背景颜色
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("widget-title");
+        $(this).addClass("widget-title");
         setChart("点击设备","单位:个",ad_click_dataS);
     })
 
     $("#ad_action").click(function(){
-        //???????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("widget-title");
+        $(this).addClass("widget-title");
         setChart("激活设备","单位:个",ad_action_dataS);
     })
 
     $("#ad_action_new").click(function(){
-        //???????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("widget-title");
+        $(this).addClass("widget-title");
         setChart("新增设备","单位:个",ad_action_new_dataS);
     })
 
     $("#ad_account_new").click(function(){
-        //???????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("widget-title");
+        $(this).addClass("widget-title");
         setChart("新增总账号","单位:个",ad_account_new_dataS);
     })
 
     $("#double_new").click(function(){
-        //???????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("widget-title");
+        $(this).addClass("widget-title");
         setChart("纯新增账号","单位:个",double_new_dataS);
     })
 
     $("#back_user").click(function(){
-        //???????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("widget-title");
+        $(this).addClass("widget-title");
         setChart("回流账号","单位:个",back_user_dataS);
     })
 
     $("#paid_account").click(function(){
-        //??????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("widget-title");
+        $(this).addClass("widget-title");
         setChart("付费账号","单位:个",paid_account_dataS);
     })
 
     $("#fufeilv").click(function(){
-        //???????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("widget-title");
+        $(this).addClass("widget-title");
         setChart("付费率","单位:百分百",fufeilv_dataS);
     })
 
     $("#spend").click(function(){
-        //???????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("widget-title");
+        $(this).addClass("widget-title");
         setChart("折后花费","单位:元",spend_dataS);
     })
 
     $("#CPA").click(function(){
-        //???????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("widget-title");
+        $(this).addClass("widget-title");
         setChart("C P A","单位:元",CPA_dataS);
     })
 
     $("#cumulative_flow").click(function(){
-        //???????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("widget-title");
+        $(this).addClass("widget-title");
         setChart("累计流水","单位:元",cumulative_flow_dataS);
     })
 
     $("#dis").click(function(){
-        //???????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("widget-title");
+        $(this).addClass("widget-title");
         setChart("分成比例","单位:百分百",dis_dataS);
     })
 
     $("#cumulative_moeny").click(function(){
-        //???????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("widget-title");
+        $(this).addClass("widget-title");
         setChart("累计净收入","单位:元",cumulative_moeny_dataS);
     })
 
     $("#ROI").click(function(){
-        //???????????????cumulative_moeny
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("widget-title");
+        $(this).addClass("widget-title");
         setChart("R O I","单位:百分百",ROI_dataS);
     })
 </script><!--筛选后的数据处理-->
