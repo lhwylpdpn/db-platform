@@ -1177,7 +1177,7 @@ if __name__ == '__main__':
 		test_ok()
 		print time.asctime(time.localtime(time.time()))
 		print("wait")
-		time.sleep(900)
+		time.sleep(1600)
 
 	# conn=pymysql.connect(host='localhost',user='root',passwd='123456',db='zilong_report',port=3306)
 	# cur_1=conn.cursor()
