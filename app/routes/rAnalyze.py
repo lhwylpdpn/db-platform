@@ -143,5 +143,5 @@ def mediaRetention():
     return render_template("putAnalyze/mediaAnalyze/mediaRetention.html", title=U"留存活跃", sjs=random.random())
 
 @analyzeBp.route('/mediaRetentionJson')
-def mediaOverviewJson():
+def mediaRetentionJson():
     jsons = json.loads(get_business_json("media_3.json", session["username"]))["body"]  # 字符串传化为json 对象 dict
