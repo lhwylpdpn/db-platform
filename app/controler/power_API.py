@@ -273,6 +273,54 @@ def monitor_data():# 收集监控所需要的系统文件数据
 	else:
 		value.append(["Daily_xzff_detail","0"])
 
+	if  os.path.exists(pwd_yuan+"/1452827692979/market_onlinetime_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv"):
+		statinfo=os.stat(pwd_yuan+"/1452827692979/market_onlinetime_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
+		value.append(["market_onlinetime_",time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(statinfo.st_mtime))])
+	else:
+		value.append(["market_onlinetime_","0"])
+
+	if  os.path.exists(pwd_yuan+"/1452827692979/market_newuser_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv"):
+		statinfo=os.stat(pwd_yuan+"/1452827692979/market_newuser_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
+		value.append(["market_newuser_",time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(statinfo.st_mtime))])
+	else:
+		value.append(["market_newuser_","0"])
+
+	if  os.path.exists(pwd_yuan+"/1452827692979/market_logincount_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv"):
+		statinfo=os.stat(pwd_yuan+"/1452827692979/market_logincount_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
+		value.append(["market_logincount_",time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(statinfo.st_mtime))])
+	else:
+		value.append(["market_logincount_","0"])
+
+	if  os.path.exists(pwd_yuan+"/1452827692979/market_ltv_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv"):
+		statinfo=os.stat(pwd_yuan+"/1452827692979/market_ltv_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
+		value.append(["market_ltv_",time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(statinfo.st_mtime))])
+	else:
+		value.append(["market_ltv_","0"])
+
+	if  os.path.exists(pwd_yuan+"/1452827692979/market_retain_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv"):
+		statinfo=os.stat(pwd_yuan+"/1452827692979/market_retain_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
+		value.append(["market_retain_",time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(statinfo.st_mtime))])
+	else:
+		value.append(["market_retain_","0"])
+
+	if  os.path.exists(pwd_yuan+"/1452827692979/market_levelup_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv"):
+		statinfo=os.stat(pwd_yuan+"/1452827692979/market_levelup_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
+		value.append(["market_levelup_log_",time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(statinfo.st_mtime))])
+	else:
+		value.append(["market_levelup_log_","0"])
+
+	if  os.path.exists(pwd_yuan+"/1452827692979/market_login_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv"):
+		statinfo=os.stat(pwd_yuan+"/1452827692979/market_login_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
+		value.append(["market_login_log_",time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(statinfo.st_mtime))])
+	else:
+		value.append(["market_login_log_","0"])
+
+
+	if  os.path.exists(pwd_yuan+"/1452827692979/market_logout_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv"):
+		statinfo=os.stat(pwd_yuan+"/1452827692979/market_logout_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
+		value.append(["market_logout_log_",time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(statinfo.st_mtime))])
+	else:
+		value.append(["market_logout_log_","0"])
 		
 	#for zengliang
 
