@@ -144,4 +144,5 @@ def mediaRetention():
 
 @analyzeBp.route('/mediaRetentionJson')
 def mediaRetentionJson():
-    jsons = json.loads(get_business_json("media_3.json", session["username"]))["body"]  # 字符串传化为json 对象 dict
+    jsons = json.loads(get_business_json("media_3.json", session["username"]))  # 字符串传化为json 对象 dict
+    return json.dumps(jsons["body"])
