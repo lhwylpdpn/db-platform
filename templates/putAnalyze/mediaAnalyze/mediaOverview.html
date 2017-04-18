@@ -25,16 +25,15 @@
     <link rel="stylesheet" href="/static/css/Fliter.css">
 
     <div class="btn-group">
-        <button id ="time_1" type="button" class="btn btn-white btn-sm btn-primary">昨日</button>
-        <button id ="time_2" type="button" class="btn btn-white btn-sm btn-primary">前日</button>
-        <button id ="time_7" type="button" class="btn btn-white btn-sm btn-primary">近7天</button>
-        <button id ="time_15" type="button" class="btn btn-white btn-sm btn-primary">近15天</button>
-        <button id ="time_30" type="button" class="btn btn-white btn-sm btn-primary">近30天</button>
-        <button id ="timeAll" type="button" class="btn btn-white btn-sm btn-primary">历史所有</button>
-        <!--<button id ="timeFromTo" type="button" class="btn btn-white btn-sm btn-primary">2017-02-01 -&#45;&#45; 2017-02-30</button>-->
+        <button id ="time_1" type="button" class="data-filter btn btn-white btn-sm btn-primary">昨日</button>
+        <button id ="time_2" type="button" class="data-filter btn btn-white btn-sm btn-primary">前日</button>
+        <button id ="time_7" type="button" class="data-filter btn btn-white btn-sm btn-primary">近7天</button>
+        <button id ="time_15" type="button" class="data-filter btn btn-white btn-sm btn-primary">近15天</button>
+        <button id ="time_30" type="button" class="data-filter btn btn-white btn-sm btn-primary">近30天</button>
+        <button id ="timeAll" type="button" class="data-filter btn btn-sm btn-primary">历史所有</button>
     </div>|
-    <input id="timeFrom" type="date" class="btn btn-white btn-sm btn-primary" value="" style="height:27px">--
-    <input id="timeTo" type="date" class="btn btn-white btn-sm btn-primary" value="" style="height:27px">
+    <input id="timeFrom" type="date" class="data-filter btn btn-white btn-sm btn-primary" value="" style="height:27px">--
+    <input id="timeTo" type="date" class="data-filter btn btn-white btn-sm btn-primary" value="" style="height:27px">
 
     <p></p>
     <div>
@@ -43,7 +42,7 @@
         <div id="demo3"></div>
 
         <div align="center">
-            <button id="chaxun" class="btn btn-white btn-sm btn-primary">查询</button>
+            <button id="chaxun" class="btn btn-sm btn-primary">查询</button>
         </div>
     </div>
     <div class="hr hr-8 hr-dotted"></div>
@@ -335,7 +334,9 @@
 
         $("#timeFrom").val(timeTo);
         $("#timeTo").val(timeTo);
-        //???????????????设置背景颜色,和其他去掉背景颜色,下边的同样需要
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $(this).removeClass("btn-white");
         filterTime(timeTo, timeTo);
     });
     $("#time_2").click(function(){
@@ -344,6 +345,9 @@
         console.log(timeTo);
         $("#timeFrom").val(timeTo);
         $("#timeTo").val(timeTo);
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $(this).removeClass("btn-white");
         filterTime(timeTo, timeTo);
     });
     $("#time_7").click(function(){
@@ -353,6 +357,9 @@
         console.log(timeTo,timeFrom);
         $("#timeFrom").val(timeFrom);
         $("#timeTo").val(timeTo);
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $(this).removeClass("btn-white");
         filterTime(timeFrom, timeTo);
     });
     $("#time_15").click(function(){
@@ -362,6 +369,9 @@
         console.log(timeTo,timeFrom);
         $("#timeFrom").val(timeFrom);
         $("#timeTo").val(timeTo);
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $(this).removeClass("btn-white");
         filterTime(timeFrom, timeTo);
     });
     $("#time_30").click(function(){
@@ -371,6 +381,9 @@
         console.log(timeTo,timeFrom);
         $("#timeFrom").val(timeFrom);
         $("#timeTo").val(timeTo);
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $(this).removeClass("btn-white");
         filterTime(timeFrom, timeTo);
     });
     $("#timeAll").click(function(){
@@ -380,17 +393,28 @@
         console.log(timeTo,timeFrom);
         $("#timeFrom").val(timeFrom);
         $("#timeTo").val(timeTo);
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $(this).removeClass("btn-white");
         filterTime(timeFrom, timeTo);
     });
     $("#timeFrom").change(function(){
         var timeFrom = $(this).val();
         var timeTo = $("#timeTo").val();
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $(this).removeClass("btn-white");
+        $("#timeTo").removeClass("btn-white");
         filterTime(timeFrom, timeTo);
 
     });
     $("#timeTo").change(function(){
         var timeTo = $(this).val();
         var timeFrom = $("#timeFrom").val();
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $("#timeFrom").removeClass("btn-white");
+        $(this).removeClass("btn-white");
         filterTime(timeFrom, timeTo);
 
     });
