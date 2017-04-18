@@ -35,8 +35,7 @@ def before_request():
 
 @app.route('/')
 def index():
-    # return render_template("index.html", title=U"首页")
-    return redirect(url_for('expecting'))
+    return render_template("index.html", title=U"首页")
 
 
 @app.route('/channelIos600')
