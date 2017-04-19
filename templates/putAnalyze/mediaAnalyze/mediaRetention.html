@@ -54,7 +54,24 @@
             <div class=" col-sm-6 widget-container-col ui-sortable" id="widget-container-col-1">
                                                         <div class="widget-box ui-sortable-handle" id="widget-box-1"  >
                                                             <div class="widget-header">
-                                                                <h5 class="widget-title">用户留存情况</h5>
+                                                                <h5 class="widget-title">
+                                                                <button class="btn btn-sm btn-danger  btn-white btn-round" id="button1">
+                                                                    <i class="ace-icon fa fa-folder-o bigger-110 red"></i>
+                                                                    用户留存量
+                                                                </button>
+                                                                <button class="btn btn-sm btn-danger  btn-white btn-round"  id="button2">
+                                                                    <i class="ace-icon fa fa-folder-o bigger-110 red"></i>
+                                                                    用户留存率
+                                                                </button>
+                                                                <button class="btn btn-sm btn-danger  btn-white btn-round"  id="button3">
+                                                                    <i class="ace-icon fa fa-folder-o bigger-110 red"></i>
+                                                                    用户平均活跃时长
+                                                                </button>
+                                                                <button class="btn btn-sm btn-danger  btn-white btn-round"  id="button4">
+                                                                    <i class="ace-icon fa fa-folder-o bigger-110 red"></i>
+                                                                    用户平均登录次数
+                                                                </button>
+                                                                </h5>
 
                                                                 <div class="widget-toolbar">
                                                                     <div class="widget-menu">
@@ -90,7 +107,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="widget-body">
-        <table id="table" data-sort-name="date_" data-sort-order="desc" class="table table-no-bordered "
+        <table id="table" data-sort-name="date_" data-sort-order="desc" class="table table-no-bordered "  
         data-pagination="true"  
         data-page-list="[10,20,50,100]"
         data-height="300"
@@ -115,61 +132,15 @@
                 </tr>
             </thead>
         </table>
+
+       
+
                                                             </div>
                                                         </div>
             </div>
    
 
-            <div class="col-xs-12 col-sm-6 widget-container-col ui-sortable" id="widget-container-col-1" style="min-height: 210px;">
-                                                                <div class="widget-box ui-sortable-handle" id="widget-box-1" style="opacity: 1;">
-                                                                    <div class="widget-header">
-                                                                        <h5 class="widget-title">Default Widget Box</h5>
-
-                                                                        <div class="widget-toolbar">
-                                                                            <div class="widget-menu">
-                                                                                <a href="#" data-action="settings" data-toggle="dropdown" aria-expanded="false">
-                                                                                    <i class="ace-icon fa fa-bars"></i>
-                                                                                </a>
-
-                                                                                <ul class="dropdown-menu dropdown-menu-right dropdown-light-blue dropdown-caret dropdown-closer">
-                                                                                    <li class="active">
-                                                                                        <a data-toggle="tab" href="#dropdown1" aria-expanded="true">Option#1</a>
-                                                                                    </li>
-
-                                                                                    <li class="active">
-                                                                                        <a data-toggle="tab" href="#dropdown2" aria-expanded="true">Option#2</a>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-
-                                                                            
-
-                                                                            <a href="#" data-action="reload">
-                                                                                <i class="ace-icon fa fa-refresh"></i>
-                                                                            </a>
-
-                                                                            <a href="#" data-action="collapse">
-                                                                                <i class="ace-icon fa fa-chevron-up"></i>
-                                                                            </a>
-
-                                                                            <a href="#" data-action="close">
-                                                                                <i class="ace-icon fa fa-times"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="widget-body" style="display: block;">
-                                                                        <div class="widget-main ace-scroll scroll-disabled" style="position: relative;"><div class="scroll-track" style="display: none;"><div class="scroll-bar" style="top: 0px;"></div></div><div class="scroll-content">
-                                                                            <p class="alert alert-info">
-                                                                                Nunc aliquam enim ut arcu aliquet adipiscing. Fusce dignissim volutpat justo non consectetur. Nulla fringilla eleifend consectetur.
-                                                                            </p>
-                                                                            <p class="alert alert-success">
-                                                                                Raw denim you probably haven't heard of them jean shorts Austin.
-                                                                            </p>
-                                                                        </div></div>
-                                                                    </div>
-                                                                </div>
-                    </div>
+           
            
 
 
@@ -185,19 +156,38 @@
     $(function () {
 
 
-    $("#table").bootstrapTable({
+
+        $("#table").bootstrapTable({
         url: "/analyze/mediaRetentionJson?{{sjs}}",
         pagination: true, //开启分页
-        pageSize: 10,
+        pageSize: 10
+    });
+     $("#table").bootstrapTable('hideColumn', 'game_id');
+     $("#table").bootstrapTable('hideColumn', 'platform');
+    $("#table").bootstrapTable('hideColumn', 'channel_name');
+    $("#table").bootstrapTable('hideColumn', 'agent');
+    $("#table").bootstrapTable('hideColumn', 'staff');
     });
 
-       $table.bootstrapTable('hideColumn', 'game_id');
-       $table.bootstrapTable('hideColumn', 'platform');
-       $table.bootstrapTable('hideColumn', 'channel_name');
-       $table.bootstrapTable('hideColumn', 'agent');
-       $table.bootstrapTable('hideColumn', 'staff');
-    });
 
+
+
+    $("#button1").click(function(){
+         $("#table").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson?{{sjs}}" } );
+
+    });
+    $("#button2").click(function(){
+         $("#table").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson2?{{sjs}}" } );
+
+    });
+    $("#button3").click(function(){
+         $("#table").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson3?{{sjs}}" } );
+
+    });
+    $("#button4").click(function(){
+         $("#table").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson4?{{sjs}}" } );
+
+    });
 </script>
 
 

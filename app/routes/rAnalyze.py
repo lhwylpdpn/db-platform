@@ -145,4 +145,6 @@ def mediaRetention():
 @analyzeBp.route('/mediaRetentionJson')
 def mediaRetentionJson():
     jsons = json.loads(get_business_json("media_3.json", session["username"]))  # 字符串传化为json 对象 dict
-    return json.dumps(jsons["body"])
+    print(jsons)
+
+    #r=re.findall(r'({[^}]+"channel_name":"百度品牌专区"[^}]+}|{[^}]+"agent":"晋拓"[^}]+})',str1)
