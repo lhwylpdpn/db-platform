@@ -78,7 +78,7 @@
 .hotel-filter-list .conF a {
 	position: relative;
 	float: left;
-	color: #43647f;
+	/* color: #43647f; */
 	padding: 0 16px;
 	text-decoration: none;
 }
@@ -130,7 +130,7 @@
 
 .hotel-filter-list .checkboxF a {
 	padding-left: 28px;
-	background-color: transparent;
+	/*background-color: transparent;*/
 }
 
 .hotel-filter-list .checkboxF a i {
@@ -493,4 +493,10 @@
 
 .filter-tag {
     width: 130px
+}
+
+.selected {
+    color: #FFF !important;
+    background-color: #C80017;
+    border: 1px solid #FFF
 }
