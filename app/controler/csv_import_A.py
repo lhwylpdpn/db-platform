@@ -114,22 +114,22 @@ def import_check(pwd,file):
 
 if __name__ == '__main__':
 
-	import_check("/data1/bidata/1452827692979/","market_newuser_2017-04-14.csv")
-	import_check("/data1/bidata/1452827692979/","market_logincount_2017-04-14.csv")
-	import_check("/data1/bidata/1452827692979/","market_ltv_2017-04-14.csv")
-	import_check("/data1/bidata/1452827692979/","market_onlinetime_2017-04-14.csv")
-	import_check("/data1/bidata/1452827692979/","market_retain_2017-04-14.csv")
-	import_check("/data1/bidata/1452827692979/","market_login_log_2017-04-14.csv")
-	import_check("/data1/bidata/1452827692979/","market_levelup_log_2017-04-14.csv")
-	import_check("/data1/bidata/1452827692979/","market_logout_log_2017-04-14.csv")
+	import_check("/data1/bidata/1452827692979/","market_newuser_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
+	import_check("/data1/bidata/1452827692979/","market_logincount_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
+	import_check("/data1/bidata/1452827692979/","market_ltv_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
+	import_check("/data1/bidata/1452827692979/","market_onlinetime_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
+	import_check("/data1/bidata/1452827692979/","market_retain_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
+	import_check("/data1/bidata/1452827692979/","market_login_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
+	import_check("/data1/bidata/1452827692979/","market_levelup_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
+	import_check("/data1/bidata/1452827692979/","market_logout_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
 
 
 
-	import_csv("/data1/bidata/1452827692979/","market_newuser_2017-04-14.csv",'ad_action_v2','all')
-	import_csv("/data1/bidata/1452827692979/","market_logincount_2017-04-14.csv",'ad_logincount_v2','all')
-	import_csv("/data1/bidata/1452827692979/","market_ltv_2017-04-14.csv",'ad_re_money_v2','all')
-	import_csv("/data1/bidata/1452827692979/","market_onlinetime_2017-04-14.csv",'ad_onlinetime_v2','all')
-	import_csv("/data1/bidata/1452827692979/","market_retain_2017-04-14.csv",'ad_retention_v2','all')
-	import_csv("/data1/bidata/1452827692979/","market_login_log_2017-04-14.csv",'login_detail','1')
-	import_csv("/data1/bidata/1452827692979/","market_levelup_log_2017-04-14.csv",'level_detail','1')
-	import_csv("/data1/bidata/1452827692979/","market_logout_log_2017-04-14.csv",'logout_detail','1')
+	import_csv("/data1/bidata/1452827692979/","market_newuser_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'ad_action_v2','all')
+	import_csv("/data1/bidata/1452827692979/","market_logincount_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'ad_logincount_v2','all')
+	import_csv("/data1/bidata/1452827692979/","market_ltv_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'ad_re_money_v2','all')
+	import_csv("/data1/bidata/1452827692979/","market_onlinetime_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'ad_onlinetime_v2','all')
+	import_csv("/data1/bidata/1452827692979/","market_retain_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'ad_retention_v2','all')
+	import_csv("/data1/bidata/1452827692979/","market_login_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'login_detail','1')
+	import_csv("/data1/bidata/1452827692979/","market_levelup_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'level_detail','1')
+	import_csv("/data1/bidata/1452827692979/","market_logout_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'logout_detail','1')
