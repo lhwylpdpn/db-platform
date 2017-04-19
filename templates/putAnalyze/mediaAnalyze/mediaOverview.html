@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 
+<style>
+    .select-title{
+        background-color: #1B6AAA!important;
+        border-color: #1B6AAA;
+        color: #FFF;
+    }
+</style>
 <div class="breadcrumbs ace-save-state" id="breadcrumbs">
     <ul class="breadcrumb">
         <li>
@@ -136,7 +143,8 @@
     </div>
     <div class="widget-box ui-sortable-handle" id="widget-box-7">
         <div class="widget-header" style="padding-top:2px">
-            <button id="ad_click" class="chart-title widget-title">点击设备</button>
+            <button class="widget-title" style="visibility: hidden;">|</button>
+            <button id="ad_click" class="chart-title select-title">点击设备</button>
             <button id="ad_action" class="chart-title">激活设备</button>
             <button id="ad_action_new" class="chart-title">新增设备</button>
             <button id="ad_account_new" class="chart-title">新增总账号</button>
@@ -785,99 +793,99 @@
 
     $("#ad_click").click(function(){
         //设置选择样式,和其他去掉选择样式
-        $(".chart-title").removeClass("widget-title");
-        $(this).addClass("widget-title");
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("点击设备","单位:个",ad_click_dataS);
     })
 
     $("#ad_action").click(function(){
         //设置选择样式,和其他去掉选择样式
-        $(".chart-title").removeClass("widget-title");
-        $(this).addClass("widget-title");
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("激活设备","单位:个",ad_action_dataS);
     })
 
     $("#ad_action_new").click(function(){
         //设置选择样式,和其他去掉选择样式
-        $(".chart-title").removeClass("widget-title");
-        $(this).addClass("widget-title");
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("新增设备","单位:个",ad_action_new_dataS);
     })
 
     $("#ad_account_new").click(function(){
         //设置选择样式,和其他去掉选择样式
-        $(".chart-title").removeClass("widget-title");
-        $(this).addClass("widget-title");
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("新增总账号","单位:个",ad_account_new_dataS);
     })
 
     $("#double_new").click(function(){
         //设置选择样式,和其他去掉选择样式
-        $(".chart-title").removeClass("widget-title");
-        $(this).addClass("widget-title");
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("纯新增账号","单位:个",double_new_dataS);
     })
 
     $("#back_user").click(function(){
         //设置选择样式,和其他去掉选择样式
-        $(".chart-title").removeClass("widget-title");
-        $(this).addClass("widget-title");
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("回流账号","单位:个",back_user_dataS);
     })
 
     $("#paid_account").click(function(){
         //设置选择样式,和其他去掉选择样式
-        $(".chart-title").removeClass("widget-title");
-        $(this).addClass("widget-title");
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("付费账号","单位:个",paid_account_dataS);
     })
 
     $("#fufeilv").click(function(){
         //设置选择样式,和其他去掉选择样式
-        $(".chart-title").removeClass("widget-title");
-        $(this).addClass("widget-title");
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("付费率","单位:百分百",fufeilv_dataS);
     })
 
     $("#spend").click(function(){
         //设置选择样式,和其他去掉选择样式
-        $(".chart-title").removeClass("widget-title");
-        $(this).addClass("widget-title");
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("折后花费","单位:元",spend_dataS);
     })
 
     $("#CPA").click(function(){
         //设置选择样式,和其他去掉选择样式
-        $(".chart-title").removeClass("widget-title");
-        $(this).addClass("widget-title");
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("C P A","单位:元",CPA_dataS);
     })
 
     $("#cumulative_flow").click(function(){
         //设置选择样式,和其他去掉选择样式
-        $(".chart-title").removeClass("widget-title");
-        $(this).addClass("widget-title");
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("累计流水","单位:元",cumulative_flow_dataS);
     })
 
     $("#dis").click(function(){
         //设置选择样式,和其他去掉选择样式
-        $(".chart-title").removeClass("widget-title");
-        $(this).addClass("widget-title");
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("分成比例","单位:百分百",dis_dataS);
     })
 
     $("#cumulative_moeny").click(function(){
         //设置选择样式,和其他去掉选择样式
-        $(".chart-title").removeClass("widget-title");
-        $(this).addClass("widget-title");
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("累计净收入","单位:元",cumulative_moeny_dataS);
     })
 
     $("#ROI").click(function(){
         //设置选择样式,和其他去掉选择样式
-        $(".chart-title").removeClass("widget-title");
-        $(this).addClass("widget-title");
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("R O I","单位:百分百",ROI_dataS);
     })
 </script><!--筛选后的数据处理-->
@@ -890,7 +898,7 @@ jQuery(function($) {
     $('.widget-container-col').sortable({
         connectWith: '.widget-container-col',
 		items:'> .widget-box',
-	    handle: ace.vars['touch'] ? '.widget-title' : false,
+	    handle: ace.vars['touch'] ? '.select-title' : false,
 	    cancel: '.fullscreen',
 	    opacity:0.8,
 	    revert:true,
