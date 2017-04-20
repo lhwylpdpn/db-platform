@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 
+<style>
+    .select-title{
+        background-color: #1B6AAA!important;
+        border-color: #1B6AAA;
+        color: #FFF;
+    }
+</style>
 <div class="breadcrumbs ace-save-state" id="breadcrumbs">
     <ul class="breadcrumb">
         <li>
@@ -25,16 +32,15 @@
     <link rel="stylesheet" href="/static/css/Fliter.css">
 
     <div class="btn-group">
-        <button id ="time_1" type="button" class="btn btn-white btn-sm btn-primary">昨日</button>
-        <button id ="time_2" type="button" class="btn btn-white btn-sm btn-primary">前日</button>
-        <button id ="time_7" type="button" class="btn btn-white btn-sm btn-primary">近7天</button>
-        <button id ="time_15" type="button" class="btn btn-white btn-sm btn-primary">近15天</button>
-        <button id ="time_30" type="button" class="btn btn-white btn-sm btn-primary">近30天</button>
-        <button id ="timeAll" type="button" class="btn btn-white btn-sm btn-primary">历史所有</button>
-        <!--<button id ="timeFromTo" type="button" class="btn btn-white btn-sm btn-primary">2017-02-01 -&#45;&#45; 2017-02-30</button>-->
+        <button id ="time_1" type="button" class="data-filter btn btn-white btn-sm btn-primary">昨日</button>
+        <button id ="time_2" type="button" class="data-filter btn btn-white btn-sm btn-primary">前日</button>
+        <button id ="time_7" type="button" class="data-filter btn btn-white btn-sm btn-primary">近7天</button>
+        <button id ="time_15" type="button" class="data-filter btn btn-white btn-sm btn-primary">近15天</button>
+        <button id ="time_30" type="button" class="data-filter btn btn-white btn-sm btn-primary">近30天</button>
+        <button id ="timeAll" type="button" class="data-filter btn btn-sm btn-primary">历史所有</button>
     </div>|
-    <input id="timeFrom" type="date" class="btn btn-white btn-sm btn-primary" value="" style="height:27px">--
-    <input id="timeTo" type="date" class="btn btn-white btn-sm btn-primary" value="" style="height:27px">
+    <input id="timeFrom" type="date" class="data-filter btn btn-white btn-sm btn-primary" value="" style="height:27px">--
+    <input id="timeTo" type="date" class="data-filter btn btn-white btn-sm btn-primary" value="" style="height:27px">
 
     <p></p>
     <div>
@@ -42,148 +48,68 @@
         <div id="demo2"></div>
         <div id="demo3"></div>
 
-        <div align="center">
-            <button id="chaxun" class="btn btn-white btn-sm btn-primary">查询</button>
+        <div align="center" style="padding-top:7px">
+            <button id="chaxun" class="btn btn-sm btn-primary">查询</button>
         </div>
     </div>
     <div class="hr hr-8 hr-dotted"></div>
-    <div id="main-widget-container" styledelete="height:84px;background:#EEEEEE">
+    <!--<div id="main-widget-container" styledelete="height:84px;background:#EEEEEE">-->
 
-        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-1" >
-            <div class="widget-box " id="widget-box-1">
-                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content">广告点击设备</div>
-                </div>
-            </div>
-            <div class="widget-box " id="widget-box-11">
-                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content">广告激活设备</div>
-                </div>
-            </div>
-            <div class="widget-box " id="widget-box-111">
-                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content">自然激活设备</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-2">
-            <div class="widget-box " id="widget-box-2">
-                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content">----------></div>
-                </div>
-            </div>
-            <div class="widget-box " id="widget-box-22">
-                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content">总计新增账号</div>
-                </div>
-            </div>
-            <div class="widget-box " id="widget-box-222">
-                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content">自然新增账号</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-3">
-            <div class="widget-box" id="widget-box-3">
-                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content">回流账号</div>
-                </div>
-            </div>
-            <div class="widget-box" id="widget-box-33">
-                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content">纯新增账号</div>
-                </div>
-            </div>
-            <div class="widget-box" id="widget-box-333">
-                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-content">.</div>
-                    <div class="infobox-content">----------></div>
-                    <div class="infobox-content">.</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-4">
-            <div class="widget-box" id="widget-box-4">
-                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content">活跃5分钟账号</div>
-                </div>
-            </div><div class="widget-box" id="widget-box-44">
-                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content">活跃5分钟账号</div>
-                </div>
-            </div><div class="widget-box" id="widget-box-444">
-                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content">活跃5分钟账号</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-5">
-            <div class="widget-box" id="widget-box-5">
-                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-co1ntent"></div>
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content">31级以上玩家</div>
-                </div>
-            </div><div class="widget-box" id="widget-box-55">
-                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-co1ntent"></div>
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content">31级以上玩家</div>
-                </div>
-            </div><div class="widget-box" id="widget-box-555">
-                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-co1ntent"></div>
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content">31级以上玩家</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-6">
-            <div class="widget-box" id="widget-box-6">
-                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content">当日活跃级别</div>
-                </div>
-            </div>
-            <div class="widget-box" id="widget-box-66">
-                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content">当日活跃级别</div>
-                </div>
-            </div>
-            <div class="widget-box" id="widget-box-666">
-                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content"></div>
-                    <div class="infobox-content">当日活跃级别</div>
-                </div>
-            </div>
-        </div>
-    </div>
+        <!--<div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-1" >-->
+            <!--<div class="widget-box " id="widget-box-1">-->
+                <!--<div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">-->
+                    <!--<div class="infobox-content" style="color:#333;">计算中...</div>-->
+                    <!--<div class="infobox-content" style="color:#B22222;">计算中...</div>-->
+                    <!--<div class="infobox-content">新增设备</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-2">-->
+            <!--<div class="widget-box " id="widget-box-2">-->
+                <!--<div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">-->
+                    <!--<div class="infobox-content" style="color:#333;">计算中...</div>-->
+                    <!--<div class="infobox-content" style="color:#B22222;">计算中...</div>-->
+                    <!--<div class="infobox-content">新增总账号</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-3">-->
+            <!--<div class="widget-box" id="widget-box-3">-->
+                <!--<div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">-->
+                    <!--<div class="infobox-content" style="color:#333;">计算中...</div>-->
+                    <!--<div class="infobox-content" style="color:#B22222;">计算中...</div>-->
+                    <!--<div class="infobox-content">付费账号</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-4">-->
+            <!--<div class="widget-box" id="widget-box-4">-->
+                <!--<div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">-->
+                    <!--<div class="infobox-content" style="color:#333;">计算中...</div>-->
+                    <!--<div class="infobox-content" style="color:#B22222;">计算中...</div>-->
+                    <!--<div class="infobox-content">累计流水</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-5">-->
+            <!--<div class="widget-box" id="widget-box-5">-->
+                <!--<div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">-->
+                    <!--<div class="infobox-content" style="color:#333;">计算中...</div>-->
+                    <!--<div class="infobox-content" style="color:#B22222;">计算中...</div>-->
+                    <!--<div class="infobox-content">折后花费</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-6">-->
+            <!--<div class="widget-box" id="widget-box-6">-->
+                <!--<div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">-->
+                    <!--<div class="infobox-content" style="color:#333;">计算中...</div>-->
+                    <!--<div class="infobox-content" style="color:#B22222;">计算中...</div>-->
+                    <!--<div class="infobox-content">分成后ROI</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
     <div>
         <table id="table" data-sort-name="date_time" data-sort-order="desc" class="table table-bordered table-hover">
@@ -209,24 +135,26 @@
     </div>
     <div class="widget-box ui-sortable-handle" id="widget-box-7">
         <div class="widget-header" style="padding-top:2px">
-            <button id="ad_click" class="widget-title">花费总额</button>
-            <button id="ad_action" class="widget-title">点击设备</button>
-            <button id="ad_action_new" class="widget-title">激活设备</button>
-            <button id="ad_account_new" class="widget-title">新增设备</button>
-            <button id="double_new" class="widget-title">登录账号总数</button>
-            <button id="back_user" class="widget-title">回流账号</button>
-            <button id="paid_account" class="widget-title">纯新增账号</button>
-            <button id="fufeilv" class="widget-title">创建角色</button>
-            <button id="spend" class="widget-title">活跃5分钟</button>
-            <button id="CPA" class="widget-title">31级以上用户</button>
-            <div class="widget-toolbar">
-                <!--<a href="#" data-action="fullscreen" class="orange2">-->
-                    <!--<i class="ace-icon fa fa-expand"></i>-->
-                <!--</a>-->
+            <button class="widget-title" style="visibility: hidden;">|</button>
+            <button id="ad_click" class="chart-title select-title">花费总额</button>
+            <button id="ad_action" class="chart-title">点击设备</button>
+            <button id="ad_action_new" class="chart-title">激活设备</button>
+            <button id="ad_account_new" class="chart-title">新增设备</button>
+            <button id="double_new" class="chart-title">登录账号总数</button>
+            <button id="back_user" class="chart-title">回流账号</button>
+            <button id="paid_account" class="chart-title">纯新增账号</button>
+            <button id="fufeilv" class="chart-title">创建角色</button>
+            <button id="spend" class="chart-title">活跃5分钟</button>
+            <button id="CPA" class="chart-title">31级以上用户</button>
 
-                <!--<a href="#" data-action="reload">-->
-                    <!--<i class="ace-icon fa fa-refresh"></i>-->
-                <!--</a>-->
+            <div class="widget-toolbar">
+                <a href="#" data-action="fullscreen" class="orange2">
+                    <i class="ace-icon fa fa-expand"></i>
+                </a>
+
+                <a href="#" data-action="reload">
+                    <i class="ace-icon fa fa-refresh"></i>
+                </a>
 
                 <a href="#" data-action="collapse">
                     <i class="ace-icon fa fa-chevron-up"></i>
@@ -244,6 +172,71 @@
     </div>
 
 </div><!-- /.page-content -->
+
+<script type="text/javascript"> <!--开始设置数据格式-->
+    // 对json进行按照指定key排序
+    function sortByKey(array, key) {
+        return array.sort(function(a, b) {
+            var x = a[key]; var y = b[key];
+            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+        });
+    }
+
+    /*
+    将数值四舍五入后格式化.
+    @param num 数值(Number或者String)
+    @param cent 要保留的小数位(Number)
+    @param isThousand 是否需要千分位 0:不需要,1:需要(数值类型);
+    @return 格式的字符串,如'1,234,567.45'
+    @type String
+    */
+    function formatNumber(num,cent,isThousand){
+        num = num.toString().replace(/\$|\,/g,'');
+        if(isNaN(num))//检查传入数值为数值类型.
+         num = "0";
+        if(isNaN(cent))//确保传入小数位为数值型数值.
+        cent = 0;
+        cent = parseInt(cent);
+        cent = Math.abs(cent);//求出小数位数,确保为正整数.
+        if(isNaN(isThousand))//确保传入是否需要千分位为数值类型.
+        isThousand = 0;
+        isThousand = parseInt(isThousand);
+        if(isThousand < 0)
+        isThousand = 0;
+        if(isThousand >=1) //确保传入的数值只为0或1
+        isThousand = 1;
+        sign = (num == (num = Math.abs(num)));//获取符号(正/负数)
+        //Math.floor:返回小于等于其数值参数的最大整数
+        num = Math.floor(num*Math.pow(10,cent)+0.50000000001);//把指定的小数位先转换成整数.多余的小数位四舍五入.
+        cents = num%Math.pow(10,cent); //求出小数位数值.
+        num = Math.floor(num/Math.pow(10,cent)).toString();//求出整数位数值.
+        cents = cents.toString();//把小数位转换成字符串,以便求小数位长度.
+        while(cents.length<cent){//补足小数位到指定的位数.
+        cents = "0" + cents;
+        }
+        if(isThousand == 0) //不需要千分位符.
+        return (((sign)?'':'-') + num + '.' + cents);
+        //对整数部分进行千分位格式化.
+        for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+        num = num.substring(0,num.length-(4*i+3))+','+
+        num.substring(num.length-(4*i+3));
+        return (((sign)?'':'-') + num + '.' + cents);
+    }
+    //千分位转化
+    function toThousands(num) {
+        return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+    }
+
+    function spend(value,row) {
+        var values = value.toString().split(".");
+        if(typeof(values[1]) == "undefined"){
+            return toThousands(values[0]).toString();
+        }else{
+            return toThousands(values[0]).toString() + "."+ values[1];
+        }
+    }
+
+</script><!--结束设置数据格式-->
 
 <script type="text/javascript"> <!-- 初始化table -->
     $("#table").bootstrapTable({
@@ -302,7 +295,7 @@
         $("#table").bootstrapTable('filterBy',{date_time : fromToTime});
 
         //日期筛选完成后,设置piece chartdata
-        setTimeout("setPieceChart();",1000);
+        setTimeout("setPieceChart();",2000);
     }
 
     $("#time_1").click(function(){
@@ -312,7 +305,9 @@
 
         $("#timeFrom").val(timeTo);
         $("#timeTo").val(timeTo);
-        //???????????????设置背景颜色,和其他去掉背景颜色,下边的同样需要
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $(this).removeClass("btn-white");
         filterTime(timeTo, timeTo);
     });
     $("#time_2").click(function(){
@@ -321,6 +316,9 @@
         console.log(timeTo);
         $("#timeFrom").val(timeTo);
         $("#timeTo").val(timeTo);
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $(this).removeClass("btn-white");
         filterTime(timeTo, timeTo);
     });
     $("#time_7").click(function(){
@@ -330,6 +328,9 @@
         console.log(timeTo,timeFrom);
         $("#timeFrom").val(timeFrom);
         $("#timeTo").val(timeTo);
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $(this).removeClass("btn-white");
         filterTime(timeFrom, timeTo);
     });
     $("#time_15").click(function(){
@@ -339,6 +340,9 @@
         console.log(timeTo,timeFrom);
         $("#timeFrom").val(timeFrom);
         $("#timeTo").val(timeTo);
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $(this).removeClass("btn-white");
         filterTime(timeFrom, timeTo);
     });
     $("#time_30").click(function(){
@@ -348,6 +352,9 @@
         console.log(timeTo,timeFrom);
         $("#timeFrom").val(timeFrom);
         $("#timeTo").val(timeTo);
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $(this).removeClass("btn-white");
         filterTime(timeFrom, timeTo);
     });
     $("#timeAll").click(function(){
@@ -357,17 +364,28 @@
         console.log(timeTo,timeFrom);
         $("#timeFrom").val(timeFrom);
         $("#timeTo").val(timeTo);
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $(this).removeClass("btn-white");
         filterTime(timeFrom, timeTo);
     });
     $("#timeFrom").change(function(){
         var timeFrom = $(this).val();
         var timeTo = $("#timeTo").val();
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $(this).removeClass("btn-white");
+        $("#timeTo").removeClass("btn-white");
         filterTime(timeFrom, timeTo);
 
     });
     $("#timeTo").change(function(){
         var timeTo = $(this).val();
         var timeFrom = $("#timeFrom").val();
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $("#timeFrom").removeClass("btn-white");
+        $(this).removeClass("btn-white");
         filterTime(timeFrom, timeTo);
 
     });
@@ -521,7 +539,7 @@
         });
 
         //条件筛选完成后,重新设置 piece chart
-        setTimeout("setPieceChart();",1000);
+        setTimeout("setPieceChart();",2000);
 
     });
 
@@ -629,7 +647,7 @@
     var ROI_dataS = [];
 
     function setPieceChart(){ //设置快的数据和获取chart的数据
-        var dataS = $("#table").bootstrapTable('getData');
+        var dataS = sortByKey( $("#table").bootstrapTable('getData'), "date_time");
 
         //处理piece
         var adActionNew = 0; //ad_action_new
@@ -712,97 +730,125 @@
 
         }
 
-        $($("#widget-box-1").children("div").children("div")[0]).text(adActionNew);
-        $($("#widget-box-1").children("div").children("div")[1]).text( (adActionNew/dataLength).toFixed(2));
+        $($("#widget-box-1").children("div").children("div")[0]).text("总计 " + toThousands(adActionNew));
+        $($("#widget-box-1").children("div").children("div")[1]).text("平均 " + toThousands((adActionNew/dataLength).toFixed(0)));
 
-        $($("#widget-box-2").children("div").children("div")[0]).text(adAccountNew);
-        $($("#widget-box-2").children("div").children("div")[1]).text( (adAccountNew/dataLength).toFixed(2));
+        $($("#widget-box-2").children("div").children("div")[0]).text("总计 " + toThousands(adAccountNew));
+        $($("#widget-box-2").children("div").children("div")[1]).text("平均 " + toThousands((adAccountNew/dataLength).toFixed(0)));
 
-        $($("#widget-box-3").children("div").children("div")[0]).text(paidAccount);
-        $($("#widget-box-3").children("div").children("div")[1]).text( (paidAccount/dataLength).toFixed(2));
+        $($("#widget-box-3").children("div").children("div")[0]).text("总计 " + toThousands(paidAccount));
+        $($("#widget-box-3").children("div").children("div")[1]).text("平均 " + toThousands((paidAccount/dataLength).toFixed(0)));
 
-        $($("#widget-box-4").children("div").children("div")[0]).text(cumulativeFlow.toFixed(2));
-        $($("#widget-box-4").children("div").children("div")[1]).text( (cumulativeFlow/dataLength).toFixed(2));
+        $($("#widget-box-4").children("div").children("div")[0]).text("总计 " + formatNumber (cumulativeFlow, 2, 1));
+        $($("#widget-box-4").children("div").children("div")[1]).text("平均 " + formatNumber ( (cumulativeFlow/dataLength), 2, 1));
 
-        $($("#widget-box-5").children("div").children("div")[0]).text(spend.toFixed(2));
-        $($("#widget-box-5").children("div").children("div")[1]).text( (spend/dataLength).toFixed(2));
+        $($("#widget-box-5").children("div").children("div")[0]).text("总计 " + formatNumber (spend, 2, 1));
+        $($("#widget-box-5").children("div").children("div")[1]).text("平均 " + formatNumber ( (spend/dataLength), 2, 1));
 
-        $($("#widget-box-6").children("div").children("div")[0]).text(ROI.toFixed(2));
-        $($("#widget-box-6").children("div").children("div")[1]).text( (ROI/dataLength).toFixed(2));
+        $($("#widget-box-6").children("div").children("div")[0]).text("总计 " + formatNumber (ROI, 2, 1));
+        $($("#widget-box-6").children("div").children("div")[1]).text("平均 " + formatNumber ( (ROI/dataLength), 2, 1));
 
         $("#ad_click").trigger("click");
 
     }
 
-    setTimeout("setPieceChart();",1000);
+    setTimeout("setPieceChart();",2000);
 
     $("#ad_click").click(function(){
-        //???????????????设置背景颜色,和其他去掉背景颜色
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("点击设备","单位:个",ad_click_dataS);
     })
 
     $("#ad_action").click(function(){
-
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("激活设备","单位:个",ad_action_dataS);
     })
 
     $("#ad_action_new").click(function(){
-        //???????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("新增设备","单位:个",ad_action_new_dataS);
     })
 
     $("#ad_account_new").click(function(){
-        //???????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("新增总账号","单位:个",ad_account_new_dataS);
     })
 
     $("#double_new").click(function(){
-        //???????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("纯新增账号","单位:个",double_new_dataS);
     })
 
     $("#back_user").click(function(){
-        //???????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("回流账号","单位:个",back_user_dataS);
     })
 
     $("#paid_account").click(function(){
-        //??????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("付费账号","单位:个",paid_account_dataS);
     })
 
     $("#fufeilv").click(function(){
-        //???????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("付费率","单位:百分百",fufeilv_dataS);
     })
 
     $("#spend").click(function(){
-        //???????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("折后花费","单位:元",spend_dataS);
     })
 
     $("#CPA").click(function(){
-        //???????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("C P A","单位:元",CPA_dataS);
     })
 
     $("#cumulative_flow").click(function(){
-        //???????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("累计流水","单位:元",cumulative_flow_dataS);
     })
 
     $("#dis").click(function(){
-        //???????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("分成比例","单位:百分百",dis_dataS);
     })
 
     $("#cumulative_moeny").click(function(){
-        //???????????????
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("累计净收入","单位:元",cumulative_moeny_dataS);
     })
 
     $("#ROI").click(function(){
-        //???????????????cumulative_moeny
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
         setChart("R O I","单位:百分百",ROI_dataS);
     })
 </script><!--筛选后的数据处理-->
@@ -815,7 +861,7 @@ jQuery(function($) {
     $('.widget-container-col').sortable({
         connectWith: '.widget-container-col',
 		items:'> .widget-box',
-	    handle: ace.vars['touch'] ? '.widget-title' : false,
+	    handle: ace.vars['touch'] ? '.select-title' : false,
 	    cancel: '.fullscreen',
 	    opacity:0.8,
 	    revert:true,
@@ -915,22 +961,5 @@ jQuery(function($) {
 });
 
 </script>
-
-<script type="text/javascript"> <!--开始设置数据格式-->
-    //千分位转化
-    function toThousands(num) {
-        return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
-    }
-
-    <!--function spend(value,row) {-->
-        <!--var values = value.toString().split(".");-->
-        <!--if(typeof(values[1]) == "undefined"){-->
-            <!--return toThousands(values[0]).toString();-->
-        <!--}else{-->
-            <!--return toThousands(values[0]).toString() + "."+ values[1];-->
-        <!--}-->
-    <!--}-->
-
-</script><!--结束设置数据格式-->
 
 {% endblock content %}
