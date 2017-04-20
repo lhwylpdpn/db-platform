@@ -5,6 +5,7 @@ import re
 import time
 from app.controler.power_API import get_business_json
 from app.controler.cMediaOverview import cMediaOverview
+from app.controler.cNewTransfer import cNewTransfer
 
 analyzeBp = Blueprint('analyze', __name__, url_prefix="/analyze")
 
@@ -17,7 +18,7 @@ def mediaOverview():
 
 @analyzeBp.route('/mediaOverviewJsonTJ')
 def mediaOverviewJsonTJ():
-    results = cMediaOverview.mediaOverview(session["username"])
+    results = cMediaOverview.mediaOverviewTJ(session["username"])
     return results
 
 
@@ -31,6 +32,18 @@ def mediaOverviewJson():
 @analyzeBp.route('/newTransfer')
 def newTransfer():
     return render_template("putAnalyze/mediaAnalyze/newTransfer.html", title=U"新增转化", sjs=random.random())
+
+
+@analyzeBp.route('/newTransferTJ')
+def newTransferTJ():
+    results = cNewTransfer.newTransferTJ(session["username"])
+    return results
+
+
+@analyzeBp.route('/newTransferJson')
+def newTransferJson():
+    results = cNewTransfer.newTransferJson(session["username"])
+    return results
 
 
 #留存活跃相关

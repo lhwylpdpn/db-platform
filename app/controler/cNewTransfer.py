@@ -6,15 +6,15 @@ from app.controler.power_API import get_business_json
 import time
 
 
-class cMediaOverview:
+class cNewTransfer:
 	@staticmethod
-	def mediaOverviewTJ(username):
-		jsons = json.loads(get_business_json("media_1.json", username))  # 字符串传化为json 对象
+	def newTransferTJ(username):
+		jsons = json.loads(get_business_json("media_2.json", username))  # 字符串传化为json 对象
 		return json.dumps(jsons["body"])
 
 	@staticmethod
-	def mediaOverviewJson(username):
-		jsons = json.loads(get_business_json("media_1.json", username))["body"]  # 字符串传化为json 对象 dict
+	def newTransferJson(username):
+		jsons = json.loads(get_business_json("media_2.json", username))["body"]  # 字符串传化为json 对象 dict
 
 		# 处理channel请求
 		channel_name = request.args.get('channel_name')
