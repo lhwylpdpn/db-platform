@@ -403,70 +403,29 @@
 <script type="text/javascript">
 
     var demo1 = null;
-    var channel_name = [];
-
     var demo2 = null;
-    var agent = [];
-
     var demo3 = null;
-    var staff = [];
 
-    $.getJSON("/analyze/mediaOverviewJsonTJ?{{sjs}}", function(data){
-        for(var i = 0 ; i<data.length ; i++){
-            var flagId=data[i]["channel_name"];
-            var flagText=data[i]["channel_name"];
-            if(channel_name.length != 0){ //判断数组是否为空,为空直接就push
-                var flag = true;
-                for(var j = 0 ; j<channel_name.length ; j++){
-                    if(channel_name[j]["id"] == flagId){
-                        flag = false;
-                    }
-                }
-                if(flag){
-                    channel_name.push({"id": flagId ,"text": flagText});
-                }
-            }else{
-                channel_name.push({"id": flagId ,"text": flagText});
-            }
-        }
-
+    $.getJSON("/analyze/newTransferTJ?{{sjs}}", function(data){
+        console.log(data);
         demo1 = $('#demo1').comboboxfilter({
             url: '',
             text: "渠道",
             scope: 'FilterQuery3',
             multiple: true,
-            data:channel_name,
+            data: data.channel,
             onChange:function(newValue){
             $('#demo10').val(newValue);
                 newValue1 = newValue;
             }
         });
 
-
-        for(var i = 0 ; i<data.length ; i++){
-            var flagId=data[i]["agent"];
-            var flagText=data[i]["agent"];
-            if(agent.length != 0){ //判断数组是否为空,为空直接就push
-                var flag = true;
-                for(var j = 0 ; j<agent.length ; j++){
-                    if(agent[j]["id"] == flagId){
-                        flag = false;
-                    }
-                }
-                if(flag){
-                    agent.push({"id": flagId ,"text": flagText});
-                }
-            }else{
-                agent.push({"id": flagId ,"text": flagText});
-            }
-        }
-
         demo2 = $('#demo2').comboboxfilter({
             url: '',
             text: "代理商",
             scope: 'FilterQuery3',
             multiple: true,
-            data:agent,
+            data: data.staff,
             onChange:function(newValue){
                 $('#demo20').val(newValue);
             newValue1 = newValue;
@@ -474,30 +433,12 @@
         });
 
 
-        for(var i = 0 ; i<data.length ; i++){
-            var flagId=data[i]["staff"];
-            var flagText=data[i]["staff"];
-            if(staff.length != 0){ //判断数组是否为空,为空直接就push
-                var flag = true;
-                for(var j = 0 ; j<staff.length ; j++){
-                    if(staff[j]["id"] == flagId){
-                        flag = false;
-                    }
-                }
-                if(flag){
-                    staff.push({"id": flagId ,"text": flagText});
-                }
-            }else{
-                staff.push({"id": flagId ,"text": flagText});
-            }
-        }
-
         demo3 = $('#demo3').comboboxfilter({
             url: '',
             text: "负责人",
             scope: 'FilterQuery3',
             multiple: true,
-            data:staff,
+            data: data.staff,
             onChange:function(newValue){
                 $('#demo30').val(newValue);
             newValue1 = newValue;
