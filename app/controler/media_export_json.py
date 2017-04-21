@@ -99,12 +99,12 @@ def export_A():
 	word=word+']'
 
 
-	create_json(word,"media_2")
+	create_json(word.replace('"None"','""'),"media_2")
 
 
 
 
-def export_B():#媒体分析 新增内容
+def export_B():#媒体分析 留存内容
 	game_id=[]
 	platform=[]
 	date_=[]
@@ -194,9 +194,9 @@ def export_B():#媒体分析 新增内容
 		else:
 			word=word+'}'+',\n'
 	word=word+']'
-
-
-	create_json(word.replace('"None"','""'),"media_3")
+	word=word.replace('"None"','""')
+	word=word.replace('"staff":""','"staff":"未知"')
+	create_json(word,"media_3")
 
 def create_json(word,name):
 	file_object = open(os.getcwd()+'/../../static/json/'+name+'.json','w')
@@ -207,5 +207,5 @@ def create_json(word,name):
 
 if __name__ == '__main__':
 
-		export_A()
+		#export_A()
 		export_B()
