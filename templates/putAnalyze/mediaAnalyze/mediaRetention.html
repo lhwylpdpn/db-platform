@@ -55,7 +55,7 @@
                                                         <div class="widget-box ui-sortable-handle" id="widget-box-1"  >
                                                             <div class="widget-header">
                                                                 <h5 class="widget-title">
-                                                                <button class="btn btn-sm btn-danger  btn-white btn-round" id="button1">
+                                                                <button class="btn btn-sm btn-primary  btn-white btn-round" id="button1">
                                                                     <i class="ace-icon fa fa-folder-o bigger-110 red"></i>
                                                                     用户留存量
                                                                 </button>
@@ -91,7 +91,7 @@
                                                                     </div>
 
                                                   
-                                                                    </a>
+                                                            
 
                                                                     <a href="#" data-action="reload">
                                                                         <i class="ace-icon fa fa-refresh"></i>
@@ -141,6 +141,93 @@
    
 
            
+            <div class=" col-sm-6 widget-container-col ui-sortable" id="widget-container-col-1">
+                                                        <div class="widget-box ui-sortable-handle" id="widget-box-1"  >
+                                                            <div class="widget-header">
+                                                                <h5 class="widget-title">
+                                                                <button class="btn btn-sm btn-danger  btn-white btn-round" id="button1">
+                                                                    <i class="ace-icon fa fa-folder-o bigger-110 red"></i>
+                                                                    用户平均活跃时长
+                                                                </button>
+                                                                <button class="btn btn-sm btn-danger  btn-white btn-round"  id="button2">
+                                                                    <i class="ace-icon fa fa-folder-o bigger-110 red"></i>
+                                                                    用户平均登录次数
+                                                                </button>
+                                                              <!--  <button class="btn btn-sm btn-danger  btn-white btn-round"  id="button3">
+                                                                    <i class="ace-icon fa fa-folder-o bigger-110 red"></i>
+                                                                    用户平均活跃时长
+                                                                </button>
+                                                                <button class="btn btn-sm btn-danger  btn-white btn-round"  id="button4">
+                                                                    <i class="ace-icon fa fa-folder-o bigger-110 red"></i>
+                                                                    用户平均登录次数
+                                                                </button>-->
+                                                                </h5>
+
+                                                                <div class="widget-toolbar">
+                                                                    <div class="widget-menu">
+                                                                        <a href="#" data-action="settings" data-toggle="dropdown" aria-expanded="false">
+                                                                            <i class="ace-icon fa fa-bars"></i>
+                                                                        </a>
+
+                                                                        <ul class="dropdown-menu dropdown-menu-right dropdown-light-blue dropdown-caret dropdown-closer">
+                                                                            <li class="active">
+                                                                                <a data-toggle="tab" href="#dropdown1" aria-expanded="true">留存量</a>
+                                                                            </li>
+
+                                                                            <li class="active">
+                                                                                <a data-toggle="tab" href="#dropdown2" aria-expanded="true">留存率</a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+
+                                                  
+                                                            
+
+                                                                    <a href="#" data-action="reload">
+                                                                        <i class="ace-icon fa fa-refresh"></i>
+                                                                    </a>
+
+                                                                    <a href="#" data-action="collapse">
+                                                                        <i class="ace-icon fa fa-chevron-up"></i>
+                                                                    </a>
+
+                                                                    <a href="#" data-action="close">
+                                                                        <i class="ace-icon fa fa-times"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="widget-body">
+        <table id="table2" data-sort-name="date_" data-sort-order="desc" class="table table-no-bordered "  
+        data-pagination="true"  
+        data-page-list="[10,20,50,100]"
+        data-height="300"
+        >
+            <thead>
+                <tr>
+                    <th data-field="game_id" data-sortable="true"  >游戏名称</th>
+                    <th data-field="platform" data-sortable="true" >平台</th>
+                    <th data-field="channel_name" data-sortable="true"  >渠道</th>
+                    <th data-field="agent" data-sortable="true" >代理商</th>
+                    <th data-field="staff" data-sortable="true"  >负责人</th>
+                    <th data-field="date_" data-sortable="true">　日期　</th>
+                    <th data-field="re_0" data-sortable="true">day0</th>
+                    <th data-field="re_1" data-sortable="true">day1</th>
+                    <th data-field="re_2" data-sortable="true">day2</th>
+                    <th data-field="re_3" data-sortable="true">day3</th>
+                    <th data-field="re_4" data-sortable="true">day4</th>
+                    <th data-field="re_5" data-sortable="true">day5</th>
+                    <th data-field="re_6" data-sortable="true">day6</th>
+
+
+                </tr>
+            </thead>
+        </table>
+
+       
+
+                                                            </div>
+                                                        </div>
+            </div>
            
 
 
@@ -169,7 +256,23 @@
     $("#table").bootstrapTable('hideColumn', 'staff');
     });
 
+     var $table2 = $('#table2');
 
+    $(function () {
+
+
+
+        $("#table2").bootstrapTable({
+        url: "/analyze/mediaRetentionJson?{{sjs}}",
+        pagination: true, //开启分页
+        pageSize: 10
+    });
+     $("#table2").bootstrapTable('hideColumn', 'game_id');
+     $("#table2").bootstrapTable('hideColumn', 'platform');
+    $("#table2").bootstrapTable('hideColumn', 'channel_name');
+    $("#table2").bootstrapTable('hideColumn', 'agent');
+    $("#table2").bootstrapTable('hideColumn', 'staff');
+    });
 
 
     $("#button1").click(function(){
@@ -177,15 +280,15 @@
 
     });
     $("#button2").click(function(){
-         $("#table").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson2?{{sjs}}" } );
+         $("#table").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson?{{sjs}}" } );
 
     });
     $("#button3").click(function(){
-         $("#table").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson3?{{sjs}}" } );
+         $("#table").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson?{{sjs}}" } );
 
     });
     $("#button4").click(function(){
-         $("#table").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson4?{{sjs}}" } );
+         $("#table").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson?{{sjs}}" } );
 
     });
 </script>
@@ -350,14 +453,14 @@
     var demo2 = null;
     var demo3 = null;
 
-    $.getJSON("/analyze/newTransferTJ", function(data){
+    $.getJSON("/analyze/mediaRetentionTJ", function(data){
         console.log(data);
         demo1 = $('#demo1').comboboxfilter({
             url: '',
             text: "渠道",
             scope: 'FilterQuery3',
             multiple: true,
-            data: data.channel,
+            data: data.channel_name,
             onChange:function(newValue){
             $('#demo10').val(newValue);
                 newValue1 = newValue;
@@ -369,7 +472,7 @@
             text: "代理商",
             scope: 'FilterQuery3',
             multiple: true,
-            data: data.staff,
+            data: data.agent,
             onChange:function(newValue){
                 $('#demo20').val(newValue);
             newValue1 = newValue;

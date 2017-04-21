@@ -6,7 +6,7 @@ import time
 from app.controler.power_API import get_business_json
 from app.controler.cMediaOverview import cMediaOverview
 from app.controler.cNewTransfer import cNewTransfer
-
+from app.controler.cMediaRetention import cMediaRetention
 analyzeBp = Blueprint('analyze', __name__, url_prefix="/analyze")
 
 
@@ -40,7 +40,7 @@ def newTransferTJ():
     tj = {"channel":[{"id":"17173", "text":"17173"},{"id":"点入", "text":"点入"}],"staff":[{"id":"172173", "text":"171373"},{"id":"点入", "text":"点入点入"}]}
     return json.dumps(tj)
 
-    
+
 @analyzeBp.route('/newTransferJson')
 def newTransferJson():
     results = cNewTransfer.newTransferJson(session["username"])
@@ -107,3 +107,7 @@ def mediaRetentionJson():
 
 
 
+@analyzeBp.route('/mediaRetentionTJ')
+def mediaRetentionTJ():
+    results = cMediaRetention.mediaRetentionTJ(session["username"])
+    return results
