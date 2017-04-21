@@ -40,7 +40,7 @@ def newTransferTJ():
     tj = {"channel":[{"id":"17173", "text":"17173"},{"id":"点入", "text":"点入"}],"staff":[{"id":"172173", "text":"171373"},{"id":"点入", "text":"点入点入"}]}
     return json.dumps(tj)
 
-
+    
 @analyzeBp.route('/newTransferJson')
 def newTransferJson():
     results = cNewTransfer.newTransferJson(session["username"])

@@ -25,12 +25,12 @@
     <link rel="stylesheet" href="/static/css/Fliter.css">
 
     <div class="btn-group">
-        <button id ="time_1" type="button" class="btn btn-white btn-sm btn-primary">昨日</button>
-        <button id ="time_2" type="button" class="btn btn-white btn-sm btn-primary">前日</button>
-        <button id ="time_7" type="button" class="btn btn-white btn-sm btn-primary">近7天</button>
-        <button id ="time_15" type="button" class="btn btn-white btn-sm btn-primary">近15天</button>
-        <button id ="time_30" type="button" class="btn btn-white btn-sm btn-primary">近30天</button>
-        <button id ="timeAll" type="button" class="btn btn-white btn-sm btn-primary">历史所有</button>
+        <button id ="time_1" type="button" class="data-filter btn btn-white btn-sm btn-primary">昨日</button>
+        <button id ="time_2" type="button" class="data-filter btn btn-white btn-sm btn-primary">前日</button>
+        <button id ="time_7" type="button" class="data-filter btn btn-white btn-sm btn-primary">近7天</button>
+        <button id ="time_15" type="button" class="data-filter btn btn-white btn-sm btn-primary">近15天</button>
+        <button id ="time_30" type="button" class="data-filter btn btn-white btn-sm btn-primary">近30天</button>
+        <button id ="timeAll" type="button" class="data-filter btn btn-white btn-sm btn-primary">历史所有</button>
         <!--<button id ="timeFromTo" type="button" class="btn btn-white btn-sm btn-primary">2017-02-01 -&#45;&#45; 2017-02-30</button>-->
     </div>|
     <input id="timeFrom" type="date" class="btn btn-white btn-sm btn-primary" value="" style="height:27px">--
@@ -63,14 +63,14 @@
                                                                     <i class="ace-icon fa fa-folder-o bigger-110 red"></i>
                                                                     用户留存率
                                                                 </button>
-                                                                <button class="btn btn-sm btn-danger  btn-white btn-round"  id="button3">
+                                                              <!--  <button class="btn btn-sm btn-danger  btn-white btn-round"  id="button3">
                                                                     <i class="ace-icon fa fa-folder-o bigger-110 red"></i>
                                                                     用户平均活跃时长
                                                                 </button>
                                                                 <button class="btn btn-sm btn-danger  btn-white btn-round"  id="button4">
                                                                     <i class="ace-icon fa fa-folder-o bigger-110 red"></i>
                                                                     用户平均登录次数
-                                                                </button>
+                                                                </button>-->
                                                                 </h5>
 
                                                                 <div class="widget-toolbar">
@@ -236,9 +236,7 @@
             fromToTime.push( new Date(flag).Format("yyyy-MM-dd") );
         }
         //重新请求数据
-        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson?{{sjs}}&channel_name&agent&staff" } );
-
-        $("#table").bootstrapTable('filterBy',{date_ : fromToTime});
+        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson?{{sjs}}&date_="+fromToTime+"&channel_name&agent&staff" } );
 
         //日期筛选完成后,设置piece chartdata
        // setTimeout("setPieceChart();",2000);
@@ -352,7 +350,7 @@
     var demo2 = null;
     var demo3 = null;
 
-    $.getJSON("/analyze/mediaRetentionJson?{{sjs}}", function(data){
+    $.getJSON("/analyze/newTransferTJ", function(data){
         console.log(data);
         demo1 = $('#demo1').comboboxfilter({
             url: '',

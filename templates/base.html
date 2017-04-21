@@ -259,7 +259,7 @@
                         </ul>
                     </li>
 
-                    <li class="">
+                    <li class="" >
                         <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-caret-right"></i>
 
@@ -350,12 +350,12 @@
             </li>
 
             <!--###################################################################  投放报表  ########-->
-            <li class="">
-                <a href="#" class="dropdown-toggle">
+            <li class="open"">
+                <a href="#" class="dropdown-toggle" style="background-color:#FFF5ee">
                     <i class="menu-icon fa fa-bar-chart-o"></i>
 							<span class="menu-text">
 								投放报表
-                                <span class="badge badge-primary">3</span>
+                                <span class="badge badge-primary">1</span>
 							</span>
 
                     <b class="arrow fa fa-angle-down"></b>
@@ -363,7 +363,7 @@
 
                 <b class="arrow"></b>
 
-                <ul class="submenu nav-hide"   >
+                <ul class="submenu">
                     <li class="">
                         <a href="#" class="dropdown-toggle" style="display:none;">
                             <i class="menu-icon fa fa-caret-right"></i>
@@ -422,7 +422,7 @@
                         </ul>
                     </li>
 
-                    <li class=""  style="display:none;">
+                    <li class="" style="display:none;">
                         <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-caret-right"></i>
 
@@ -461,9 +461,9 @@
                         </ul>
                     </li>
 
-                    <li class="">
-                        <a href="#" class="dropdown-toggle">
-                            <i class="menu-icon fa fa-caret-right"></i>
+                    <li class="open">
+                        <a href="#" class="dropdown-toggle" style="background-color:#fffaf0">
+                            <i class="menu-icon fa fa-caret-right"> </i>
 
                             媒体近7日关键数据
                             <b class="arrow fa fa-angle-down"></b>
@@ -471,8 +471,8 @@
 
                         <b class="arrow"></b>
 
-                        <ul class="submenu nav-hide">
-                            <li class="">
+                        <ul class="submenu nav-hive " >
+                            <li class="open" style="background-color:#fffafa">
                                 <a href="/channelIos600">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     iOS-渠道-明细
@@ -495,12 +495,12 @@
             </li>
 
             <!--###################################################################  投放分析  ########-->
-            <li class="">
+            <li class="open">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-book"></i>
 							<span class="menu-text">
 								投放分析
-                                <span class="badge badge-primary">4</span>
+                                <span class="badge badge-primary">3</span>
 							</span>
 
                     <b class="arrow fa fa-angle-down"></b>
@@ -576,7 +576,7 @@
                         </ul>
                     </li>
 
-                    <li class="">
+                    <li class="open">
                         <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-caret-right"></i>
 
@@ -587,7 +587,7 @@
                         <b class="arrow"></b>
 
                         <ul class="submenu nav-hide" >
-                            <li class="">
+                            <li class="open">
                                 <a href="/analyze/mediaOverview">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     媒体概览
@@ -596,7 +596,7 @@
                                 <b class="arrow"></b>
                             </li>
 
-                            <li class="">
+                            <li class="open">
                                 <a href="/analyze/newTransfer">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     新增转化
@@ -605,7 +605,7 @@
                                 <b class="arrow"></b>
                             </li>
 
-                            <li class="">
+                            <li class="open">
                                 <a href="/analyze/mediaRetention"  >
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     留存活跃
@@ -808,12 +808,12 @@
 
             {% if session['username'] in session['zhanshi']: %}
             <!--###################################################################  权限管理  ########-->
-            <li class="">
+            <li class="open">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-pencil-square-o"></i>
                     <span class="menu-text">
                         系统管理
-                        <span class="badge badge-primary">3</span>
+                        <span class="badge badge-primary">2</span>
                     </span>
 
                     <b class="arrow fa fa-angle-down"></b>
@@ -830,7 +830,7 @@
 
                         <b class="arrow"></b>
                     </li>
-                    <li class="">
+                    <li class="open">
                         <a href="/auth/dataAuth">
                             <i class="menu-icon fa fa-caret-right"></i>
                             数据权限
@@ -838,7 +838,7 @@
 
                         <b class="arrow"></b>
                     </li>
-                    <li class="">
+                    <li class="open">
                         <a href="/monitor/monitor">
                             <i class="menu-icon fa fa-caret-right"></i>
                             网站 监控/统计
