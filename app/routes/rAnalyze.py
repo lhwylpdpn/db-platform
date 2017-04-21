@@ -110,4 +110,5 @@ def mediaRetentionJson():
 @analyzeBp.route('/mediaRetentionTJ')
 def mediaRetentionTJ():
     results = cMediaRetention.mediaRetentionTJ(session["username"])
+
     return results
