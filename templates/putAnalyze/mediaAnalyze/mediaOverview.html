@@ -185,6 +185,95 @@
 
 </div><!-- /.page-content -->
 
+
+<script src="/static/js/Filter.js"></script><!--筛选需要的js-->
+<script type="text/javascript">
+
+    var demo1 = null;
+    var demo2 = null;
+    var demo3 = null;
+
+    $.getJSON("/analyze/mediaOverviewJsonTJ", function(data){
+        console.log(data);
+        demo1 = $('#demo1').comboboxfilter({
+            url: '',
+            text: "渠道",
+            scope: 'FilterQuery3',
+            multiple: true,
+            data: data.channel_name,
+            onChange:function(newValue){
+            $('#demo10').val(newValue);
+                newValue1 = newValue;
+            }
+        });
+
+        demo2 = $('#demo2').comboboxfilter({
+            url: '',
+            text: "代理商",
+            scope: 'FilterQuery3',
+            multiple: true,
+            data: data.agent,
+            onChange:function(newValue){
+                $('#demo20').val(newValue);
+            newValue1 = newValue;
+            }
+        });
+
+
+        demo3 = $('#demo3').comboboxfilter({
+            url: '',
+            text: "负责人",
+            scope: 'FilterQuery3',
+            multiple: true,
+            data: data.staff,
+            onChange:function(newValue){
+                $('#demo30').val(newValue);
+            newValue1 = newValue;
+            }
+        });
+    });
+
+
+
+    // 时间筛选+条件筛选
+    $("#chaxun").click(function(){
+        console.log(demo1.returnValue($("#demo1")));
+        console.log(demo2.returnValue($("#demo2")));
+        console.log(demo3.returnValue($("#demo3")));
+
+        var fromTime = $("#timeFrom").val();
+        var toTime = $("#timeTo").val();
+
+        var fromTimeCuo = Date.parse(new Date(fromTime));
+        var toTimeCuo = Date.parse(new Date(toTime));
+        var tianshu = (toTimeCuo - fromTimeCuo)/1000/60/60/24;
+
+        var fromToTime = [fromTime];
+        var flag = fromTimeCuo
+        for (var i = 0 ; i < tianshu ; i++ ){
+            flag = flag+1000*60*60*24;
+            fromToTime.push( new Date(flag).Format("yyyy-MM-dd") );
+        }
+
+        var channel_name_filter = demo1.returnValue($("#demo1"));
+
+        var agent_filter = demo2.returnValue($("#demo2"));
+
+        var staff_filter = demo3.returnValue($("#demo3"));
+
+        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name=" + channel_name_filter + "&agent=" + agent_filter + "&staff=" + staff_filter} );
+
+        $("#table").bootstrapTable('filterBy',{
+            date_time : fromToTime,
+        });
+
+        //条件筛选完成后,重新设置 piece chart
+        setTimeout("setPieceChart();",2000);
+
+    });
+
+
+</script>
 <script type="text/javascript"> <!--开始设置数据格式-->
     // 对json进行按照指定key排序
     function sortByKey(array, key) {
@@ -436,152 +525,6 @@
 
 </script><!-- 日历筛选 -->
 
-<script src="/static/js/Filter.js"></script><!--筛选需要的js-->
-<script type="text/javascript">
-
-    var demo1 = null;
-    var channel_name = [];
-
-    var demo2 = null;
-    var agent = [];
-
-    var demo3 = null;
-    var staff = [];
-
-    $.getJSON("/analyze/mediaOverviewJsonTJ?{{sjs}}", function(data){
-        for(var i = 0 ; i<data.length ; i++){
-            var flagId=data[i]["channel_name"];
-            var flagText=data[i]["channel_name"];
-            if(channel_name.length != 0){ //判断数组是否为空,为空直接就push
-                var flag = true;
-                for(var j = 0 ; j<channel_name.length ; j++){
-                    if(channel_name[j]["id"] == flagId){
-                        flag = false;
-                    }
-                }
-                if(flag){
-                    channel_name.push({"id": flagId ,"text": flagText});
-                }
-            }else{
-                channel_name.push({"id": flagId ,"text": flagText});
-            }
-        }
-
-        demo1 = $('#demo1').comboboxfilter({
-            url: '',
-            text: "渠道",
-            scope: 'FilterQuery3',
-            multiple: true,
-            data:channel_name,
-            onChange:function(newValue){
-            $('#demo10').val(newValue);
-                newValue1 = newValue;
-            }
-        });
-
-
-        for(var i = 0 ; i<data.length ; i++){
-            var flagId=data[i]["agent"];
-            var flagText=data[i]["agent"];
-            if(agent.length != 0){ //判断数组是否为空,为空直接就push
-                var flag = true;
-                for(var j = 0 ; j<agent.length ; j++){
-                    if(agent[j]["id"] == flagId){
-                        flag = false;
-                    }
-                }
-                if(flag){
-                    agent.push({"id": flagId ,"text": flagText});
-                }
-            }else{
-                agent.push({"id": flagId ,"text": flagText});
-            }
-        }
-
-        demo2 = $('#demo2').comboboxfilter({
-            url: '',
-            text: "代理商",
-            scope: 'FilterQuery3',
-            multiple: true,
-            data:agent,
-            onChange:function(newValue){
-                $('#demo20').val(newValue);
-            newValue1 = newValue;
-            }
-        });
-
-
-        for(var i = 0 ; i<data.length ; i++){
-            var flagId=data[i]["staff"];
-            var flagText=data[i]["staff"];
-            if(staff.length != 0){ //判断数组是否为空,为空直接就push
-                var flag = true;
-                for(var j = 0 ; j<staff.length ; j++){
-                    if(staff[j]["id"] == flagId){
-                        flag = false;
-                    }
-                }
-                if(flag){
-                    staff.push({"id": flagId ,"text": flagText});
-                }
-            }else{
-                staff.push({"id": flagId ,"text": flagText});
-            }
-        }
-
-        demo3 = $('#demo3').comboboxfilter({
-            url: '',
-            text: "负责人",
-            scope: 'FilterQuery3',
-            multiple: true,
-            data:staff,
-            onChange:function(newValue){
-                $('#demo30').val(newValue);
-            newValue1 = newValue;
-            }
-        });
-    });
-
-
-    // 时间筛选+条件筛选
-    $("#chaxun").click(function(){
-        console.log(demo1.returnValue($("#demo1")));
-        console.log(demo2.returnValue($("#demo2")));
-        console.log(demo3.returnValue($("#demo3")));
-
-        var fromTime = $("#timeFrom").val();
-        var toTime = $("#timeTo").val();
-
-        var fromTimeCuo = Date.parse(new Date(fromTime));
-        var toTimeCuo = Date.parse(new Date(toTime));
-        var tianshu = (toTimeCuo - fromTimeCuo)/1000/60/60/24;
-
-        var fromToTime = [fromTime];
-        var flag = fromTimeCuo
-        for (var i = 0 ; i < tianshu ; i++ ){
-            flag = flag+1000*60*60*24;
-            fromToTime.push( new Date(flag).Format("yyyy-MM-dd") );
-        }
-
-        var channel_name_filter = demo1.returnValue($("#demo1"));
-
-        var agent_filter = demo2.returnValue($("#demo2"));
-
-        var staff_filter = demo3.returnValue($("#demo3"));
-
-        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name=" + channel_name_filter + "&agent=" + agent_filter + "&staff=" + staff_filter} );
-
-        $("#table").bootstrapTable('filterBy',{
-            date_time : fromToTime,
-        });
-
-        //条件筛选完成后,重新设置 piece chart
-        setTimeout("setPieceChart();",2000);
-
-    });
-
-
-</script>
 
 <script src="/static/js/highcharts.js"></script><!--图表需要的js-->
 <script type="text/javascript">

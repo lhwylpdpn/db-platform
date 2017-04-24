@@ -20,3 +20,5 @@ Config.py
 /static/json/*.json
 
 nohup.out
+app/routes/media_3.json
+*.csv

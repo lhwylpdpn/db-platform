@@ -9,8 +9,42 @@ import time
 class cMediaOverview:
 	@staticmethod
 	def mediaOverviewTJ(username):
-		jsons = json.loads(get_business_json("media_1.json", username))  # 字符串传化为json 对象
-		return json.dumps(jsons["body"])
+		game_id=[]
+		platform=[]
+		channel_name=[]
+		staff=[]
+		agent=[]
+		tj=""
+		jsons = json.loads(get_business_json("media_1.json", username))["body"]  # 字符串传化为json 对象
+
+		for x in xrange(0,len(jsons)):
+
+			channel_name.append(jsons[x]['channel_name'])
+			agent.append(jsons[x]['agent'])
+			staff.append(jsons[x]['staff'])
+
+		channel_name=list(set(channel_name))
+		agent=list(set(agent))
+		staff=list(set(staff))
+		tj+='{'
+
+		tj+='"channel_name":['
+		for x in xrange(0,len(channel_name)):
+			tj+='{"id":"'+str(channel_name[x].encode('utf-8'))+'","text":"'+str(channel_name[x].encode('utf-8'))+'"},'
+		tj=tj[0:-1]+'],'
+		tj+='"staff":['
+		for x in xrange(0,len(staff)):
+			tj+='{"id":"'+str(staff[x].encode('utf-8'))+'","text":"'+str(staff[x].encode('utf-8'))+'"},'
+		tj=tj[0:-1]+'],'
+		tj+='"agent":['
+		for x in xrange(0,len(agent)):
+			tj+='{"id":"'+str(agent[x].encode('utf-8'))+'","text":"'+str(agent[x].encode('utf-8'))+'"},'
+		tj=tj[0:-1]
+
+
+		tj=tj+']}'
+		
+		return tj
 
 	@staticmethod
 	def mediaOverviewJson(username):
