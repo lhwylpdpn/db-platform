@@ -47,6 +47,8 @@
         <div id="demo1"></div>
         <div id="demo2"></div>
         <div id="demo3"></div>
+        <div id="demo4"></div>
+        <div id="demo5"></div>
 
         <div align="center" style="padding-top:7px">
             <button id="chaxun" class="btn btn-sm btn-primary">查询</button>
@@ -405,6 +407,8 @@
     var demo1 = null;
     var demo2 = null;
     var demo3 = null;
+    var demo4 = null;
+    var demo5 = null;
 
     $.getJSON("/analyze/newTransferTJ?{{sjs}}", function(data){
         console.log(data);
@@ -413,7 +417,7 @@
             text: "渠道",
             scope: 'FilterQuery3',
             multiple: true,
-            data: data.channel,
+            data: data.channel_name,
             onChange:function(newValue){
             $('#demo10').val(newValue);
                 newValue1 = newValue;
@@ -425,7 +429,7 @@
             text: "代理商",
             scope: 'FilterQuery3',
             multiple: true,
-            data: data.staff,
+            data: data.agent,
             onChange:function(newValue){
                 $('#demo20').val(newValue);
             newValue1 = newValue;
@@ -444,6 +448,28 @@
             newValue1 = newValue;
             }
         });
+        demo4 = $('#demo4').comboboxfilter({
+            url: '',
+            text: "游戏",
+            scope: 'FilterQuery3',
+            multiple: true,
+            data: data.game_id,
+            onChange:function(newValue){
+                $('#demo40').val(newValue);
+            newValue1 = newValue;
+            }
+        });
+        demo5 = $('#demo5').comboboxfilter({
+            url: '',
+            text: "平台",
+            scope: 'FilterQuery3',
+            multiple: true,
+            data: data.platform,
+            onChange:function(newValue){
+                $('#demo50').val(newValue);
+            newValue1 = newValue;
+            }
+        });
     });
 
 
@@ -452,6 +478,8 @@
         console.log(demo1.returnValue($("#demo1")));
         console.log(demo2.returnValue($("#demo2")));
         console.log(demo3.returnValue($("#demo3")));
+        console.log(demo4.returnValue($("#demo4")));
+        console.log(demo5.returnValue($("#demo5")));
 
         var fromTime = $("#timeFrom").val();
         var toTime = $("#timeTo").val();
@@ -473,7 +501,11 @@
 
         var staff_filter = demo3.returnValue($("#demo3"));
 
-        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name=" + channel_name_filter + "&agent=" + agent_filter + "&staff=" + staff_filter} );
+        var game = demo4.returnValue($("#demo4"));
+
+        var platform = demo5.returnValue($("#demo5"));
+
+        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name=" + channel_name_filter + "&agent=" + agent_filter + "&staff=" + staff_filter + "&game=" + game + "&platform=" + platform} );
 
         $("#table").bootstrapTable('filterBy',{
             date_time : fromToTime,
