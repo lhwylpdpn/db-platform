@@ -195,7 +195,7 @@ def export_B():#媒体分析 留存内容
 			word=word+'}'+',\n'
 	word=word+']'
 	word=word.replace('"None"','""')
-	word=word.replace('"staff":""','"staff":"未知"')
+	word=word.replace('"staff":""','"staff":"weizhi_none"')
 	create_json(word,"media_3")
 
 def create_json(word,name):

@@ -236,6 +236,7 @@ def staff_rename(result):
 	result=result.replace("zhengcaitong", "郑彩彤")
 	result=result.replace("other", "其他")
 	result=result.replace("linxu", "林旭")
+	result=result.replace("weizhi_none", "未知")
 	return result
 
 def monitor_data():# 收集监控所需要的系统文件数据
