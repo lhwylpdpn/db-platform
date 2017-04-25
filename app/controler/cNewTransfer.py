@@ -54,7 +54,13 @@ class cNewTransfer:
 		
 		return tj
 	@staticmethod
-	def newTransferJson(username, game_id, platform, channel_name, agent, staff):
+	def newTransferJsonTest(username, filterS):
+		jsons = json.loads(get_business_json("media_2.json", username))["body"]  # 字符串传化为json 对象 dict
+		return json.dumps(jsons)
+
+	@staticmethod
+	def newTransferJson(username, filterS):
+		# @liuhao filterS 传过来了
 		jsons = json.loads(get_business_json("media_2.json", username))["body"]  # 字符串传化为json 对象 dict
 
 		# 处理channel请求
