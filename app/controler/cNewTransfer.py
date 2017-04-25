@@ -54,11 +54,11 @@ class cNewTransfer:
 		
 		return tj
 	@staticmethod
-	def newTransferJson(username):
+	def newTransferJson(username, game_id, platform, channel_name, agent, staff):
 		jsons = json.loads(get_business_json("media_2.json", username))["body"]  # 字符串传化为json 对象 dict
 
 		# 处理channel请求
-		channel_name = request.args.get('channel_name')
+		# channel_name = request.args.get('channel_name')
 		jsons_filter_channel_names = []
 		if channel_name != "":
 			channel_names = channel_name.split(",")
@@ -69,7 +69,7 @@ class cNewTransfer:
 			jsons_filter_channel_names = jsons
 
 		# 处理agent请求
-		agent = request.args.get('agent')
+		# agent = request.args.get('agent')
 		jsons_filter_agents = []
 		if agent != "":
 			agents = agent.split(",")
