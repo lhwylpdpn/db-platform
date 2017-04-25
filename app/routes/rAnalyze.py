@@ -58,8 +58,21 @@ def mediaRetentionJson():
     results=cMediaRetention.mediaRetentionJson(session["username"])
     return results
 
+@analyzeBp.route('/mediaRetentionJson2')
+def mediaRetentionJson_2():
+    results=cMediaRetention.mediaRetentionJson_2(session["username"])
+    return results
+
+
 @analyzeBp.route('/mediaRetentionTJ')
 def mediaRetentionTJ():
     results = cMediaRetention.mediaRetentionTJ(session["username"])
+
+    return results
+
+
+@analyzeBp.route('/qiangyetest')
+def qaingyetest():
+    results = cMediaRetention.tj_for_qiangye_test(session["username"])
 
     return results
