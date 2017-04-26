@@ -27,7 +27,8 @@
 
     <script type="text/javascript" src="/static/js/bootstrap-table.js"></script>
     <script type="text/javascript" src="/static/js/bootstrap-table-multiple-sort.js"></script>
-
+    <script type="text/javascript" src="/static/date_dropper/datedropper.min.js"></script>
+    <link rel="stylesheet" href="/static/date_dropper/datedropper.css">
     <link rel="stylesheet" href="/static/css/bootstrap-table.css">
     <link rel="stylesheet" href="/static/css/Fliter.css">
 
@@ -38,10 +39,10 @@
         <button id ="time_15" type="button" class="data-filter btn btn-white btn-sm btn-primary">近15天</button>
         <button id ="time_30" type="button" class="data-filter btn btn-white btn-sm btn-primary">近30天</button>
         <button id ="timeAll" type="button" class="data-filter btn btn-sm btn-primary">历史所有</button>
-    </div>|
-    <input id="timeFrom" type="date" class="data-filter btn btn-white btn-sm btn-primary" value="" style="height:27px">--
+    </div>
+    |<input value="选择自然月" type="text" class="data-filter btn btn-white btn-sm btn-primary" style="height:27px" id="month" />|
+    <input id="timeFrom" type="date" class="data-filter btn btn-white btn-sm btn-primary" value="" style="height:27px"> --
     <input id="timeTo" type="date" class="data-filter btn btn-white btn-sm btn-primary" value="" style="height:27px">
-
     <p></p>
     <div>
         <div id="demo1"></div>
@@ -402,6 +403,7 @@
 
     //入参 2016-01-10格式的字符串
     function filterTime(fromTime,toTime){
+        console.log(fromTime,toTime);
         //先将条件筛选清空
         $(".J_FilterQueryClear").trigger("click");
 
@@ -427,8 +429,6 @@
     $("#time_1").click(function(){
         var time = new Date();
         var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
-        console.log(timeTo);
-
         $("#timeFrom").val(timeTo);
         $("#timeTo").val(timeTo);
         //设置背景颜色,和其他去掉背景颜色
@@ -439,7 +439,6 @@
     $("#time_2").click(function(){
         var time = new Date();
         var timeTo = new Date(time - 1000*60*60*24*2).Format("yyyy-MM-dd");
-        console.log(timeTo);
         $("#timeFrom").val(timeTo);
         $("#timeTo").val(timeTo);
         //设置背景颜色,和其他去掉背景颜色
@@ -451,7 +450,6 @@
         var time = new Date();
         var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
         var timeFrom = new Date(time - 1000*60*60*24*7).Format("yyyy-MM-dd");
-        console.log(timeTo,timeFrom);
         $("#timeFrom").val(timeFrom);
         $("#timeTo").val(timeTo);
         //设置背景颜色,和其他去掉背景颜色
@@ -463,7 +461,6 @@
         var time = new Date();
         var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
         var timeFrom = new Date(time - 1000*60*60*24*15).Format("yyyy-MM-dd");
-        console.log(timeTo,timeFrom);
         $("#timeFrom").val(timeFrom);
         $("#timeTo").val(timeTo);
         //设置背景颜色,和其他去掉背景颜色
@@ -475,7 +472,6 @@
         var time = new Date();
         var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
         var timeFrom = new Date(time - 1000*60*60*24*30).Format("yyyy-MM-dd");
-        console.log(timeTo,timeFrom);
         $("#timeFrom").val(timeFrom);
         $("#timeTo").val(timeTo);
         //设置背景颜色,和其他去掉背景颜色
@@ -483,11 +479,34 @@
         $(this).removeClass("btn-white");
         filterTime(timeFrom, timeTo);
     });
+
+    $("#month").dateDropper({
+        animate: false,
+        format: 'Y-m',
+        maxYear: '2017'
+    });
+
+    $("#month").change(function(){
+        var flag = $(this).val();
+        var timeFrom = new Date(flag).Format("yyyy-MM-dd");
+
+        var timeTo = new Date(flag);
+        timeTo.setMonth(timeTo.getMonth() + 1); //月份加1
+        timeTo = new Date(timeTo.getTime()-1000*60*60*24).Format("yyyy-MM-dd");
+
+        $("#timeFrom").val(timeFrom);
+        $("#timeTo").val(timeTo);
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $("#month").removeClass("btn-white");
+        filterTime(timeFrom, timeTo);
+
+    })
+
     $("#timeAll").click(function(){
         var time = new Date();
         var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
         var timeFrom = "2015-01-01";
-        console.log(timeTo,timeFrom);
         $("#timeFrom").val(timeFrom);
         $("#timeTo").val(timeTo);
         //设置背景颜色,和其他去掉背景颜色
