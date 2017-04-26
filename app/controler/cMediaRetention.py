@@ -3,11 +3,14 @@ from flask import render_template, request, Blueprint, session, redirect, url_fo
 import random
 import re
 from app.controler.power_API import get_business_json
+from public_function import get_first_letter
 import time
 import sys 
 reload(sys) 
 sys.setdefaultencoding('utf-8')
 class cMediaRetention:
+
+	
 	@staticmethod
 	def tj_for_qiangye_test(username):
 		game_id=[]
@@ -54,19 +57,20 @@ class cMediaRetention:
 		tj="["
 		if tjtype=="channel_name":
 			for x in xrange(0,len(channel_name)):
-				tj+='{"channel_name":"'+str(channel_name[x])+'","initial":"x"},'
+
+				tj+='{"channel_name":"'+str(channel_name[x])+'","initial":"'+str(get_first_letter(channel_name[x]))+'"},'
 			tj=tj[0:-1]
 		if tjtype=="agent":
 			for x in xrange(0,len(agent)):
-				tj+='{"agent":"'+str(agent[x])+'","initial":"x"},'
+				tj+='{"agent":"'+str(agent[x])+'","initial":"'+str(get_first_letter(agent[x]))+'"},'
 			tj=tj[0:-1]
 		if tjtype=="staff":
 			for x in xrange(0,len(staff)):
-				tj+='{"staff":"'+str(staff[x])+'","initial":"x"},'
+				tj+='{"staff":"'+str(staff[x])+'","initial":"'+str(get_first_letter(staff[x]))+'"},'
 			tj=tj[0:-1]
 		if tjtype=="platform":
 			for x in xrange(0,len(platform)):
-				tj+='{"platform":"'+str(platform[x])+'","initial":"x"},'
+				tj+='{"platform":"'+str(platform[x])+'","initial":"'+str(get_first_letter(platform[x]))+'"},'
 			tj=tj[0:-1]
 		tj=tj+']'
 		

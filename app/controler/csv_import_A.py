@@ -131,15 +131,15 @@ if __name__ == '__main__':
 	# import_csv("/data1/bidata/1452827692979/","market_onlinetime_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'ad_onlinetime_v2','all')
 	# import_csv("/data1/bidata/1452827692979/","market_retain_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'ad_retention_v2','all')
 	# import_csv("/data1/bidata/1452827692979/","market_login_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'login_detail','1')
-	# import_csv("/data1/bidata/1452827692979/","market_levelup_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'level_detail','1')
+	#import_csv("/data1/bidata/1452827692979/","market_levelup_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'level_detail','1')
 	# import_csv("/data1/bidata/1452827692979/","market_logout_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'logout_detail','1')
 
 
 
 	
-	import_check("/data1/bidata/1452827692979/","market_levelup_log_all.csv")
-	import_check("/data1/bidata/1452827692979/","market_logout_log_all.csv")
+	#import_check("/data1/bidata/1452827692979/","market_levelup_log_all.csv")
+	#import_check("/data1/bidata/1452827692979/","market_logout_log_all.csv")
 
 
-	import_csv("/data1/bidata/1452827692979/","market_levelup_log_all.csv",'level_detail','1')
-	import_csv("/data1/bidata/1452827692979/","market_logout_log_all.csv",'logout_detail','1')
+	#import_csv("/data1/bidata/1452827692979/","market_levelup_log_all.csv",'level_detail','1')
+	#import_csv("/data1/bidata/1452827692979/","market_logout_log_all.csv",'logout_detail','1')
