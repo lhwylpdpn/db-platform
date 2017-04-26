@@ -127,14 +127,14 @@ class cMediaRetention:
 
 	@staticmethod
 	def mediaRetentionJson(username):
-		args = request.args.items()
-		jsons = json.loads(get_business_json("media_3.json", session["username"]).encode("utf-8"))["body"]
-		jsons = json.dumps(jsons,ensure_ascii=False)
-		jsons = jsons.replace(" ","")
+		args = request.args.items()  #获取请求list
+		jsons = json.loads(get_business_json("media_3.json", session["username"]).encode("utf-8"))["body"]# 获取body内容，注意为了匹配要encode一下 utf8
+		jsons = json.dumps(jsons,ensure_ascii=False) #转成字符串，必须要有ensure_ascii=False，不然会自动转成ascii
+		jsons = jsons.replace(" ","")#转完的 键值对之间有空格要去掉
 		resultjson=[]
-		word=r'({[^}]*[^}]*})'
-		jsons=",".join(re.findall(word,jsons))
-		for x in xrange(0,len(args)):
+		word=r'({[^}]*[^}]*})' #将jsons字符串 筛选成{},{}的格式，也为了应对args根本没有参数，直接可以返回个全的
+		jsons=",".join(re.findall(word,jsons))#将筛选的结果拼成list，然后用，连接成字符串
+		for x in xrange(0,len(args)):#循环args 将所有参数拼接成正则表达式word，并进行筛选，诗选结果拼成一个list
 			if args[x][0]=="date_" or args[x][0]=="channel_name" or args[x][0]=="game_id" or args[x][0]=="platform" or args[x][0]=="agent" or args[x][0]=="staff" :
 				if args[x][1]!="":
 					word=r'({[^}]*"'+args[x][0]+'":"'+args[x][1].replace(',','"[^}]+}|{[^}]+"'+args[x][0]+'":"')+'"[^}]*})'
@@ -151,8 +151,8 @@ class cMediaRetention:
 		jsons=jsons.replace('"re_3":""','"re_3":0')
 		jsons=jsons.replace('"re_4":""','"re_4":0')
 		jsons=jsons.replace('"re_5":""','"re_5":0')
-		jsons=jsons.replace('"re_6":""','"re_6":0')
-		jsons=json.loads("["+jsons+"]")
+		jsons=jsons.replace('"re_6":""','"re_6":0')#空变成0，方便我后面计算
+		jsons=json.loads("["+jsons+"]")#加上[]  就可以返回了
 		new_json=[]
 		date_temp=[]
 		print(5)
