@@ -38,6 +38,7 @@ def import_csv():
 		
 				#time.sleep(10)
 			cur_1.execute(sql)
+			conn.commit()
 	print("6sql ok")
 def import_excel_add():
 	pwd="/data1/bidata/"
@@ -66,6 +67,7 @@ def import_excel_add():
 				sql=sql+"delete from spend  where date='"+str(row[0])+"' and channel_name='"+str(row[4])+"' and agent='"+str(row[5])+"' and gamename='"+str(row[1])+"' and platform='"+str(row[2])+"' and class_A='"+str(row[3])+"' and class_ad='"+str(row[6])+"';"
 				sql=sql+"insert into spend values (null,'"+str(row[0])+"','"+str(row[1])+"','"+str(row[2])+"','"+str(row[3])+"','"+str(row[4])+"','"+str(row[5])+"','"+str(row[6])+"','"+str(row[7])+"','"+str(row[8])+"','"+str(row[9])+"','"+str(row[9])+"','"+str(row[10])+"','"+str(row[11])+"','"+str(row[12])+"','"+str(row[13])+"');"
 				cur_1.execute(sql)
+			conn.commit()
 			print("5sql ok")
 def import_excel():
 	#pwd="/Users/liuhao/Desktop/zilong/app/controler/"
@@ -91,10 +93,11 @@ def import_excel():
 			for row in reader:
 				sql=sql+"('"+"','".join(row)+"'),"
 			sql=sql.strip(',')+";"
-			print("1sql ok")
+			
 				#time.sleep(10)
 			cur_1.execute(sql)
-	
+			conn.commit()
+			print("1sql ok")
 		if  not r.find("Daily_tfzh_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))) and r.find("new")<0:#投放转化
 
 			filename=pwd+""+r
@@ -105,10 +108,11 @@ def import_excel():
 			for row in reader:
 				sql=sql+"('"+"','".join(row)+"'),"
 			sql=sql.strip(',')+";"
-			print("2sql ok")
+	
 				#time.sleep(10)
 			cur_1.execute(sql)
-
+			conn.commit()
+			print("2sql ok")
 		if  not r.find("Daily_zbhs_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))) and r.find("new")<0:#投放转化
 			filename=pwd+""+r
 			print(filename)
@@ -118,10 +122,11 @@ def import_excel():
 			for row in reader:
 				sql=sql+"('"+"','".join(row[0:369])+"'),"
 			sql=sql.strip(',')+";"
-			print("3sql ok")
+	
 				#time.sleep(10)
 			cur_1.execute(sql)
-
+			conn.commit()
+			print("3sql ok")
 		if  not r.find("LaunchPaymentAll"):#投放转化
 			filename="/data1/bidata/"+r
 			print(filename)
@@ -131,10 +136,10 @@ def import_excel():
 			for row in reader:
 				sql=sql+"('"+"','".join(row)+"'),"
 			sql=sql.strip(',')+";"
-			print("4sql ok ")
+
 			cur_1.execute(sql)
-
-
+			conn.commit()
+			print("4sql ok ")
 def user_info_create():
 	user_DB=[]
 	user_file=[]
@@ -1153,9 +1158,9 @@ if __name__ == '__main__':
 			conn=pymysql.connect(host='localhost',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
 			cur_1=conn.cursor()
 			import_excel()
-			import_excel_add()
-			user_info_create()
-			export()
+			#import_excel_add()
+			#user_info_create()
+			#export()
 			cur_1.close()
 			conn.commit()
 			conn.close()
@@ -1166,8 +1171,8 @@ if __name__ == '__main__':
 			conn=pymysql.connect(host='localhost',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
 			cur_1=conn.cursor()
 			print(1)
-			import_csv()
-			export_media_1()
+			#import_csv()
+			#export_media_1()
 			cur_1.close()
 			conn.commit()
 			conn.close()
