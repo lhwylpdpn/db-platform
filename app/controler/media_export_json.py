@@ -85,9 +85,9 @@ def export_A():
 	word="["
 	for i in xrange(0,len(res)):
 		word=word+'{'
-		word=word+'"game_id":"'+str(game_id[i])+'",'+'"platform":"'+str(platform[i])+'",'+'"date_":"'+str(date_[i])+'",'+'"channel_name":"'+str(channel_name[i])+'",'+'"agent":"'+str(agent[i])+'",'
+		word=word+'"game_id":"'+str(game_id[i])+'",'+'"platform":"'+str(platform[i])+'",'+'"date_time":"'+str(date_[i])+'",'+'"channel_name":"'+str(channel_name[i])+'",'+'"agent":"'+str(agent[i])+'",'
 		word=word+'"staff":"'+str(staff[i])+'",'+'"dis_spend":"'+str(dis_spend[i])+'",'+'"ad_click":"'+str(ad_click[i])+'",'+'"ad_action":"'+str(ad_action[i])+'",'+'"ad_action_new":"'+str(ad_action_new[i])+'",'
-		word=word+'"ad_action_new_back":"'+str(ad_action_new_back[i])+'",'+'"ad_account_new_double":"'+str(ad_account_new_double[i])+'",'+'"ad_pay_account":"'+str(ad_pay_account[i])+'",'
+		word=word+'"ad_action_new_back":"'+str(ad_action_new_back[i])+'",'+'"ad_account_new_double":"'+str(ad_account_new_double[i])+'",'+'"ad_login_count":"'+str(ad_pay_account[i])+'",'
 		word=word+'"ad_AU_5":"'+str(ad_AU_5[i])+'",'
 		word=word+'"ad_create_role":"'+str(ad_create_role[i])+'",'
 		word=word+'"ad_role_31":"'+str(ad_role_31[i])+'"'
@@ -207,5 +207,5 @@ def create_json(word,name):
 
 if __name__ == '__main__':
 
-		#export_A()
-		export_B()
+		export_A()
+		#export_B()
