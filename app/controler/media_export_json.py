@@ -98,8 +98,9 @@ def export_A():
 			word=word+'}'+',\n'
 	word=word+']'
 
-
-	create_json(word.replace('"None"','""'),"media_2")
+	word=word.replace('"None"','""')
+	word=word.replace('"staff":""','"staff":"weizhi_none"')
+	create_json(word,"media_2")
 
 
 
