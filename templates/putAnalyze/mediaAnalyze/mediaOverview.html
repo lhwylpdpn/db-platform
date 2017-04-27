@@ -27,7 +27,7 @@
 
     <script type="text/javascript" src="/static/js/bootstrap-table.js"></script>
     <script type="text/javascript" src="/static/js/bootstrap-table-multiple-sort.js"></script>
-    <script type="text/javascript" src="/static/date_dropper/datedropper.min.js"></script>
+    <script type="text/javascript" src="/static/date_dropper/datedropper.js"></script>
     <link rel="stylesheet" href="/static/date_dropper/datedropper.css">
     <link rel="stylesheet" href="/static/css/bootstrap-table.css">
     <link rel="stylesheet" href="/static/css/Fliter.css">
@@ -53,19 +53,19 @@
             <button id="chaxun" class="btn btn-sm btn-primary">查询</button>
         </div>
     </div>
-    <div class="hr hr-8 hr-dotted"></div>
-    <div id="main-widget-container" styledelete="height:84px;background:#EEEEEE">
+    <div class="hr hr-8 hr-dotted" ></div>
+    <div id="main-widget-container" class="container" styledelete="height:84px;background:#EEEEEE">
 
-        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-1" >
+        <div class=" col-sm-2 col-md-2  widget-container-col" id="widget-container-col-1" >
             <div class="widget-box " id="widget-box-1">
-                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
+                <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center" >
                     <div class="infobox-content" style="color:#333;">计算中...</div>
                     <div class="infobox-content" style="color:#B22222;">计算中...</div>
                     <div class="infobox-content">新增设备</div>
                 </div>
             </div>
         </div>
-        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-2">
+        <div class=" col-sm-2 col-md-2  widget-container-col" id="widget-container-col-2">
             <div class="widget-box " id="widget-box-2">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
                     <div class="infobox-content" style="color:#333;">计算中...</div>
@@ -74,7 +74,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-3">
+        <div class=" col-sm-2 col-md-2  widget-container-col" id="widget-container-col-3">
             <div class="widget-box" id="widget-box-3">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
                     <div class="infobox-content" style="color:#333;">计算中...</div>
@@ -83,7 +83,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-4">
+        <div class=" col-sm-2 col-md-2  widget-container-col" id="widget-container-col-4">
             <div class="widget-box" id="widget-box-4">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
                     <div class="infobox-content" style="color:#333;">计算中...</div>
@@ -92,7 +92,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-5">
+        <div class=" col-sm-2 col-md-2 widget-container-col" id="widget-container-col-5">
             <div class="widget-box" id="widget-box-5">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
                     <div class="infobox-content" style="color:#333;">计算中...</div>
@@ -101,7 +101,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-2 col-sm-2 widget-container-col" id="widget-container-col-6">
+        <div class=" col-sm-2 col-md-2 widget-container-col" id="widget-container-col-6">
             <div class="widget-box" id="widget-box-6">
                 <div class=" infobox-blue infobox-dark infobox-data" style="text-align:center">
                     <div class="infobox-content" style="color:#333;">计算中...</div>
@@ -116,32 +116,78 @@
         <!--<button id="showHideTable" class="btn btn-white btn-sm btn-primary">收起表格</button>-->
     <!--</div>-->
 
-    <div>
-        <table id="table" data-sort-name="date_time" data-sort-order="desc" class="table table-bordered table-hover">
+<div class=" widget-container-col ui-sortable" id="widget-container-col-10086">
+<div class="widget-box ui-sortable-handle" id="widget-box-10086" >
+<div class="widget-header">
+<h5 class="widget-title">
+<button class="btn btn-sm btn-danger  btn-white btn-round" id="button3">
+<i class="ace-icon fa fa-folder-o bigger-110 red"></i>
+媒体概览
+</button>
+
+<!--  <button class="btn btn-sm btn-danger  btn-white btn-round"  id="button3">
+<i class="ace-icon fa fa-folder-o bigger-110 red"></i>
+用户平均活跃时长
+</button>
+<button class="btn btn-sm btn-danger  btn-white btn-round"  id="button4">
+<i class="ace-icon fa fa-folder-o bigger-110 red"></i>
+用户平均登录次数
+</button>-->
+</h5>
+
+<div class="widget-toolbar">
+
+
+<a href="#" data-action="collapse">
+    <i class="ace-icon fa fa-chevron-up"></i>
+</a>
+
+<a href="#" data-action="close">
+    <i class="ace-icon fa fa-times"></i>
+</a>
+</div>
+</div>
+
+<div class="widget-body">
+
+
+<table id="table" data-sort-name="date_time" data-sort-order="desc" class="table table-bordered table-hover">
             <thead>
                 <tr>
-                    <th data-field="channel_name" data-sortable="true">　渠道　</th>
-                    <th data-field="agent" data-sortable="true">代理商</th>
-                    <th data-field="staff" data-sortable="true">负责人</th>
-                    <th data-field="date_time" data-sortable="true">　日期　</th>
-                    <th data-field="ad_click" data-sortable="true">点击设备</th>
-                    <th data-field="ad_action" data-sortable="true">激活设备</th>
-                    <th data-field="ad_action_new" data-sortable="true">新增设备</th>
-                    <th data-field="ad_account_new" data-sortable="true">新增总账号</th>
-                    <th data-field="double_new" data-sortable="true">纯新增账号</th>
-                    <th data-field="back_user" data-sortable="true">回流账号</th>
-                    <th data-field="paid_account" data-sortable="true">付费账号</th>
-                    <th data-field="fufeilv" data-sortable="true" data-formatter="fufeilv" data-align="right">付费率</th>
-                    <th data-field="spend" data-sortable="true" data-formatter="spend" data-align="right">折后花费</th>
-                    <th data-field="CPA" data-sortable="true">C P A</th>
-                    <th data-field="cumulative_flow" data-sortable="true" data-formatter="cumulative_flow" data-align="right">累计流水</th>
-                    <!-- <th data-field="dis" data-sortable="true">分成比例</th> -->
-                    <th data-field="cumulative_moeny" data-sortable="true" data-formatter="cumulative_moeny" data-align="right">累计净收入</th>
-                    <th data-field="ROI" data-sortable="true" data-formatter="ROI" data-align="right">R O I</th>
+                    <th data-align="right"  data-field="channel_name" data-sortable="true">　渠道　</th>
+                    <th data-align="right"  data-field="agent" data-sortable="true">代理商</th>
+                    <th data-align="right"  data-field="staff" data-sortable="true">负责人</th>
+                    <th data-align="right"  data-field="date_time" data-sortable="true">　日期　</th>
+                    <th data-align="right"  data-field="ad_click" data-formatter="ad_click" data-sortable="true">点击设备</th>
+                    <th data-align="right"  data-field="ad_action" data-formatter="ad_action" data-sortable="true">激活设备</th>
+                    <th data-align="right"  data-field="ad_action_new"  data-formatter="ad_action_new"  data-sortable="true">新增设备</th>
+                    <th data-align="right"  data-field="ad_account_new" data-formatter="ad_account_new"  data-sortable="true">新增总账号</th>
+                    <th data-align="right"  data-field="double_new" data-formatter="double_new"  data-sortable="true">纯新增账号</th>
+                    <th data-align="right"  data-field="back_user"  data-formatter="back_user" data-sortable="true">回流账号</th>
+                    <th data-align="right"  data-field="paid_account"  data-formatter="paid_account"  data-sortable="true">付费账号</th>
+                    <th data-align="right"  data-field="fufeilv" data-sortable="true" data-formatter="fufeilv" data-align="right">付费率</th>
+                    <th data-align="right"  data-field="spend" data-sortable="true" data-formatter="spend" data-align="right">折后花费</th>
+                    <th data-align="right"  data-field="CPA" data-sortable="true">C P A</th>
+                    <th data-align="right"  data-field="cumulative_flow" data-sortable="true" data-formatter="cumulative_flow" data-align="right">累计流水</th>
+                    <!--  <th data-field="dis" data-sortable="true">分成比例</th> -->
+                    <th data-align="right" data-field="cumulative_moeny" data-sortable="true" data-formatter="cumulative_moeny" data-align="right">累计净收入</th>
+                    <th data-align="right" data-field="ROI" data-sortable="true" data-formatter="ROI" data-align="right">R O I</th>
                 </tr>
             </thead>
-        </table>
-    </div>
+</table>          
+
+
+
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
     <div class="widget-box ui-sortable-handle" id="widget-box-7">
         <div class="widget-header" style="padding-top:2px">
             <button class="widget-title" style="visibility: hidden;">|</button>
@@ -185,6 +231,7 @@
     </div>
 
 </div><!-- /.page-content -->
+
 
 
 <script src="/static/js/Filter.js"></script><!--筛选需要的js-->
@@ -328,6 +375,63 @@
     function toThousands(num) {
         return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
     }
+    function ad_click(value,row) {
+        var values = value.toString().split(".");
+        if(typeof(values[1]) == "undefined"){
+            return benchmark(toThousands(values[0]).toString(),"good");
+        }else{
+            return benchmark(toThousands(values[0]).toString(),"good") + "."+ values[1];
+        }
+    }
+    function ad_action(value,row) {
+        var values = value.toString().split(".");
+        if(typeof(values[1]) == "undefined"){
+            return toThousands(values[0]).toString();
+        }else{
+            return toThousands(values[0]).toString() + "."+ values[1];
+        }
+    }
+    function ad_action_new(value,row) {
+        var values = value.toString().split(".");
+        if(typeof(values[1]) == "undefined"){
+            return toThousands(values[0]).toString();
+        }else{
+            return toThousands(values[0]).toString() + "."+ values[1];
+        }
+    }
+    function ad_account_new(value,row) {
+        var values = value.toString().split(".");
+        if(typeof(values[1]) == "undefined"){
+            return toThousands(values[0]).toString();
+        }else{
+            return toThousands(values[0]).toString() + "."+ values[1];
+        }
+    }
+    function double_new(value,row) {
+        var values = value.toString().split(".");
+        if(typeof(values[1]) == "undefined"){
+            return toThousands(values[0]).toString();
+        }else{
+            return toThousands(values[0]).toString() + "."+ values[1];
+        }
+    }
+    function back_user(value,row) {
+        var values = value.toString().split(".");
+        if(typeof(values[1]) == "undefined"){
+            return toThousands(values[0]).toString();
+        }else{
+            return toThousands(values[0]).toString() + "."+ values[1];
+        }
+    }
+
+    function paid_account(value,row) {
+        var values = value.toString().split(".");
+        if(typeof(values[1]) == "undefined"){
+            return toThousands(values[0]).toString();
+        }else{
+            return toThousands(values[0]).toString() + "."+ values[1];
+        }
+    }
 
     function spend(value,row) {
         var values = value.toString().split(".");
@@ -355,12 +459,12 @@
     }
     function fufeilv(value,row) {
         if(value != "-"){
-            return value + "%";
+            return formatNumber(value,2,0) + "%";
         }
     }
     function ROI(value,row) {
         if(value != "-"){
-            return value + "%";
+            return formatNumber(value,2,0) + "%";
         }
     }
 </script><!--结束设置数据格式-->
@@ -853,7 +957,7 @@
 </script><!--筛选后的数据处理-->
 
 <script src="/static/ace/js/jquery-ui.custom.min.js"></script><!--拖拽需要的js-->
-<script type="text/javascript">
+<!--<script type="text/javascript">
 jQuery(function($) {
     // widget boxes
     // widget box drag & drop example
@@ -959,6 +1063,46 @@ jQuery(function($) {
 
 });
 
+</script>-->
+
+
+
+<!--数字增加benchmark效果-->
+<script type="text/javascript">
+    
+    
+    function benchmark(context,type){
+
+
+        switch (type)
+        {
+        case "good":
+          return '<div class="my-parent-style-F89406">' + context + '</div>'
+          print(3)
+          break;
+        case "normal":
+          x="Today it's Monday";
+          break;
+        case "bad":
+          x="Today it's Tuesday";
+          break;
+        default:
+          return context;
+
+        }
+
+
+    }
+
+    $(function() { 
+    function bilibili(){
+        $($(".my-parent-style-F89406").parent("td")).css({ color: "#FFFFFF", background: "#F89406" });
+        $($(".my-parent-style-191970").parent("td")).css({ color: "#FFFFFF", background: "#191970" });
+        $($(".my-parent-style-FA8072").parent("td")).css({ color: "#FFFFFF", background: "#FA8072" });
+
+    }
+});
 </script>
+
 
 {% endblock content %}
