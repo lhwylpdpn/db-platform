@@ -51,11 +51,11 @@ def import_csv(file_pwd,filename,table,type):
 		filenode=open(filename)
 
 		tag=0
+
 		for row in filenode:
 			if tag==0:
 				tag=1
 				continue;
-
 			i=i+1
 			if i>50:
 				sql="insert into "+tablename+"  values "+sql
