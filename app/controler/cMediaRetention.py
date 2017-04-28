@@ -6,6 +6,7 @@ from app.controler.power_API import get_business_json
 from public_function import get_first_letter
 import time
 import sys 
+import datetime
 reload(sys) 
 sys.setdefaultencoding('utf-8')
 class cMediaRetention:
@@ -13,6 +14,7 @@ class cMediaRetention:
 	
 	@staticmethod
 	def tj_for_qiangye_test(username):
+
 		game_id=[]
 		platform=[]
 		channel_name=[]
@@ -21,7 +23,7 @@ class cMediaRetention:
 		tj=""
 		tjtype=""
 		args = request.args.items()
-		jsons = json.loads(get_business_json("media_3.json", session["username"]).encode("utf-8"))["body"]
+		jsons = json.loads(get_business_json("media_4.json", session["username"]).encode("utf-8"))["body"]
 		jsons = json.dumps(jsons,ensure_ascii=False)
 		jsons = jsons.replace(" ","")
 		resultjson=[]
@@ -73,7 +75,8 @@ class cMediaRetention:
 				tj+='{"platform":"'+str(platform[x])+'","initial":"'+str(get_first_letter(platform[x]))+'"},'
 			tj=tj[0:-1]
 		tj=tj+']'
-		
+
+
 		return tj
 
 

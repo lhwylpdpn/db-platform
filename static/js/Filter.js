@@ -1,239 +1,295 @@
-﻿
 /**
- * edatagrid - jQuery EasyUI
- * 
- * Licensed under the GPL:
- *   http://www.gnu.org/licenses/gpl.txt
- *
- * Copyright 2011-2015 www.jeasyui.com 
- * 
- * Dependencies:
- *   datagrid
- *   messager
- * 
+ * Silence
  */
-(function ($) {
-    //初始化绑定事件
-    $(function () {
-       
-    });
-    $.fn.extend({
-        comboboxfilter: function (ops) {
-            if (typeof (arguments[0]) != typeof ("string")) {
-                return $.fn.comboboxfilter.methods["init"](this, ops);
-            } else {
-                return $.fn.comboboxfilter.methods[arguments[0]](this, arguments);
-            }
-        }
-    });
+;
+$(function() {
+    var Filter = function() {
+        this.init();
+    };
 
-    //方法
-    $.fn.comboboxfilter.methods = {
-        options: function (target) {
-            var opts = $(target).data("comboboxfilter").options;
-            return opts;
+    //已选数据
+    // var $selectedArr = [];
+    // $('#FilterTagSelected').find('a').each(function(){
+    //     if ($(this).data('channel') || $(this).data('agent') || $(this).data('staff')){
+    //         $selectedArr.push($(this).data('channel') || $(this).data('agent') || $(this).data('staff'));
+    //     }
+    // });
+
+    Filter.prototype = {
+        //初始化
+        init: function() {
+            this.initLoad();
+            this.clearData();
+            this.filterTag();
+            this.moreDate();
+            this.wordFilter();
         },
-        init: function (target, ops) {
-            var $this = this;
-            var options = $.extend({}, $.fn.comboboxfilter.defaults, ops);
-            $(target).data("comboboxfilter", { options: options });
-            $(target).removeClass('hotel-filter-list filter-list-has-more hotel-filter-list-min').addClass("hotel-filter-list filter-list-has-more hotel-filter-list-min");
-            var listcontainer = $('<div class="conF"></div>').addClass(!options.multiple ? "radioF" : "checkboxF");
-            if (options.unlimit) {//如果开启不限 则添加 
-                var anyNode = $('<ul class="any"><li><a class="filter-unlimit filter-tag selected" href="javascript:;" data-value="">' + options.unlimitText + '</a></li></ul>').bind('click',function() {
-                    $(anyNode).find('.filter-unlimit').removeClass('selected').addClass('selected');
-                    $this.clear(target);
-                });
-                listcontainer.append(anyNode);
-            }
-            listcontainer.append('<ul class="list"></ul> <span class="J_FilterMore filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>');
-            listcontainer.find('.open').unbind('click').bind('click', function() {//绑定点击更多事件
-                $(target).removeClass('hotel-filter-list-min');
+        initLoad:function(){
+            this.loadData('channel_name','agent=','staff=');
+            this.loadData('agent','channel_name=','staff=');
+            this.loadData('staff','channel_name=','agent=');
+        },
+        //载入数据
+        loadData: function(a,b,c) {
+            var url,
+                dataBox,
+                self = this;
+            if (a=='channel_name'){dataBox='List01';}
+            if (a=='agent'){dataBox='List02';}
+            if (a=='staff'){dataBox='List03';}
+            url = '/mediaOverviewTJ?'+b+'&'+c+'&tjtype='+a;
+            $.getJSON(url, function(data){
+                self.renderData(dataBox,data)
             });
-            listcontainer.find('.closeF').unbind('click').bind('click', function () {//绑定点击更多事件
-                $(target).addClass('hotel-filter-list-min');
-            });
-            $(target).html($('<strong class="tit">' + options.text + '</strong>'));
-            if (options.inputName) {//添加隐藏的inputName
-                $(target).append($('<input type="hidden" name="' + options.inputName + '" value="">'));
-            }
-            //具有分组
-            if (options.scope) {
-                $(target).attr('scope', options.scope);//添加自定义分组属性
-                if ($('#' + options.scope).length>0) {
-                    
-                } else {
-                    var node = $('<div id="' + options.scope + '" class="hotel-filter-list "><strong class="tit">已选</strong><div class="conF selected-query"><ul  class="list"><li class="filter-query-clear"><a class="J_FilterQueryClear" href="javascript:;">全部清除</a></li></ul></div></div>');
-                    node.find('.J_FilterQueryClear').unbind('click').bind('click',function() {//全部清除事件
-                        $('div[scope="' + options.scope + '"]').comboboxfilter('clear');
-                    });
-                    $('div[scope="' + options.scope + '"]:eq(0)').before(node);
+        },
+        //数据写入
+        renderData:function(container,data){
+            var initialList=[];
+            $('#'+container).find('.list').empty();
+            //写入数据
+            $(data).each(function(i){
+                var dataName='',dataVaule='';
+                if (container=='List01'){
+                    dataName= "data-channel="+data[i].channel_name;
+                    dataVaule= data[i].channel_name;
                 }
-            }
-            $(target).append(listcontainer);
-            this.load(target,{});
-            return this;
+                if (container=='List02'){
+                    dataName= "data-agent="+data[i].agent;
+                    dataVaule= data[i].agent;
+                }
+                if (container=='List03'){
+                    dataName= "data-staff="+data[i].staff;
+                    dataVaule= data[i].staff;
+                }
+                $('#'+container).find('.list').append('<li><a class="filter-tag" href="javascript:;" data-initial="'+data[i].initial+'" '+dataName+'>'+dataVaule+'<i></i></a></li>');                    
+                if(initialList.indexOf(data[i].initial) == -1){
+                    initialList.push(data[i].initial);
+                }
+            });
+            //写入首字母
+            initialList.sort();
+            $('#'+container).find('.initial').empty().append('<li data-value="all">All</li>');
+            $(initialList).each(function(i){
+                $('#'+container).find('.initial').append('<li data-value="'+initialList[i]+'">'+initialList[i]+'</li>');
+
+            });
+            //反写已选状态
+            $('#FilterTagSelected').find('a').each(function(){
+                var aText = $(this).text(),
+                    aData = '';
+                if($(this).data('channel')){aData='channel'}
+                if($(this).data('agent')){aData='agent'}
+                if($(this).data('staff')){aData='staff'}
+                $('#FilterQueryList').find('a').each(function(){
+                    if($(this).text()==aText && $(this).data(aData)){$(this).addClass('selected');}
+                });
+            });
+            //0 click 清除 data-open
         },
-        reload: function (target) {
-            this.load(target,{});
-        },
-        load: function (target, opts) {
-            var $this = this;
-            var options = $.extend({}, $.fn.comboboxfilter.methods["options"](target), opts);
-            if (opts.url) {
-                $.ajax({
-                    type: 'post',
-                    data: options.param,
-                    url: options.url,
-                    success: function(data) {
-                        if (typeof (data) == typeof ("string")) {
-                            data = $.parseJSON(data);
-                        }
-                        var listTarget = $(target).find('.list').html('');
-                        $this.setData(listTarget, options, data, target);
-                    },
-                    error: function(e) {
-                        $this.onError(e);
+        //清除数据
+        clearData:function(){
+            var self = this;
+            //全部清除
+            $('#FilterQueryClear').on('click',function(){
+                $("#FilterTagSelected li").slice(1).remove();
+                $('.any a').trigger('click');
+                $('.filterlist').removeAttr('data-open');
+                $('.filterlist').removeData('open');
+                self.initLoad();
+            });
+            //单条清除
+            $('#FilterTagSelected').on('click','i',function(){
+                var closeText = $(this).parent().text(),
+                    closeData = '';
+                if($(this).parent().data('channel')){closeData='channel'}
+                if($(this).parent().data('agent')){closeData='agent'}
+                if($(this).parent().data('staff')){closeData='staff'}
+                $('#FilterQueryList').find('a').each(function(){
+                    if($(this).text()==closeText && $(this).data(closeData)){
+                        $(this).trigger('click');
                     }
                 });
-            } else {
-                var listTarget = $(target).find('.list').html('');
-                $this.setData(listTarget, options, options.data, target);
-            }
+            });
+        },
+        //选中数据
+        filterTag: function() {
+            var self = this;
+            $('#FilterQueryList .list').on('click','a',function(){                
+                //tag状态&click
+                if($(this).hasClass('selected')){
+                    $(this).removeClass('selected');
+                    var tagText = $(this).text(),
+                        tagData = $(this).parents('.filterlist').data('value');
+                    $('#FilterTagSelected').find('a').each(function(){
+                        if($(this).text()==tagText && $(this).data(tagData)){
+                            $(this).parent().remove();
+                        }
+                    })
+                }else{
+                    $(this).addClass('selected');
+                    $(this).parents('li').clone().appendTo('#FilterTagSelected');
+                };
+                //联动标识
+                var openNum=0;
+                $('#FilterQueryList').find('.filterlist').each(function(){
+                    if ($(this).data('open')){
+                        openNum++
+                    }
+                });
+                if(openNum==0){
+                    $(this).parents('.filterlist').attr('data-open','1');
+                }
+                if(openNum==1 && !$(this).parents('.filterlist').data('open')){
+                    $(this).parents('.filterlist').attr('data-open','2');
+                }
+                //联动load
+                var idValue = $(this).parents('.filterlist').data('value'),
+                    idOpen = $(this).parents('.filterlist').data('open'),
+                    valueList = '',
+                    channelList = '',
+                    agentList = '',
+                    staffList = '';
+                $(this).parents('#FilterQueryList').find('.filterlist').each(function(){
+                    var key = $(this).data('value'),
+                        valueList='';
+                    $(this).find('.list a').each(function(){
+                        if($(this).hasClass('selected')){
+                            valueList=valueList+$(this).text()+',';
+                        }
+                    });
+                    valueList = valueList.substr(0, valueList.length - 1);
+                    if (key=='channel'){
+                        channelList='channel_name='+valueList;
+                    };
+                    if (key=='agent'){
+                        agentList='agent='+valueList;
+                    };
+                    if (key=='staff') {
+                        staffList='staff='+valueList;
+                    };                    
+                });
+                //channel
+                if (idValue=='channel'){
+                    if (idOpen==1) {
+                        self.loadData('agent',channelList,staffList);
+                        self.loadData('staff',channelList,agentList);
+                    };
+                    if (idOpen==2) {
+                        var id='';
+                        $('#FilterQueryList').find('.filterlist').each(function(){
+                            if (!$(this).data('open')){
+                                id= $(this).data('value');
+                            }
+                        });
+                        if (id=='agent'){
+                            self.loadData('agent',channelList,staffList);
+                        };
+                        if (id=='staff') {
+                            self.loadData('staff',channelList,agentList);
+                        };
+                    };
+                };
+                //agent 
+                if (idValue=='agent'){
+                    if (idOpen==1) {
+                        self.loadData('channel_name',agentList,staffList);
+                        self.loadData('staff',channelList,agentList);
+                    };
+                    if (idOpen==2) {
+                        var id='';
+                        $('#FilterQueryList').find('.filterlist').each(function(){
+                            if (!$(this).data('open')){
+                                id= $(this).data('value');
+                            }
+                        });
+                        if (id=='channel'){
+                            self.loadData('channel_name',agentList,staffList);
+                        };
+                        if (id=='staff') {
+                            self.loadData('staff',channelList,agentList);
+                        };
+                    };
+                };
+                //staff
+                if (idValue=='staff'){
+                    if (idOpen==1) {
+                        self.loadData('channel_name',agentList,staffList);
+                        self.loadData('agent',channelList,staffList);
+                    };
+                    if (idOpen==2) {
+                        var id='';
+                        $('#FilterQueryList').find('.filterlist').each(function(){
+                            if (!$(this).data('open')){
+                                id= $(this).data('value');
+                            }
+                        });
+                        if (id=='channel'){
+                            self.loadData('channel_name',agentList,staffList);
+                        };
+                        if (id=='agent'){
+                            self.loadData('agent',channelList,staffList);
+                        };
+                    };
+                };
             
-        },
-        loadData: function (target, data) {
-            var $this = this;
-            var options = $this.options(target);
-            var listTarget = $(target).find('.list').html('');
-            $this.setData(listTarget, options, data, target);
 
+                //不限状态
+                var selectedNum = 0;
+                $(this).parents('.list').find('a').each(function(){
+                    if($(this).hasClass('selected')){
+                        $(this).parents('.checkboxF').find('.any a').removeClass('selected');
+                        selectedNum ++
+                    }
+                    if (selectedNum==0){
+                        $(this).parents('.checkboxF').find('.any a').addClass('selected');
+                    }
+                });
+                //不限click
+                $('.filter-unlimit').on('click',function(){
+                    if(!$(this).hasClass('selected')){
+                        $(this).parents('.checkboxF').find('.list a').removeClass('selected');
+                        $(this).addClass('selected');
+                        var value = $(this).parents('.filterlist').data('value'); 
+                        $('#FilterTagSelected').find('a').each(function(){
+                            if($(this).data(value)){
+                                $(this).parent().remove();
+                            }
+                        });
+
+                    }
+                });
+                //清除已选tag的class
+                $('#FilterTagSelected li a').removeClass('filter-tag selected');
+            });
         },
-        setData: function (target, options, data, targetContain) {
-            var $this = this;
-            $.each(data, function (i, item) {
-                var listnode = $(' <li></li>');
-                var clicka = $('<a class="filter-tag" href="javascript:;" data-value="' + item[options.idField] + '" data-text="' + item[options.textField] + '">' + item[options.textField] + '<i></i></a>').data('data', item);
-                clicka.unbind('click').bind('click', function (e) {
-                    if (clicka.hasClass('selected')) {//验证是否被选择，已经选择则取消选择，反之选择
-                        clicka.removeClass('selected');//不可去掉（为了计算Value的正确性）
-                    } else {
-                        if (!options.multiple) {//单选执行
-                            $(targetContain).find('.selected').trigger("click.selected-tag");//触发事件清除全部选项
+        //展开更多
+        moreDate: function() {
+            $('.filter-more').on('click',function(){
+                var list = $(this).parents('.hotel-filter-list');
+                if(list.hasClass('hotel-filter-list-min')){
+                    list.removeClass('hotel-filter-list-min');
+                }else{
+                    list.addClass('hotel-filter-list-min');
+                    list.find('.list li').show();
+                }
+            });
+        },
+        //字母筛选
+        wordFilter: function() {
+            $('.initial').on('mouseover','li',function(){
+                var tagInitial = $(this).data('value');
+                if(tagInitial=='all'){
+                    $(this).parents('.checkboxF').find('.list li').show();
+                }else{
+                    $(this).parents('.checkboxF').find('.list li').each(function(){
+                        $(this).hide();
+                        if($(this).find('a').data('initial')==tagInitial){
+                             $(this).show();
                         }
-                        clicka.addClass('selected');
-                        $this.addSelected($('#' + options.scope), clicka, item, options, targetContain);//容器中添加选择项
-                    }
-                    $this.reSetValue(targetContain); //重新计算Value
-                    options.onClick(item);//触发单机事件
-                });
-                listnode.append(clicka);
-                target.append(listnode);
+                    });
+                }
             });
-            options.onLoadSuccess(data);//触发加载完成事件
-        },
-        getValue: function(target) {
-            var selected = $(target).find('.list .selected');
-            var array = new Array();
-            $.each(selected, function(i,item) {
-                array.push($(item).attr('data-value'));
-            });
-            return array.join(",");
-        },
-        //////////////////////////////////kang da tian jia
-        returnValue: function(target){
-            return this.getValue(target);
-        },
-        /////////////////////////////////
-
-        setValue: function (target, value) {
-            $(target).find('.selected').trigger("click.selected-tag");//触发事件清除全部选项用于重新赋值
-            var options = this.options(target);
-            var clicka = $(target).find('.filter-tag[data-value="' + value[1] + '"]');
-            if (clicka.length > 0) {
-                clicka.addClass('selected');
-                var item = $(clicka).data('data');//取值
-                this.addSelected($('#' + options.scope), clicka, item, options, target);//容器中添加选择项
-            }
-            this.reSetValue(target); //重新计算Value
-        },
-        setValues: function (target, valueArray) {
-            var $this = this;
-            var options = this.options(target);
-            if (options.multiple) {//开启多选可用
-                $(target).find('.selected').trigger("click.selected-tag");//触发事件清除全部选项用于重新赋值
-                $.each(valueArray[1], function (i, itemData) {
-                    var clicka = $(target).find('.filter-tag[data-value="' + itemData + '"]');
-                    if (clicka.length > 0) {
-                        clicka.addClass('selected');
-                        var item = $(clicka).data('data');//取值
-                        $this.addSelected($('#' + options.scope), clicka, item, options, target);//容器中添加选择项
-                    }
-                });
-                $this.reSetValue(target); //重新计算Value
-            }
-        },
-        //添加已经选择项
-        //pointTarget：选择项容器
-        //target 被点击的项
-        //itemData 被选择数据
-        addSelected: function (pointTarget, target, itemData, options, targetContain) {
-            var $this = this;
-          var anode = $('<a href="javascript:;">' + itemData[options.textField] + '</a>');
-                //创建X ,点击则移除选择项
-                var inode = $('<i class="J_FilterQueryDel" data-type="ParentCatelog" data-value="' + itemData[options.idField] + '"></i>').unbind('click').bind('click', function (e) {
-                    $(target).trigger("click.selected-tag");//触发事件
-                   // $(e.target).closest('.selected-tag').remove();
-                    $this.reSetValue(targetContain); //重新计算Value
-                });
-                //绑定指定命名空间的单击事件
-                $(target).unbind('click.selected-tag').bind('click.selected-tag', function (e) {
-                    $(target).removeClass('selected');
-                    $(anode).closest('.selected-tag').remove();
-                    $(target).unbind('click.selected-tag');
-                });
-                anode.append(inode);
-                pointTarget.find('.list').append($('<li data-type="ParentCatelog" class="selected-tag"></li>').append(anode));
-        },
-        //重新计算Value
-        reSetValue: function (target) {
-            var value = this.getValue(target);
-            $(target).find('input[name="' + this.options(target).inputName + '"]').val(value);
-            //有值
-            if (value) {
-                $(target).find('.filter-unlimit').removeClass('selected');
-            }
-            //无值
-            else {
-                $(target).find('.filter-unlimit').addClass('selected');
-            }
-            this.options(target).onChange(value);
-        },
-        clear: function (target) {
-            $(target).find('.selected').trigger("click.selected-tag");//触发事件
-            this.reSetValue(target); //重新计算Value
         }
-    }
-    $.fn.comboboxfilter.parseOptions = function (target) {
-        return $.extend({}, $.fn.datagrid.parseOptions(target), {
-        });
     };
-   
-    $.fn.comboboxfilter.defaults = {
-        url: '',	
-        idField: 'id',
-        textField: 'text',
-        scope: 'FilterQuery',
-        text: '',
-        multiple: false,
-	    data:[],
-        inputName: '',
-        unlimit: true,//是否显示不限，默认显示
-        unlimitText:'不限',
-        param:{},
-        onClick: function (itemData) { },
-        onChange: function (newValue) { },
-        onLoadSuccess: function (data) { },
-        onError: function (e) { }
-    };
-})(jQuery);
+    new Filter();
+});

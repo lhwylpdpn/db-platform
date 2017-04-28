@@ -350,6 +350,8 @@ def create_json(word,name):
 
 
 if __name__ == '__main__':
+		export_meida_A()
 
+		export_meida_B()
 
 		export_meida_C()

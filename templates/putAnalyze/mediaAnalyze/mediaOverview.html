@@ -7,6 +7,11 @@
         border-color: #1B6AAA;
         color: #FFF;
     }
+
+
+
+
+
 </style>
 <div class="breadcrumbs ace-save-state" id="breadcrumbs">
     <ul class="breadcrumb">
@@ -33,24 +38,68 @@
     <link rel="stylesheet" href="/static/css/Fliter.css">
 
     <div class="btn-group">
-        <button id ="time_1" type="button" class="data-filter btn btn-white btn-sm btn-primary">昨日</button>
-        <button id ="time_2" type="button" class="data-filter btn btn-white btn-sm btn-primary">前日</button>
-        <button id ="time_7" type="button" class="data-filter btn btn-white btn-sm btn-primary">近7天</button>
-        <button id ="time_15" type="button" class="data-filter btn btn-white btn-sm btn-primary">近15天</button>
-        <button id ="time_30" type="button" class="data-filter btn btn-white btn-sm btn-primary">近30天</button>
-        <button id ="timeAll" type="button" class="data-filter btn btn-sm btn-primary">历史所有</button>
+        <button id ="time_1" type="button" class="data-filter btn btn-white btn-sm btn-info btn-bold" >昨日</button>
+        <button id ="time_2" type="button" class="data-filter btn btn-white btn-sm btn-info btn-bold">前日</button>
+        <button id ="time_7" type="button" class="data-filter btn btn-white btn-sm btn-info btn-bold">近7天</button>
+        <button id ="time_15" type="button" class="data-filter btn btn-white btn-sm btn-info btn-bold">近15天</button>
+        <button id ="time_30" type="button" class="data-filter btn btn-white btn-sm btn-info btn-bold">近30天</button>
+        <button id ="timeAll" type="button" class="data-filter btn btn-white btn-sm btn-info btn-bold">历史所有</button>
     </div>
     |<input value="选择自然月" type="text" class="data-filter btn btn-white btn-sm btn-primary" style="height:27px" id="month" />|
     <input id="timeFrom" type="date" class="data-filter btn btn-white btn-sm btn-primary" value="" style="height:27px"> --
     <input id="timeTo" type="date" class="data-filter btn btn-white btn-sm btn-primary" value="" style="height:27px">
     <p></p>
+    <!-- Filter by Silence Begin -->
+        <div id="FilterQuery" class="hotel-filter-list "><strong class="tit">已选</strong>
+            <div class="conF selected-query">
+                <ul id="FilterTagSelected">
+                    <li class="filter-query-clear"><a id="FilterQueryClear" href="javascript:;">全部清除</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="FilterQueryList">
+            <div id="List01" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="channel">
+                <strong class="tit">代理商</strong>
+                <div class="conF checkboxF">
+                    <ul class="any">
+                        <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
+                    </ul>
+                    <ul class="initial"></ul>
+                    <ul class="list"></ul>
+                    <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
+                </div>
+            </div>
+            <div id="List02" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="agent">
+                <strong class="tit">代理商</strong>
+                <div class="conF checkboxF">
+                    <ul class="any">
+                        <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
+                    </ul>
+                    <ul class="initial"></ul>
+                    <ul class="list"></ul>
+                    <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
+                </div>
+            </div>
+            <div id="List03" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="staff">
+                <strong class="tit">负责人</strong>
+                <div class="conF checkboxF">
+                    <ul class="any">
+                        <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
+                    </ul>
+                    <ul class="initial"></ul>
+                    <ul class="list"></ul>
+                    <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
+                </div>
+            </div>
+        </div>
+        <!-- Filter by Silence End -->
     <div>
         <div id="demo1"></div>
         <div id="demo2"></div>
         <div id="demo3"></div>
 
         <div align="center" style="padding-top:7px">
-            <button id="chaxun" class="btn btn-sm btn-primary">查询</button>
+            <button id="chaxun" class="btn btn-sm btn-primary" onclick="chaxun(bilibili);">查询</button>
         </div>
     </div>
     <div class="hr hr-8 hr-dotted" ></div>
@@ -116,42 +165,24 @@
         <!--<button id="showHideTable" class="btn btn-white btn-sm btn-primary">收起表格</button>-->
     <!--</div>-->
 
-<div class=" widget-container-col ui-sortable" id="widget-container-col-10086">
-<div class="widget-box ui-sortable-handle" id="widget-box-10086" >
-<div class="widget-header">
-<h5 class="widget-title">
-<button class="btn btn-sm btn-danger  btn-white btn-round" id="button3">
-<i class="ace-icon fa fa-folder-o bigger-110 red"></i>
-媒体概览
+
+<div class="widget-box ui-sortable-handle" id="widget-box-">
+<div class="widget-header" style="padding-top:7px">
+
+<button class="btn btn-sm btn-danger  btn-white btn-round" id="button61" style="display: none;" onclick="bilibili();javascript:this.style.display ='none'; document.getElementById('button62').style.display='block';">
+benchmark off
 </button>
-
-<!--  <button class="btn btn-sm btn-danger  btn-white btn-round"  id="button3">
-<i class="ace-icon fa fa-folder-o bigger-110 red"></i>
-用户平均活跃时长
+<button class="btn btn-sm btn-danger  btn-white btn-round" id="button62"  style="display: block;" onclick="bilibili();javascript:this.style.display ='none';document.getElementById('button61').style.display='block';">
+benchmark on
 </button>
-<button class="btn btn-sm btn-danger  btn-white btn-round"  id="button4">
-<i class="ace-icon fa fa-folder-o bigger-110 red"></i>
-用户平均登录次数
-</button>-->
-</h5>
-
-<div class="widget-toolbar">
-
-
-<a href="#" data-action="collapse">
-    <i class="ace-icon fa fa-chevron-up"></i>
-</a>
-
-<a href="#" data-action="close">
-    <i class="ace-icon fa fa-times"></i>
-</a>
-</div>
 </div>
 
 <div class="widget-body">
 
 
-<table id="table" data-sort-name="date_time" data-sort-order="desc" class="table table-bordered table-hover">
+<table id="table" data-sort-name="date_time" data-sort-order="desc" class="table table-bordered table-hover"       
+               
+               >
             <thead>
                 <tr>
                     <th data-align="right"  data-field="channel_name" data-sortable="true">　渠道　</th>
@@ -167,7 +198,7 @@
                     <th data-align="right"  data-field="paid_account"  data-formatter="paid_account"  data-sortable="true">付费账号</th>
                     <th data-align="right"  data-field="fufeilv" data-sortable="true" data-formatter="fufeilv" data-align="right">付费率</th>
                     <th data-align="right"  data-field="spend" data-sortable="true" data-formatter="spend" data-align="right">折后花费</th>
-                    <th data-align="right"  data-field="CPA" data-sortable="true">C P A</th>
+                    <th data-align="right"  data-field="CPA" data-sortable="true" data-formatter="CPA"  data-align="right">C P A</th>
                     <th data-align="right"  data-field="cumulative_flow" data-sortable="true" data-formatter="cumulative_flow" data-align="right">累计流水</th>
                     <!--  <th data-field="dis" data-sortable="true">分成比例</th> -->
                     <th data-align="right" data-field="cumulative_moeny" data-sortable="true" data-formatter="cumulative_moeny" data-align="right">累计净收入</th>
@@ -181,7 +212,7 @@
 
 </div>
 </div>
-</div>
+
 
 
 
@@ -236,89 +267,119 @@
 
 <script src="/static/js/Filter.js"></script><!--筛选需要的js-->
 <script type="text/javascript">
-
-    var demo1 = null;
-    var demo2 = null;
-    var demo3 = null;
-
-    $.getJSON("/analyze/mediaOverviewJsonTJ", function(data){
-        console.log(data);
-        demo1 = $('#demo1').comboboxfilter({
-            url: '',
-            text: "渠道",
-            scope: 'FilterQuery3',
-            multiple: true,
-            data: data.channel_name,
-            onChange:function(newValue){
-            $('#demo10').val(newValue);
-                newValue1 = newValue;
-            }
-        });
-
-        demo2 = $('#demo2').comboboxfilter({
-            url: '',
-            text: "代理商",
-            scope: 'FilterQuery3',
-            multiple: true,
-            data: data.agent,
-            onChange:function(newValue){
-                $('#demo20').val(newValue);
-            newValue1 = newValue;
-            }
-        });
+//
 
 
-        demo3 = $('#demo3').comboboxfilter({
-            url: '',
-            text: "负责人",
-            scope: 'FilterQuery3',
-            multiple: true,
-            data: data.staff,
-            onChange:function(newValue){
-                $('#demo30').val(newValue);
-            newValue1 = newValue;
-            }
-        });
-    });
 
+
+    // var demo1 = null;
+    // var demo2 = null;
+    // var demo3 = null;
+
+    // $.getJSON("/analyze/mediaOverviewJsonTJ", function(data){
+    
+
+    //     demo1 = $('#demo1').comboboxfilter({
+    //         url: '',
+    //         text: "媒体",
+    //         scope: 'FilterQuery3',
+    //         multiple: true,
+    //         data: data.channel_name,
+    //         onChange:function(newValue){
+    //         $('#demo10').val(newValue);
+    //             newValue1 = newValue;
+    //         }
+    //     });
+
+    //     demo2 = $('#demo2').comboboxfilter({
+    //         url: '',
+    //         text: "代理",
+    //         scope: 'FilterQuery3',
+    //         multiple: true,
+    //         data: data.agent,
+    //         onChange:function(newValue){
+    //             $('#demo20').val(newValue);
+    //         newValue1 = newValue;
+    //         }
+    //     });
+
+
+    //     demo3 = $('#demo3').comboboxfilter({
+    //         url: '',
+    //         text: "负责",
+    //         scope: 'FilterQuery3',
+    //         multiple: true,
+    //         data: data.staff,
+    //         onChange:function(newValue){
+    //             $('#demo30').val(newValue);
+    //         newValue1 = newValue;
+    //         }
+    //     });
+    // });
+    function benchmark(context,type){
+
+
+        switch (type)
+        {
+        case "good":
+          return '<div class="my-parent-style-good"><b>' + context + '</b></div>'
+          print(3)
+          break;
+        case "normal":
+          return '<div class="my-parent-style-normal"><b>' + context + '</b></div>'
+          break;
+        case "bad":
+         return '<div class="my-parent-style-bad"><b>' + context + '</b></div>'
+          break;
+        default:
+          return context;
+
+        }
+
+
+    }
 
 
     // 时间筛选+条件筛选
-    $("#chaxun").click(function(){
-        console.log(demo1.returnValue($("#demo1")));
-        console.log(demo2.returnValue($("#demo2")));
-        console.log(demo3.returnValue($("#demo3")));
+   // function chaxun(callback){
 
-        var fromTime = $("#timeFrom").val();
-        var toTime = $("#timeTo").val();
 
-        var fromTimeCuo = Date.parse(new Date(fromTime));
-        var toTimeCuo = Date.parse(new Date(toTime));
-        var tianshu = (toTimeCuo - fromTimeCuo)/1000/60/60/24;
+   //      var fromTime = $("#timeFrom").val();
+   //      var toTime = $("#timeTo").val();
 
-        var fromToTime = [fromTime];
-        var flag = fromTimeCuo
-        for (var i = 0 ; i < tianshu ; i++ ){
-            flag = flag+1000*60*60*24;
-            fromToTime.push( new Date(flag).Format("yyyy-MM-dd") );
-        }
+   //      var fromTimeCuo = Date.parse(new Date(fromTime));
+   //      var toTimeCuo = Date.parse(new Date(toTime));
+   //      var tianshu = (toTimeCuo - fromTimeCuo)/1000/60/60/24;
 
-        var channel_name_filter = demo1.returnValue($("#demo1"));
+   //      var fromToTime = [fromTime];
+   //      var flag = fromTimeCuo
+   //      for (var i = 0 ; i < tianshu ; i++ ){
+   //          flag = flag+1000*60*60*24;
+   //          fromToTime.push( new Date(flag).Format("yyyy-MM-dd") );
+   //      }
 
-        var agent_filter = demo2.returnValue($("#demo2"));
+   //      var channel_name_filter = demo1.returnValue($("#demo1"));
 
-        var staff_filter = demo3.returnValue($("#demo3"));
+   //      var agent_filter = demo2.returnValue($("#demo2"));
 
-        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name=" + channel_name_filter + "&agent=" + agent_filter + "&staff=" + staff_filter} );
+   //      var staff_filter = demo3.returnValue($("#demo3"));
 
-        $("#table").bootstrapTable('filterBy',{
-            date_time : fromToTime,
-        });
+   //      $("#table").bootstrapTable('refresh',{url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name=" + channel_name_filter + "&agent=" + agent_filter + "&staff=" + staff_filter} );
 
-        //条件筛选完成后,重新设置 piece chart
-        setTimeout("setPieceChart();",2000);
+   //      $("#table").bootstrapTable('filterBy',{
+   //          date_time : fromToTime,
+   //      });
+   //      bilibili();
 
-    });
+
+   //              if (typeof callback === "function"){
+   //          //alert(callback);
+   //          callback(); 
+   //      }
+   //      //条件筛选完成后,重新设置 piece chart
+   //      setTimeout("setPieceChart();",2000);
+
+   //  }
 
 
 </script>
@@ -370,6 +431,7 @@
         num = num.substring(0,num.length-(4*i+3))+','+
         num.substring(num.length-(4*i+3));
         return (((sign)?'':'-') + num + '.' + cents);
+
     }
     //千分位转化
     function toThousands(num) {
@@ -378,18 +440,18 @@
     function ad_click(value,row) {
         var values = value.toString().split(".");
         if(typeof(values[1]) == "undefined"){
-            return benchmark(toThousands(values[0]).toString(),"good");
+            return toThousands(values[0]).toString();
         }else{
-            return benchmark(toThousands(values[0]).toString(),"good") + "."+ values[1];
+            return  toThousands(values[0]).toString();
         }
     }
     function ad_action(value,row) {
-        var values = value.toString().split(".");
-        if(typeof(values[1]) == "undefined"){
-            return toThousands(values[0]).toString();
-        }else{
-            return toThousands(values[0]).toString() + "."+ values[1];
-        }
+
+     
+            if (row["ad_action"]/row["ad_click"]>=0.06) {return benchmark(toThousands(row["ad_action"]).toString(),"good")} 
+            if (row["ad_action"]/row["ad_click"]<0.03 && row["ad_action"]/row["ad_click"]>0) {return benchmark(toThousands(row["ad_action"]).toString(),"bad")} 
+            return toThousands(row["ad_action"]).toString()
+     
     }
     function ad_action_new(value,row) {
         var values = value.toString().split(".");
@@ -459,21 +521,47 @@
     }
     function fufeilv(value,row) {
         if(value != "-"){
+
+            if (row["fufeilv"]>=0.06) {return benchmark(formatNumber(row["fufeilv"],2,0).toString()+"%","good")} 
+            if (row["fufeilv"]<0.03 && row["fufeilv"]>0) {return benchmark(formatNumber(row["fufeilv"],2,0).toString()+"%","bad")} 
             return formatNumber(value,2,0) + "%";
         }
     }
     function ROI(value,row) {
+
         if(value != "-"){
-            return formatNumber(value,2,0) + "%";
+           
+            s1 = new Date(row["date_time"].replace(/-/g, "/"));
+            s2 = new Date();
+
+            var days = s2.getTime() - s1.getTime();
+            var days =parseInt(days / (1000 * 60 * 60 * 24));
+            if (value>=days*2 && days<=14) {return benchmark(formatNumber(value,2,0)+ "%","good");}
+            if (value>=(days-14)*1.5+28 && days<=30) {return benchmark(formatNumber(value,2,0)+ "%","good");}
+            if (value>=(days-30)*1+28+16*1.5) {return benchmark(formatNumber(value,2,0)+ "%","good");}
+            return formatNumber(value,2,0)+ "%";
+            }
+
         }
-    }
+    
+    function CPA(value,row) {
+
+
+            if (value>50 && value<=65) {return benchmark(row["CPA"],"");}
+            if (value<=5 && value>0) {return benchmark(row["CPA"],"good");}
+            if (value>65) {return benchmark(row["CPA"],"bad");}
+            if (value==0) {return benchmark(row["CPA"],"");}      
+            return row["CPA"];
+ 
+        }    
+
 </script><!--结束设置数据格式-->
 
 <script type="text/javascript"> <!-- 初始化table -->
     $("#table").bootstrapTable({
         url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name&agent&staff",
         pagination: true, //开启分页
-        pageSize: 10,
+        pageSize: 10
     });
 
     $("#showHideTable").click(function(){
@@ -659,10 +747,7 @@
             title: {
                 text: title
             },
-            <!--subtitle: {-->
-                <!--text: document.ontouchstart === undefined ?-->
-                <!--'鼠标拖动可以进行缩放' : '手势操作进行缩放'-->
-            <!--},-->
+
             xAxis: {
                 type: 'datetime',
                 dateTimeLabelFormats: {
@@ -1071,38 +1156,43 @@ jQuery(function($) {
 <script type="text/javascript">
     
     
-    function benchmark(context,type){
 
 
-        switch (type)
-        {
-        case "good":
-          return '<div class="my-parent-style-F89406">' + context + '</div>'
-          print(3)
-          break;
-        case "normal":
-          x="Today it's Monday";
-          break;
-        case "bad":
-          x="Today it's Tuesday";
-          break;
-        default:
-          return context;
 
-        }
 
+    function benchmark_bulid(){
+
+
+                list=$("#table").bootstrapTable('getData');
+
+                for (var i = list.length - 1; i >= 0; i--) {
+                    if (list[i]["CPA"]>60) {$("#table").bootstrapTable('updateRow', { index: i,row: { CPA:benchmark(list[i]["CPA"],"good") }});
+
+
+
+                    }
+                }
 
     }
 
-    $(function() { 
     function bilibili(){
-        $($(".my-parent-style-F89406").parent("td")).css({ color: "#FFFFFF", background: "#F89406" });
-        $($(".my-parent-style-191970").parent("td")).css({ color: "#FFFFFF", background: "#191970" });
-        $($(".my-parent-style-FA8072").parent("td")).css({ color: "#FFFFFF", background: "#FA8072" });
+     
+        $($(".my-parent-style-good").parent("td")).css({ color: "#FFFFFF", background: "#00d9b8" });
+        $($(".my-parent-style-normal").parent("td")).css({ color: "#FFFFFF", background: "#191970" });
+        $($(".my-parent-style-bad").parent("td")).css({ color: "#FFFFFF", background: "#C80017" });
 
     }
-});
+    t1=window.setInterval(bilibili,100); 
 </script>
 
 
 {% endblock content %}
+
+            $table.bootstrapTable('updateRow', {
+                index: 1,
+                row: {
+                    id: randomId,
+                    name: 'Item ' + randomId,
+                    price: '$' + randomId
+                }
+            });

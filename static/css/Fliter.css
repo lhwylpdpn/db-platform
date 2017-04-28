@@ -500,3 +500,12 @@
     background-color: #C80017;
     border: 1px solid #FFF
 }
+
+/*-- by Silence --*/
+.hotel-filter-list-min .initial {display: none;}
+.initial {position: absolute;top:0;left:114px;}
+.initial li {color:#6688a6;font:12px/27px 'arial';border:1px solid #8aafce;text-align: center;padding:0 7px;height:27px;cursor: pointer;margin-right:10px;text-transform:capitalize;}
+.initial li:hover {color:#8aafce;border-color: #8aafce;background: #eaf2f8;}
+.hotel-filter-list .list {padding-top:30px;}
+.hotel-filter-list-min .list {padding:0}
+.hotel-filter-list #FilterTagSelected.list {padding:0;}

@@ -3,48 +3,78 @@ from flask import render_template, request, Blueprint, session, redirect, url_fo
 import random
 import re
 from app.controler.power_API import get_business_json
+from public_function import get_first_letter
 import time
 
 
 class cMediaOverview:
 	@staticmethod
 	def mediaOverviewTJ(username):
+
 		game_id=[]
 		platform=[]
 		channel_name=[]
 		staff=[]
 		agent=[]
 		tj=""
-		jsons = json.loads(get_business_json("media_1.json", username))["body"]  # 字符串传化为json 对象
+		tjtype=""
+		args = request.args.items()
+		jsons = json.loads(get_business_json("media_1.json", session["username"]).encode("utf-8"))["body"]
+		jsons = json.dumps(jsons,ensure_ascii=False)
+		jsons = jsons.replace(" ","")
+		resultjson=[]
+		word=r'({[^}]*[^}]*})'
+		jsons=",".join(re.findall(word,jsons))
+		for x in xrange(0,len(args)):
+			if args[x][0]=="tjtype":
+				tjtype=args[x][1]
+			if args[x][0]=="channel_name"   or args[x][0]=="agent" or args[x][0]=="staff" :
+				if args[x][1]!="":
+					word=r'({[^}]*"'+args[x][0]+'":"'+args[x][1].replace(',','"[^}]+}|{[^}]+"'+args[x][0]+'":"')+'"[^}]*})'
+	
+					jsons=",".join(re.findall(word,jsons))
+		   
+				else:
+					word=r'({[^}]*[^}]*})'
+					jsons=",".join(re.findall(word,jsons))
+
+		jsons=json.loads("["+jsons+"]")
+
 
 		for x in xrange(0,len(jsons)):
-
+			#game_id.append(jsons[x]["game_id"])
+			#platform.append(jsons[x]["platform"])
 			channel_name.append(jsons[x]['channel_name'])
 			agent.append(jsons[x]['agent'])
 			staff.append(jsons[x]['staff'])
-
+		#game_id=list(set(game_id))
+		#platform=list(set(platform))
 		channel_name=list(set(channel_name))
 		agent=list(set(agent))
 		staff=list(set(staff))
-		tj+='{'
+		tj="["
+		if tjtype=="channel_name":
+			for x in xrange(0,len(channel_name)):
 
-		tj+='"channel_name":['
-		for x in xrange(0,len(channel_name)):
-			tj+='{"id":"'+str(channel_name[x].encode('utf-8'))+'","text":"'+str(channel_name[x].encode('utf-8'))+'"},'
-		tj=tj[0:-1]+'],'
-		tj+='"staff":['
-		for x in xrange(0,len(staff)):
-			tj+='{"id":"'+str(staff[x].encode('utf-8'))+'","text":"'+str(staff[x].encode('utf-8'))+'"},'
-		tj=tj[0:-1]+'],'
-		tj+='"agent":['
-		for x in xrange(0,len(agent)):
-			tj+='{"id":"'+str(agent[x].encode('utf-8'))+'","text":"'+str(agent[x].encode('utf-8'))+'"},'
-		tj=tj[0:-1]
+				tj+='{"channel_name":"'+str(channel_name[x])+'","initial":"'+str(get_first_letter(channel_name[x]))+'"},'
+			tj=tj[0:-1]
+		if tjtype=="agent":
+			for x in xrange(0,len(agent)):
+				tj+='{"agent":"'+str(agent[x])+'","initial":"'+str(get_first_letter(agent[x]))+'"},'
+			tj=tj[0:-1]
+		if tjtype=="staff":
+			for x in xrange(0,len(staff)):
+				tj+='{"staff":"'+str(staff[x])+'","initial":"'+str(get_first_letter(staff[x]))+'"},'
+			tj=tj[0:-1]
+		# if tjtype=="platform":
+		# 	for x in xrange(0,len(platform)):
+		# 		tj+='{"platform":"'+str(platform[x])+'","initial":"'+str(get_first_letter(platform[x]))+'"},'
+		# 	tj=tj[0:-1]
+		tj=tj+']'
 
 
-		tj=tj+']}'
-		
 		return tj
+
 
 	@staticmethod
 	def mediaOverviewJson(username):
