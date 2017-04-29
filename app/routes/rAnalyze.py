@@ -38,7 +38,7 @@ def newTransferTJ():
 @analyzeBp.route('/newTransferJson')
 def newTransferJson():
     filterS = request.args.items()
-    results = cNewTransfer.newTransferJsonTest(session["username"], filterS)
+    results = cNewTransfer.newTransferJson(session["username"], filterS)
     return results
 
 

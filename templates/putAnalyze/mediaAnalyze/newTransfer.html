@@ -29,7 +29,7 @@
     <script type="text/javascript" src="/static/js/bootstrap-table-multiple-sort.js"></script>
 
     <link rel="stylesheet" href="/static/css/bootstrap-table.css">
-    <link rel="stylesheet" href="/static/css/Fliter.css">
+    <link rel="stylesheet" href="/static/css/Fliter——back.css">
 
     <div class="btn-group">
         <button id ="time_1" type="button" class="data-filter btn btn-white btn-sm btn-primary">昨日</button>
@@ -296,7 +296,7 @@
             fromToTime.push( new Date(flag).Format("yyyy-MM-dd") );
         }
         //重新请求数据
-        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaOverviewJson?{{sjs}}&game_id&platform&channel_name&agent&staff" } );
+        $("#table").bootstrapTable('refresh',{url: "/analyze/newTransferJson?{{sjs}}&game_id&platform&channel_name&agent&staff" } );
 
         $("#table").bootstrapTable('filterBy',{date_time : fromToTime});
 
@@ -405,7 +405,7 @@
 
 </script><!-- 日历筛选 -->
 
-<script src="/static/js/Filter.js"></script><!--筛选需要的js-->
+<script src="/static/js/Filter——back.js"></script><!--筛选需要的js-->
 <script type="text/javascript">
 
     var demo1 = null;
