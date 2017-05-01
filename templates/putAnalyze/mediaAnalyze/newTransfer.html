@@ -128,7 +128,7 @@
                     <th data-field="ad_action" data-sortable="true">激活设备</th>
                     <th data-field="ad_action_new" data-sortable="true">新增设备</th>
                     <th data-field="ad_action_new_back" data-sortable="true">回流账号</th>
-                    <th data-field="ad_action_new_double" data-sortable="true">纯新增账号</th>
+                    <th data-field="ad_account_new_double" data-sortable="true">纯新增账号</th>
                     <th data-field="ad_login_count" data-sortable="true">登录账号总数</th>
                     <th data-field="ad_create_role" data-sortable="true">创建角色</th>
                     <th data-field="ad_AU_5" data-sortable="true">活跃5分钟</th>
@@ -140,16 +140,16 @@
     <div class="widget-box ui-sortable-handle" id="widget-box-7">
         <div class="widget-header" style="padding-top:2px">
             <button class="widget-title" style="visibility: hidden;">|</button>
-            <button id="ad_click" class="chart-title select-title">花费总额</button>
-            <button id="ad_action" class="chart-title">点击设备</button>
-            <button id="ad_action_new" class="chart-title">激活设备</button>
-            <button id="ad_account_new" class="chart-title">新增设备</button>
-            <button id="double_new" class="chart-title">登录账号总数</button>
-            <button id="back_user" class="chart-title">回流账号</button>
-            <button id="paid_account" class="chart-title">纯新增账号</button>
-            <button id="fufeilv" class="chart-title">创建角色</button>
-            <button id="spend" class="chart-title">活跃5分钟</button>
-            <button id="CPA" class="chart-title">31级以上用户</button>
+            <button id="dis_spend" class="chart-title select-title">花费总额</button>
+            <button id="ad_click" class="chart-title">点击设备</button>
+            <button id="ad_action" class="chart-title">激活设备</button>
+            <button id="ad_action_new" class="chart-title">新增设备</button>
+            <button id="ad_action_new_back" class="chart-title">登录账号总数</button>
+            <button id="ad_account_new_double" class="chart-title">回流账号</button>
+            <button id="ad_login_count" class="chart-title">纯新增账号</button>
+            <button id="ad_create_role" class="chart-title">创建角色</button>
+            <button id="ad_AU_5" class="chart-title">活跃5分钟</button>
+            <button id="ad_role_31" class="chart-title">31级以上用户</button>
 
             <div class="widget-toolbar">
                 <a href="#" data-action="fullscreen" class="orange2">
@@ -244,7 +244,7 @@
 
 <script type="text/javascript"> <!-- 初始化table -->
     $("#table").bootstrapTable({
-        url: "/analyze/newTransferJson?{{sjs}}&channel_name&agent&staff",
+        url: "/analyze/newTransferJson?{{sjs}}&game_id=&platform=&channel_name=&agent=&staff=",
         pagination: true, //开启分页
         pageSize: 10,
     });
@@ -509,7 +509,7 @@
 
         var staff_filter = demo5.returnValue($("#demo5"));
 
-        $("#table").bootstrapTable('refresh',{url: "/analyze/newTransferJson?{{sjs}}&channel_name=" + channel_name_filter + "&agent=" + agent_filter + "&staff=" + staff_filter + "&game=" + game_filter + "&platform=" + platform_filter} );
+        $("#table").bootstrapTable('refresh',{url: "/analyze/newTransferJson?{{sjs}}&channel_name=" + channel_name_filter + "&agent=" + agent_filter + "&staff=" + staff_filter + "&game_id=" + game_filter + "&platform=" + platform_filter} );
 
         $("#table").bootstrapTable('filterBy',{
             date_time : fromToTime,

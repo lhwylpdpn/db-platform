@@ -129,9 +129,9 @@ class cMediaOverview:
 
 		# 拼凑json串
 		for ii in range(len(newjson)):
-			newjson[ii]["channel_name"] = "groupby"  # 渠道
-			newjson[ii]["agent"] = "groupby"  # 代理
-			newjson[ii]["staff"] = "groupby"  # 负责人
+			newjson[ii]["channel_name"] = "groupBy"  # 渠道
+			newjson[ii]["agent"] = "groupBy"  # 代理
+			newjson[ii]["staff"] = "groupBy"  # 负责人
 			newjson[ii]["ad_click"] = 0.0  # 点击设备
 			newjson[ii]["ad_action"] = 0.0  # 激活设备
 			newjson[ii]["ad_action_new"] = 0.0  # 新增设备
