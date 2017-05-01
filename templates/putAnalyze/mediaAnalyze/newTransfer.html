@@ -144,9 +144,9 @@
             <button id="ad_click" class="chart-title">点击设备</button>
             <button id="ad_action" class="chart-title">激活设备</button>
             <button id="ad_action_new" class="chart-title">新增设备</button>
-            <button id="ad_action_new_back" class="chart-title">登录账号总数</button>
-            <button id="ad_account_new_double" class="chart-title">回流账号</button>
-            <button id="ad_login_count" class="chart-title">纯新增账号</button>
+            <button id="ad_action_new_back" class="chart-title">回流账号</button>
+            <button id="ad_account_new_double" class="chart-title">纯新增账号</button>
+            <button id="ad_login_count" class="chart-title">登录账号总数</button>
             <button id="ad_create_role" class="chart-title">创建角色</button>
             <button id="ad_AU_5" class="chart-title">活跃5分钟</button>
             <button id="ad_role_31" class="chart-title">31级以上用户</button>
@@ -608,58 +608,55 @@
 
 <script type="text/javascript"><!--筛选后的数据处理-->
 
+    var dis_spend_dataS = [];
     var ad_click_dataS = [];
     var ad_action_dataS = [];
     var ad_action_new_dataS = [];
-    var ad_account_new_dataS = [];
-    var double_new_dataS = [];
-    var back_user_dataS = [];
-    var paid_account_dataS =[];
-    var fufeilv_dataS = [];
-    var spend_dataS = [];
-    var CPA_dataS = [];
-    var cumulative_flow_dataS = [];
-    var dis_dataS = [];
-    var cumulative_moeny_dataS = [];
-    var ROI_dataS = [];
+    var ad_action_new_back_dataS = [];
+    var ad_account_new_double_dataS = [];
+    var ad_login_count_dataS =[];
+    var ad_create_role_dataS = [];
+    var ad_AU_5_dataS = [];
+    var ad_role_31_dataS = [];
 
     function setPieceChart(){ //设置快的数据和获取chart的数据
         var dataS = sortByKey( $("#table").bootstrapTable('getData'), "date_time");
 
-        //处理piece
-        var adActionNew = 0; //ad_action_new
-        var adAccountNew = 0;  //ad_account_new
-        var paidAccount = 0; //paid_account
-        var cumulativeFlow = 0; //cumulative_flow
-        var spend = 0; //spend
-        var ROI = 0; //ROI
+
+        //处理 box
+        <!--var adActionNew = 0; //ad_action_new-->
+        <!--var adAccountNew = 0;  //ad_account_new-->
+        <!--var paidAccount = 0; //ad_login_count-->
+        <!--var cumulativeFlow = 0; //cumulative_flow-->
+        <!--var spend = 0; //spend-->
+        <!--var ROI = 0; //ROI-->
         var dataLength = dataS.length;
 
+
         //处理chartdata //先将数据清空
+        dis_spend_dataS = [];
         ad_click_dataS = [];
-        ad_action_dataS = [];
+        ad_action_dataS =[];
         ad_action_new_dataS =[];
-        ad_account_new_dataS =[];
-        double_new_dataS = [];
-        back_user_dataS = [];
-        paid_account_dataS = [];
-        fufeilv_dataS = [];
-        spend_dataS = [];
-        CPA_dataS = [];
-        cumulative_flow_dataS = [];
-        dis_dataS = [];
-        cumulative_moeny_dataS = [];
-        ROI_dataS = [];
+        ad_action_new_back_dataS = [];
+        ad_account_new_double_dataS = [];
+        ad_login_count_dataS = [];
+        ad_create_role_dataS = [];
+        ad_AU_5_dataS = [];
+        ad_role_31_dataS = [];
 
         for(var i=0 ; i<dataLength;i++){
-            adActionNew = adActionNew + Number(dataS[i]["ad_action_new"]);
-            adAccountNew = adAccountNew + Number(dataS[i]["ad_account_new"]);
-            paidAccount = paidAccount + Number(dataS[i]["paid_account"]);
-            cumulativeFlow = cumulativeFlow + Number(dataS[i]["cumulative_flow"]);
-            spend = spend + Number(dataS[i]["spend"]);
-            ROI = ROI + Number(dataS[i]["ROI"]);
+            <!--adActionNew = adActionNew + Number(dataS[i]["ad_action_new"]);-->
+            <!--adAccountNew = adAccountNew + Number(dataS[i]["ad_account_new"]);-->
+            <!--paidAccount = paidAccount + Number(dataS[i]["paid_account"]);-->
+            <!--cumulativeFlow = cumulativeFlow + Number(dataS[i]["cumulative_flow"]);-->
+            <!--spend = spend + Number(dataS[i]["spend"]);-->
+            <!--ROI = ROI + Number(dataS[i]["ROI"]);-->
 
             var UTCdata = Date.parse(new Date(dataS[i]["date_time"]));
+
+            var dis_spend_data = Number(dataS[i]["dis_spend"]);
+            dis_spend_dataS.push([UTCdata,dis_spend_data]);
 
             var ad_click_data = Number(dataS[i]["ad_click"]);
             ad_click_dataS.push([UTCdata,ad_click_data]);
@@ -670,66 +667,56 @@
             var ad_action_new_data = Number(dataS[i]["ad_action_new"]);
             ad_action_new_dataS.push([UTCdata,ad_action_new_data]);
 
-            var ad_account_new_data = Number(dataS[i]["ad_account_new"]);
-            ad_account_new_dataS.push([UTCdata,ad_account_new_data]);
+            var ad_action_new_back_data = Number(dataS[i]["ad_action_new_back"]);
+            ad_action_new_back_dataS.push([UTCdata,ad_action_new_back_data]);
 
-            var double_new_data = Number(dataS[i]["double_new"]);
-            double_new_dataS.push([UTCdata,double_new_data]);
+            var ad_account_new_double_data = Number(dataS[i]["ad_account_new_double"]);
+            ad_account_new_double_dataS.push([UTCdata,ad_account_new_double_data]);
 
-            var back_user_data = Number(dataS[i]["back_user"]);
-            back_user_dataS.push([UTCdata,back_user_data]);
+            var ad_login_count_data = Number(dataS[i]["ad_login_count"]);
+            ad_login_count_dataS.push([UTCdata,ad_login_count_data]);
 
-            var paid_account_data = Number(dataS[i]["paid_account"]);
-            paid_account_dataS.push([UTCdata,paid_account_data]);
+            var ad_create_role_data = Number(dataS[i]["ad_create_role"]);
+            ad_create_role_dataS.push([UTCdata,ad_create_role_data]);
 
-            var fufeilv_data = Number(dataS[i]["fufeilv"]);
-            fufeilv_dataS.push([UTCdata,fufeilv_data]);
+            var ad_AU_5_data = Number(dataS[i]["ad_AU_5"]);
+            ad_AU_5_dataS.push([UTCdata,ad_AU_5_data]);
 
-            var spend_data = Number(dataS[i]["spend"]);
-            spend_dataS.push([UTCdata,spend_data]);
-
-            var CPA_data = Number(dataS[i]["CPA"]);
-            CPA_dataS.push([UTCdata,CPA_data]);
-
-            var cumulative_flow_data = Number(dataS[i]["cumulative_flow"]);
-            cumulative_flow_dataS.push([UTCdata,cumulative_flow_data]);
-
-            var dis_data = Number(dataS[i]["dis"]);
-            dis_dataS.push([UTCdata,dis_data]);
-
-            var cumulative_moeny_data = Number(dataS[i]["cumulative_moeny"]);
-            cumulative_moeny_dataS.push([UTCdata,cumulative_moeny_data]);
-
-            var ROI_data = Number(dataS[i]["ROI"]);
-            ROI_dataS.push([UTCdata,ROI_data]);
-
-
+            var ad_role_31_data = Number(dataS[i]["ad_role_31"]);
+            ad_role_31_dataS.push([UTCdata,ad_role_31_data]);
 
         }
 
-        $($("#widget-box-1").children("div").children("div")[0]).text("总计 " + toThousands(adActionNew));
-        $($("#widget-box-1").children("div").children("div")[1]).text("平均 " + toThousands((adActionNew/dataLength).toFixed(0)));
+        <!--$($("#widget-box-1").children("div").children("div")[0]).text("总计 " + toThousands(adActionNew));-->
+        <!--$($("#widget-box-1").children("div").children("div")[1]).text("平均 " + toThousands((adActionNew/dataLength).toFixed(0)));-->
 
-        $($("#widget-box-2").children("div").children("div")[0]).text("总计 " + toThousands(adAccountNew));
-        $($("#widget-box-2").children("div").children("div")[1]).text("平均 " + toThousands((adAccountNew/dataLength).toFixed(0)));
+        <!--$($("#widget-box-2").children("div").children("div")[0]).text("总计 " + toThousands(adAccountNew));-->
+        <!--$($("#widget-box-2").children("div").children("div")[1]).text("平均 " + toThousands((adAccountNew/dataLength).toFixed(0)));-->
 
-        $($("#widget-box-3").children("div").children("div")[0]).text("总计 " + toThousands(paidAccount));
-        $($("#widget-box-3").children("div").children("div")[1]).text("平均 " + toThousands((paidAccount/dataLength).toFixed(0)));
+        <!--$($("#widget-box-3").children("div").children("div")[0]).text("总计 " + toThousands(paidAccount));-->
+        <!--$($("#widget-box-3").children("div").children("div")[1]).text("平均 " + toThousands((paidAccount/dataLength).toFixed(0)));-->
 
-        $($("#widget-box-4").children("div").children("div")[0]).text("总计 " + formatNumber (cumulativeFlow, 2, 1));
-        $($("#widget-box-4").children("div").children("div")[1]).text("平均 " + formatNumber ( (cumulativeFlow/dataLength), 2, 1));
+        <!--$($("#widget-box-4").children("div").children("div")[0]).text("总计 " + formatNumber (cumulativeFlow, 2, 1));-->
+        <!--$($("#widget-box-4").children("div").children("div")[1]).text("平均 " + formatNumber ( (cumulativeFlow/dataLength), 2, 1));-->
 
-        $($("#widget-box-5").children("div").children("div")[0]).text("总计 " + formatNumber (spend, 2, 1));
-        $($("#widget-box-5").children("div").children("div")[1]).text("平均 " + formatNumber ( (spend/dataLength), 2, 1));
+        <!--$($("#widget-box-5").children("div").children("div")[0]).text("总计 " + formatNumber (spend, 2, 1));-->
+        <!--$($("#widget-box-5").children("div").children("div")[1]).text("平均 " + formatNumber ( (spend/dataLength), 2, 1));-->
 
-        $($("#widget-box-6").children("div").children("div")[0]).text("总计 " + formatNumber (ROI, 2, 1));
-        $($("#widget-box-6").children("div").children("div")[1]).text("平均 " + formatNumber ( (ROI/dataLength), 2, 1));
+        <!--$($("#widget-box-6").children("div").children("div")[0]).text("总计 " + formatNumber (ROI, 2, 1));-->
+        <!--$($("#widget-box-6").children("div").children("div")[1]).text("平均 " + formatNumber ( (ROI/dataLength), 2, 1));-->
 
-        $("#ad_click").trigger("click");
+        $("#dis_spend").trigger("click");
 
     }
 
     setTimeout("setPieceChart();",2000);
+
+    $("#dis_spend").click(function(){
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
+        setChart("花费总额","单位:元",dis_spend_dataS);
+    })
 
     $("#ad_click").click(function(){
         //设置选择样式,和其他去掉选择样式
@@ -752,82 +739,48 @@
         setChart("新增设备","单位:个",ad_action_new_dataS);
     })
 
-    $("#ad_account_new").click(function(){
+    $("#ad_action_new_back").click(function(){
         //设置选择样式,和其他去掉选择样式
         $(".chart-title").removeClass("select-title");
         $(this).addClass("select-title");
-        setChart("新增总账号","单位:个",ad_account_new_dataS);
+        setChart("回流账号","单位:个",ad_action_new_back_dataS);
     })
 
-    $("#double_new").click(function(){
+    $("#ad_account_new_double").click(function(){
         //设置选择样式,和其他去掉选择样式
         $(".chart-title").removeClass("select-title");
         $(this).addClass("select-title");
-        setChart("纯新增账号","单位:个",double_new_dataS);
+        setChart("纯新增账号","单位:个",ad_account_new_double_dataS);
     })
 
-    $("#back_user").click(function(){
+    $("#ad_login_count").click(function(){
         //设置选择样式,和其他去掉选择样式
         $(".chart-title").removeClass("select-title");
         $(this).addClass("select-title");
-        setChart("回流账号","单位:个",back_user_dataS);
+        setChart("登录账号总数","单位:个",ad_login_count_dataS);
     })
 
-    $("#paid_account").click(function(){
+    $("#ad_create_role").click(function(){
         //设置选择样式,和其他去掉选择样式
         $(".chart-title").removeClass("select-title");
         $(this).addClass("select-title");
-        setChart("付费账号","单位:个",paid_account_dataS);
+        setChart("创建角色","单位:个",ad_create_role_dataS);
     })
 
-    $("#fufeilv").click(function(){
+    $("#ad_AU_5").click(function(){
         //设置选择样式,和其他去掉选择样式
         $(".chart-title").removeClass("select-title");
         $(this).addClass("select-title");
-        setChart("付费率","单位:百分百",fufeilv_dataS);
+        setChart("活跃5分钟","单位:个",ad_AU_5_dataS);
     })
 
-    $("#spend").click(function(){
+    $("#ad_role_31").click(function(){
         //设置选择样式,和其他去掉选择样式
         $(".chart-title").removeClass("select-title");
         $(this).addClass("select-title");
-        setChart("折后花费","单位:元",spend_dataS);
+        setChart("31级以上用户","单位:个",ad_role_31_dataS);
     })
 
-    $("#CPA").click(function(){
-        //设置选择样式,和其他去掉选择样式
-        $(".chart-title").removeClass("select-title");
-        $(this).addClass("select-title");
-        setChart("C P A","单位:元",CPA_dataS);
-    })
-
-    $("#cumulative_flow").click(function(){
-        //设置选择样式,和其他去掉选择样式
-        $(".chart-title").removeClass("select-title");
-        $(this).addClass("select-title");
-        setChart("累计流水","单位:元",cumulative_flow_dataS);
-    })
-
-    $("#dis").click(function(){
-        //设置选择样式,和其他去掉选择样式
-        $(".chart-title").removeClass("select-title");
-        $(this).addClass("select-title");
-        setChart("分成比例","单位:百分百",dis_dataS);
-    })
-
-    $("#cumulative_moeny").click(function(){
-        //设置选择样式,和其他去掉选择样式
-        $(".chart-title").removeClass("select-title");
-        $(this).addClass("select-title");
-        setChart("累计净收入","单位:元",cumulative_moeny_dataS);
-    })
-
-    $("#ROI").click(function(){
-        //设置选择样式,和其他去掉选择样式
-        $(".chart-title").removeClass("select-title");
-        $(this).addClass("select-title");
-        setChart("R O I","单位:百分百",ROI_dataS);
-    })
 </script><!--筛选后的数据处理-->
 
 <script src="/static/ace/js/jquery-ui.custom.min.js"></script><!--拖拽需要的js-->
