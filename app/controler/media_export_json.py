@@ -340,6 +340,76 @@ def export_meida_C():#媒体分析 留存内容
 	word=word.replace('"staff":""','"staff":"weizhi_none"')
 	create_json(word,"media_4")
 
+def export_meida_TJ():#媒体分析 留存内容
+	game_id=[]
+	platform=[]
+	date_=[]
+	channel_name=[]
+	staff=[]
+	ad_click=[]
+	ad_action=[]
+	ad_action_new=[]
+	ad_action_new_back=[]
+	ad_account_new_double=[]
+	ad_pay_account=[]
+	ad_AU_5=[]
+	ad_create_role=[]
+	ad_role_31=[]
+	dis_spend=[]
+	agent=[]
+	re_0=[]
+	re_1=[]
+	re_2=[]
+	re_3=[]
+	re_4=[]
+	re_5=[]
+	re_6=[]
+	online0=[]
+	online1=[]
+	online2=[]
+	online3=[]
+	online4=[]
+	online5=[]
+	online6=[]
+	sql="""
+	SELECT a.`game_id`,a.`platform`,a.`game_channel`,a.`agent`,b.`staff` FROM (SELECT a.`game_id`,a.`platform`,a.`game_channel`,a.`agent` FROM `ad_action_v2`  a 
+GROUP BY a.`game_id`,a.`platform`,a.`game_channel`,a.`agent` ) a , spend b WHERE   a.game_id=b.gamename
+AND a.platform=b.platform AND a.game_channel=b.channel_name AND a.agent=b.agent
+GROUP BY a.`game_id`,a.`platform`,a.`game_channel`,a.`agent`
+
+ 		"""
+	conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
+	cur_1 = conn.cursor()
+	cur_1.execute(sql)
+	res=cur_1.fetchall()
+
+	if len(res)>1:
+
+
+		for r in res:
+			game_id.append(r[0])
+			platform.append(r[1])
+			channel_name.append(r[2])
+			agent.append(r[3])
+			staff.append(r[4])
+
+
+
+	word="["
+	for i in xrange(0,len(res)):
+		word=word+'{'
+		word=word+'"game_id":"'+str(game_id[i])+'",'+'"platform":"'+str(platform[i])+'",'+'"channel_name":"'+str(channel_name[i])+'",'+'"agent":"'+str(agent[i])+'",'
+		word=word+'"staff":"'+str(staff[i])+'"'
+
+		
+		if i==len(res)-1:
+			word=word+'}'+'\n'
+		else:
+			word=word+'}'+',\n'
+	word=word+']'
+	word=word.replace('"None"','""')
+	word=word.replace('"staff":"-"','"staff":"weizhi_none"')
+	create_json(word,"media_TJ")
 
 
 def create_json(word,name):
@@ -350,8 +420,10 @@ def create_json(word,name):
 
 
 if __name__ == '__main__':
-		export_meida_A()
+		#export_meida_A()
+#
+		#export_meida_B()
 
-		export_meida_B()
+		#export_meida_C()
 
-		export_meida_C()
+		export_meida_TJ()
