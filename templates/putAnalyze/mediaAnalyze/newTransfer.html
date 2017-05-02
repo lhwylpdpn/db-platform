@@ -659,6 +659,20 @@ function setChartCompare( ){
             opposite: true
         }],
         tooltip: { shared: true },
+        plotOptions: {
+            area: {
+                marker: {
+                    enabled: false,
+                    symbol: 'circle',
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true
+                        }
+                    }
+                }
+            }
+        },
         series: [{
             name: '花费总额',
             type: 'area',
