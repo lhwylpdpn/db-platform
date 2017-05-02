@@ -66,7 +66,7 @@
                         <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
                     </ul>
                     <ul class="initial"></ul>
-                    <ul class="list" id="TJ_channel"></ul>
+                    <ul class="list"></ul>
                     <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
                 </div>
             </div>
@@ -77,7 +77,7 @@
                         <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
                     </ul>
                     <ul class="initial"></ul>
-                    <ul class="list" id="TJ_agnet"></ul>
+                    <ul class="list"></ul>
                     <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                         <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
                     </ul>
                     <ul class="initial"></ul>
-                    <ul class="list" id="TJ_staff"></ul>
+                    <ul class="list"></ul>
                     <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
                 </div>
             </div>
@@ -314,9 +314,9 @@ benchmark on
         }
 
 
-        $("#TJ_channel  .selected").each(function(){TJ_channel.push($(this).text());});
-        $("#TJ_agnet  .selected").each(function(){TJ_agnet.push($(this).text());});
-        $("#TJ_staff  .selected").each(function(){TJ_staff.push($(this).text());});
+        $("#FilterTagSelected [data-channel]").each(function(){TJ_channel.push($(this).text());});
+        $("#FilterTagSelected [data-agent]").each(function(){TJ_agnet.push($(this).text());});
+        $("#FilterTagSelected [data-staff]").each(function(){TJ_staff.push($(this).text());});
  
 
         $("#table").bootstrapTable('refresh',{url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name=" + TJ_channel.join(",") + "&agent=" + TJ_agnet.join(",") + "&staff=" + TJ_staff.join(",")} );
