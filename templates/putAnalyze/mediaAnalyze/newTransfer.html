@@ -150,15 +150,16 @@
             <button id="ad_create_role" class="chart-title">创建角色</button>
             <button id="ad_AU_5" class="chart-title">活跃5分钟</button>
             <button id="ad_role_31" class="chart-title">31级以上用户</button>
+            <button id="compare" class="chart-title">对比图</button>
 
             <div class="widget-toolbar">
-                <a href="#" data-action="fullscreen" class="orange2">
-                    <i class="ace-icon fa fa-expand"></i>
-                </a>
+                <!--<a href="#" data-action="fullscreen" class="orange2">-->
+                    <!--<i class="ace-icon fa fa-expand"></i>-->
+                <!--</a>-->
 
-                <a href="#" data-action="reload">
-                    <i class="ace-icon fa fa-refresh"></i>
-                </a>
+                <!--<a href="#" data-action="reload">-->
+                    <!--<i class="ace-icon fa fa-refresh"></i>-->
+                <!--</a>-->
 
                 <a href="#" data-action="collapse">
                     <i class="ace-icon fa fa-chevron-up"></i>
@@ -602,7 +603,159 @@
                 data: data
             }]
         });
+    };
+
+function getSetChartCompareData(data){
+    var result = new Array();
+    for(var i = 0; i < data.length; i++){
+        result[i] = data[i][1];
     }
+    return result;
+}
+
+function setChartCompare( ){
+    var categories = new Array();
+    for(var i = 0; i < ad_click_dataS.length; i++){
+        categories[i] = new Date(ad_click_dataS[i][0]).Format("MM-dd");
+    }
+
+    $('#container').highcharts({
+        chart: { zoomType: 'xy' },
+        title: { text: '　' },
+        //subtitle: { text: '数据来源: WorldClimate.com' },
+        xAxis: [{
+            categories: categories,
+            crosshair: true,
+            labels: {
+                rotation: 90
+            }
+        }],
+        yAxis: [{ // Primary yAxis
+            labels: {
+                format: '{value} 个',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            title: {
+                text: '单位：个',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            }
+        }, { // Secondary yAxis
+            title: {
+                text: '单位：元',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            labels: {
+                format: '{value} 元',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            opposite: true
+        }],
+        tooltip: { shared: true },
+        plotOptions: {
+            area: {
+                marker: {
+                    enabled: false,
+                    symbol: 'circle',
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true
+                        }
+                    }
+                }
+            }
+        },
+        series: [{
+            name: '花费总额',
+            type: 'area',
+            yAxis: 1,
+            data: getSetChartCompareData(dis_spend_dataS),
+            tooltip: {
+                valueSuffix: ' 元'
+            }
+        }, {
+            name: '点击设备',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(ad_click_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '激活设备',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(ad_action_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '新增设备',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(ad_action_new_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '回流账号',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(ad_action_new_back_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '纯新增账号',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(ad_account_new_double_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '登录账号总数',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(ad_login_count_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '创建角色',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(ad_create_role_dataS),
+            tooltip: {
+                valueSuffix: '个'
+            }
+        }, {
+            name: '活跃5分钟',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(ad_AU_5_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '31级以上用户',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(ad_role_31_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }]
+    });
+};
 
 </script><!--图表需要的js setChart(data)-->
 
@@ -779,6 +932,12 @@
         $(".chart-title").removeClass("select-title");
         $(this).addClass("select-title");
         setChart("31级以上用户","单位:个",ad_role_31_dataS);
+    })
+    $("#compare").click(function(){
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
+        setChartCompare();
     })
 
 </script><!--筛选后的数据处理-->
