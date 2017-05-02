@@ -5,6 +5,7 @@
 $(function() {
     var Filter = function() {
         this.init();
+
     };
 
     //已选数据
@@ -37,7 +38,7 @@ $(function() {
             if (a=='channel_name'){dataBox='List01';}
             if (a=='agent'){dataBox='List02';}
             if (a=='staff'){dataBox='List03';}
-            url = '/mediaOverviewTJ?'+b+'&'+c+'&tjtype='+a;
+            url = 'analyzeTJ?'+b+'&'+c+'&tjtype='+a;
             $.getJSON(url, function(data){
                 self.renderData(dataBox,data)
             });

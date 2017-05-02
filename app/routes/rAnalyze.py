@@ -7,6 +7,9 @@ from app.controler.power_API import get_business_json
 from app.controler.cMediaOverview import cMediaOverview
 from app.controler.cNewTransfer import cNewTransfer
 from app.controler.cMediaRetention import cMediaRetention
+from app.controler.public_function import p_analyzeTJ
+import datetime
+
 analyzeBp = Blueprint('analyze', __name__, url_prefix="/analyze")
 
 
@@ -63,15 +66,17 @@ def mediaRetentionJson_3():
     return results
 
 
-@analyzeBp.route('/mediaRetentionTJ')
-def mediaRetentionTJ():
-    results = cMediaRetention.mediaRetentionTJ(session["username"])
+# @analyzeBp.route('/mediaRetentionTJ')
+# def mediaRetentionTJ():
+#     results = cMediaRetention.mediaRetentionTJ(session["username"])
 
-    return results
+#     return results
 
 
-@analyzeBp.route('/mediaOverviewTJ')
-def mediaOverviewTJ():
-    results = cMediaOverview.mediaOverviewTJ(session["username"])
+@analyzeBp.route('/analyzeTJ')
 
+def analyzeTJ():
+    print(datetime.datetime.now())
+    results = p_analyzeTJ(session["username"],request.args.items())
+    print(datetime.datetime.now())
     return results

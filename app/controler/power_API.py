@@ -178,6 +178,7 @@ def get_business_json(filename,username):#usernames是一维数组传入用户�
 # copy文件
 # 正则筛选
 # 返回json
+
 	result=""
 	pattern=[]
 	pwd="../../static/json/"+str(filename)
@@ -191,6 +192,7 @@ def get_business_json(filename,username):#usernames是一维数组传入用户�
 		return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
 	finally:
 		f.close()
+
 	os.remove(str(filename))
 	conn = DBConnect.db_connect(Config.DATABASE_MAIN)
 	cursor = conn.cursor()
@@ -203,11 +205,12 @@ def get_business_json(filename,username):#usernames是一维数组传入用户�
 		for r in rs:
 			reg=re.split(",",r[0])
 			for x in xrange(0,len(reg)):
-				print(reg[x])
-				pattern=pattern+re.findall(r"{[^\}]+"+str(reg[x])+"[^\}]+.}",context)
 
+				pattern=pattern+re.findall(r"{[^\}]*"+str(reg[x])+"[^\}]*.}",context)
+	
 	result=",".join(pattern)
 	result='{"status":"0","body":['+result+']}'
+
 	return staff_rename(result)
 
 #################################################
@@ -236,7 +239,7 @@ def staff_rename(result):
 	result=result.replace("zhengcaitong", "郑彩彤")
 	result=result.replace("other", "其他")
 	result=result.replace("linxu", "林旭")
-	result=result.replace("weizhi_none", "未知")
+	result=result.replace("weizhi_none", "自然量")
 	return result
 
 def monitor_data():# 收集监控所需要的系统文件数据

@@ -30,8 +30,9 @@
 </div>
 <div class="page-content">
 
-    <script type="text/javascript" src="/static/js/bootstrap-table.js"></script>
-    <script type="text/javascript" src="/static/js/bootstrap-table-multiple-sort.js"></script>
+<script src="/static/js/Filter.js"></script><!--筛选需要的js-->
+<script type="text/javascript" src="/static/js/bootstrap-table.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-table-multiple-sort.js"></script>
     <script type="text/javascript" src="/static/date_dropper/datedropper.js"></script>
     <link rel="stylesheet" href="/static/date_dropper/datedropper.css">
     <link rel="stylesheet" href="/static/css/bootstrap-table.css">
@@ -59,35 +60,35 @@
         </div>
         <div id="FilterQueryList">
             <div id="List01" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="channel">
-                <strong class="tit">代理商</strong>
+                <strong class="tit">媒体</strong>
                 <div class="conF checkboxF">
                     <ul class="any">
                         <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
                     </ul>
                     <ul class="initial"></ul>
-                    <ul class="list"></ul>
+                    <ul class="list" id="TJ_channel"></ul>
                     <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
                 </div>
             </div>
             <div id="List02" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="agent">
-                <strong class="tit">代理商</strong>
+                <strong class="tit">代理</strong>
                 <div class="conF checkboxF">
                     <ul class="any">
                         <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
                     </ul>
                     <ul class="initial"></ul>
-                    <ul class="list"></ul>
+                    <ul class="list" id="TJ_agnet"></ul>
                     <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
                 </div>
             </div>
             <div id="List03" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="staff">
-                <strong class="tit">负责人</strong>
+                <strong class="tit">负责</strong>
                 <div class="conF checkboxF">
                     <ul class="any">
                         <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
                     </ul>
                     <ul class="initial"></ul>
-                    <ul class="list"></ul>
+                    <ul class="list" id="TJ_staff"></ul>
                     <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
                 </div>
             </div>
@@ -99,7 +100,7 @@
         <div id="demo3"></div>
 
         <div align="center" style="padding-top:7px">
-            <button id="chaxun" class="btn btn-sm btn-primary" onclick="chaxun(bilibili);">查询</button>
+            <button id="chaxun" class="btn btn-sm btn-primary" onclick="chaxun(setPieceChart);">查询</button>
         </div>
     </div>
     <div class="hr hr-8 hr-dotted" ></div>
@@ -265,57 +266,9 @@ benchmark on
 
 
 
-<script src="/static/js/Filter.js"></script><!--筛选需要的js-->
+
 <script type="text/javascript">
-//
 
-
-
-
-    // var demo1 = null;
-    // var demo2 = null;
-    // var demo3 = null;
-
-    // $.getJSON("/analyze/mediaOverviewJsonTJ", function(data){
-    
-
-    //     demo1 = $('#demo1').comboboxfilter({
-    //         url: '',
-    //         text: "媒体",
-    //         scope: 'FilterQuery3',
-    //         multiple: true,
-    //         data: data.channel_name,
-    //         onChange:function(newValue){
-    //         $('#demo10').val(newValue);
-    //             newValue1 = newValue;
-    //         }
-    //     });
-
-    //     demo2 = $('#demo2').comboboxfilter({
-    //         url: '',
-    //         text: "代理",
-    //         scope: 'FilterQuery3',
-    //         multiple: true,
-    //         data: data.agent,
-    //         onChange:function(newValue){
-    //             $('#demo20').val(newValue);
-    //         newValue1 = newValue;
-    //         }
-    //     });
-
-
-    //     demo3 = $('#demo3').comboboxfilter({
-    //         url: '',
-    //         text: "负责",
-    //         scope: 'FilterQuery3',
-    //         multiple: true,
-    //         data: data.staff,
-    //         onChange:function(newValue){
-    //             $('#demo30').val(newValue);
-    //         newValue1 = newValue;
-    //         }
-    //     });
-    // });
     function benchmark(context,type){
 
 
@@ -323,7 +276,7 @@ benchmark on
         {
         case "good":
           return '<div class="my-parent-style-good"><b>' + context + '</b></div>'
-          print(3)
+
           break;
         case "normal":
           return '<div class="my-parent-style-normal"><b>' + context + '</b></div>'
@@ -340,46 +293,44 @@ benchmark on
     }
 
 
-    // 时间筛选+条件筛选
-   // function chaxun(callback){
+   // 时间筛选+条件筛选
+   function chaxun(callback){
+
+        var TJ_staff= new Array();
+        var TJ_agnet =new Array();
+        var TJ_channel=new Array();
+        var fromTime = $("#timeFrom").val();
+        var toTime = $("#timeTo").val();
+
+        var fromTimeCuo = Date.parse(new Date(fromTime));
+        var toTimeCuo = Date.parse(new Date(toTime));
+        var tianshu = (toTimeCuo - fromTimeCuo)/1000/60/60/24;
+
+        var fromToTime = [fromTime];
+        var flag = fromTimeCuo
+        for (var i = 0 ; i < tianshu ; i++ ){
+            flag = flag+1000*60*60*24;
+            fromToTime.push( new Date(flag).Format("yyyy-MM-dd") );
+        }
 
 
-   //      var fromTime = $("#timeFrom").val();
-   //      var toTime = $("#timeTo").val();
+        $("#TJ_channel  .selected").each(function(){TJ_channel.push($(this).text());});
+        $("#TJ_agnet  .selected").each(function(){TJ_agnet.push($(this).text());});
+        $("#TJ_staff  .selected").each(function(){TJ_staff.push($(this).text());});
+ 
 
-   //      var fromTimeCuo = Date.parse(new Date(fromTime));
-   //      var toTimeCuo = Date.parse(new Date(toTime));
-   //      var tianshu = (toTimeCuo - fromTimeCuo)/1000/60/60/24;
+        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name=" + TJ_channel.join(",") + "&agent=" + TJ_agnet.join(",") + "&staff=" + TJ_staff.join(",")} );
 
-   //      var fromToTime = [fromTime];
-   //      var flag = fromTimeCuo
-   //      for (var i = 0 ; i < tianshu ; i++ ){
-   //          flag = flag+1000*60*60*24;
-   //          fromToTime.push( new Date(flag).Format("yyyy-MM-dd") );
-   //      }
+        $("#table").bootstrapTable('filterBy',{
+            date_time : fromToTime,
+        });
 
-   //      var channel_name_filter = demo1.returnValue($("#demo1"));
+        //条件筛选完成后,重新设置 piece chart
+        callback();
 
-   //      var agent_filter = demo2.returnValue($("#demo2"));
-
-   //      var staff_filter = demo3.returnValue($("#demo3"));
-
-   //      $("#table").bootstrapTable('refresh',{url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name=" + channel_name_filter + "&agent=" + agent_filter + "&staff=" + staff_filter} );
-
-   //      $("#table").bootstrapTable('filterBy',{
-   //          date_time : fromToTime,
-   //      });
-   //      bilibili();
+    }
 
 
-   //              if (typeof callback === "function"){
-   //          //alert(callback);
-   //          callback(); 
-   //      }
-   //      //条件筛选完成后,重新设置 piece chart
-   //      setTimeout("setPieceChart();",2000);
-
-   //  }
 
 
 </script>
@@ -1041,7 +992,7 @@ benchmark on
     })
 </script><!--筛选后的数据处理-->
 
-<script src="/static/ace/js/jquery-ui.custom.min.js"></script><!--拖拽需要的js-->
+<!--script src="/static/ace/js/jquery-ui.custom.min.js"></script><!--拖拽需要的js-->
 <!--<script type="text/javascript">
 jQuery(function($) {
     // widget boxes
@@ -1149,7 +1100,6 @@ jQuery(function($) {
 });
 
 </script>-->
-
 
 
 <!--数字增加benchmark效果-->
