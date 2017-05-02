@@ -625,7 +625,10 @@ function setChartCompare( ){
         //subtitle: { text: '数据来源: WorldClimate.com' },
         xAxis: [{
             categories: categories,
-            crosshair: true
+            crosshair: true,
+            labels: {
+                rotation: 90
+            }
         }],
         yAxis: [{ // Primary yAxis
             labels: {
