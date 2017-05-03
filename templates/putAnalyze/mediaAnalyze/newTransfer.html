@@ -90,7 +90,7 @@
         <!-- Filter by Silence End -->
 
         <div align="center" style="padding-top:7px">
-            <button id="chaxun" class="btn btn-sm btn-primary" onclick="chaxun(setPieceChart);">查询</button>
+            <button id="chaxun" class="btn btn-sm btn-primary" onclick="chaxun();">查询</button>
         </div>
     </div>
     <div class="hr hr-8 hr-dotted"></div>
@@ -323,7 +323,7 @@
     //入参 2016-01-10格式的字符串
     function filterTime(fromTime,toTime){
         //先将条件筛选清空
-        $(".J_FilterQueryClear").trigger("click");
+        //$(".J_FilterQueryClear").trigger("click");
 
         var fromTimeCuo = Date.parse(new Date(fromTime));
         var toTimeCuo = Date.parse(new Date(toTime));
@@ -339,6 +339,9 @@
         $("#table").bootstrapTable('refresh',{url: "/analyze/newTransferJson?{{sjs}}&game_id&platform&channel_name&agent&staff" } );
 
         $("#table").bootstrapTable('filterBy',{date_time : fromToTime});
+
+        //日期设置完成后,设置执行查询
+        $("#chaxun").trigger("click");
 
         //日期筛选完成后,设置piece chartdata
         setTimeout("setPieceChart();",2000);
@@ -452,7 +455,7 @@
 
 
     // 时间筛选+条件筛选
-    function chaxun (callback){
+    function chaxun (){
  
         var TJ_staff= new Array();
         var TJ_agnet =new Array();
@@ -484,8 +487,7 @@
         });
 
         //条件筛选完成后,重新设置 piece chart
-      callback();
-
+        setTimeout("setPieceChart();",2000);
     }
 
 
