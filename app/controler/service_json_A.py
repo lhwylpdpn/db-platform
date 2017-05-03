@@ -1151,38 +1151,38 @@ def create_json(word,name):
 	file_object.close()
 	print("create_json_"+name)
 
-if __name__ == '__main__':
 
-	while(1):
-		try:
-			conn=pymysql.connect(host='localhost',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
-			cur_1=conn.cursor()
-			import_excel()
-			import_excel_add()
-			user_info_create()
-			export()
-			cur_1.close()
-			conn.commit()
-			conn.close()
-		except Exception, e:
-			print(e)
-		print(3)
-		try:
-			conn=pymysql.connect(host='localhost',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
-			cur_1=conn.cursor()
-			print(1)
-			import_csv()
-			export_media_1()
-			cur_1.close()
-			conn.commit()
-			conn.close()
-			print time.asctime(time.localtime(time.time()))
-		except Exception, e:
-			print(e)
-		test_ok()
-		print time.asctime(time.localtime(time.time()))
-		print("wait")
-		time.sleep(1600)
+
+def main():
+	global conn
+	global cur_1
+	conn=pymysql.connect(host='localhost',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
+	cur_1=conn.cursor()
+	import_excel()
+	import_excel_add()
+	user_info_create()
+	export()
+	cur_1.close()
+	conn.commit()
+	conn.close()
+
+	print("step 1 ok")
+	time.sleep(5)
+
+	conn=pymysql.connect(host='localhost',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
+	cur_1=conn.cursor()
+	
+	import_csv()
+	export_media_1()
+	cur_1.close()
+	conn.commit()
+	conn.close()
+
+	print("step 2 ok")
+	time.sleep(5)
+
+
+
 
 	# conn=pymysql.connect(host='localhost',user='root',passwd='123456',db='zilong_report',port=3306)
 	# cur_1=conn.cursor()

@@ -25,7 +25,7 @@ app.register_blueprint(monitorBp)
 from app.controler.power_API import get_business_json
 
 
-from app.controler.power_API import menu_click_write
+from app.controler.monitor import menu_click_write
 
 @app.before_request
 def before_request():
