@@ -171,13 +171,17 @@ def monitor_data():# 收集监控所需要的系统文件数据
 
 ################################################################################
 
-def monitor_login():
+def monitor_login(date):
 
 	try:
 		result=""
 		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
 		cursor = conn.cursor()
-		sql="select a.`username`,count(b.`login_time`) from `user_info` a ,`login_info` b where a.`id` =b.`user_id`  and a.username!='admin'  group by username"
+		if len(date)==0:
+
+			sql="select a.`username`,count(b.`login_time`) from `user_info` a ,`login_info` b where a.`id` =b.`user_id`  and a.username!='admin'   group by username"
+		else:		
+			sql="select a.`username`,count(b.`login_time`) from `user_info` a ,`login_info` b where a.`id` =b.`user_id`  and a.username!='admin' and b.login_time > DATE_SUB( NOW(), INTERVAL "+str(date)+" DAY)   group by username"
 		cursor.execute(sql)
 		rs=cursor.fetchall()
 		if len(rs)<=0:
@@ -219,7 +223,7 @@ def menu_click_write(username,menu_url,time_click):#username 代表登录的人�
 
 
 
-def monitor_menu():
+def monitor_menu(date):
 	result=""
 	name=[]
 	Transfer_menu_name=[]
@@ -235,7 +239,11 @@ def monitor_menu():
 		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
 		cursor = conn.cursor()
 		test=[["/monitor/monitor",'网站监控'],['/analyze/mediaOverview','媒体概览'],['/channelIos600','iOS-渠道-明细'],['/analyze/newTransfer','新增转化']]
-		sql="select menu_url,count(*) from menu_click group  by menu_url"
+		if len(date)==0:
+
+			sql="select menu_url,count(*) from menu_click group  by menu_url"
+		else:
+			sql="select menu_url,count(*) from menu_click where time > DATE_SUB( NOW(), INTERVAL "+str(date)+" DAY) group  by menu_url "
 		cursor.execute(sql)
 		rs=cursor.fetchall()
 		if len(rs)<=0:
@@ -261,7 +269,7 @@ def monitor_menu():
 
 
 
-def monitor_pv():
+def monitor_pv(date):
 	result=""
 	name=[]
 	date=[]
@@ -278,7 +286,12 @@ def monitor_pv():
 	try:
 		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
 		cursor = conn.cursor()
-		sql="SELECT  menu_url,concat(UNIX_TIMESTAMP(DATE_FORMAT(TIME, '%Y-%m-%d')),'000'),COUNT(*)  FROM  `menu_click` GROUP BY menu_url,UNIX_TIMESTAMP(DATE_FORMAT(TIME, '%Y-%m-%d'))"
+
+		if len(date)==0:
+
+			sql="SELECT  menu_url,concat(UNIX_TIMESTAMP(DATE_FORMAT(TIME, '%Y-%m-%d')),'000'),COUNT(*)  FROM  `menu_click` GROUP BY menu_url,UNIX_TIMESTAMP(DATE_FORMAT(TIME, '%Y-%m-%d'))"
+		else:
+			sql="SELECT  menu_url,concat(UNIX_TIMESTAMP(DATE_FORMAT(TIME, '%Y-%m-%d')),'000'),COUNT(*)  FROM  `menu_click`  where time > DATE_SUB( NOW(), INTERVAL "+str(date)+" DAY)  GROUP BY menu_url,UNIX_TIMESTAMP(DATE_FORMAT(TIME, '%Y-%m-%d'))"
 		cursor.execute(sql)
 		rs=cursor.fetchall()
 		if len(rs)<=0:

@@ -22,9 +22,18 @@
     <div class="page-header">
         <h1>网站监控/统计</h1>
     </div><!-- /.page-header -->   
+    <div class="btn-group ">
 
+
+
+
+
+        <button id ="time_1" type="button" class="data-filter btn btn-white btn-sm btn-info btn-bold" onclick="javascript:window.location.href='monitor?date=1'">昨日</button>
+        <button id ="time_2" type="button" class="data-filter btn btn-white btn-sm btn-info btn-bold" onclick="javascript:window.location.href='monitor?date=0'">今日</button>
+        <button id ="timeAll" type="button" class="data-filter btn btn-white btn-sm btn-info btn-bold" onclick="javascript:window.location.href='monitor'">历史所有</button>
+    </div>
   <div id="main-widget-container" >
-       
+      
         <div class="col-xs-6 col-sm-6 widget-container-col" id="widget-container-col-1" >
                 <div class="widget-box widget-color-dark ui-sortable-handle" id="widget-box-7" style="opacity: 1;">
                                                     <div class="widget-header widget-header-small">
@@ -32,6 +41,7 @@
 
                                                         <div class="widget-toolbar no-border">
                                                             <label>
+
                                                                 <input type="checkbox" class="ace ace-switch ace-switch-3">
                                                                 <span class="lbl middle"></span>
                                                             </label>
@@ -42,7 +52,7 @@
                                                             总计:{{menu_count}}
                                                                 <i class="ace-icon fa fa-arrow-up"></i>
                                                             </span>
-                                                
+
                                                         </div>
                                                     </div>
 
