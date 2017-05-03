@@ -29,7 +29,7 @@
     <script type="text/javascript" src="/static/js/bootstrap-table-multiple-sort.js"></script>
 
     <link rel="stylesheet" href="/static/css/bootstrap-table.css">
-    <link rel="stylesheet" href="/static/css/Fliter——back.css">
+    <link rel="stylesheet" href="/static/css/Fliter.css">
 
     <div class="btn-group">
         <button id ="time_1" type="button" class="data-filter btn btn-white btn-sm btn-primary">昨日</button>
@@ -44,14 +44,53 @@
 
     <p></p>
     <div>
-        <div id="demo1"></div>
-        <div id="demo2"></div>
-        <div id="demo3"></div>
-        <div id="demo4"></div>
-        <div id="demo5"></div>
+<!-- Filter by Silence Begin -->
+        <div id="FilterQuery" class="hotel-filter-list "><strong class="tit">已选</strong>
+            <div class="conF selected-query">
+                <ul id="FilterTagSelected">
+                    <li class="filter-query-clear"><a id="FilterQueryClear" href="javascript:;">全部清除</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="FilterQueryList">
+            <div id="List01" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="channel">
+                <strong class="tit">媒体</strong>
+                <div class="conF checkboxF">
+                    <ul class="any">
+                        <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
+                    </ul>
+                    <ul class="initial"></ul>
+                    <ul class="list"></ul>
+                    <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
+                </div>
+            </div>
+            <div id="List02" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="agent">
+                <strong class="tit">代理</strong>
+                <div class="conF checkboxF">
+                    <ul class="any">
+                        <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
+                    </ul>
+                    <ul class="initial"></ul>
+                    <ul class="list"></ul>
+                    <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
+                </div>
+            </div>
+            <div id="List03" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="staff">
+                <strong class="tit">负责</strong>
+                <div class="conF checkboxF">
+                    <ul class="any">
+                        <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
+                    </ul>
+                    <ul class="initial"></ul>
+                    <ul class="list"></ul>
+                    <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
+                </div>
+            </div>
+        </div>
+        <!-- Filter by Silence End -->
 
         <div align="center" style="padding-top:7px">
-            <button id="chaxun" class="btn btn-sm btn-primary">查询</button>
+            <button id="chaxun" class="btn btn-sm btn-primary" onclick="chaxun(setPieceChart);">查询</button>
         </div>
     </div>
     <div class="hr hr-8 hr-dotted"></div>
@@ -406,86 +445,18 @@
 
 </script><!-- 日历筛选 -->
 
-<script src="/static/js/Filter——back.js"></script><!--筛选需要的js-->
+<script src="/static/js/Filter.js"></script><!--筛选需要的js-->
 <script type="text/javascript">
 
-    var demo1 = null;
-    var demo2 = null;
-    var demo3 = null;
-    var demo4 = null;
-    var demo5 = null;
-
-    $.getJSON("/analyze/newTransferTJ?{{sjs}}", function(data){
-        console.log(data);
-        demo1 = $('#demo1').comboboxfilter({
-            url: '',
-            text: "游戏",
-            scope: 'FilterQuery3',
-            multiple: true,
-            data: data.game_id,
-            onChange:function(newValue){
-                $('#demo10').val(newValue);
-            newValue1 = newValue;
-            }
-        });
-        demo2 = $('#demo2').comboboxfilter({
-            url: '',
-            text: "平台",
-            scope: 'FilterQuery3',
-            multiple: true,
-            data: data.platform,
-            onChange:function(newValue){
-                $('#demo20').val(newValue);
-            newValue1 = newValue;
-            }
-        });
-        demo3 = $('#demo3').comboboxfilter({
-            url: '',
-            text: "渠道",
-            scope: 'FilterQuery3',
-            multiple: true,
-            data: data.channel_name,
-            onChange:function(newValue){
-            $('#demo30').val(newValue);
-                newValue1 = newValue;
-            }
-        });
-
-        demo4 = $('#demo4').comboboxfilter({
-            url: '',
-            text: "代理商",
-            scope: 'FilterQuery3',
-            multiple: true,
-            data: data.agent,
-            onChange:function(newValue){
-                $('#demo40').val(newValue);
-            newValue1 = newValue;
-            }
-        });
-
-
-        demo5 = $('#demo5').comboboxfilter({
-            url: '',
-            text: "负责人",
-            scope: 'FilterQuery3',
-            multiple: true,
-            data: data.staff,
-            onChange:function(newValue){
-                $('#demo50').val(newValue);
-            newValue1 = newValue;
-            }
-        });
-    });
+  
 
 
     // 时间筛选+条件筛选
-    $("#chaxun").click(function(){
-        console.log(demo1.returnValue($("#demo1")));
-        console.log(demo2.returnValue($("#demo2")));
-        console.log(demo3.returnValue($("#demo3")));
-        console.log(demo4.returnValue($("#demo4")));
-        console.log(demo5.returnValue($("#demo5")));
-
+    function chaxun (callback){
+ 
+        var TJ_staff= new Array();
+        var TJ_agnet =new Array();
+        var TJ_channel=new Array();
         var fromTime = $("#timeFrom").val();
         var toTime = $("#timeTo").val();
 
@@ -500,26 +471,22 @@
             fromToTime.push( new Date(flag).Format("yyyy-MM-dd") );
         }
 
-        var game_filter = demo1.returnValue($("#demo1"));
 
-        var platform_filter = demo2.returnValue($("#demo2"));
+        $("#FilterTagSelected [data-channel]").each(function(){TJ_channel.push($(this).text());});
+        $("#FilterTagSelected [data-agent]").each(function(){TJ_agnet.push($(this).text());});
+        $("#FilterTagSelected [data-staff]").each(function(){TJ_staff.push($(this).text());});
+ 
 
-        var channel_name_filter = demo3.returnValue($("#demo3"));
-
-        var agent_filter = demo4.returnValue($("#demo4"));
-
-        var staff_filter = demo5.returnValue($("#demo5"));
-
-        $("#table").bootstrapTable('refresh',{url: "/analyze/newTransferJson?{{sjs}}&channel_name=" + channel_name_filter + "&agent=" + agent_filter + "&staff=" + staff_filter + "&game_id=" + game_filter + "&platform=" + platform_filter} );
+        $("#table").bootstrapTable('refresh',{url: "/analyze/newTransferJson?{{sjs}}&channel_name=" + TJ_channel.join(",") + "&agent=" + TJ_agnet.join(",") + "&staff=" + TJ_staff.join(",")} );
 
         $("#table").bootstrapTable('filterBy',{
             date_time : fromToTime,
         });
 
         //条件筛选完成后,重新设置 piece chart
-        setTimeout("setPieceChart();",2000);
+      callback();
 
-    });
+    }
 
 
 </script>
