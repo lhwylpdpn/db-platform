@@ -1,9 +1,9 @@
 # This Python file uses the following encoding: utf-8
 from flask import render_template, request, Blueprint, session, redirect, url_for, json
-from app.controler.power_API import monitor_data
-from app.controler.power_API import monitor_login
-from app.controler.power_API import monitor_menu
-from app.controler.power_API import monitor_pv
+from app.controler.monitor import monitor_data
+from app.controler.monitor import monitor_login
+from app.controler.monitor import monitor_menu
+from app.controler.monitor import monitor_pv
 monitorBp = Blueprint('monitor', __name__, url_prefix="/monitor")
 
 
@@ -39,7 +39,7 @@ def index():
 @monitorBp.route('/monitorJson')
 def monitorJson():
 	jsons = json.loads(monitor_data())  # 字符串传化为json 对象
-	print(jsons)
+	#print(jsons)
 	return json.dumps(jsons)
 
 

@@ -168,22 +168,20 @@
 
 
 <div class="widget-box ui-sortable-handle" id="widget-box-">
-<div class="widget-header" style="padding-top:7px">
 
-<button class="btn btn-sm btn-danger  btn-white btn-round" id="button61" style="display: none;" onclick="bilibili();javascript:this.style.display ='none'; document.getElementById('button62').style.display='block';">
+
+<!-- <button class="btn btn-sm btn-danger  btn-white btn-round" id="button61" style="display: block;" onclick="bilibili();javascript:this.style.display ='none'; document.getElementById('button62').style.display='block';t=window.clearInterval(t); ">
 benchmark off
 </button>
-<button class="btn btn-sm btn-danger  btn-white btn-round" id="button62"  style="display: block;" onclick="bilibili();javascript:this.style.display ='none';document.getElementById('button61').style.display='block';">
+<button class="btn btn-sm btn-danger  btn-white btn-round" id="button62"  style="display: none;" onclick="bilibili();javascript:this.style.display ='none';document.getElementById('button61').style.display='block';t=window.setInterval(bilibili,100); ">
 benchmark on
-</button>
-</div>
+</button> -->
+
 
 <div class="widget-body">
 
 
-<table id="table" data-sort-name="date_time" data-sort-order="desc" class="table table-bordered table-hover"       
-               
-               >
+<table id="table" data-sort-name="date_time" data-sort-order="desc" class="table table-bordered table-hover"    >
             <thead>
                 <tr>
                     <th data-align="right"  data-field="channel_name" data-sortable="true">　渠道　</th>
@@ -1132,7 +1130,7 @@ jQuery(function($) {
         $($(".my-parent-style-bad").parent("td")).css({ color: "#FFFFFF", background: "#C80017" });
 
     }
-    t1=window.setInterval(bilibili,100); 
+    t=window.setInterval(bilibili,100); 
 </script>
 
 
