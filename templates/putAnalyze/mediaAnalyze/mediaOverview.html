@@ -317,6 +317,8 @@ benchmark on
             <!--<button id="dis" class="chart-title">分成比例</button> -->
             <button id="cumulative_moeny" class="chart-title">累计净收入</button>
             <button id="ROI" class="chart-title"> R O I </button>
+            <button id="compare" class="chart-title">对比图</button>
+
 
             <div class="widget-toolbar">
                 <!--<a href="#" data-action="fullscreen" class="orange2">-->
@@ -846,6 +848,196 @@ benchmark on
         });
     }
 
+function getSetChartCompareData(data){
+    var result = new Array();
+    for(var i = 0; i < data.length; i++){
+        result[i] = data[i][1];
+    }
+    return result;
+}
+
+function setChartCompare( ){
+    var categories = new Array();
+    for(var i = 0; i < ad_click_dataS.length; i++){
+        categories[i] = new Date(ad_click_dataS[i][0]).Format("MM-dd");
+    }
+
+    $('#container').highcharts({
+        chart: { zoomType: 'xy' },
+        title: { text: '　' },
+        //subtitle: { text: '数据来源: WorldClimate.com' },
+        xAxis: [{
+            categories: categories,
+            crosshair: true,
+            labels: {
+                rotation: 90
+            }
+        }],
+        yAxis: [{ // Primary yAxis
+            labels: {
+                format: '{value} 个',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            title: {
+                text: '单位：个',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            }
+        }, { // Secondary yAxis
+            title: {
+                text: '单位：元',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            labels: {
+                format: '{value} 元',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            opposite: true
+        }, { // Third yAxis
+            title: {
+                text: '单位：百分百',
+                style: {
+                    color: Highcharts.getOptions().colors[2]
+                }
+            },
+            labels: {
+                format: '{value} %',
+                style: {
+                    color: Highcharts.getOptions().colors[2]
+                }
+            },
+            opposite: true
+        }],
+        tooltip: { shared: true },
+        plotOptions: {
+            area: {
+                marker: {
+                    enabled: false,
+                    symbol: 'circle',
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true
+                        }
+                    }
+                }
+            }
+        },
+        series: [{
+            name: '点击设备',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(ad_click_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '激活设备',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(ad_action_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '新增设备',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(ad_action_new_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '新增总账号',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(ad_account_new_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '纯新增账号',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(double_new_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '回流账号',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(back_user_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '付费账号',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(paid_account_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '付费率',
+            type: 'area',
+            yAxis: 2,
+            data: getSetChartCompareData(fufeilv_dataS),
+            tooltip: {
+                valueSuffix: ' %'
+            }
+        }, {
+            name: '折后花费',
+            type: 'area',
+            yAxis: 1,
+            data: getSetChartCompareData(spend_dataS),
+            tooltip: {
+                valueSuffix: ' 元'
+            }
+        }, {
+            name: 'C P A',
+            type: 'area',
+            yAxis: 1,
+            data: getSetChartCompareData(CPA_dataS),
+            tooltip: {
+                valueSuffix: ' 元'
+            }
+        }, {
+            name: '累计流水',
+            type: 'area',
+            yAxis: 1,
+            data: getSetChartCompareData(cumulative_flow_dataS),
+            tooltip: {
+                valueSuffix: ' 元'
+            }
+        }, {
+            name: '累计净收入',
+            type: 'area',
+            yAxis: 1,
+            data: getSetChartCompareData(cumulative_moeny_dataS),
+            tooltip: {
+                valueSuffix: ' 元'
+            }
+        }, {
+            name: 'R O I',
+            type: 'area',
+            yAxis: 2,
+            data: getSetChartCompareData(ROI_dataS),
+            tooltip: {
+                valueSuffix: ' %'
+            }
+        }]
+    });
+};
+
 </script><!--图表需要的js setChart(data)-->
 
 <script type="text/javascript"><!--筛选后的数据处理-->
@@ -1070,6 +1262,12 @@ benchmark on
         $(this).addClass("select-title");
         setChart("R O I","单位:百分百",ROI_dataS);
     })
+    $("#compare").click(function(){
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
+        setChartCompare();
+    })
 </script><!--筛选后的数据处理-->
 
 <!--script src="/static/ace/js/jquery-ui.custom.min.js"></script><!--拖拽需要的js-->
@@ -1217,12 +1415,3 @@ jQuery(function($) {
 
 
 {% endblock content %}
-
-            $table.bootstrapTable('updateRow', {
-                index: 1,
-                row: {
-                    id: randomId,
-                    name: 'Item ' + randomId,
-                    price: '$' + randomId
-                }
-            });
