@@ -22,7 +22,7 @@ def mediaOverview():
 
 @analyzeBp.route('/mediaOverviewJson')
 def mediaOverviewJson():
-    results = cMediaOverview.mediaOverviewJson(session["username"])
+    results = cMediaOverview.mediaOverviewJson(session["username"],request.args.items())
     return results
 
 

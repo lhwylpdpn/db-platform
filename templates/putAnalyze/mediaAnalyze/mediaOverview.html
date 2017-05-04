@@ -282,7 +282,7 @@ benchmark on
                     <th data-align="right"  data-field="CPA" data-sortable="true" data-formatter="CPA"  data-align="right">C P A</th>
                     <th data-align="right"  data-field="cumulative_flow" data-sortable="true" data-formatter="cumulative_flow" data-align="right">累计流水</th>
                     <!--  <th data-field="dis" data-sortable="true">分成比例</th> -->
-                    <th data-align="right" data-field="cumulative_moeny" data-sortable="true" data-formatter="cumulative_moeny" data-align="right">累计净收入</th>
+                    <th data-align="right" data-field="cumulative_money" data-sortable="true" data-formatter="cumulative_money" data-align="right">累计净收入</th>
                     <th data-align="right" data-field="ROI" data-sortable="true" data-formatter="ROI" data-align="right">R O I</th>
                 </tr>
             </thead>
@@ -434,6 +434,7 @@ benchmark on
     @type String
     */
     function formatNumber(num,cent,isThousand){
+
         num = num.toString().replace(/\$|\,/g,'');
         if(isNaN(num))//检查传入数值为数值类型.
          num = "0";
@@ -470,14 +471,7 @@ benchmark on
     function toThousands(num) {
         return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
     }
-    function ad_click(value,row) {
-        var values = value.toString().split(".");
-        if(typeof(values[1]) == "undefined"){
-            return toThousands(values[0]).toString();
-        }else{
-            return  toThousands(values[0]).toString();
-        }
-    }
+    function ad_click(value,row) { return  toThousands(row["ad_click"]).toString(); }
     function ad_action(value,row) {
 
      
@@ -486,77 +480,19 @@ benchmark on
             return toThousands(row["ad_action"]).toString()
      
     }
-    function ad_action_new(value,row) {
-        var values = value.toString().split(".");
-        if(typeof(values[1]) == "undefined"){
-            return toThousands(values[0]).toString();
-        }else{
-            return toThousands(values[0]).toString() + "."+ values[1];
-        }
-    }
-    function ad_account_new(value,row) {
-        var values = value.toString().split(".");
-        if(typeof(values[1]) == "undefined"){
-            return toThousands(values[0]).toString();
-        }else{
-            return toThousands(values[0]).toString() + "."+ values[1];
-        }
-    }
-    function double_new(value,row) {
-        var values = value.toString().split(".");
-        if(typeof(values[1]) == "undefined"){
-            return toThousands(values[0]).toString();
-        }else{
-            return toThousands(values[0]).toString() + "."+ values[1];
-        }
-    }
-    function back_user(value,row) {
-        var values = value.toString().split(".");
-        if(typeof(values[1]) == "undefined"){
-            return toThousands(values[0]).toString();
-        }else{
-            return toThousands(values[0]).toString() + "."+ values[1];
-        }
-    }
-
-    function paid_account(value,row) {
-        var values = value.toString().split(".");
-        if(typeof(values[1]) == "undefined"){
-            return toThousands(values[0]).toString();
-        }else{
-            return toThousands(values[0]).toString() + "."+ values[1];
-        }
-    }
-
-    function spend(value,row) {
-        var values = value.toString().split(".");
-        if(typeof(values[1]) == "undefined"){
-            return toThousands(values[0]).toString();
-        }else{
-            return toThousands(values[0]).toString() + "."+ values[1];
-        }
-    }
-    function cumulative_flow(value,row) {
-        var values = value.toString().split(".");
-        if(typeof(values[1]) == "undefined"){
-            return toThousands(values[0]).toString();
-        }else{
-            return toThousands(values[0]).toString() + "."+ values[1];
-        }
-    }
-    function cumulative_moeny(value,row) {
-        var values = value.toString().split(".");
-        if(typeof(values[1]) == "undefined"){
-            return toThousands(values[0]).toString();
-        }else{
-            return toThousands(values[0]).toString() + "."+ values[1];
-        }
-    }
+    function ad_action_new(value,row) {return  toThousands(row["ad_action_new"]).toString();}
+    function ad_account_new(value,row) {return  toThousands(row["ad_account_new"]).toString();}
+    function double_new(value,row) {return  toThousands(row["double_new"]).toString();}
+    function back_user(value,row) {return  toThousands(row["back_user"]).toString();}
+    function paid_account(value,row) {return  toThousands(row["paid_account"]).toString();}
+    function spend(value,row) {return  toThousands(row["spend"]).toString();}
+    function cumulative_flow(value,row) {return  toThousands(row["cumulative_flow"]).toString();}
+    function cumulative_money(value,row) {return  toThousands(row["cumulative_money"]).toString();}
     function fufeilv(value,row) {
         if(value != "-"){
 
-            if (row["fufeilv"]>=0.06) {return benchmark(formatNumber(row["fufeilv"],2,0).toString()+"%","good")} 
-            if (row["fufeilv"]<0.03 && row["fufeilv"]>0) {return benchmark(formatNumber(row["fufeilv"],2,0).toString()+"%","bad")} 
+            if (row["fufeilv"]>=6) {return benchmark(formatNumber(row["fufeilv"],2,0).toString()+"%","good")} 
+            if (row["fufeilv"]<3 && row["fufeilv"]>0) {return benchmark(formatNumber(row["fufeilv"],2,0).toString()+"%","bad")} 
             return formatNumber(value,2,0) + "%";
         }
     }
@@ -580,11 +516,11 @@ benchmark on
     function CPA(value,row) {
 
 
-            if (value>50 && value<=65) {return benchmark(row["CPA"],"");}
-            if (value<=5 && value>0) {return benchmark(row["CPA"],"good");}
-            if (value>65) {return benchmark(row["CPA"],"bad");}
-            if (value==0) {return benchmark(row["CPA"],"");}      
-            return row["CPA"];
+            if (value>50 && value<=65) {return benchmark(formatNumber(row["CPA"],2,0),"");}
+            if (value<=5 && value>0) {return benchmark(formatNumber(row["CPA"],2,0),"good");}
+            if (value>65) {return benchmark(formatNumber(row["CPA"],2,0),"bad");}
+            if (value==0) {return benchmark(formatNumber(row["CPA"],2,0),"");}      
+            return formatNumber(row["CPA"],2,0);
  
         }    
 
@@ -1141,23 +1077,23 @@ function setChartCompare( ){
 
         }
 
-        $($("#widget-box-1").children("div").children("div")[0]).text("总计 " + toThousands(adActionNew));
-        $($("#widget-box-1").children("div").children("div")[1]).text("平均 " + toThousands((adActionNew/dataLength).toFixed(0)));
+        // $($("#widget-box-1").children("div").children("div")[0]).text("总计 " + toThousands(adActionNew));
+        // $($("#widget-box-1").children("div").children("div")[1]).text("平均 " + toThousands((adActionNew/dataLength).toFixed(0)));
 
-        $($("#widget-box-2").children("div").children("div")[0]).text("总计 " + toThousands(adAccountNew));
-        $($("#widget-box-2").children("div").children("div")[1]).text("平均 " + toThousands((adAccountNew/dataLength).toFixed(0)));
+        // $($("#widget-box-2").children("div").children("div")[0]).text("总计 " + toThousands(adAccountNew));
+        // $($("#widget-box-2").children("div").children("div")[1]).text("平均 " + toThousands((adAccountNew/dataLength).toFixed(0)));
 
-        $($("#widget-box-3").children("div").children("div")[0]).text("总计 " + toThousands(paidAccount));
-        $($("#widget-box-3").children("div").children("div")[1]).text("平均 " + toThousands((paidAccount/dataLength).toFixed(0)));
+        // $($("#widget-box-3").children("div").children("div")[0]).text("总计 " + toThousands(paidAccount));
+        // $($("#widget-box-3").children("div").children("div")[1]).text("平均 " + toThousands((paidAccount/dataLength).toFixed(0)));
 
-        $($("#widget-box-4").children("div").children("div")[0]).text("总计 " + formatNumber (cumulativeFlow, 2, 1));
-        $($("#widget-box-4").children("div").children("div")[1]).text("平均 " + formatNumber ( (cumulativeFlow/dataLength), 2, 1));
+        // $($("#widget-box-4").children("div").children("div")[0]).text("总计 " + formatNumber (cumulativeFlow, 2, 1));
+        // $($("#widget-box-4").children("div").children("div")[1]).text("平均 " + formatNumber ( (cumulativeFlow/dataLength), 2, 1));
 
-        $($("#widget-box-5").children("div").children("div")[0]).text("总计 " + formatNumber (spend, 2, 1));
-        $($("#widget-box-5").children("div").children("div")[1]).text("平均 " + formatNumber ( (spend/dataLength), 2, 1));
+        // $($("#widget-box-5").children("div").children("div")[0]).text("总计 " + formatNumber (spend, 2, 1));
+        // $($("#widget-box-5").children("div").children("div")[1]).text("平均 " + formatNumber ( (spend/dataLength), 2, 1));
 
-        $($("#widget-box-6").children("div").children("div")[0]).text("总计 " + formatNumber (ROI, 2, 1));
-        $($("#widget-box-6").children("div").children("div")[1]).text("平均 " + formatNumber ( (ROI/dataLength), 2, 1));
+        // $($("#widget-box-6").children("div").children("div")[0]).text("总计 " + formatNumber (ROI, 2, 1));
+        // $($("#widget-box-6").children("div").children("div")[1]).text("平均 " + formatNumber ( (ROI/dataLength), 2, 1));
 
         $("#ad_click").trigger("click");
 
