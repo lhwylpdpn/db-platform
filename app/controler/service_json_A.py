@@ -1166,13 +1166,15 @@ def main():
 	conn.commit()
 	conn.close()
 	print("step 1 ok")
-	conn=pymysql.connect(host='localhost',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
-	cur_1=conn.cursor()
-	import_csv()
-	cur_1.close()
-	conn.commit()
-	conn.close()
-	print("step 2 ok")
+
+	#由于不需要IDFA数据，这个部分可以停止了
+	# conn=pymysql.connect(host='localhost',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
+	# cur_1=conn.cursor()
+	# import_csv()
+	# cur_1.close()
+	# conn.commit()
+	# conn.close()
+	# print("step 2 ok")
 
 
 
