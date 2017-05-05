@@ -70,7 +70,7 @@ class cMediaOverview:
 				jsons[x]["ad_action"]=int(round(float(jsons[x]["ad_action"])))
 				jsons[x]["double_new"]=int(round(float(jsons[x]["double_new"])))
 				jsons[x]["back_user"]=int(round(float(jsons[x]["back_user"])))
-				jsons[x]["ad_action_new"]=int(round(float(jsons[x]["ad_action_new"])))
+				#jsons[x]["ad_action_new"]=int(round(float(jsons[x]["ad_action_new"])))
 				jsons[x]["ad_account_new"]=int(round(float(jsons[x]["ad_account_new"])))
 				jsons[x]["paid_account"]=int(round(float(jsons[x]["paid_account"])))
 				jsons[x]["spend"]=int(round(float(jsons[x]["spend"])))
@@ -92,7 +92,7 @@ class cMediaOverview:
 
 				jsons[x]["fufeilv"]=float(float(jsons[x]["paid_account"])/float(jsons[x]["ad_account_new"])*100) if float(jsons[x]["ad_account_new"])!= 0 else 0
 				jsons[x]["ROI"]=float(float(jsons[x]["cumulative_money"])/float(jsons[x]["spend"])*100) if float(jsons[x]["spend"])!= 0 else 0
-				jsons[x]["CPA"]=float(float(jsons[x]["spend"])/float(jsons[x]["ad_action_new"])) if float(jsons[x]["ad_account_new"])!= 0 else 0
+				jsons[x]["CPA"]=float(float(jsons[x]["spend"])/float(jsons[x]["ad_action"])) if float(jsons[x]["ad_action"])!= 0 else 0
 				#print(jsons[x]["paid_account"],jsons[x]["ad_account_new"],jsons[x]["paid_account"]/jsons[x]["ad_account_new"])
 		jsons=json.dumps(jsons)
 		jsons = jsons.replace(" ","") 

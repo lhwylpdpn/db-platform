@@ -376,7 +376,7 @@ def export_meida_TJ():#媒体分析 留存内容
 	SELECT a.`game_id`,a.`platform`,a.`game_channel`,a.`agent`,b.`staff` FROM (SELECT a.`game_id`,a.`platform`,a.`game_channel`,a.`agent` FROM `ad_action_v2`  a 
 GROUP BY a.`game_id`,a.`platform`,a.`game_channel`,a.`agent` ) a , spend b WHERE   a.game_id=b.gamename
 AND a.platform=b.platform AND a.game_channel=b.channel_name AND a.agent=b.agent
-GROUP BY a.`game_id`,a.`platform`,a.`game_channel`,a.`agent`
+GROUP BY a.`game_id`,a.`platform`,a.`game_channel`,a.`agent`,b.`staff`
 
  		"""
 	conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
@@ -434,12 +434,30 @@ def export_meida_all():#媒体概览
 	r6=[]
 
 	sql="""
-SELECT a.game_id,a.platform,a.date,a.game_channel,a.agent,a.ad_click,a.ad_action,a.ad_new,a.ad_new_back,a.ad_pay_new,a.ad_pay_back,a.ad_role_31,a.ad_AU_5 ,b.liushui ,c.spend,c.staff
+
+SELECT a.gamename,a.platform,a.date,a.channel_name,a.agent,
+CASE WHEN ad_click >0 THEN ad_click ELSE 0 END AS ad_click,
+CASE WHEN ad_action >0 THEN ad_action  ELSE 0 END AS ad_action ,
+CASE WHEN ad_new >0 THEN ad_new  ELSE 0 END AS ad_new ,
+CASE WHEN ad_new_back >0 THEN ad_new_back ELSE 0 END AS ad_new_back ,
+CASE WHEN ad_pay_new >0 THEN ad_pay_new  ELSE 0 END AS ad_pay_new ,
+CASE WHEN ad_pay_back >0 THEN ad_pay_back ELSE 0 END AS ad_pay_back ,
+CASE WHEN ad_role_31 >0 THEN ad_role_31  ELSE 0 END AS ad_role_31 ,
+CASE WHEN ad_AU_5  >0 THEN ad_AU_5  ELSE 0 END AS ad_AU_5 ,
+CASE WHEN liushui  >0 THEN liushui  ELSE 0 END AS liushui  ,
+CASE WHEN spend >0 THEN spend  ELSE 0 END AS spend ,
+ staff ,
+CASE WHEN retention1 >0 THEN retention1  ELSE 0 END AS retention1,
+CASE WHEN retention6 >0 THEN retention6  ELSE 0 END AS retention6,
+CASE WHEN retention29 >0 THEN retention29 ELSE 0 END AS retention29 
+FROM 
+(
+SELECT a.gamename,a.platform,a.date,a.channel_name,a.agent,c.ad_click,c.ad_action,c.ad_new,c.ad_new_back,c.ad_pay_new,c.ad_pay_back,c.ad_role_31,c.ad_AU_5 ,b.liushui ,a.spend,a.staff
 ,d.retention1,d.retention6,d.retention29
-FROM (
-SELECT game_id,platform,DATE,game_channel,agent,SUM(ad_click) AS ad_click ,SUM(ad_action) AS ad_action ,SUM(ad_new) AS ad_new,
-SUM(ad_new_back) AS ad_new_back ,SUM(ad_pay_new) AS ad_pay_new ,SUM(ad_pay_back) AS ad_pay_back  ,SUM(ad_role_31) AS ad_role_31  ,SUM(ad_AU_5) AS ad_AU_5
- FROM `ad_action_v2` GROUP BY game_id,platform,DATE,game_channel,agent) a
+FROM (SELECT DATE,gamename,platform,channel_name,agent ,SUM(dis_spend) AS spend,staff FROM spend  where class_A="投放" and gamename="1452827692979" and date="2017-05-02" and platform="IOS正版" and dis_spend>0 GROUP BY DATE,gamename,platform,channel_name,agent
+
+
+ ) a
 LEFT JOIN 
 (
  SELECT game_id,platform,DATE,game_channel,agent ,
@@ -1174,22 +1192,27 @@ money726,
 money727,
 money728,
 money729)) AS liushui FROM `ad_re_money_v2`  GROUP BY game_id,platform,DATE,game_channel,agent) b
-ON a.game_id=b.game_id AND a.date=b.date  AND  a.game_channel=b.game_channel AND a.agent =b.agent AND a.platform=b.platform
+ON a.gamename=b.game_id AND a.date=b.date  AND  a.channel_name=b.game_channel AND a.agent =b.agent AND a.platform=b.platform
 LEFT JOIN 
 
 (
-SELECT DATE,gamename,platform,channel_name,agent ,SUM(dis_spend) AS spend,staff FROM spend where class_A="投放"  GROUP BY DATE,gamename,platform,channel_name,agent
-
+SELECT game_id,platform,DATE,game_channel,agent,SUM(ad_click) AS ad_click ,SUM(ad_action) AS ad_action ,SUM(ad_new) AS ad_new,
+SUM(ad_new_back) AS ad_new_back ,SUM(ad_pay_new) AS ad_pay_new ,SUM(ad_pay_back) AS ad_pay_back  ,SUM(ad_role_31) AS ad_role_31  ,SUM(ad_AU_5) AS ad_AU_5
+ FROM `ad_action_v2` GROUP BY game_id,platform,DATE,game_channel,agent
+ 
 ) c
-ON a.game_id=c.gamename AND a.date=c.date  AND  a.game_channel=c.channel_name AND a.agent =c.agent  AND a.platform=c.platform
+ON a.gamename=c.game_id AND a.date=c.date  AND  a.channel_name=c.game_channel AND a.agent =c.agent  AND a.platform=c.platform
 LEFT JOIN
 (
 
-SELECT DATE,game_id,platform,game_channel,agent,SUM(retention1) AS retention1 ,SUM(retention6) AS retention6,SUM(retention29) AS retention29 FROM `ad_retention_v2` 
+SELECT DATE,game_id,platform,game_channel,agent,  SUM(retention1)  AS retention1 ,SUM(retention6) AS retention6,SUM(retention29) AS retention29 FROM `ad_retention_v2` 
 GROUP BY DATE,game_id,platform,game_channel,agent 
 ) d
-ON  a.game_id=d.game_id AND a.date=d.date  AND  a.game_channel=d.game_channel AND a.agent =d.agent  AND a.platform=d.platform
-ORDER BY a.game_id,a.date,a.platform,a.game_channel,a.agent  
+ON  a.gamename=d.game_id AND a.date=d.date  AND  a.channel_name=d.game_channel AND a.agent =d.agent  AND a.platform=d.platform
+ORDER BY a.gamename,a.date,a.platform,a.channel_name,a.agent
+
+) a 
+
 
 
 
@@ -1257,3 +1280,4 @@ if __name__ == '__main__':
 		print time.asctime(time.localtime(time.time()))
 		export_meida_all()
 		print time.asctime(time.localtime(time.time()))
+		export_meida_TJ()
