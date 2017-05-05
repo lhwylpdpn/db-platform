@@ -57,9 +57,6 @@ if __name__ == '__main__':
 		csv_import_A.import_csv("/data1/bidata/1452827692979/","market_logout_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'logout_detail','1')
 
 		print("step3 ok")
-########media_export_json
-		media_export_json.export_meida_A()
-		media_export_json.export_meida_B()
-		media_export_json.export_meida_C()
+		media_export_json.export_meida_all()
 		media_export_json.export_meida_TJ()
 		time.sleep(300)

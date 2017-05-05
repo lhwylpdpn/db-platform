@@ -1161,25 +1161,19 @@ def main():
 	import_excel()
 	import_excel_add()
 	user_info_create()
-	export()
+	#export()
 	cur_1.close()
 	conn.commit()
 	conn.close()
-
 	print("step 1 ok")
-	time.sleep(5)
-
 	conn=pymysql.connect(host='localhost',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
 	cur_1=conn.cursor()
-	
 	import_csv()
-	export_media_1()
 	cur_1.close()
 	conn.commit()
 	conn.close()
-
 	print("step 2 ok")
-	time.sleep(5)
+
 
 
 
