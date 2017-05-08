@@ -97,5 +97,3 @@ class cMediaOverview:
 		jsons=json.dumps(jsons)
 		jsons = jsons.replace(" ","") 
 		return jsons 
-
-
