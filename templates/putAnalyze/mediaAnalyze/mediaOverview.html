@@ -100,7 +100,7 @@
         <div id="demo3"></div>
 
         <div align="center" style="padding-top:7px">
-            <button id="chaxun" class="btn btn-sm btn-primary" onclick="chaxun(setPieceChart);">查询</button>
+            <button id="chaxun" class="btn btn-sm btn-primary" onclick="chaxun();">查询</button>
         </div>
     </div>
     <div class="hr hr-8 hr-dotted" ></div>
@@ -376,7 +376,7 @@ benchmark on
 
 
    // 时间筛选+条件筛选
-   function chaxun(callback){
+   function chaxun(){
 
         var TJ_staff= new Array();
         var TJ_agnet =new Array();
@@ -408,7 +408,7 @@ benchmark on
         });
 
         //条件筛选完成后,重新设置 piece chart
-        callback();
+        setTimeout("setPieceChart();",2000);
 
     }
 
