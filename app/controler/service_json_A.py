@@ -84,49 +84,49 @@ def import_excel():
 			newlist.append(names)
 	for r in newlist:
 
-		if  not r.find("Daily_lchy_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))) and r.find("new")<0:#投放转化
-			filename=pwd+""+r
-			print(filename)
-			filenode=open(filename)
-			reader=csv.reader(filenode)
-			sql="truncate zilong_report.retention;insert into zilong_report.retention values "
-			for row in reader:
-				sql=sql+"('"+"','".join(row)+"'),"
-			sql=sql.strip(',')+";"
+		# if  not r.find("Daily_lchy_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))) and r.find("new")<0:#投放转化
+		# 	filename=pwd+""+r
+		# 	print(filename)
+		# 	filenode=open(filename)
+		# 	reader=csv.reader(filenode)
+		# 	sql="truncate zilong_report.retention;insert into zilong_report.retention values "
+		# 	for row in reader:
+		# 		sql=sql+"('"+"','".join(row)+"'),"
+		# 	sql=sql.strip(',')+";"
 			
-				#time.sleep(10)
-			cur_1.execute(sql)
-			conn.commit()
-			print("1sql ok")
-		if  not r.find("Daily_tfzh_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))) and r.find("new")<0:#投放转化
+		# 		#time.sleep(10)
+		# 	cur_1.execute(sql)
+		# 	conn.commit()
+		# 	print("1sql ok")
+		# if  not r.find("Daily_tfzh_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))) and r.find("new")<0:#投放转化
 
-			filename=pwd+""+r
-			print(filename)
-			filenode=open(filename)
-			reader=csv.reader(filenode)
-			sql="truncate zilong_report.ad_action;insert into zilong_report.ad_action values "
-			for row in reader:
-				sql=sql+"('"+"','".join(row)+"'),"
-			sql=sql.strip(',')+";"
+		# 	filename=pwd+""+r
+		# 	print(filename)
+		# 	filenode=open(filename)
+		# 	reader=csv.reader(filenode)
+		# 	sql="truncate zilong_report.ad_action;insert into zilong_report.ad_action values "
+		# 	for row in reader:
+		# 		sql=sql+"('"+"','".join(row)+"'),"
+		# 	sql=sql.strip(',')+";"
 	
-				#time.sleep(10)
-			cur_1.execute(sql)
-			conn.commit()
-			print("2sql ok")
-		if  not r.find("Daily_zbhs_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))) and r.find("new")<0:#投放转化
-			filename=pwd+""+r
-			print(filename)
-			filenode=open(filename)
-			reader=csv.reader(filenode)
-			sql="truncate zilong_report.re_money;insert into zilong_report.re_money values "
-			for row in reader:
-				sql=sql+"('"+"','".join(row[0:369])+"'),"
-			sql=sql.strip(',')+";"
+		# 		#time.sleep(10)
+		# 	cur_1.execute(sql)
+		# 	conn.commit()
+		# 	print("2sql ok")
+		# if  not r.find("Daily_zbhs_2016-07-01~"+str(datetime.datetime.now().strftime('%Y-%m-%d'))) and r.find("new")<0:#投放转化
+		# 	filename=pwd+""+r
+		# 	print(filename)
+		# 	filenode=open(filename)
+		# 	reader=csv.reader(filenode)
+		# 	sql="truncate zilong_report.re_money;insert into zilong_report.re_money values "
+		# 	for row in reader:
+		# 		sql=sql+"('"+"','".join(row[0:369])+"'),"
+		# 	sql=sql.strip(',')+";"
 	
-				#time.sleep(10)
-			cur_1.execute(sql)
-			conn.commit()
-			print("3sql ok")
+		# 		#time.sleep(10)
+		# 	cur_1.execute(sql)
+		# 	conn.commit()
+		# 	print("3sql ok")
 		if  not r.find("LaunchPaymentAll"):#投放转化
 			filename="/data1/bidata/"+r
 			print(filename)
