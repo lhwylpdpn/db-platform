@@ -455,7 +455,7 @@ FROM
 (
 SELECT a.gamename,a.platform,a.date,a.channel_name,a.agent,c.ad_click,c.ad_action,c.ad_new,c.ad_new_back,c.ad_pay_new,c.ad_pay_back,c.ad_role_31,c.ad_AU_5 ,b.liushui ,a.spend,a.staff
 ,d.retention1,d.retention6,d.retention29,e.huoyue
-FROM (SELECT DATE,gamename,platform,channel_name,agent ,SUM(dis_spend) AS spend,staff FROM spend  where class_A="投放" and gamename="1452827692979"   and platform="IOS正版" and dis_spend>0 GROUP BY DATE,gamename,platform,channel_name,agent
+FROM (SELECT DATE,gamename,platform,channel_name,agent ,SUM(dis_spend) AS spend,staff FROM spend  where class_A="投放" and gamename="1452827692979"   and platform="IOS正版" and today_spend>0 GROUP BY DATE,gamename,platform,channel_name,agent
 
 
  ) a
