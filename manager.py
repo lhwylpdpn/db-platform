@@ -48,7 +48,9 @@ def channelIos600():
 
 @app.route('/channelIos600Json')
 def channelIos600Json():
+
     jsons = json.loads(get_business_json("test.json", session["username"]))  # 字符串传化为json 对象
+    print(jsons)
     return json.dumps(jsons["body"])
 
 
@@ -66,6 +68,19 @@ def expecting():
 def widget():
     return render_template("demoWidgets.html", title=U"面板")
 
+@app.route('/spider_test')
+def spider_test():
+    return render_template("spider_test.html", title=U"面板")
+@app.route('/spiderjson')
+def spiderjson():
+    result=""
+    filename="test.json"
+    pattern=[]
+    pwd="../../static/json/"+str(filename)
+    pwd="./static/json/"+str(filename)  # flask 项目当前目录是zilong根目录
+    f=open(pwd)
+    context=f.read()
+    return context
 
 if __name__ == '__main__':
     # open debug model
