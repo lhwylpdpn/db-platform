@@ -508,6 +508,7 @@ benchmark on
             if (value>=days*2 && days<=14) {return benchmark(formatNumber(value,2,0)+ "%","good");}
             if (value>=(days-14)*1.5+28 && days<=30) {return benchmark(formatNumber(value,2,0)+ "%","good");}
             if (value>=(days-30)*1+28+16*1.5) {return benchmark(formatNumber(value,2,0)+ "%","good");}
+            if (value>=days/2){return benchmark(formatNumber(value,2,0)+ "%","normal");}
             return formatNumber(value,2,0)+ "%";
             }
 
@@ -1271,7 +1272,7 @@ function setChartCompare( ){
     function bilibili(){
      
         $($(".my-parent-style-good").parent("td")).css({ color: "#FFFFFF", background: "#00d9b8" });
-        $($(".my-parent-style-normal").parent("td")).css({ color: "#FFFFFF", background: "#191970" });
+        $($(".my-parent-style-normal").parent("td")).css({ color: "#FFFFFF", background: "#FFD306" });
         $($(".my-parent-style-bad").parent("td")).css({ color: "#FFFFFF", background: "#C80017" });
 
     }
