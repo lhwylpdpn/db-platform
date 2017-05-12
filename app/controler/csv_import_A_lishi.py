@@ -136,6 +136,5 @@ if __name__ == '__main__':
 	#import_check("/data1/bidata/1452827692979/","market_levelup_log_all.csv")
 	#import_check("/data1/bidata/1452827692979/","market_logout_log_all.csv")
 
-	import_csv("/data1/bidata/1452827692979/","market_login_log_all.csv","login_detail","all")
-	import_csv("/data1/bidata/1452827692979/","market_levelup_log_all.csv",'level_detail','all')
-	import_csv("/data1/bidata/1452827692979/","market_logout_log_all.csv",'logout_detail','all')
+
+	import_csv("/data1/bidata/1452827692979/","market_recharge_log_2016-07-04~2017-05-11.csv",'recharge_detail','all')
