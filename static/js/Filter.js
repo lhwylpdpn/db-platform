@@ -69,7 +69,7 @@ $(function() {
             });
             //写入首字母
             initialList.sort();
-            $('#'+container).find('.initial').empty().append('<li data-value="all">All</li>');
+            $('#'+container).find('.initial').empty().append('<li data-value="all" onclick="selectAll(this);">All</li>');
             $(initialList).each(function(i){
                 $('#'+container).find('.initial').append('<li data-value="'+initialList[i]+'">'+initialList[i]+'</li>');
 
@@ -294,3 +294,6 @@ $(function() {
     };
     new Filter();
 });
+function selectAll( obj ){
+    $(obj).parents("ul").next("ul").find("a").click();
+}
