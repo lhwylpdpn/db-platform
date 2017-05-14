@@ -14,24 +14,22 @@ class cMediaOverview:
 		jsons = json.loads(get_business_json("media_1.json", username))["body"]  # 字符串传化为json 对象 dict
 		args = filternode
 		jsons = json.dumps(jsons,ensure_ascii=False)
-		jsons = jsons.replace(" ","")
+		jsons = jsons.replace(" ", "")
 
 		resultjson=[]
 		word=r'({[^}]*[^}]*})'
-		jsons=",".join(re.findall(word,jsons))
+		jsons=",".join(re.findall(word, jsons))
 
-		for x in xrange(0,len(args)):
-		  if args[x][0]=="tjtype":
-			tjtype=args[x][1]
-		  if args[x][0]=="channel_name"  or args[x][0]=="agent" or args[x][0]=="staff" :
-			if args[x][1]!="":
-			  word=r'({[^}]*"'+args[x][0]+'":"'+args[x][1].replace(',','"[^}]*}|{[^}]*"'+args[x][0]+'":"')+'"[^}]*})'
-	  
-			  jsons=",".join(re.findall(word,jsons))
-		   
-			else:
-			  word=r'({[^}]*[^}]*})'
-			  jsons=",".join(re.findall(word,jsons))
+		for x in xrange(0, len(args)):
+			if args[x][0]=="tjtype":
+				tjtype=args[x][1]
+			if args[x][0]=="channel_name" or args[x][0]=="agent" or args[x][0]=="staff" or args[x][0]=="platform" :
+				if args[x][1]!="":
+					word=r'({[^}]*"'+args[x][0]+'":"'+args[x][1].replace(',','"[^}]*}|{[^}]*"'+args[x][0]+'":"')+'"[^}]*})'
+					jsons=",".join(re.findall(word,jsons))
+				else:
+					word=r'({[^}]*[^}]*})'
+					jsons=",".join(re.findall(word,jsons))
 
 
 		jsons=jsons.replace('"r1":""','"r1":0')
@@ -95,5 +93,5 @@ class cMediaOverview:
 				jsons[x]["CPA"]=float(float(jsons[x]["spend"])/float(jsons[x]["double_new"])) if float(jsons[x]["double_new"])!= 0 else 0
 				#print(jsons[x]["paid_account"],jsons[x]["ad_account_new"],jsons[x]["paid_account"]/jsons[x]["ad_account_new"])
 		jsons=json.dumps(jsons)
-		jsons = jsons.replace(" ","") 
-		return jsons 
+		jsons = jsons.replace(" ", "")
+		return jsons

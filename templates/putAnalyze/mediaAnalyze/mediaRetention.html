@@ -42,7 +42,18 @@
             </div>
         </div>
         <div id="FilterQueryList">
-            <div id="List01" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="channel">
+            <div id="List01" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="platform">
+                <strong class="tit">平台</strong>
+                <div class="conF checkboxF">
+                    <ul class="any">
+                        <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
+                    </ul>
+                    <ul class="initial"></ul>
+                    <ul class="list"></ul>
+                    <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
+                </div>
+            </div>
+            <div id="List02" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="channel">
                 <strong class="tit">媒体</strong>
                 <div class="conF checkboxF">
                     <ul class="any">
@@ -53,7 +64,7 @@
                     <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
                 </div>
             </div>
-            <div id="List02" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="agent">
+            <div id="List03" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="agent">
                 <strong class="tit">代理</strong>
                 <div class="conF checkboxF">
                     <ul class="any">
@@ -64,7 +75,7 @@
                     <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
                 </div>
             </div>
-            <div id="List03" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="staff">
+            <div id="List04" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="staff">
                 <strong class="tit">负责</strong>
                 <div class="conF checkboxF">
                     <ul class="any">
@@ -531,8 +542,7 @@ var timeTo = new Date(time - 1000 * 60 * 60 * 24).Format("yyyy-MM-dd");
 $("#timeTo").val(timeTo);
 </script>
 <!-- 日历筛选 -->
-<!-- <script src="/static/js/Filter.js"></script> -->
-<script src="/static/js/Filter.js"></script>
+<script src="/static/js/Filter_platform.js"></script>
 <!--筛选需要的js-->
 <script type="text/javascript">
 var demo1 = null;
@@ -581,6 +591,7 @@ var demo3 = null;
 
 // 时间筛选+条件筛选
 $("#chaxun").click(function() {
+        var TJ_platform= new Array();
         var TJ_staff= new Array();
         var TJ_agnet =new Array();
         var TJ_channel=new Array();
@@ -599,15 +610,15 @@ $("#chaxun").click(function() {
         fromToTime.push(new Date(flag).Format("yyyy-MM-dd"));
     }
 
-
+        $("#FilterTagSelected [data-platform]").each(function(){TJ_platform.push($(this).text());});
         $("#FilterTagSelected [data-channel]").each(function(){TJ_channel.push($(this).text());});
         $("#FilterTagSelected [data-agent]").each(function(){TJ_agnet.push($(this).text());});
         $("#FilterTagSelected [data-staff]").each(function(){TJ_staff.push($(this).text());});
 
 
-        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson?{{sjs}}&channel_name=" + TJ_channel.join(",") + "&agent=" + TJ_agnet.join(",") + "&staff=" + TJ_staff.join(",")});
-        $("#table3").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson3?{{sjs}}&channel_name=" + TJ_channel.join(",") + "&agent=" + TJ_agnet.join(",") + "&staff=" + TJ_staff.join(",")});
-        $("#table2").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson2?{{sjs}}&channel_name=" + TJ_channel.join(",") + "&agent=" + TJ_agnet.join(",") + "&staff=" + TJ_staff.join(",")});
+        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson?{{sjs}}&channel_name=" + TJ_channel.join(",") + "&platform=" + TJ_platform.join(",") + "&agent=" + TJ_agnet.join(",") + "&staff=" + TJ_staff.join(",")});
+        $("#table3").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson3?{{sjs}}&channel_name=" + TJ_channel.join(",") + "&platform=" + TJ_platform.join(",") + "&agent=" + TJ_agnet.join(",") + "&staff=" + TJ_staff.join(",")});
+        $("#table2").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson2?{{sjs}}&channel_name=" + TJ_channel.join(",") + "&platform=" + TJ_platform.join(",") + "&agent=" + TJ_agnet.join(",") + "&staff=" + TJ_staff.join(",")});
         //条件筛选完成后,重新设置 piece chart
       //  setTimeout("setPieceChart();",2000);
          $("#table").bootstrapTable('filterBy',{

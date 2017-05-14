@@ -58,7 +58,6 @@ def get_first_letter(char):
        return "z"
 
 def p_analyzeTJ(username,filternode):
-
     game_id=[]
     platform=[]
     channel_name=[]
@@ -80,7 +79,7 @@ def p_analyzeTJ(username,filternode):
     for x in xrange(0,len(args)):
       if args[x][0]=="tjtype":
         tjtype=args[x][1]
-      if args[x][0]=="channel_name"   or args[x][0]=="agent" or args[x][0]=="staff" :
+      if args[x][0]=="channel_name" or args[x][0]=="agent" or args[x][0]=="staff" or args[x][0]=="platform":
         if args[x][1]!="":
           word=r'({[^}]*"'+args[x][0]+'":"'+args[x][1].replace(',','"[^}]+}|{[^}]+"'+args[x][0]+'":"')+'"[^}]*})'
   
@@ -95,12 +94,12 @@ def p_analyzeTJ(username,filternode):
 
     for x in xrange(0,len(jsons)):
       #game_id.append(jsons[x]["game_id"])
-      #platform.append(jsons[x]["platform"])
+      platform.append(jsons[x]["platform"])
       channel_name.append(jsons[x]['channel_name'])
       agent.append(jsons[x]['agent'])
       staff.append(jsons[x]['staff'])
     #game_id=list(set(game_id))
-    #platform=list(set(platform))
+    platform=list(set(platform))
     channel_name=list(set(channel_name))
     agent=list(set(agent))
     staff=list(set(staff))
@@ -119,10 +118,10 @@ def p_analyzeTJ(username,filternode):
       for x in xrange(0,len(staff)):
         tj+='{"staff":"'+str(staff[x])+'","initial":"'+str(get_first_letter(staff[x]))+'"},'
       tj=tj[0:-1]
-    # if tjtype=="platform":
-    #   for x in xrange(0,len(platform)):
-    #     tj+='{"platform":"'+str(platform[x])+'","initial":"'+str(get_first_letter(platform[x]))+'"},'
-    #   tj=tj[0:-1]
+    if tjtype=="platform":
+      for x in xrange(0,len(platform)):
+        tj+='{"platform":"'+str(platform[x])+'","initial":"'+str(get_first_letter(platform[x]))+'"},'
+      tj=tj[0:-1]
     tj=tj+']'
     
 
