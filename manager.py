@@ -71,10 +71,17 @@ def widget():
 @app.route('/spider_test')
 def spider_test():
     return render_template("spider_test.html", title=U"面板")
-@app.route('/spiderjson')
-def spiderjson():
+
+@app.route('/media_quality')
+def media_quality():
+    return render_template("media_quality.html", title=U"面板")
+
+
+
+@app.route('/media_quality_json')
+def media_quality_json():
     result=""
-    filename="test.json"
+    filename="test_test_2.json"
     pattern=[]
     pwd="../../static/json/"+str(filename)
     pwd="./static/json/"+str(filename)  # flask 项目当前目录是zilong根目录

@@ -2011,6 +2011,292 @@ ORDER BY a.gamename,a.date,a.platform,a.channel_name,a.agent
 	word=word.replace('"staff":"-"','"staff":"weizhi_none"')
 
 	create_json(word,"media_1")
+
+
+
+
+
+
+def export_meida_test():#媒体分析 留存内容
+	game_id=[]
+	platform=[]
+	date_=[]
+	channel_name=[]
+	ad_Creative=[]
+	ad_click=[]
+	ad_action=[]
+	ad_action_new=[]
+	ad_action_new_back=[]
+	ad_account_new_double=[]
+	ad_pay_new=[]
+	ad_pay_back=[]
+	ad_AU_5=[]
+	ad_create_role=[]
+	ad_role_31=[]
+	dis_spend=[]
+	agent=[]
+	re_0=[]
+	re_1=[]
+	re_2=[]
+	re_3=[]
+	re_4=[]
+	re_5=[]
+	re_6=[]
+	re_7=[]
+	online0=[]
+	online1=[]
+	online2=[]
+	online3=[]
+	online4=[]
+	online5=[]
+	online6=[]
+	online7=[]
+	accountid=[]
+	logincount_0=[]
+	logincount_1=[]
+	logincount_2=[]
+	logincount_3=[]
+	logincount_4=[]
+	logincount_5=[]
+	logincount_6=[]
+	logincount_7=[]
+	level_0=[]
+	level_1=[]
+	level_2=[]
+	level_3=[]
+	level_4=[]
+	level_5=[]
+	level_6=[]
+	level_7=[]
+	money_all=[]
+	logintime_all=[]
+	logincount=[]
+	level_all=[]
+	sql="""
+SELECT b.ad_id,b.game_id,b.platform,b.DATE,b.game_channel,b.agent,b.ad_Creative,b.accountid,0,
+a.money_0,
+a.money_1,
+a.money_2,
+a.money_3,
+a.money_4,
+a.money_5,
+a.money_6,
+a.money_7,
+b.logincount_0,
+b.logincount_1,
+b.logincount_2,
+b.logincount_3,
+b.logincount_4,
+b.logincount_5,
+b.logincount_6,
+b.logincount_7,
+b.logintime_0,
+b.logintime_1,
+b.logintime_2,
+b.logintime_3,
+b.logintime_4,
+b.logintime_5,
+b.logintime_6,
+b.logintime_7,
+CAST(c.level_0 AS UNSIGNED) AS level_0,
+CAST(c.level_1 AS UNSIGNED) AS level_1,
+CAST(c.level_2 AS UNSIGNED) AS level_2,
+CAST(c.level_3 AS UNSIGNED) AS level_3,
+CAST(c.level_4 AS UNSIGNED) AS level_4,
+CAST(c.level_5 AS UNSIGNED) AS level_5,
+CAST(c.level_6 AS UNSIGNED) AS level_6,
+CAST(c.level_7 AS UNSIGNED) AS level_7,
+a.money_all,
+b.logintime_all,
+b.logincount,
+CAST(c.level_all AS UNSIGNED) AS level_all
+ FROM 
+(
+SELECT ad_id,game_id,platform,DATE,game_channel,agent,ad_Creative,accountid,
+CASE WHEN DATEDIFF(recharge_time,DATE)=0  THEN SUM(money) ELSE NULL END  AS money_0,
+CASE WHEN DATEDIFF(recharge_time,DATE)=1  THEN SUM(money) ELSE NULL END  AS money_1,
+CASE WHEN DATEDIFF(recharge_time,DATE)=2  THEN SUM(money) ELSE NULL END  AS money_2,
+CASE WHEN DATEDIFF(recharge_time,DATE)=3  THEN SUM(money) ELSE NULL END  AS money_3,
+CASE WHEN DATEDIFF(recharge_time,DATE)=4  THEN SUM(money) ELSE NULL END  AS money_4,
+CASE WHEN DATEDIFF(recharge_time,DATE)=5  THEN SUM(money) ELSE NULL END  AS money_5,
+CASE WHEN DATEDIFF(recharge_time,DATE)=6  THEN SUM(money) ELSE NULL END  AS money_6,
+CASE WHEN DATEDIFF(recharge_time,DATE)=7  THEN SUM(money) ELSE NULL END  AS money_7,
+SUM(money)  AS money_all
+FROM  `recharge_detail` 
+WHERE DATE>"2017-05-10"
+GROUP BY 
+ad_id,game_id,platform,DATE,game_channel,agent,ad_Creative,accountid
+) a
+RIGHT JOIN 
+(
+SELECT ad_id,game_id,platform,DATE,game_channel,agent,ad_Creative,accountid ,
+CASE WHEN DATEDIFF(logouttime,DATE)=0  THEN COUNT(logouttime) ELSE 0 END  AS logincount_0,
+CASE WHEN DATEDIFF(logouttime,DATE)=1  THEN COUNT(logouttime) ELSE 0 END  AS logincount_1,
+CASE WHEN DATEDIFF(logouttime,DATE)=2  THEN COUNT(logouttime) ELSE 0 END  AS logincount_2,
+CASE WHEN DATEDIFF(logouttime,DATE)=3  THEN COUNT(logouttime) ELSE 0 END  AS logincount_3,
+CASE WHEN DATEDIFF(logouttime,DATE)=4  THEN COUNT(logouttime) ELSE 0 END  AS logincount_4,
+CASE WHEN DATEDIFF(logouttime,DATE)=5  THEN COUNT(logouttime) ELSE 0 END  AS logincount_5,
+CASE WHEN DATEDIFF(logouttime,DATE)=6  THEN COUNT(logouttime) ELSE 0 END  AS logincount_6,
+CASE WHEN DATEDIFF(logouttime,DATE)=7  THEN COUNT(logouttime) ELSE 0 END  AS logincount_7,
+CASE WHEN DATEDIFF(logouttime,DATE)=0  THEN SUM(TIME) ELSE 0 END  AS logintime_0,
+CASE WHEN DATEDIFF(logouttime,DATE)=1  THEN SUM(TIME) ELSE 0 END  AS logintime_1,
+CASE WHEN DATEDIFF(logouttime,DATE)=2  THEN SUM(TIME) ELSE 0 END  AS logintime_2,
+CASE WHEN DATEDIFF(logouttime,DATE)=3  THEN SUM(TIME) ELSE 0 END  AS logintime_3,
+CASE WHEN DATEDIFF(logouttime,DATE)=4  THEN SUM(TIME) ELSE 0 END  AS logintime_4,
+CASE WHEN DATEDIFF(logouttime,DATE)=5  THEN SUM(TIME) ELSE 0 END  AS logintime_5,
+CASE WHEN DATEDIFF(logouttime,DATE)=6  THEN SUM(TIME) ELSE 0 END  AS logintime_6,
+CASE WHEN DATEDIFF(logouttime,DATE)=7  THEN SUM(TIME) ELSE 0 END  AS logintime_7,
+SUM(TIME) AS logintime_all,
+COUNT(logouttime) AS logincount
+ FROM  `logout_detail` 
+ WHERE DATE>"2017-05-10"
+  GROUP BY ad_id,game_id,platform,DATE,game_channel,agent,ad_Creative,accountid
+) b
+ON a.ad_id=b.ad_id
+AND a.game_id=b.game_id
+AND a.platform=b.platform
+AND a.date=b.date
+AND a.game_channel=b.game_channel
+AND a.agent=b.agent
+AND a.ad_Creative=b.ad_Creative
+AND a.accountid=b.accountid
+LEFT JOIN 
+(
+SELECT ad_id,game_id,platform,DATE,game_channel,agent,ad_Creative,accountid,
+CASE WHEN DATEDIFF(leveluptime,DATE)=0  THEN MAX(level_after) ELSE 0 END  AS level_0,
+CASE WHEN DATEDIFF(leveluptime,DATE)=1  THEN MAX(level_after) ELSE 0 END  AS level_1,
+CASE WHEN DATEDIFF(leveluptime,DATE)=2  THEN MAX(level_after) ELSE 0 END  AS level_2,
+CASE WHEN DATEDIFF(leveluptime,DATE)=3  THEN MAX(level_after) ELSE 0 END  AS level_3,
+CASE WHEN DATEDIFF(leveluptime,DATE)=4  THEN MAX(level_after) ELSE 0 END  AS level_4,
+CASE WHEN DATEDIFF(leveluptime,DATE)=5  THEN MAX(level_after) ELSE 0 END  AS level_5,
+CASE WHEN DATEDIFF(leveluptime,DATE)=6  THEN MAX(level_after) ELSE 0 END  AS level_6,
+CASE WHEN DATEDIFF(leveluptime,DATE)=7  THEN MAX(level_after) ELSE 0 END  AS level_7,
+MAX(level_after) AS level_all
+FROM  `level_detail`
+ WHERE DATE>"2017-05-10"
+GROUP BY 
+
+ad_id,game_id,platform,DATE,game_channel,agent,ad_Creative,accountid
+) c
+ON b.ad_id=c.ad_id
+AND b.game_id=c.game_id
+AND b.platform=c.platform
+AND b.date=c.date
+AND b.game_channel=c.game_channel
+AND b.agent=c.agent
+AND b.ad_Creative=c.ad_Creative
+AND b.accountid=c.accountid
+
+
+ 		"""
+	conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
+	cur_1 = conn.cursor()
+	cur_1.execute(sql)
+	res=cur_1.fetchall()
+	print(len(res))
+	if len(res)>1:
+
+
+		for r in res:
+
+			game_id.append(r[1])
+			platform.append(r[2])
+			date_.append(r[3])
+			channel_name.append(r[4])
+			agent.append(r[5])
+			ad_Creative.append(r[6])
+			accountid.append(r[7])
+			re_0.append(str(r[9]))
+			re_1.append(str(r[10]))
+			re_2.append(str(r[11]))
+			re_3.append(str(r[12]))
+			re_4.append(str(r[13]))
+			re_5.append(str(r[14]))
+			re_6.append(str(r[15]))
+			re_7.append(str(r[16]))
+
+			logincount_0.append(str(r[17]))
+			logincount_1.append(str(r[18]))
+			logincount_2.append(str(r[19]))
+			logincount_3.append(str(r[20]))
+			logincount_4.append(str(r[21]))
+			logincount_5.append(str(r[22]))
+			logincount_6.append(str(r[23]))
+			logincount_7.append(str(r[24]))
+
+			online0.append(str(r[25]))
+			online1.append(str(r[26]))
+			online2.append(str(r[27]))
+			online3.append(str(r[28]))
+			online4.append(str(r[29]))
+			online5.append(str(r[30]))
+			online6.append(str(r[31]))
+			online7.append(str(r[32]))
+
+
+			level_0.append(str(r[33]))
+			level_1.append(str(r[34]))
+			level_2.append(str(r[35]))
+			level_3.append(str(r[36]))
+			level_4.append(str(r[37]))
+			level_5.append(str(r[38]))
+			level_6.append(str(r[39]))
+			level_7.append(str(r[40]))
+			money_all.append(str(r[41]))
+			logintime_all.append(str(r[42]))
+			logincount.append(str(r[43]))
+			level_all.append(str(r[44]))
+
+	word="["
+	for i in xrange(0,len(res)):
+ 
+		word=word+'{'
+		word=word+'"game_id":"'+str(game_id[i])+'",'+'"platform":"'+str(platform[i])+'",'+'"channel_name":"'+str(channel_name[i])+'",'+'"agent":"'+str(agent[i])+'",'+'"date_time":"'+str(date_[i])+'",'+'"ad_Creative":"'+str(ad_Creative[i])+'",'+'"accountid":"'+str(accountid[i])+'",'\
+		+'"re_0":"'+str(re_0[i])+'",'\
+		+'"re_1":"'+str(re_1[i])+'",'\
+		+'"re_2":"'+str(re_2[i])+'",'\
+		+'"re_3":"'+str(re_3[i])+'",'\
+		+'"re_4":"'+str(re_4[i])+'",'\
+		+'"re_5":"'+str(re_5[i])+'",'\
+		+'"re_6":"'+str(re_6[i])+'",'\
+		+'"re_7":"'+str(re_7[i])+'",'\
+		+'"money_all":"'+str(money_all[i])+'",'\
+		+'"logintime_all":"'+str(logintime_all[i])+'",'\
+		+'"logincount":"'+str(logincount[i])+'",'\
+		+'"level_all":"'+str(level_all[i])+'",'\
+		+'"logincount_0":"'+str(logincount_0[i])+'",'\
+		+'"logincount_1":"'+str(logincount_1[i])+'",'\
+		+'"logincount_2":"'+str(logincount_2[i])+'",'\
+		+'"logincount_3":"'+str(logincount_3[i])+'",'\
+		+'"logincount_4":"'+str(logincount_4[i])+'",'\
+		+'"logincount_5":"'+str(logincount_5[i])+'",'\
+		+'"logincount_6":"'+str(logincount_6[i])+'",'\
+		+'"logincount_7":"'+str(logincount_7[i])+'",'\
+		+'"online_0":"'+str(online0[i])+'",'\
+		+'"online_1":"'+str(online1[i])+'",'\
+		+'"online_2":"'+str(online2[i])+'",'\
+		+'"online_3":"'+str(online3[i])+'",'\
+		+'"online_4":"'+str(online4[i])+'",'\
+		+'"online_5":"'+str(online5[i])+'",'\
+		+'"online_6":"'+str(online6[i])+'",'\
+		+'"online_7":"'+str(online7[i])+'",'\
+		+'"level_0":"'+str(level_0[i])+'",'\
+		+'"level_1":"'+str(level_1[i])+'",'\
+		+'"level_2":"'+str(level_2[i])+'",'\
+		+'"level_3":"'+str(level_3[i])+'",'\
+		+'"level_4":"'+str(level_4[i])+'",'\
+		+'"level_5":"'+str(level_5[i])+'",'\
+		+'"level_6":"'+str(level_6[i])+'",'\
+		+'"level_7":"'+str(level_7[i])+'"},\n'
+		
+	word=word[0:-2]+']'
+	word=word.replace('"None"','""')
+	create_json(word,"test_test_2")
+
+
+
+
+
 def create_json(word,name):
 	file_object = open(os.getcwd()+'/../../static/json/'+name+'.json','w')
 	file_object.write(word)
@@ -2020,6 +2306,6 @@ def create_json(word,name):
 
 if __name__ == '__main__':
 		print time.asctime(time.localtime(time.time()))
-		export_meida_all()
+
+		export_meida_test()
 		print time.asctime(time.localtime(time.time()))
-		export_meida_TJ()
