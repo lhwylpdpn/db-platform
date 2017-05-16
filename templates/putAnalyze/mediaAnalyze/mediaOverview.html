@@ -30,7 +30,7 @@
 </div>
 <div class="page-content">
 
-<script src="/static/js/Filter.js"></script><!--筛选需要的js-->
+<script src="/static/js/Filter_platform.js"></script><!--筛选需要的js-->
 <script type="text/javascript" src="/static/js/bootstrap-table.js"></script>
 <script type="text/javascript" src="/static/js/bootstrap-table-multiple-sort.js"></script>
     <script type="text/javascript" src="/static/date_dropper/datedropper.js"></script>
@@ -59,7 +59,18 @@
             </div>
         </div>
         <div id="FilterQueryList">
-            <div id="List01" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="channel">
+            <div id="List01" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="platform">
+                <strong class="tit">平台</strong>
+                <div class="conF checkboxF">
+                    <ul class="any">
+                        <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
+                    </ul>
+                    <ul class="initial"></ul>
+                    <ul class="list"></ul>
+                    <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
+                </div>
+            </div>
+            <div id="List02" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="channel">
                 <strong class="tit">媒体</strong>
                 <div class="conF checkboxF">
                     <ul class="any">
@@ -70,7 +81,7 @@
                     <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
                 </div>
             </div>
-            <div id="List02" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="agent">
+            <div id="List03" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="agent">
                 <strong class="tit">代理</strong>
                 <div class="conF checkboxF">
                     <ul class="any">
@@ -81,7 +92,7 @@
                     <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
                 </div>
             </div>
-            <div id="List03" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="staff">
+            <div id="List04" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="staff">
                 <strong class="tit">负责</strong>
                 <div class="conF checkboxF">
                     <ul class="any">
@@ -388,6 +399,7 @@ benchmark on
          $("#pannel_4").html("计算中");
          $("#pannel_5").html("计算中");
 
+        var TJ_platform= new Array();
         var TJ_staff= new Array();
         var TJ_agnet =new Array();
         var TJ_channel=new Array();
@@ -405,13 +417,13 @@ benchmark on
             fromToTime.push( new Date(flag).Format("yyyy-MM-dd") );
         }
 
-
+        $("#FilterTagSelected [data-platform]").each(function(){TJ_platform.push($(this).text());});
         $("#FilterTagSelected [data-channel]").each(function(){TJ_channel.push($(this).text());});
         $("#FilterTagSelected [data-agent]").each(function(){TJ_agnet.push($(this).text());});
         $("#FilterTagSelected [data-staff]").each(function(){TJ_staff.push($(this).text());});
  
 
-        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name=" + TJ_channel.join(",") + "&agent=" + TJ_agnet.join(",") + "&staff=" + TJ_staff.join(",")} );
+        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name=" + TJ_channel.join(",") + "&platform=" + TJ_platform.join(",")+ "&agent=" + TJ_agnet.join(",") + "&staff=" + TJ_staff.join(",")} );
 
         $("#table").bootstrapTable('filterBy',{
             date_time : fromToTime,
@@ -550,6 +562,7 @@ benchmark on
     });
 
     //以下三列用于筛选 不需要显示
+    $("#table").bootstrapTable('hideColumn', 'platform');
     $("#table").bootstrapTable('hideColumn', 'channel_name');
     $("#table").bootstrapTable('hideColumn', 'agent');
     $("#table").bootstrapTable('hideColumn', 'staff');
