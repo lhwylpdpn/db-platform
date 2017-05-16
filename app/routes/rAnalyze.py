@@ -68,12 +68,6 @@ def mediaRetentionJson_3():
     return results
 
 
-# @analyzeBp.route('/mediaRetentionTJ')
-# def mediaRetentionTJ():
-#     results = cMediaRetention.mediaRetentionTJ(session["username"])
-#     return results
-
-
 @analyzeBp.route('/analyzeTJ')
 def analyzeTJ():
     print(datetime.datetime.now())
