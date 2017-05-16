@@ -69,6 +69,7 @@ def import_excel_add():
 				cur_1.execute(sql)
 			conn.commit()
 			print("5sql ok")
+
 def import_excel():
 	#pwd="/Users/liuhao/Desktop/zilong/app/controler/"
 	pwd="/data1/bidata/1452827692979/"
@@ -944,8 +945,6 @@ group by a.date,a.channel_name,a.agent
 			word=word+'"ad_action":"'+str(int(r[5]))+'",'
 			word=word+'"ad_action_new":"'+str(int(r[6]))+'",'
 			word=word+'"ad_account_new":"'+str(int(r[7]))+'",'
-			print(str(int(r[8])))
-			print(r[8])
 			word=word+'"double_new":"'+str(int(r[8]))+'",'
 			word=word+'"back_user":"'+str(int(r[9]))+'",'
 			word=word+'"paid_account":"'+str(int(r[10]))+'",'
