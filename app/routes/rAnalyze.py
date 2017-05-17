@@ -19,7 +19,6 @@ def mediaOverview():
     return render_template("putAnalyze/mediaAnalyze/mediaOverview.html", title=U"媒体概览", sjs=random.random())
 
 
-
 @analyzeBp.route('/mediaOverviewJson')
 def mediaOverviewJson():
     results = cMediaOverview.mediaOverviewJson(session["username"],request.args.items())
@@ -56,25 +55,20 @@ def mediaRetentionJson():
     results=cMediaRetention.mediaRetentionJson(session["username"])
     return results
 
+
 @analyzeBp.route('/mediaRetentionJson2')
 def mediaRetentionJson_2():
     results=cMediaRetention.mediaRetentionJson_2(session["username"])
     return results
+
+
 @analyzeBp.route('/mediaRetentionJson3')
 def mediaRetentionJson_3():
     results=cMediaRetention.mediaRetentionJson_3(session["username"])
     return results
 
 
-# @analyzeBp.route('/mediaRetentionTJ')
-# def mediaRetentionTJ():
-#     results = cMediaRetention.mediaRetentionTJ(session["username"])
-
-#     return results
-
-
 @analyzeBp.route('/analyzeTJ')
-
 def analyzeTJ():
     print(datetime.datetime.now())
     results = p_analyzeTJ(session["username"],request.args.items())
