@@ -20,6 +20,9 @@ from Config import Config
 import time
 import pymysql
 import csv
+
+import threading
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
 def import_csv(file_pwd,filename,table,type):
@@ -46,13 +49,18 @@ def import_csv(file_pwd,filename,table,type):
 
 			i=i+1
 
-			if i>5000:
+			if i>15000:
+				
+	
 				sql="insert into "+tablename+"  values "+sql
 				sql=sql.strip(',')+";"
+			
+		
 				conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
 				cursor=conn.cursor()
 				cursor.execute(sql)
 				conn.commit()
+				conn.close()
 				sql=""
 				i=0
 				j=j+1
@@ -63,11 +71,13 @@ def import_csv(file_pwd,filename,table,type):
  
 		sql="insert into "+tablename+"  values "+sql
 		sql=sql.strip(',')+";"
-		#print(sql)
+		print(sql)
+		
+		conn = pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
 		cursor=conn.cursor()
-		conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
 		cursor.execute(sql)
 		conn.commit()
+		conn.close()
 	else:
 		print(pwd+file+" not found")
 
@@ -142,9 +152,9 @@ if __name__ == '__main__':
 	#import_check("/data1/bidata/1452827692979/","market_logout_log_all.csv")
 
 
-	import_csv("C:\Users\Zlongame0156\Documents\market_detail_history\\","market_login_log_2016-07-04~2017-05-15.csv",'login_detail','all')
-	print("login ok")
-	import_csv("C:\Users\Zlongame0156\Documents\market_detail_history\\","market_logout_log_2016-07-04~2017-05-15.csv",'logout_detail','all')
-	print("logout ok")
-	import_csv("C:\Users\Zlongame0156\Documents\market_detail_history\\","market_levelup_log_2016-07-04~2017-05-15.csv",'level_detail','all')
-	print("level up ok")
+	# import_csv("C:\Users\Zlongame0156\Documents\market_detail_history\\","market_login_log_2016-07-04~2017-05-15.csv",'login_detail','all')
+	# print("login ok")
+	#import_csv("/var/www/zilong_new/","market_logout_log_2016-07-04~2017-05-15.csv",'logout_detail','all')
+	# print("logout ok")
+	import_csv("/var/www/zilong_new/","market_login_log_2016-07-04~2017-05-15.csv",'login_detail','all')
+	print("login_detail up ok")
