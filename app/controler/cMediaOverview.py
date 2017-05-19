@@ -24,6 +24,13 @@ class cMediaOverview:
 			if args[x][0]=="tjtype":
 				tjtype=args[x][1]
 			if args[x][0]=="channel_name" or args[x][0]=="agent" or args[x][0]=="staff" or args[x][0]=="platform" :
+				if args[x][1]!="":
+					word=r'({[^}]*"'+args[x][0]+'":"'+args[x][1].replace(',','"[^}]*}|{[^}]*"'+args[x][0]+'":"')+'"[^}]*})'
+					jsons=",".join(re.findall(word,jsons))
+				else:
+					word=r'({[^}]*[^}]*})'
+					jsons=",".join(re.findall(word,jsons))
+
 		jsons=jsons.replace('"r1":""','"r1":0')
 		jsons=jsons.replace('"r29":""','"r29":0')
 		jsons=jsons.replace('"r6":""','"r6":0')
@@ -36,12 +43,6 @@ class cMediaOverview:
 
 		jsons.sort(key=lambda jsons:jsons.get("date_time",0))
 
-				if args[x][1]!="":
-					word=r'({[^}]*"'+args[x][0]+'":"'+args[x][1].replace(',','"[^}]*}|{[^}]*"'+args[x][0]+'":"')+'"[^}]*})'
-					jsons=",".join(re.findall(word,jsons))
-				else:
-					word=r'({[^}]*[^}]*})'
-					jsons=",".join(re.findall(word,jsons))
 
 
 		for x in xrange(1,len(jsons)):
