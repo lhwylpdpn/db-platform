@@ -81,7 +81,7 @@ def import_csv(file_pwd,filename,table,type):
 
 def import_clac():#补充自然量的数据到spend表
 
-	sql="INSERT INTO spend SELECT NULL,DATE,game_id,platform,'ziranliang',game_channel,agent,'ziranliang',0,0.1,0,0,0,"-",0,0 FROM `ad_action_v2` WHERE ad_id IN ('10','20') GROUP BY game_id,platform,DATE,game_channel,agent"
+	sql="INSERT INTO spend SELECT NULL,DATE,game_id,platform,'ziranliang',game_channel,agent,'ziranliang',0,0.1,0,0,0,'-',0,0 FROM `ad_action_v2` WHERE ad_id IN ('10','20') GROUP BY game_id,platform,DATE,game_channel,agent"
 	conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
 	cursor=conn.cursor()
 	cursor.execute(sql)

@@ -450,12 +450,15 @@ CASE WHEN spend >0 THEN spend  ELSE 0 END AS spend ,
 CASE WHEN retention1 >0 THEN retention1  ELSE 0 END AS retention1,
 CASE WHEN retention6 >0 THEN retention6  ELSE 0 END AS retention6,
 CASE WHEN retention29 >0 THEN retention29 ELSE 0 END AS retention29,
-CASE WHEN huoyue >0 THEN huoyue ELSE 0 END AS huoyue 
+CASE WHEN huoyue >0 THEN huoyue ELSE 0 END AS huoyue  
+
+
 FROM 
 (
 SELECT a.gamename,a.platform,a.date,a.channel_name,a.agent,c.ad_click,c.ad_action,c.ad_new,c.ad_new_back,c.ad_pay_new,c.ad_pay_back,c.ad_role_31,c.ad_AU_5 ,b.liushui ,a.spend,a.staff
 ,d.retention1,d.retention6,d.retention29,e.huoyue
-FROM (SELECT DATE,gamename,platform,channel_name,agent ,SUM(dis_spend) AS spend,staff FROM spend  where class_A in ("投放","ziranliang") and gamename="1452827692979"   and platform="IOS正版" and today_spend>0 GROUP BY DATE,gamename,platform,channel_name,agent
+FROM (
+SELECT DATE,gamename,platform,channel_name,agent ,today_spend,today_budget,SUM(dis_spend) AS spend,staff FROM spend  WHERE ( class_A IN ("投放","ziranliang") AND gamename="1452827692979" and platform='IOS正版' and today_spend>0) and ( class_A IN ("投放","ziranliang") AND gamename="1452827692979" and platform='安卓') GROUP BY DATE,gamename,platform,channel_name,agent
 
 
  ) a
@@ -1211,7 +1214,7 @@ GROUP BY DATE,game_id,platform,game_channel,agent
 ) d
 
 ON  a.gamename=d.game_id AND a.date=d.date  AND  a.channel_name=d.game_channel AND a.agent =d.agent  AND a.platform=d.platform
-left join 
+LEFT JOIN 
 (
 
  SELECT game_id,platform,DATE,game_channel,agent ,
@@ -1954,6 +1957,12 @@ ON  a.gamename=e.game_id AND a.date=e.date  AND  a.channel_name=e.game_channel A
 ORDER BY a.gamename,a.date,a.platform,a.channel_name,a.agent
 
 ) a 
+
+
+
+
+
+
 
 
 
