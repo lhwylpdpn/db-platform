@@ -153,6 +153,9 @@ $(function() {
                 if(openNum==1 && !$(this).parents('.filterlist').data('open')){
                     $(this).parents('.filterlist').attr('data-open','2');
                 }
+                if(openNum==2 && !$(this).parents('.filterlist').data('open')){
+                    $(this).parents('.filterlist').attr('data-open','3');
+                }
                 //联动load
                 var idValue = $(this).parents('.filterlist').data('value'),
                     idOpen = $(this).parents('.filterlist').data('open'),
@@ -183,6 +186,7 @@ $(function() {
                         staffList='staff='+valueList;
                     };
                 });
+                console.log(idValue +  " ................. " + idOpen );
                 //platform
                 if (idValue=='platform'){
                     if (idOpen==1) {
