@@ -8,6 +8,7 @@ from app.controler.cMediaOverview import cMediaOverview
 from app.controler.cNewTransfer import cNewTransfer
 from app.controler.cMediaRetention import cMediaRetention
 from app.controler.public_function import p_analyzeTJ
+from app.controler.cUserAnalyze import cUserAnalyze
 import datetime
 
 analyzeBp = Blueprint('analyze', __name__, url_prefix="/analyze")
@@ -70,7 +71,17 @@ def mediaRetentionJson_3():
 
 @analyzeBp.route('/analyzeTJ')
 def analyzeTJ():
-    print(datetime.datetime.now())
     results = p_analyzeTJ(session["username"],request.args.items())
-    print(datetime.datetime.now())
+    return results
+
+
+@analyzeBp.route('/userAnalyze')
+def userAnalyze():
+    return render_template("putAnalyze/userAnalyze/userAnalyze.html", title=U"新页面", sjs=random.random())
+
+
+@analyzeBp.route('/userAnalyzeJson')
+def userAnalyzeJson():
+    filterS = request.args.items()
+    results = cUserAnalyze.userAnalyzeJson(session["username"], filterS)
     return results
