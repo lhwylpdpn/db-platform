@@ -239,6 +239,7 @@ def staff_rename(result):
 	result=result.replace("zhengcaitong", "郑彩彤")
 	result=result.replace("other", "其他")
 	result=result.replace("linxu", "林旭")
-	result=result.replace("weizhi_none", "自然量")
+	result=result.replace("weizhi_none", "未归类")
+	result=result.replace("zhangchi", "张弛")
 	return result
 

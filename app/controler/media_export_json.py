@@ -458,7 +458,11 @@ FROM
 SELECT a.gamename,a.platform,a.date,a.channel_name,a.agent,c.ad_click,c.ad_action,c.ad_new,c.ad_new_back,c.ad_pay_new,c.ad_pay_back,c.ad_role_31,c.ad_AU_5 ,b.liushui ,a.spend,a.staff
 ,d.retention1,d.retention6,d.retention29,e.huoyue
 FROM (
-SELECT DATE,gamename,platform,channel_name,agent ,today_spend,today_budget,SUM(dis_spend) AS spend,staff FROM spend  WHERE class_A IN ("投放") AND gamename="1452827692979"  GROUP BY DATE,gamename,platform,channel_name,agent
+SELECT DATE,gamename,platform,channel_name,agent ,today_spend,today_budget,SUM(dis_spend) AS spend,staff FROM spend  WHERE 
+(class_A IN ("投放") AND gamename="1452827692979"  AND today_spend>0)
+or (class_A IN ("投放") and platform="安卓" and gamename="1452827692979")
+
+  GROUP BY DATE,gamename,platform,channel_name,agent
 
 
  ) a
@@ -2315,7 +2319,6 @@ def create_json(word,name):
 
 if __name__ == '__main__':
 		print time.asctime(time.localtime(time.time()))
-
 		export_meida_all()
 		print time.asctime(time.localtime(time.time()))
 		export_meida_TJ()
