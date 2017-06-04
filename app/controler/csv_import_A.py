@@ -24,9 +24,17 @@ reload(sys)
 
 sys.setdefaultencoding('utf-8')
 
+def delete_csv(tablename,date):
+
+	sql="delete from "+str(tablename)+" where csv_update_time='"+str(date)+"'"
+
+	conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306,charset='utf8')
+	cursor=conn.cursor()
+	cursor.execute(sql)
+	conn.commit()
 
 
-def import_csv(file_pwd,filename,table,type):
+def import_csv(file_pwd,filename,table):
 
 	test = []
 	pwd=file_pwd
@@ -35,19 +43,8 @@ def import_csv(file_pwd,filename,table,type):
 	statinfo=[]
 	tablename=table
 	sql=""
-	time_tag=str(datetime.datetime.now().strftime('%Y-%m-%d'))
-
-	if type=="all":
-		sql="truncate "+tablename+"  ;"
-	else:
-		sql="delete from "+tablename+"  where csv_update_time='"+time_tag+"';"
-	print(1)
-	conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
-	cursor=conn.cursor()
-	cursor.execute(sql)
-	conn.commit()
-	sql=""
-	print(2)
+	time_tag=str(datetime.datetime.now().strftime('%Y-%m-%d'));
+ 
 	i=0
 	if  os.path.exists(pwd+file):
 		print(pwd+file)
