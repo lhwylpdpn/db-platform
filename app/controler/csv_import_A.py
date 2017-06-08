@@ -25,9 +25,10 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 def delete_csv(tablename,date):
-
-	sql="delete from "+str(tablename)+" where csv_update_time='"+str(date)+"'"
-
+	if date!="":
+		sql="delete from "+str(tablename)+" where csv_update_time='"+str(date)+"'"
+	else:
+		sql="delete from "+str(tablename)	
 	conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306,charset='utf8')
 	cursor=conn.cursor()
 	cursor.execute(sql)
@@ -61,6 +62,7 @@ def import_csv(file_pwd,filename,table):
 			if i>50:
 				sql="insert into "+tablename+"  values "+sql
 				sql=sql.strip(',')+";"
+	
 
 				conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306,charset='utf8')
 				cursor=conn.cursor()
@@ -73,8 +75,9 @@ def import_csv(file_pwd,filename,table):
 		sql="insert into "+tablename+"  values "+sql
 		sql=sql.strip(',')+";"
 		#print(sql)
-		cursor=conn.cursor()
+		
 		conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306,charset='utf8')
+		cursor=conn.cursor()
 		cursor.execute(sql)
 		conn.commit()
 	else:

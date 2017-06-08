@@ -1155,7 +1155,7 @@ def create_json(word,name):
 def main():
 	global conn
 	global cur_1
-	conn=pymysql.connect(host='localhost',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
+	conn=pymysql.connect(host='localhost',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306,charset='utf8')
 	cur_1=conn.cursor()
 	import_excel()
 	import_excel_add()

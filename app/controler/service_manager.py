@@ -46,6 +46,7 @@ if __name__ == '__main__':
 		csv_import_A.import_check("/data1/bidata/1452827692979/","market_levelup_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
 		csv_import_A.import_check("/data1/bidata/1452827692979/","market_logout_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
 		csv_import_A.import_check("/data1/bidata/1452827692979/","market_recharge_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
+		csv_import_A.import_check("/data1/bidata/1452827692979/","market_callback_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
 
 		csv_import_A.import_check("/data1/bidata/1479458217005/","market_newuser_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
 		csv_import_A.import_check("/data1/bidata/1479458217005/","market_logincount_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
@@ -56,26 +57,27 @@ if __name__ == '__main__':
 		csv_import_A.import_check("/data1/bidata/1479458217005/","market_levelup_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
 		csv_import_A.import_check("/data1/bidata/1479458217005/","market_logout_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
 		csv_import_A.import_check("/data1/bidata/1479458217005/","market_recharge_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
+		csv_import_A.import_check("/data1/bidata/1479458217005/","market_callback_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv")
 
-		csv_import_A.delete_csv("ad_action_v2",str(datetime.datetime.now().strftime('%Y-%m-%d')))
+		csv_import_A.delete_csv("ad_action_v2","")
 		csv_import_A.import_csv("/data1/bidata/1452827692979/","market_newuser_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'ad_action_v2')
 		csv_import_A.import_csv("/data1/bidata/1479458217005/","market_newuser_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'ad_action_v2')
 
 
 
-		csv_import_A.delete_csv("ad_logincount_v2",str(datetime.datetime.now().strftime('%Y-%m-%d')))
+		csv_import_A.delete_csv("ad_logincount_v2","")
 		csv_import_A.import_csv("/data1/bidata/1452827692979/","market_logincount_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'ad_logincount_v2')
 		csv_import_A.import_csv("/data1/bidata/1479458217005/","market_logincount_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'ad_logincount_v2')
 
-		csv_import_A.delete_csv("ad_re_money_v2",str(datetime.datetime.now().strftime('%Y-%m-%d')))
+		csv_import_A.delete_csv("ad_re_money_v2","")
 		csv_import_A.import_csv("/data1/bidata/1452827692979/","market_ltv_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'ad_re_money_v2')
 		csv_import_A.import_csv("/data1/bidata/1479458217005/","market_ltv_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'ad_re_money_v2')
 
-		csv_import_A.delete_csv("ad_onlinetime_v2",str(datetime.datetime.now().strftime('%Y-%m-%d')))
+		csv_import_A.delete_csv("ad_onlinetime_v2","")
 		csv_import_A.import_csv("/data1/bidata/1452827692979/","market_onlinetime_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'ad_onlinetime_v2')
 		csv_import_A.import_csv("/data1/bidata/1479458217005/","market_onlinetime_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'ad_onlinetime_v2')
 
-		csv_import_A.delete_csv("ad_retention_v2",str(datetime.datetime.now().strftime('%Y-%m-%d')))
+		csv_import_A.delete_csv("ad_retention_v2","")
 		csv_import_A.import_csv("/data1/bidata/1452827692979/","market_retain_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'ad_retention_v2')
 		csv_import_A.import_csv("/data1/bidata/1479458217005/","market_retain_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'ad_retention_v2')
 
@@ -98,10 +100,19 @@ if __name__ == '__main__':
 		csv_import_A.import_csv("/data1/bidata/1452827692979/","market_recharge_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'recharge_detail')
 		csv_import_A.import_csv("/data1/bidata/1479458217005/","market_recharge_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'recharge_detail_1479458217005')
 
+		csv_import_A.delete_csv("recharge_detail",str(datetime.datetime.now().strftime('%Y-%m-%d')))
+		csv_import_A.import_csv("/data1/bidata/1452827692979/","market_recharge_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'recharge_detail')
+		csv_import_A.import_csv("/data1/bidata/1479458217005/","market_recharge_log_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'recharge_detail_1479458217005')
+
+
+		csv_import_A.delete_csv("ad_action_idfa","")
+		csv_import_A.import_csv("/data1/bidata/1452827692979/","market_callback_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'ad_action_idfa')
+		csv_import_A.import_csv("/data1/bidata/1479458217005/","market_callback_"+str((datetime.datetime.now()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))+".csv",'ad_action_idfa')
+
+
 		csv_import_A.import_clac()#补充自然量的数据到spend表
 
 		print("step3 ok")
-		media_export_json.export_meida_all()
-		media_export_json.export_meida_TJ()
-		time.sleep(60*60*24)
+
+		time.sleep(86400)
 		
