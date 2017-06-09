@@ -181,7 +181,7 @@
 						</button>
 					</div>
 
-					<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini"><!--不知道干啥的-->
+					<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini"><!--不知道干啥的 sidebar的小图标-->
 						<span class="btn btn-success"></span>
 
 						<span class="btn btn-info"></span>
@@ -350,7 +350,7 @@
             </li>
 
             <!--###################################################################  投放报表  ########-->
-            <li class="open"">
+            <li class="open">
                 <a href="#" class="dropdown-toggle" style="background-color:#FFF5ee">
                     <i class="menu-icon fa fa-bar-chart-o"></i>
 							<span class="menu-text">
@@ -846,6 +846,14 @@
 
                         <b class="arrow"></b>
                     </li>
+                    <li class="open">
+                        <a href="/chart">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            组织结构图
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
                 </ul>
             </li>
             {% endif %}
@@ -907,7 +915,7 @@
 		if(pname=="expecting"){
 		    pname="index";
 		};
-
+        //判断菜单导航是否展开
 		for(var i=0;i<$("a").length;i++){
 			//if($($("a")[i]).attr("href")== "/" + pname){
 			if( $($("a")[i]).attr("href").indexOf( pname ) >=0){

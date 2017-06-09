@@ -76,6 +76,10 @@ def spider_test():
 def media_quality():
     return render_template("media_quality.html", title=U"面板")
 
+@app.route('/chart')
+def chart():
+    return render_template("chart.html", title=U"树结构")
+
 
 
 @app.route('/media_quality_json')
@@ -92,4 +96,4 @@ def media_quality_json():
 if __name__ == '__main__':
     # open debug model
     app.debug = True
-    app.run(host='0.0.0.0', port=5000,threaded = True)
+    app.run(host='0.0.0.0', port=5000)
