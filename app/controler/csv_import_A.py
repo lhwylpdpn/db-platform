@@ -59,11 +59,9 @@ def import_csv(file_pwd,filename,table):
 				tag=1
 				continue;
 			i=i+1
-			if i>50:
-				sql="insert into "+tablename+"  values "+sql
-				sql=sql.strip(',')+";"
-	
-
+			if i>10000:
+				sql='insert into '+tablename+'  values '+sql
+				sql=sql.strip(',')+';'
 				conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306,charset='utf8')
 				cursor=conn.cursor()
 				cursor.execute(sql)
@@ -71,9 +69,9 @@ def import_csv(file_pwd,filename,table):
 				sql=""
 				i=0
 
-			sql+="('"+str(row).replace(",","','")+"','"+time_tag+"'),"
-		sql="insert into "+tablename+"  values "+sql
-		sql=sql.strip(',')+";"
+			sql+='("'+str(row).replace(',','","')+'","'+time_tag+'"),'
+		sql='insert into '+tablename+' values '+sql
+		sql=sql.strip(',')+';'
 		#print(sql)
 		
 		conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306,charset='utf8')

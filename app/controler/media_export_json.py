@@ -55,7 +55,7 @@ def export_meida_A():
 
 
  		"""
-	conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
+	conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306,charset='utf8')
 	cur_1 = conn.cursor()
 	cur_1.execute(sql)
 	res=cur_1.fetchall()
@@ -153,7 +153,7 @@ def export_meida_B():#媒体分析 留存内容
  		
 
  		"""
-	conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
+	conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306,charset='utf8')
 	cur_1 = conn.cursor()
 	cur_1.execute(sql)
 	res=cur_1.fetchall()
@@ -280,7 +280,7 @@ def export_meida_C():#媒体分析 留存内容
 
 
  		"""
-	conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
+	conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306,charset='utf8')
 	cur_1 = conn.cursor()
 	cur_1.execute(sql)
 	res=cur_1.fetchall()
@@ -379,7 +379,7 @@ AND a.platform=b.platform AND a.game_channel=b.channel_name AND a.agent=b.agent
 GROUP BY a.`game_id`,a.`platform`,a.`game_channel`,a.`agent`,b.`staff`
 
  		"""
-	conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
+	conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306,charset='utf8')
 	cur_1 = conn.cursor()
 	cur_1.execute(sql)
 	res=cur_1.fetchall()
@@ -1974,7 +1974,7 @@ ORDER BY a.gamename,a.date,a.platform,a.channel_name,a.agent
  		"""
 
 
-	conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
+	conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306,charset='utf8')
 	cur_1 = conn.cursor()
 	cur_1.execute(sql)
 	res=cur_1.fetchall()
@@ -2202,7 +2202,7 @@ AND b.accountid=c.accountid
 
 
  		"""
-	conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306)
+	conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306,charset='utf8')
 	cur_1 = conn.cursor()
 	cur_1.execute(sql)
 	res=cur_1.fetchall()
