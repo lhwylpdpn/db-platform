@@ -68,7 +68,7 @@ def import_csv(file_pwd,filename,table,type):
 				print("on "+str(j)+" commit")
 
 
-			sql+="('"+str(row).replace(",","','")+"','"+time_tag+"'),"
+			sql+="('"+str(row).replace('"','')replace(",","','")+"','"+time_tag+"'),"
  
 		sql="insert into "+tablename+"  values "+sql
 		sql=sql.strip(',')+";"

@@ -84,7 +84,7 @@ var margin = 200,
     g = svg.append("g").attr('class', 'value').attr("transform", "translate(" + 100 + "," + 10 + ")");
 
 	//X轴的刻度值
-	var experienceName = ["一月", "二月","三月","四月","五月","六月"];
+	var experienceName = ["未开始","准备中","产品阶段","研发阶段","小规模试用","常规使用"];
 
     //设置刻度
     var formatSkillPoints = function (d) {
@@ -96,7 +96,7 @@ var margin = 200,
     //pow.range - 设置输出的值域。
     var xScale =  d3.scaleLinear()
             .domain([0,5])
-            .range([0, 400]);
+            .range([0,600]);
 
     /* d3.axisTop - 创建一个上部轴生成器。
        axis.scale - 设置或者取得比例尺
@@ -187,7 +187,7 @@ var margin = 200,
                 .attr("ry", 2)
                 .transition()
                     .duration(800)
-                    .attr("width", function (d) {return xScale(d.data.value);});
+                    .attr("width", function (d) {return xScale(d.data.width);});
         //设置最后一行内容的文本信息
         leafNodeG.append("text")
                 .attr("dy", 19.5)
@@ -281,7 +281,8 @@ var margin = 200,
         return {
             id: d.id,
             value: +d.value,
-            color: d.color
+            color: d.color,
+            width:d.width
         };
     }
 

@@ -45,7 +45,7 @@ def import_csv(file_pwd,filename,table):
 	tablename=table
 	sql=""
 	time_tag=str(datetime.datetime.now().strftime('%Y-%m-%d'));
- 
+
 	i=0
 	if  os.path.exists(pwd+file):
 		print(pwd+file)
@@ -59,17 +59,19 @@ def import_csv(file_pwd,filename,table):
 				tag=1
 				continue;
 			i=i+1
-			if i>10000:
+			if i>10:
 				sql='insert into '+tablename+'  values '+sql
 				sql=sql.strip(',')+';'
 				conn =  pymysql.connect(host='120.26.162.150',user='root',passwd='PkBJ2016@_*#',db='zilong_report',port=3306,charset='utf8')
+		
 				cursor=conn.cursor()
 				cursor.execute(sql)
 				conn.commit()
+
 				sql=""
 				i=0
 
-			sql+='("'+str(row).replace(',','","')+'","'+time_tag+'"),'
+			sql+="('"+str(row).replace(' " ',' ').replace(",","','")+"','"+time_tag+"'),"
 		sql='insert into '+tablename+' values '+sql
 		sql=sql.strip(',')+';'
 		#print(sql)
