@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-content">
+
+    <script type="text/javascript" src="/static/js/bootstrap-table.js"></script>
+
+
+    <link rel="stylesheet" href="/static/css/bootstrap-table.css">
+
+    <!--<link rel="stylesheet" href="/static/css/bootstrap.min.css">-->
+
+ 
+
+
+ <table id="table" class="table table-bordered table-hover" 
+                       data-toggle="table"
+                       data-url="/media_quality_json?{{sjs}}"
+                       data-page-size="10"
+                       data-page-list="[100, 200,500,1000,2000]"
+                                             data-pagination="true"
+ >
+                    <thead>
+
+
+                    <tr  >
+
+                        <th data-field="game_id" data-sortable="true" data-align="right">
+                            game_id
+                        </th>
+                        <th data-field="platform" data-sortable="true">
+                            platform
+                        </th>
+                        <th data-field="channel_name" data-sortable="true" data-align="right" >
+                            channel_name
+                        </th>
+                        <th data-field="agent" data-sortable="true" data-align="right"  >
+                            agent
+                        </th>
+                        <th data-field="date_time" data-sortable="true" data-align="right"   >
+                           date_time
+                        </th>
+                        <th   data-field="ad_Creative" data-sortable="true" data-align="right">
+                          ad_Creative
+                        </th>
+                        <th data-field="accountid" data-sortable="true">
+                            accountid
+                        </th>
+
+
+
+                        <th data-field="logincount_0" data-sortable="true">
+                            +0登录
+                        </th>
+
+                        <th data-field="logincount_1" data-sortable="true">
+                            +1登录
+                        </th>
+                        <th data-field="logincount_2" data-sortable="true">
+                            +2登录
+                        </th>
+                        <th data-field="logincount_3" data-sortable="true">
+                            +3登录
+                        </th>
+
+                        <th data-field="logincount_4" data-sortable="true">
+                            +4登录
+                        </th>
+                        <th data-field="logincount_5" data-sortable="true">
+                            +5登录
+                        </th>
+                        <th data-field="logincount_6" data-sortable="true">
+                       +6登录
+                        </th>
+
+                        <th data-field="logincount_7" data-sortable="true">
+                        +7登录
+                        </th>
+
+
+
+                        <th data-field="re_0" data-sortable="true">
+                            +0充值
+                        </th>
+
+                        <th data-field="re_1" data-sortable="true">
+                            +1充值
+                        </th>
+                        <th data-field="re_2" data-sortable="true">
+                            +2充值
+                        </th>
+                        <th data-field="re_3" data-sortable="true">
+                            +3充值
+                        </th>
+
+                        <th data-field="re_4" data-sortable="true">
+                            +4充值
+                        </th>
+                        <th data-field="re_5" data-sortable="true">
+                            +5充值
+                        </th>
+                        <th data-field="re_6" data-sortable="true">
+                       +6充值
+                        </th>
+
+                        <th data-field="re_7" data-sortable="true">
+                        +7充值
+                        </th>
+
+
+
+
+                        <th data-field="online_0" data-sortable="true">
+                            +0活跃时长
+                        </th>
+
+                        <th data-field="online_1" data-sortable="true">
+                            +1活跃时长
+                        </th>
+                        <th data-field="online_2" data-sortable="true">
+                            +2活跃时长
+                        </th>
+                        <th data-field="online_3" data-sortable="true">
+                            +3活跃时长
+                        </th>
+
+                        <th data-field="online_4" data-sortable="true">
+                            +4活跃时长
+                        </th>
+                        <th data-field="online_5" data-sortable="true">
+                            +5活跃时长
+                        </th>
+                        <th data-field="online_6" data-sortable="true">
+                       +6活跃时长
+                        </th>
+
+                        <th data-field="online_7" data-sortable="true">
+                        +7活跃时长
+                        </th>
+
+
+                        <th data-field="level_0" data-sortable="true">
+                            +0 最高等级
+                        </th>
+
+                        <th data-field="level_1" data-sortable="true">
+                            +1 最高等级
+                        </th>
+                        <th data-field="level_2" data-sortable="true">
+                            +2 最高等级
+                        </th>
+                        <th data-field="level_3" data-sortable="true">
+                            +3 最高等级
+                        </th>
+
+                        <th data-field="level_4" data-sortable="true">
+                            +4 最高等级
+                        </th>
+                        <th data-field="level_5" data-sortable="true">
+                            +5 最高等级
+                        </th>
+                        <th data-field="level_6" data-sortable="true">
+                       +6 最高等级
+                        </th>
+
+                        <th data-field="level_7" data-sortable="true">
+                        +7 最高等级
+                        </th>
+                      <!--   <th data-field="inventory_type" data-sortable="true" data-align="right">
+                            <font color="#F89406">inventory_type</font>
+                        </th>
+                        <th data-field="install_finish_cost" data-sortable="true" data-align="right" >
+                            <font color="#F89406">安卓安装完成成本</font>
+                        </th>
+                        <th data-field="download_finish" data-sortable="true" data-align="right" >
+                            <font color="#F89406">安卓下载完成数</font>
+                        </th>
+                        <th data-field="download_finish_rate" data-sortable="true" data-align="right" >
+                            <font color="#F89406">安卓下载完成率</font>
+                        </th>
+
+                        <th data-field="stat_time" data-sortable="true" data-align="right">
+                            <font color="#FA8072">stat_time</font>
+                        </th>
+                        <th data-field="stat_cost" data-sortable="true" data-align="right" >
+                            <font color="#FA8072">总花费</font>
+                        </th>
+
+                        <th data-field="campaign_pricing_category" data-sortable="true" data-align="right">
+                            <font color="#FA8072">campaign_pricing_category</font>
+                        </th>
+
+                        <th data-field="click_start_rate" data-sortable="true" data-align="right" >
+                            <font color="#FA8072">安卓下载开始率</font>
+                        </th>
+                        <th data-field="click_start_cost" data-sortable="true" data-align="right" >
+                            <font color="#FA8072">安卓下载开始成本</font>
+                        </th>
+
+                        <th data-field="ad_name" data-sortable="true" data-align="right">
+                            <font color="#FA8072">[_______广告组名称_______]</font>
+                        </th>
+                                                <th data-field="click_start" data-sortable="true" data-align="right">
+                            <font color="#FA8072">安卓开始下载数</font>
+                        </th>
+                                                <th data-field="convert" data-sortable="true" data-align="right">
+                            <font color="#FA8072">安卓下载完成数</font>
+                        </th>
+                                                <th data-field="ctr" data-sortable="true" data-align="right" >
+                            <font color="#FA8072">点击率</font>
+                        </th>
+                                                <th data-field="download_cost" data-sortable="true" data-align="right">
+                            <font color="#FA8072">安卓下载完成成本</font>
+                        </th>
+                                                <th data-field="install_finish" data-sortable="true" data-align="right" >
+                            <font color="#FA8072">安卓安装完成数</font>
+                        </th>
+                                                <th data-field="ecpm" data-sortable="true" data-align="right" >
+                            <font color="#FA8072">ecpm</font>
+                        </th>
+                     -->
+                        <!--<th data-field="hs13" data-sortable="true" data-align="right" data-formatter="hs13">-->
+                            <!--<font color="#F89406">+13回收</font>-->
+                        <!--</th>-->
+                        <!--<th data-field="hs14" data-sortable="true" data-align="right" data-formatter="hs14">-->
+                            <!--<font color="#F89406">+14回收</font>-->
+                        <!--</th>-->
+
+                    </tr>
+                    </thead>
+                </table>
+
+
+
+
+</div><!-- /.page-content -->
+
+{% endblock content %}

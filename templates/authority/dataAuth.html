@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">首页</a>
+        </li>
+        <li>
+            <a href="#">权限管理</a>
+        </li>
+        <li class="active">数据权限</li>
+    </ul><!-- /.breadcrumb -->
+</div>
+
+<div class="page-content">
+    <!-- page specific plugin styles -->
+    <link rel="stylesheet" href="/static/ace/css/bootstrap-duallistbox.min.css"/>
+
+    <div class="page-header">
+        <h1>数据权限</h1>
+    </div><!-- /.page-header -->
+
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <form class="form-horizontal" role="form">
+
+                <div class="space-6"></div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right">选择操作用户　</label>
+
+                    <div class="col-sm-9">
+                        <div class="pos-rel">
+                            <!--<input id="username" class="typeahead scrollable" type="text" placeholder="输入用户	"/>-->
+                            <select id="username" class="chosen-select">
+                                <option value="">-- 请选择用户 --</option>
+                                {% for i in userlist: %}
+
+                                    {% if selectedUser == i[0]:%}
+                                        <option value="{{ i[0] }}" selected="selected">{{ i[0] }}</option>
+                                    {% else: %}
+                                        <option value="{{ i[0] }}">{{ i[0] }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hr hr-16 hr-dotted"></div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-top" for="duallist">选择权限用户</label>
+
+                    <div class="col-sm-8">
+                        <select multiple="multiple" size="10" name="duallistbox_demo1[]" id="duallist">
+                            {% for i in userlist:%}
+                                {% if selectedUser == i[0]:%}
+                                    <!--将自己排除在权限列表里-->
+                                {% elif i[1] == "selected": %}
+                                    <option value="{{ i[0] }}" selected="selected">{{ i[0] }}</option>
+                                {% else: %}
+                                    <option value="{{ i[0] }}">{{ i[0] }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+
+                    </div>
+                </div>
+            </form>
+            <div class="hr hr-16 hr-dotted"></div>
+            <div style="text-align:center">
+                <label class="text-warning bigger-110 red center" id="logintip" style="display:none;"></label>
+                <br/>
+                <button id="tijiao" class="btn btn-info ">　确　定　</button>
+            </div>
+
+
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div><!-- /.page-content -->
+
+<script src="/static/ace/js/jquery.bootstrap-duallistbox.min.js"></script>
+<script src="/static/ace/js/jquery.raty.min.js"></script>
+
+<script type="text/javascript">
+			jQuery(function($){
+			    var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox({infoTextFiltered: '<span class="label label-purple label-lg">筛选结果</span>'});
+				var container1 = demo1.bootstrapDualListbox('getContainer');
+				container1.find('.btn').addClass('btn-white btn-info btn-bold');
+
+				/**var setRatingColors = function() {
+					$(this).find('.star-on-png,.star-half-png').addClass('orange2').removeClass('grey');
+					$(this).find('.star-off-png').removeClass('orange2').addClass('grey');
+				}*/
+				$('.rating').raty({
+					'cancel' : true,
+					'half': true,
+					'starType' : 'i'
+					/**,
+
+					'click': function() {
+						setRatingColors.call(this);
+					},
+					'mouseover': function() {
+						setRatingColors.call(this);
+					},
+					'mouseout': function() {
+						setRatingColors.call(this);
+					}*/
+				})//.find('i:not(.star-raty)').addClass('grey');
+
+			});
+
+    $("#username").change(function() {
+        var username = $(this).val();
+        if(username){
+            location.href = "/auth/dataAuth/" + username;
+        }
+    });
+
+    $("#tijiao").click(function(){
+
+        var basetip = '<i class="ace-icon fa fa-exclamation-triangle"></i>'
+        $("#logintip").hide();
+
+        //清空filter
+        if($($(".filter")[0]).val() != ""){
+            $("#logintip").show().html(basetip + "请点击 显示全部 去掉筛选结果后再保存。");
+            $($(".filter")[0]).focus();
+            return;
+        }else if($($(".filter")[1]).val() != ""){
+            $("#logintip").show().html(basetip + "请点击 显示全部 去掉筛选结果后再保存。");
+            $($(".filter")[1]).focus();
+            return;
+        }
+
+        var opthonList = $("select[name='duallistbox_demo1[]_helper2']").html()
+        var userList = new Array();
+        for( var i=0 ; i<$(opthonList).length ; i++){
+            userList[i]=$($(opthonList)[i]).attr("value");
+        }
+
+        var username = $("#username").val();
+        //判断是否选择操作用户
+        if(!username){
+            $("#logintip").show().html(basetip + "请选择要操作的用户");
+            return;
+        }
+
+        $.ajax({
+            url: "/auth/updateDataAuth?username=" + username + "&userlist=" + userList,
+            dataType : "json",
+            success: function(data){
+                if(data["status"] == "0"){
+                    bootbox.alert("操作成功!", function(){ location.reload(); });
+                }else if(data["status"] == "-1"){
+                    $("#logintip").show().html(basetip + data["body"] );
+                }
+            }
+        });
+    })
+
+
+</script>
+
+
+</div><!-- /.page-content -->
+
+{% endblock content %}

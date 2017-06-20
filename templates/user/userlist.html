@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+    <nav class="breadcrumb">
+        <div class="container">
+            <i class="Hui-iconfont">&#xe67f;</i>
+            <a class="maincolor" href="/">首页</a>
+            <span class="c-999 en">&gt;</span>
+            <a class="maincolor" href="/">其他功能</a>
+            <span class="c-999 en">&gt;</span>
+            <a class="maincolor">测试设备列表</a>
+        </div>
+    </nav>
+
+
+    {% if session['username'] %}
+
+        <link href="/static/css/table.css" rel="stylesheet" type="text/css"/>
+        <div align='center'>设备列表</div>
+        <table>
+            <tr>
+                <th>
+                    用户名
+                </th>
+                <th>
+                    设备号
+                </th>
+                <th>
+                    设备名称
+                </th>
+                <th>
+                    参考价格(RMB)
+                </th>
+                <th>
+                    变更记录
+                </th>
+            </tr>
+            {% for i in range(size) %}
+                <tr>
+                    <td>
+                        {{ userinfos[i][0] }}
+                    </td>
+                    <td>
+                        {{ userinfos[i][1] }}
+                    </td>
+                    <td>
+                        {{ userinfos[i][2] }}
+                    </td>
+                    <td>
+                        {{ userinfos[i][3] }}
+                    </td>
+                    <td>
+                        <input id={{ userinfos[i][4] }} class="edituser" type="button" value="修改"/>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <script>
+            $(".edituser").click(function () {
+                var id = $(this).attr("id");
+                alert("请期待。。。 " + id + "的修改功能");
+            });
+        </script>
+    {% else %}
+        <div align="center"><font color="red">注意:您没有权限查看用户列表</font></div>
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">组织结构图</a>
+        </li>
+    </ul><!-- /.breadcrumb -->
+</div>
+<style>
+		#graph {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+        }
+		.link {
+            fill: none;
+            stroke: #555;
+            stroke-opacity: 0.4;
+            stroke-width: 1px;
+        }
+        text {
+            font-family: "Arial Black", Gadget, sans-serif;
+            fill: black;
+            font-weight: bold;
+            font-size: 14px
+        }
+
+        .xAxis .tick text{
+            fill: black;
+        }
+        .grid .tick line{
+            stroke: grey;
+            stroke-dasharray: 5, 10;
+            opacity: 0.7;
+        }
+        .grid path{
+            stroke-width: 0;
+        }
+
+        .node circle {
+            fill: #999;
+        }
+        .node--internal circle {
+            fill: #555;
+        }
+        .node--internal text {
+            font-size: 16px;
+            text-shadow: 0 2px 0 #fff, 0 -2px 0 #fff, 2px 0 0 #fff, -2px 0 0 #fff;
+        }
+        .node--leaf text {
+            fill: white;
+        }
+        .ballG text {
+            fill: white;
+        }
+
+        .shadow {
+            -webkit-filter: drop-shadow( -1.5px -1.5px 1.5px #000 );
+            filter: drop-shadow( -1.5px -1.5px 1.5px #000 );
+        }
+	</style>
+<div class="page-content" id="page-content">
+<svg id="graph"></svg>
+
+
+</div><!-- /.page-content -->
+<script src="/static/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/d3.v4.js"></script>
+
+<script>
+var margin = 200,
+    width = parseInt(d3.select("#graph").style("width")) - margin*2,
+    height = parseInt(d3.select("#graph").style("height")) + margin*9;
+
+	$("#page-content").css('height', height);
+	console.dir($(".node--leaf").length);
+	//一、d3.select - 从当前文档中选择一个元素。    
+	var svg = d3.select("#graph")
+    .style("width", width + margin*2-40)
+    .style("height", height)
+    g = svg.append("g").attr('class', 'value').attr("transform", "translate(" + 100 + "," + 10 + ")");
+
+	//X轴的刻度值
+	var experienceName = ["未开始","准备中","产品阶段","研发阶段","小规模试用","常规使用"];
+
+    //设置刻度
+    var formatSkillPoints = function (d) {
+        return experienceName[d % 6];
+    }
+
+    //d3.scaleLinear - 创建定量线性比例尺
+    //pow.domain - 设置输入的定义域。
+    //pow.range - 设置输出的值域。
+    var xScale =  d3.scaleLinear()
+            .domain([0,5])
+            .range([0,600]);
+
+    /* d3.axisTop - 创建一个上部轴生成器。
+       axis.scale - 设置或者取得比例尺
+       identity.ticks - 取得定义域中典型的值
+       linear.tickFormat - 获取一个用来展示刻度值得格式化器。
+    */
+    //在顶部设置一个X轴的刻度线
+    var xAxis = d3.axisTop()
+            .scale(xScale)
+            .ticks(5)
+            .tickFormat(formatSkillPoints);
+
+    //二、 创建树的布局
+    // d3.cluster - 创建一个新的簇（系统树图）布局。
+    // cluster.size - 设置布局大小。
+    // cluster.separation - 设置层间距。
+    var tree = d3.cluster()                 
+            .size([height, width - 460])   
+            .separation(function separate(a, b) {
+                // console.log(a.parent.parent);
+                // console.log(b.parent.parent);
+                return a.parent == b.parent            // 2级树分类
+                || a.parent.parent == b.parent
+                || a.parent == b.parent.parent ? 0.4 : 0.8;
+            });
+
+    //新增d3.stratify用于处理行列式层次型数据
+    //stratify.parentId - 设置父节点ID访问器。
+    //lastIndexOf() 方法可返回一个指定的字符串值最后出现的位置，在一个字符串中的指定位置从后向前搜索。
+    //substring() 方法用于提取字符串中介于两个指定下标之间的字符。
+    var stratify = d3.stratify()           
+            .parentId(function(d) { 
+            	return d.id.substring(0, d.id.lastIndexOf(".")); 
+            });
+
+    //d3.csv - 获取CSV文件,需要搭建服务器在同一个域名下
+    d3.csv("/static/json/skillsdata.csv", row, function(error, data) {
+        if (error) throw error;
+        var root = stratify(data);
+        tree(root);
+
+        //selection.selectAll - 选择每个选中元素的多个后代元素。
+        //selection.data - 元素和数据绑定。
+        //node.descendants - 生成后代数组。
+        //slice() 方法可从已有的数组中返回选定的元素
+        //selection.enter - 获得进入（enter）选择器（数据无元素）。
+        //节点线的设置
+        var link = g.selectAll(".link")
+                .data(root.descendants().slice(1))
+                .enter().append("path")
+                .attr("class", "link")
+                .attr("d", function(d) {
+                    return "M" + d.y + "," + d.x
+                            + "C" + (d.parent.y + 100) + "," + d.x
+                            + " " + (d.parent.y + 100) + "," + d.parent.x
+                            + " " + d.parent.y + "," + d.parent.x;
+                });
+        // 节点的设置
+        var node = g.selectAll(".node")
+                .data(root.descendants())
+                .enter().append("g")
+                .attr("class", function(d) { return "node" + (d.children ? " node--internal" : " node--leaf"); })
+                .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+        // 节点圈的大小
+        node.append("circle")
+                .attr("r", 4);
+
+        // 添加子节点设置位置
+        var leafNodeG = g.selectAll(".node--leaf")
+                .append("g")
+                .attr("class", "node--leaf-g")
+                .attr("transform", function(d){
+                    if (d.data.value == 1.5) {
+                        return "translate(" + 88 + "," + -13 + ")"
+                    }else{
+                        return "translate(" + 8 + "," + -13 + ")"
+                    }
+                });
+
+        //设置最后一行内容的背景色块
+        //<rect> 标签可用来创建矩形，以及矩形的变种。是svg的预定义的标签
+        leafNodeG.append("rect")
+                .attr("class","shadow")
+                .style("fill", function (d) {return d.data.color;})
+                .attr("width", 2)
+                .attr("height", 30)
+                .attr("rx", 2)
+                .attr("ry", 2)
+                .transition()
+                    .duration(800)
+                    .attr("width", function (d) {return xScale(d.data.width);});
+        //设置最后一行内容的文本信息
+        leafNodeG.append("text")
+                .attr("dy", 19.5)
+                .attr("x", 8)
+                .style("text-anchor", "start")
+                .text(function (d) {
+                    return d.data.id.substring(d.data.id.lastIndexOf(".") + 1);
+                });
+
+        // 添加子节点内容
+        var internalNode = g.selectAll(".node--internal");
+        internalNode.append("text")
+                .attr("y", -10)
+                .style("text-anchor", "middle")
+                .text(function (d) {
+                    return d.data.id.substring(d.data.id.lastIndexOf(".") + 1);
+                });
+
+        // 获取node--leaf类名的节点下刻度值的位置设置
+        // selection.call - 选择器调用指定的方法。
+        var firstEndNode = g.select(".node--leaf");
+            firstEndNode.insert("g")
+                    .attr("class","xAxis")
+                    .attr("transform", "translate(" + 7 + "," + -14 + ")")
+                    .call(xAxis);
+
+            // 最后一列内容虚线
+            firstEndNode.insert("g")
+                    .attr("class", "grid")
+                    .attr("transform", "translate(7," + (height - 15) + ")")
+                    .call(d3.axisBottom()
+                            .scale(xScale)
+                            .ticks(5)
+                            .tickSize(-height, 0, 0)
+                            .tickFormat("")
+                    );
+        svg.selectAll(".grid").select("line")
+                .style("stroke-dasharray","20,1")
+                .style("stroke","black");
+
+        // 球的移动
+        // var ballG = svg.insert("g")
+        //         .attr("class","ballG")
+        //         .attr("transform", "translate(" + 1100 + "," + height/2 + ")");
+        // ballG.insert("circle")
+        //         .attr("class","shadow")
+        //         .style("fill","steelblue")
+        //         .attr("r", 5);
+        // ballG.insert("text")
+        //         .style("text-anchor", "middle")
+        //         .attr("dy",5)
+        //         .text("0.0");
+
+        // 鼠标经过的动画
+        d3.selectAll(".node--leaf-g")
+                .on("mouseover", handleMouseOver)
+                .on("mouseout", handleMouseOut);
+
+        function handleMouseOver(d) {
+            var leafG = d3.select(this);
+
+            leafG.select("rect")
+                    .attr("stroke","#4D4D4D")
+                    .attr("stroke-width","2");
+
+
+            // var ballGMovement = ballG.transition()
+            //         .duration(400)
+            //         .attr("transform", "translate(" + (d.y
+            //                 + xScale(d.data.value) + 90) + ","
+            //                 + (d.x + 1.5) + ")");
+
+            // ballGMovement.select("circle")
+            //         .style("fill", d.data.color)
+            //         .attr("r", 18);
+
+            // ballGMovement.select("text")
+            //         .delay(300)
+            //         .text(Number(d.data.value).toFixed(1));
+        }
+        function handleMouseOut() {
+            var leafG = d3.select(this);
+
+            leafG.select("rect")
+                    .attr("stroke-width","0");
+        }
+
+    });
+
+    function row(d) {
+        return {
+            id: d.id,
+            value: +d.value,
+            color: d.color,
+            width:d.width
+        };
+    }
+
+
+</script>
+{% endblock content %}

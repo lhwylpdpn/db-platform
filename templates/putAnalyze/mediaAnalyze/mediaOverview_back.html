@@ -1,0 +1,1305 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .select-title{
+        background-color: #1B6AAA!important;
+        border-color: #1B6AAA;
+        color: #FFF;
+    }
+
+
+
+
+
+</style>
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">首页</a>
+        </li>
+        <li>
+            <a href="#">投放分析</a>
+        </li>
+        <li>
+            <a href="#">媒体分析</a>
+        </li>
+        <li class="active">媒体概览</li>
+    </ul><!-- /.breadcrumb -->
+</div>
+<div class="page-content">
+
+<script src="/static/js/Filter_platform.js"></script><!--筛选需要的js-->
+<script type="text/javascript" src="/static/js/bootstrap-table.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-table-multiple-sort.js"></script>
+    <script type="text/javascript" src="/static/date_dropper/datedropper.js"></script>
+    <link rel="stylesheet" href="/static/date_dropper/datedropper.css">
+    <link rel="stylesheet" href="/static/css/bootstrap-table.css">
+    <link rel="stylesheet" href="/static/css/Fliter.css">
+
+    <div class="btn-group">
+        <button id ="time_1" type="button" class="data-filter btn btn-white btn-sm btn-info btn-bold" >昨日</button>
+        <button id ="time_2" type="button" class="data-filter btn btn-white btn-sm btn-info btn-bold">前日</button>
+        <button id ="time_7" type="button" class="data-filter btn btn-white btn-sm btn-info btn-bold">近7天</button>
+        <button id ="time_15" type="button" class="data-filter btn btn-white btn-sm btn-info btn-bold">近15天</button>
+        <button id ="time_30" type="button" class="data-filter btn btn-white btn-sm btn-info btn-bold">近30天</button>
+        <button id ="timeAll" type="button" class="data-filter btn btn-white btn-sm btn-info btn-bold">历史所有</button>
+    </div>
+    |<input value="选择自然月" type="text" class="data-filter btn btn-white btn-sm btn-primary" style="height:27px" id="month" />|
+    <input id="timeFrom" type="date" class="data-filter btn btn-white btn-sm btn-primary" value="" style="height:27px"> --
+    <input id="timeTo" type="date" class="data-filter btn btn-white btn-sm btn-primary" value="" style="height:27px">
+    <p></p>
+    <!-- Filter by Silence Begin -->
+        <div id="FilterQuery" class="hotel-filter-list "><strong class="tit">已选</strong>
+            <div class="conF selected-query">
+                <ul id="FilterTagSelected">
+                    <li class="filter-query-clear"><a id="FilterQueryClear" href="javascript:;">全部清除</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="FilterQueryList">
+            <div id="List01" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="platform">
+                <strong class="tit">平台</strong>
+                <div class="conF checkboxF">
+                    <ul class="any">
+                        <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
+                    </ul>
+                    <ul class="initial"></ul>
+                    <ul class="list"></ul>
+                    <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
+                </div>
+            </div>
+            <div id="List02" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="channel">
+                <strong class="tit">媒体</strong>
+                <div class="conF checkboxF">
+                    <ul class="any">
+                        <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
+                    </ul>
+                    <ul class="initial"></ul>
+                    <ul class="list"></ul>
+                    <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
+                </div>
+            </div>
+            <div id="List03" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="agent">
+                <strong class="tit">代理</strong>
+                <div class="conF checkboxF">
+                    <ul class="any">
+                        <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
+                    </ul>
+                    <ul class="initial"></ul>
+                    <ul class="list"></ul>
+                    <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
+                </div>
+            </div>
+            <div id="List04" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="staff">
+                <strong class="tit">负责</strong>
+                <div class="conF checkboxF">
+                    <ul class="any">
+                        <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
+                    </ul>
+                    <ul class="initial"></ul>
+                    <ul class="list"></ul>
+                    <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
+                </div>
+            </div>
+        </div>
+        <!-- Filter by Silence End -->
+    <div>
+        <div id="demo1"></div>
+        <div id="demo2"></div>
+        <div id="demo3"></div>
+
+        <div align="center" style="padding-top:7px">
+            <button id="chaxun" class="btn btn-sm btn-primary" onclick="chaxun();">查询</button>
+        </div>
+    </div>
+    <div class="hr hr-8 hr-dotted" ></div>
+
+    <div id="main-widget-container" class="container" styledelete="height:84px;background:#EEEEEE">
+
+    <div class="col-xs-2 col-sm-2 widget-container-col " id="widget-container-col-9"  >
+                                            
+    <div class="widget-box widget-color-pink ui-sortable-handle" id="widget-box-9" style="opacity: 1;">
+            <div class="widget-body">
+                <div class="widget-main padding-4 scrollable   btn-danger  "  style="opacity:0.8;"><h1 id="pannel_1" style="color:#fff;text-align: center; ">计算中...</h1></div>
+                <div class="widget-toolbox padding-3   btn-round btn-danger"><div style="color:#fff;text-align: center;">用户转化  <i  class="ace-icon fa fa-minus"  style="display: block;"></i></div></div>
+ 
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-2 col-sm-2 widget-container-col " id="widget-container-col-9"  >
+                                            
+    <div class="widget-box widget-color-blue ui-sortable-handle" id="widget-box-9" style="opacity: 1;">
+            <div class="widget-body">
+                <div class="widget-main padding-4 scrollable   btn-primary "  style="opacity:0.8;"><h1 id="pannel_2"  style="color:#fff;text-align: center; ">计算中...</h1></div>
+                <div class="widget-toolbox padding-3   btn-round  btn-primary "><div style="color:#fff;text-align: center; ">用户留存</div><i id="fa-plus" class="ace-icon fa fa-plus" style="display: block;" onclick="javascript:$('#pannel2').show(200);javascript:this.style.display ='none'; document.getElementById('fa-minus').style.display='block';"></i>
+                <i id="fa-minus" class="ace-icon fa fa-minus"  style="display: none;" onclick="javascript:$('#pannel2').hide(200);javascript:this.style.display ='none'; document.getElementById('fa-plus').style.display='block';"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xs-2 col-sm-2 widget-container-col " id="widget-container-col-9"  >
+                                            
+    <div class="widget-box widget-color-black ui-sortable-handle" id="widget-box-9" style="opacity: 1;">
+            <div class="widget-body">
+                <div class="widget-main padding-4 scrollable    btn-inverse"  style="opacity:0.8;"><h1 id="pannel_3" style="color:#fff;text-align: center; " >待定</h1></div>
+                <div class="widget-toolbox padding-3   btn-round   btn-inverse"><div style="color:#fff;text-align: center;">用户质量
+
+<i id="fa-plus2" class="ace-icon fa fa-plus"  style="display: block;" onclick="javascript:$('#pannel3').show(200);javascript:this.style.display ='none'; document.getElementById('fa-minus2').style.display='block';"></i>
+<i id="fa-minus2" class="ace-icon fa fa-minus" style="display: none;" onclick="javascript:$('#pannel3').hide(200);javascript:$('#pannel3').hide(200);javascript:this.style.display ='none'; document.getElementById('fa-plus2').style.display='block';"></i>
+
+
+
+                </div></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-2 col-sm-2 widget-container-col " id="widget-container-col-9"  >
+                                            
+    <div class="widget-box widget-color-blue ui-sortable-handle" id="widget-box-9" style="opacity: 1;">
+            <div class="widget-body">
+                <div class="widget-main padding-4 scrollable   btn-primary "  style="opacity:0.8;"><h1 id="pannel_4" style="color:#fff;text-align: center; ">计算中...</h1></div>
+                <div class="widget-toolbox padding-3   btn-round  btn-primary "><div style="color:#fff;text-align: center;">ARPU  <i  class="ace-icon fa fa-minus"  style="display: block;"></i></div></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-2 col-sm-2 widget-container-col " id="widget-container-col-9"  >
+                                            
+    <div class="widget-box widget-color-blue ui-sortable-handle" id="widget-box-9" style="opacity: 1;">
+            <div class="widget-body">
+                <div class="widget-main padding-4 scrollable   btn-primary "  style="opacity:0.8;"><h1 id="pannel_5" style="color:#fff;text-align: center; ">计算中...</h1></div>
+                <div class="widget-toolbox padding-3   btn-round  btn-primary "><div style="color:#fff;text-align: center;">ROI  <i  class="ace-icon fa fa-minus"  style="display: block;"></i></div></div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <div id="pannel2" class="container" styledelete="height:84px;background:#EEEEEE" style="display: none">
+
+    <div class="col-xs-2 col-sm-2 widget-container-col " id="widget-container-col-9"  >
+                                            
+
+    </div>
+    <div class="col-xs-2 col-sm-2 widget-container-col " id="widget-container-col-9"  >
+                                            
+    <div class="widget-box widget-color-blue ui-sortable-handle" id="widget-box-9" style="opacity: 1;">
+            <div class="widget-body">
+                <div class="widget-main padding-4 scrollable   btn-primary "  style="opacity:0.8;"><h1  id="pannel_2_1" style="color:#fff;text-align: center; ">计算中</h1></div>
+                <div class="widget-toolbox padding-3   btn-round  btn-primary "><div style="color:#fff;text-align: center;">短期留存(+1)</div></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xs-2 col-sm-2 widget-container-col " id="widget-container-col-9"  >
+                                            
+    <div class="widget-box widget-color-black ui-sortable-handle" id="widget-box-9" style="opacity: 1;">
+            <div class="widget-body">
+                <div class="widget-main padding-4 scrollable    btn-inverse"  style="opacity:0.8;"><h1  id="pannel_2_2" style="color:#fff;text-align: center; " >计算中</h1></div>
+                <div class="widget-toolbox padding-3   btn-round   btn-inverse"><div style="color:#fff;text-align: center;">中期留存(+6)</div></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-2 col-sm-2 widget-container-col " id="widget-container-col-9"  >
+                                            
+    <div class="widget-box widget-color-blue ui-sortable-handle" id="widget-box-9" style="opacity: 1;">
+            <div class="widget-body">
+                <div class="widget-main padding-4 scrollable   btn-primary "  style="opacity:0.8;"><h1  id="pannel_2_3" style="color:#fff;text-align: center; ">计算中</h1></div>
+                <div class="widget-toolbox padding-3   btn-round  btn-primary "><div style="color:#fff;text-align: center;">长期留存(+29)</div></div>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+
+
+
+
+    <div id="pannel3" class="container" styledelete="height:84px;background:#EEEEEE" style="display: none">
+
+    <div class="col-xs-2 col-sm-2 widget-container-col " id="widget-container-col-9"  >
+                                            
+
+    </div>
+    <div class="col-xs-2 col-sm-2 widget-container-col " id="widget-container-col-9"  >
+                                            
+    <div class="widget-box widget-color-blue ui-sortable-handle" id="widget-box-9" style="opacity: 1;">
+            <div class="widget-body">
+                <div class="widget-main padding-4 scrollable   btn-primary "  style="opacity:0.8;"><h1 id="pannel_3_1" style="color:#fff;text-align: center; ">35.5%</h1></div>
+                <div class="widget-toolbox padding-3   btn-round  btn-primary "><div style="color:#fff;text-align: center;">等级分布 </div></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xs-2 col-sm-2 widget-container-col " id="widget-container-col-9"  >
+                                            
+    <div class="widget-box widget-color-black ui-sortable-handle" id="widget-box-9" style="opacity: 1;">
+            <div class="widget-body">
+                <div class="widget-main padding-4 scrollable    btn-inverse"  style="opacity:0.8;"><h1  id="pannel_3_2" style="color:#fff;text-align: center; " >21.5%</h1></div>
+                <div class="widget-toolbox padding-3   btn-round   btn-inverse"><div style="color:#fff;text-align: center;">活跃5分钟</div></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-2 col-sm-2 widget-container-col " id="widget-container-col-9"  >
+                                            
+    <div class="widget-box widget-color-blue ui-sortable-handle" id="widget-box-9" style="opacity: 1;">
+            <div class="widget-body">
+                <div class="widget-main padding-4 scrollable   btn-primary "  style="opacity:0.8;"><h1  style="color:#fff;text-align: center; ">待定</h1></div>
+                <div class="widget-toolbox padding-3   btn-round  btn-primary "><div style="color:#fff;text-align: center;">异常用户 </div></div>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+    <!--<div align="right">-->
+        <!--<button id="showHideTable" class="btn btn-white btn-sm btn-primary">收起表格</button>-->
+    <!--</div>-->
+
+
+<div class="widget-box ui-sortable-handle" id="widget-box-">
+
+
+<!-- <button class="btn btn-sm btn-danger  btn-white btn-round" id="button61" style="display: block;" onclick="bilibili();javascript:this.style.display ='none'; document.getElementById('button62').style.display='block';t=window.clearInterval(t); ">
+benchmark off
+</button>
+<button class="btn btn-sm btn-danger  btn-white btn-round" id="button62"  style="display: none;" onclick="bilibili();javascript:this.style.display ='none';document.getElementById('button61').style.display='block';t=window.setInterval(bilibili,100); ">
+benchmark on
+</button> -->
+
+
+<div class="widget-body">
+
+
+<table id="table" data-sort-name="date_time" data-sort-order="desc" class="table table-bordered table-hover"    >
+            <thead>
+                <tr>
+                    <th data-align="right"  data-field="platform" data-sortable="true">　平台　</th>
+                    <th data-align="right"  data-field="channel_name" data-sortable="true">　渠道　</th>
+                    <th data-align="right"  data-field="agent" data-sortable="true">代理商</th>
+                    <th data-align="right"  data-field="staff" data-sortable="true">负责人</th>
+                    <th data-align="right"  data-field="date_time" data-sortable="true">　日期　</th>
+                    <th data-align="right"  data-field="ad_click" data-formatter="ad_click" data-sortable="true">点击设备</th>
+                    <th data-align="right"  data-field="ad_action" data-formatter="ad_action" data-sortable="true">激活设备</th>
+                  <!--   <th data-align="right"  data-field="ad_action_new"  data-formatter="ad_action_new"  data-sortable="true">新增设备</th> -->
+                    <th data-align="right"  data-field="ad_account_new" data-formatter="ad_account_new"  data-sortable="true">新增总账号</th>
+                    <th data-align="right"  data-field="double_new" data-formatter="double_new"  data-sortable="true">纯新增账号</th>
+                    <th data-align="right"  data-field="back_user"  data-formatter="back_user" data-sortable="true">回流账号</th>
+                    <th data-align="right"  data-field="paid_account"  data-formatter="paid_account"  data-sortable="true">付费账号</th>
+                    <th data-align="right"  data-field="fufeilv" data-sortable="true" data-formatter="fufeilv" data-align="right">付费率</th>
+                    <th data-align="right"  data-field="spend" data-sortable="true" data-formatter="spend" data-align="right">折后花费</th>
+                    <th data-align="right"  data-field="CPA" data-sortable="true" data-formatter="CPA"  data-align="right">C P A</th>
+                    <th data-align="right"  data-field="cumulative_flow" data-sortable="true" data-formatter="cumulative_flow" data-align="right">累计流水</th>
+                    <!--  <th data-field="dis" data-sortable="true">分成比例</th> -->
+                    <th data-align="right" data-field="cumulative_money" data-sortable="true" data-formatter="cumulative_money" data-align="right">累计净收入</th>
+                    <th data-align="right" data-field="ROI" data-sortable="true" data-formatter="ROI" data-align="right">R O I</th>
+                </tr>
+            </thead>
+</table>          
+
+
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+    <div class="widget-box ui-sortable-handle" id="widget-box-7">
+        <div class="widget-header" style="padding-top:2px">
+            <button class="widget-title" style="visibility: hidden;">|</button>
+            <button id="ad_click" class="chart-title select-title">点击设备</button>
+            <button id="ad_action" class="chart-title">激活设备</button>
+            <button id="ad_action_new" class="chart-title">新增设备</button>
+            <button id="ad_account_new" class="chart-title">新增总账号</button>
+            <button id="double_new" class="chart-title">纯新增账号</button>
+            <button id="back_user" class="chart-title">回流账号</button>
+            <button id="paid_account" class="chart-title">付费账号</button>
+            <button id="fufeilv" class="chart-title">付费率</button>
+            <button id="spend" class="chart-title">折后花费</button>
+            <button id="CPA" class="chart-title"> C P A </button>
+            <button id="cumulative_flow" class="chart-title">累计流水</button>
+            <!--<button id="dis" class="chart-title">分成比例</button> -->
+            <button id="cumulative_money" class="chart-title">累计净收入</button>
+            <button id="ROI" class="chart-title"> R O I </button>
+            <button id="compare" class="chart-title">对比图</button>
+
+
+            <div class="widget-toolbar">
+                <!--<a href="#" data-action="fullscreen" class="orange2">-->
+                    <!--<i class="ace-icon fa fa-expand"></i>-->
+                <!--</a>-->
+
+                <!--<a href="#" data-action="reload">-->
+                    <!--<i class="ace-icon fa fa-refresh"></i>-->
+                <!--</a>-->
+
+                <a href="#" data-action="collapse">
+                    <i class="ace-icon fa fa-chevron-up"></i>
+                </a>
+
+                <a href="#" data-action="close">
+                    <i class="ace-icon fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="widget-body">
+            <div id="container" style="min-width:400px;height:300px"></div>
+        </div>
+    </div>
+
+</div><!-- /.page-content -->
+
+
+
+
+<script type="text/javascript">
+
+    function benchmark(context,type){
+
+
+        switch (type)
+        {
+        case "good":
+          return '<div class="my-parent-style-good"><b>' + context + '</b></div>'
+
+          break;
+        case "normal":
+          return '<div class="my-parent-style-normal"><b>' + context + '</b></div>'
+          break;
+        case "bad":
+         return '<div class="my-parent-style-bad"><b>' + context + '</b></div>'
+          break;
+        default:
+          return context;
+
+        }
+
+
+    }
+
+
+   // 时间筛选+条件筛选
+   function chaxun(){
+
+        var TJ_platform= new Array();
+        var TJ_staff= new Array();
+        var TJ_agnet =new Array();
+        var TJ_channel=new Array();
+        var fromTime = $("#timeFrom").val();
+        var toTime = $("#timeTo").val();
+
+        var fromTimeCuo = Date.parse(new Date(fromTime));
+        var toTimeCuo = Date.parse(new Date(toTime));
+        var tianshu = (toTimeCuo - fromTimeCuo)/1000/60/60/24;
+
+        var fromToTime = [fromTime];
+        var flag = fromTimeCuo
+        for (var i = 0 ; i < tianshu ; i++ ){
+            flag = flag+1000*60*60*24;
+            fromToTime.push( new Date(flag).Format("yyyy-MM-dd") );
+        }
+
+
+        $("#FilterTagSelected [data-platform]").each(function(){TJ_platform.push($(this).text());});
+        $("#FilterTagSelected [data-channel]").each(function(){TJ_channel.push($(this).text());});
+        $("#FilterTagSelected [data-agent]").each(function(){TJ_agnet.push($(this).text());});
+        $("#FilterTagSelected [data-staff]").each(function(){TJ_staff.push($(this).text());});
+ 
+
+        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name=" + TJ_channel.join(",") + "&platform=" + TJ_platform.join(",")+ "&agent=" + TJ_agnet.join(",") + "&staff=" + TJ_staff.join(",")} );
+
+        $("#table").bootstrapTable('filterBy',{
+            date_time : fromToTime,
+        });
+
+        //条件筛选完成后,重新设置 piece chart
+        setTimeout("setPieceChart();",2000);
+
+    }
+
+
+
+
+</script>
+<script type="text/javascript"> <!--开始设置数据格式-->
+    // 对json进行按照指定key排序
+    function sortByKey(array, key) {
+        return array.sort(function(a, b) {
+            var x = a[key]; var y = b[key];
+            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+        });
+    }
+
+    /*
+    将数值四舍五入后格式化.
+    @param num 数值(Number或者String)
+    @param cent 要保留的小数位(Number)
+    @param isThousand 是否需要千分位 0:不需要,1:需要(数值类型);
+    @return 格式的字符串,如'1,234,567.45'
+    @type String
+    */
+    function formatNumber(num,cent,isThousand){
+
+        num = num.toString().replace(/\$|\,/g,'');
+        if(isNaN(num))//检查传入数值为数值类型.
+         num = "0";
+        if(isNaN(cent))//确保传入小数位为数值型数值.
+        cent = 0;
+        cent = parseInt(cent);
+        cent = Math.abs(cent);//求出小数位数,确保为正整数.
+        if(isNaN(isThousand))//确保传入是否需要千分位为数值类型.
+        isThousand = 0;
+        isThousand = parseInt(isThousand);
+        if(isThousand < 0)
+        isThousand = 0;
+        if(isThousand >=1) //确保传入的数值只为0或1
+        isThousand = 1;
+        sign = (num == (num = Math.abs(num)));//获取符号(正/负数)
+        //Math.floor:返回小于等于其数值参数的最大整数
+        num = Math.floor(num*Math.pow(10,cent)+0.50000000001);//把指定的小数位先转换成整数.多余的小数位四舍五入.
+        cents = num%Math.pow(10,cent); //求出小数位数值.
+        num = Math.floor(num/Math.pow(10,cent)).toString();//求出整数位数值.
+        cents = cents.toString();//把小数位转换成字符串,以便求小数位长度.
+        while(cents.length<cent){//补足小数位到指定的位数.
+        cents = "0" + cents;
+        }
+        if(isThousand == 0) //不需要千分位符.
+        return (((sign)?'':'-') + num + '.' + cents);
+        //对整数部分进行千分位格式化.
+        for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+        num = num.substring(0,num.length-(4*i+3))+','+
+        num.substring(num.length-(4*i+3));
+        return (((sign)?'':'-') + num + '.' + cents);
+
+    }
+    //千分位转化
+    function toThousands(num) {
+        return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+    }
+    function ad_click(value,row) { return  toThousands(row["ad_click"]).toString(); }
+    function ad_action(value,row) {
+
+     
+            if (row["ad_action"]/row["ad_click"]>=0.06) {return benchmark(toThousands(row["ad_action"]).toString(),"good")} 
+            if (row["ad_action"]/row["ad_click"]<0.03 && row["ad_action"]/row["ad_click"]>0) {return benchmark(toThousands(row["ad_action"]).toString(),"bad")} 
+            return toThousands(row["ad_action"]).toString()
+     
+    }
+    function ad_action_new(value,row) {return  toThousands(row["ad_action_new"]).toString();}
+    function ad_account_new(value,row) {return  toThousands(row["ad_account_new"]).toString();}
+    function double_new(value,row) {return  toThousands(row["double_new"]).toString();}
+    function back_user(value,row) {return  toThousands(row["back_user"]).toString();}
+    function paid_account(value,row) {return  toThousands(row["paid_account"]).toString();}
+    function spend(value,row) {return  toThousands(row["spend"]).toString();}
+    function cumulative_flow(value,row) {return  toThousands(row["cumulative_flow"]).toString();}
+    function cumulative_money(value,row) {return  toThousands(row["cumulative_money"]).toString();}
+    function fufeilv(value,row) {
+        if(value != "-"){
+
+            if (row["fufeilv"]>=6) {return benchmark(formatNumber(row["fufeilv"],2,0).toString()+"%","good")} 
+            if (row["fufeilv"]<3 && row["fufeilv"]>0) {return benchmark(formatNumber(row["fufeilv"],2,0).toString()+"%","bad")} 
+            return formatNumber(value,2,0) + "%";
+        }
+    }
+    function ROI(value,row) {
+
+        if(value != "-"){
+           
+            s1 = new Date(row["date_time"].replace(/-/g, "/"));
+            s2 = new Date();
+
+            var days = s2.getTime() - s1.getTime();
+            var days =parseInt(days / (1000 * 60 * 60 * 24));
+            if (value>=100 ) {return benchmark(formatNumber(value,2,0)+ "%","good");}
+            if (value>=days*2 && days<=14) {return benchmark(formatNumber(value,2,0)+ "%","good");}
+            if (value>=(days-14)*1.5+28 && days<=30) {return benchmark(formatNumber(value,2,0)+ "%","good");}
+            if (value>=(days-30)*1+28+16*1.5) {return benchmark(formatNumber(value,2,0)+ "%","good");}
+            if (value>=days/2){return benchmark(formatNumber(value,2,0)+ "%","normal");}
+            return formatNumber(value,2,0)+ "%";
+            }
+
+        }
+    
+    function CPA(value,row) {
+
+
+            if (value>50 && value<=65) {return benchmark(formatNumber(row["CPA"],2,0),"");}
+            if (value<=5 && value>0) {return benchmark(formatNumber(row["CPA"],2,0),"good");}
+            if (value>65) {return benchmark(formatNumber(row["CPA"],2,0),"bad");}
+            if (value==0) {return benchmark(formatNumber(row["CPA"],2,0),"");}      
+            return formatNumber(row["CPA"],2,0);
+ 
+        }    
+
+</script><!--结束设置数据格式-->
+
+<script type="text/javascript"> <!-- 初始化table -->
+    $("#table").bootstrapTable({
+        url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name&agent&staff",
+        pagination: true, //开启分页
+        pageSize: 10
+    });
+
+    $("#showHideTable").click(function(){
+        $(".bootstrap-table").hide();
+    });
+
+    //以下三列用于筛选 不需要显示
+    <!--$("#table").bootstrapTable('hideColumn', 'platform');-->
+    <!--$("#table").bootstrapTable('hideColumn', 'channel_name');-->
+    <!--$("#table").bootstrapTable('hideColumn', 'agent');-->
+    <!--$("#table").bootstrapTable('hideColumn', 'staff');-->
+
+
+</script><!-- 初始化table -->
+
+<script type="text/javascript"> <!-- 日历筛选 -->
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+
+    //入参 2016-01-10格式的字符串
+    function filterTime(fromTime,toTime){
+        console.log(fromTime,toTime);
+        //先将条件筛选清空
+        $(".J_FilterQueryClear").trigger("click");
+
+        var fromTimeCuo = Date.parse(new Date(fromTime));
+        var toTimeCuo = Date.parse(new Date(toTime));
+        var tianshu = (toTimeCuo - fromTimeCuo)/1000/60/60/24;
+
+        var fromToTime = [fromTime];
+        var flag = fromTimeCuo
+        for (var i = 0 ; i < tianshu ; i++ ){
+            flag = flag+1000*60*60*24;
+            fromToTime.push( new Date(flag).Format("yyyy-MM-dd") );
+        }
+        //重新请求数据
+        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaOverviewJson?{{sjs}}&channel_name&agent&staff" } );
+
+        $("#table").bootstrapTable('filterBy',{date_time : fromToTime});
+
+        //日期筛选完成后,设置piece chartdata
+        setTimeout("setPieceChart();",2000);
+    }
+
+    $("#time_1").click(function(){
+        var time = new Date();
+        var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
+        $("#timeFrom").val(timeTo);
+        $("#timeTo").val(timeTo);
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $(this).removeClass("btn-white");
+        filterTime(timeTo, timeTo);
+    });
+    $("#time_2").click(function(){
+        var time = new Date();
+        var timeTo = new Date(time - 1000*60*60*24*2).Format("yyyy-MM-dd");
+        $("#timeFrom").val(timeTo);
+        $("#timeTo").val(timeTo);
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $(this).removeClass("btn-white");
+        filterTime(timeTo, timeTo);
+    });
+    $("#time_7").click(function(){
+        var time = new Date();
+        var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
+        var timeFrom = new Date(time - 1000*60*60*24*7).Format("yyyy-MM-dd");
+        $("#timeFrom").val(timeFrom);
+        $("#timeTo").val(timeTo);
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $(this).removeClass("btn-white");
+        filterTime(timeFrom, timeTo);
+    });
+    $("#time_15").click(function(){
+        var time = new Date();
+        var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
+        var timeFrom = new Date(time - 1000*60*60*24*15).Format("yyyy-MM-dd");
+        $("#timeFrom").val(timeFrom);
+        $("#timeTo").val(timeTo);
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $(this).removeClass("btn-white");
+        filterTime(timeFrom, timeTo);
+    });
+    $("#time_30").click(function(){
+        var time = new Date();
+        var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
+        var timeFrom = new Date(time - 1000*60*60*24*30).Format("yyyy-MM-dd");
+        $("#timeFrom").val(timeFrom);
+        $("#timeTo").val(timeTo);
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $(this).removeClass("btn-white");
+        filterTime(timeFrom, timeTo);
+    });
+
+    $("#month").dateDropper({
+        animate: false,
+        format: 'Y-m',
+        maxYear: '2017'
+    });
+
+    $("#month").change(function(){
+        var flag = $(this).val();
+        var timeFrom = new Date(flag).Format("yyyy-MM-dd");
+
+        var timeTo = new Date(flag);
+        timeTo.setMonth(timeTo.getMonth() + 1); //月份加1
+        timeTo = new Date(timeTo.getTime()-1000*60*60*24).Format("yyyy-MM-dd");
+
+        $("#timeFrom").val(timeFrom);
+        $("#timeTo").val(timeTo);
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $("#month").removeClass("btn-white");
+        filterTime(timeFrom, timeTo);
+
+    })
+
+    $("#timeAll").click(function(){
+        var time = new Date();
+        var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
+        var timeFrom = "2015-01-01";
+        $("#timeFrom").val(timeFrom);
+        $("#timeTo").val(timeTo);
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $(this).removeClass("btn-white");
+        filterTime(timeFrom, timeTo);
+    });
+    $("#timeFrom").change(function(){
+        var timeFrom = $(this).val();
+        var timeTo = $("#timeTo").val();
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $(this).removeClass("btn-white");
+        $("#timeTo").removeClass("btn-white");
+        filterTime(timeFrom, timeTo);
+
+    });
+    $("#timeTo").change(function(){
+        var timeTo = $(this).val();
+        var timeFrom = $("#timeFrom").val();
+        //设置背景颜色,和其他去掉背景颜色
+        $(".data-filter").addClass("btn-white");
+        $("#timeFrom").removeClass("btn-white");
+        $(this).removeClass("btn-white");
+        filterTime(timeFrom, timeTo);
+
+    });
+
+    //初始化From To
+    $("#timeFrom").val("2015-01-01");
+
+    var time = new Date();
+    var timeTo = new Date(time - 1000*60*60*24).Format("yyyy-MM-dd");
+    $("#timeTo").val(timeTo);
+
+</script><!-- 日历筛选 -->
+
+
+<script src="/static/js/highcharts.js"></script><!--图表需要的js-->
+<script type="text/javascript">
+    function setChart(title,danwei,data){
+        $('#container').highcharts({
+            chart: {
+                zoomType: 'x'
+            },
+            title: {
+                text: title
+            },
+
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    millisecond: '%H:%M:%S.%L',
+                    second: '%H:%M:%S',
+                    minute: '%H:%M',
+                    hour: '%H:%M',
+                    day: '%m-%d',
+                    week: '%m-%d',
+                    month: '%Y-%m',
+                    year: '%Y'
+                }
+            },
+            tooltip: {
+                dateTimeLabelFormats: {
+                    millisecond: '%H:%M:%S.%L',
+                    second: '%H:%M:%S',
+                    minute: '%H:%M',
+                    hour: '%H:%M',
+                    day: '%Y-%m-%d',
+                    week: '%m-%d',
+                    month: '%Y-%m',
+                    year: '%Y'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: danwei
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: {
+                            x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: 1
+                        },
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    marker: {
+                        radius: 2
+                    },
+                    lineWidth: 1,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+            series: [{
+                type: 'area',
+                name: '数量',
+                data: data
+            }]
+        });
+    }
+
+function getSetChartCompareData(data){
+    var result = new Array();
+    for(var i = 0; i < data.length; i++){
+        result[i] = data[i][1];
+    }
+    return result;
+}
+
+function setChartCompare( ){
+    var categories = new Array();
+    for(var i = 0; i < ad_click_dataS.length; i++){
+        categories[i] = new Date(ad_click_dataS[i][0]).Format("MM-dd");
+    }
+
+    $('#container').highcharts({
+        chart: { zoomType: 'xy' },
+        title: { text: '　' },
+        //subtitle: { text: '数据来源: WorldClimate.com' },
+        xAxis: [{
+            categories: categories,
+            crosshair: true,
+            labels: {
+                rotation: 90
+            }
+        }],
+        yAxis: [{ // Primary yAxis
+            labels: {
+                format: '{value} 个',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            title: {
+                text: '单位：个',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            }
+        }, { // Secondary yAxis
+            title: {
+                text: '单位：元',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            labels: {
+                format: '{value} 元',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            opposite: true
+        }, { // Third yAxis
+            title: {
+                text: '单位：百分百',
+                style: {
+                    color: Highcharts.getOptions().colors[2]
+                }
+            },
+            labels: {
+                format: '{value} %',
+                style: {
+                    color: Highcharts.getOptions().colors[2]
+                }
+            },
+            opposite: true
+        }],
+        tooltip: { shared: true },
+        plotOptions: {
+            area: {
+                marker: {
+                    enabled: false,
+                    symbol: 'circle',
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true
+                        }
+                    }
+                }
+            }
+        },
+        series: [{
+            name: '点击设备',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(ad_click_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '激活设备',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(ad_action_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '新增设备',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(ad_action_new_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '新增总账号',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(ad_account_new_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '纯新增账号',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(double_new_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '回流账号',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(back_user_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '付费账号',
+            type: 'area',
+            yAxis: 0,
+            data: getSetChartCompareData(paid_account_dataS),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '付费率',
+            type: 'area',
+            yAxis: 2,
+            data: getSetChartCompareData(fufeilv_dataS),
+            tooltip: {
+                valueSuffix: ' %'
+            }
+        }, {
+            name: '折后花费',
+            type: 'area',
+            yAxis: 1,
+            data: getSetChartCompareData(spend_dataS),
+            tooltip: {
+                valueSuffix: ' 元'
+            }
+        }, {
+            name: 'C P A',
+            type: 'area',
+            yAxis: 1,
+            data: getSetChartCompareData(CPA_dataS),
+            tooltip: {
+                valueSuffix: ' 元'
+            }
+        }, {
+            name: '累计流水',
+            type: 'area',
+            yAxis: 1,
+            data: getSetChartCompareData(cumulative_flow_dataS),
+            tooltip: {
+                valueSuffix: ' 元'
+            }
+        }, {
+            name: '累计净收入',
+            type: 'area',
+            yAxis: 1,
+            data: getSetChartCompareData(cumulative_money_dataS),
+            tooltip: {
+                valueSuffix: ' 元'
+            }
+        }, {
+            name: 'R O I',
+            type: 'area',
+            yAxis: 2,
+            data: getSetChartCompareData(ROI_dataS),
+            tooltip: {
+                valueSuffix: ' %'
+            }
+        }]
+    });
+};
+
+</script><!--图表需要的js setChart(data)-->
+
+<script type="text/javascript"><!--筛选后的数据处理-->
+
+    var ad_click_dataS = [];
+    var ad_action_dataS = [];
+    var ad_action_new_dataS = [];
+    var ad_account_new_dataS = [];
+    var double_new_dataS = [];
+    var back_user_dataS = [];
+    var paid_account_dataS =[];
+    var fufeilv_dataS = [];
+    var spend_dataS = [];
+    var CPA_dataS = [];
+    var cumulative_flow_dataS = [];
+    var dis_dataS = [];
+    var cumulative_money_dataS = [];
+    var ROI_dataS = [];
+
+    function setPieceChart(){ //设置快的数据和获取chart的数据
+        var dataS = sortByKey( $("#table").bootstrapTable('getData'), "date_time");
+
+        //处理piece
+        var adActionNew = 0; //ad_action_new
+        var adAccountNew = 0;  //ad_account_new
+        var paidAccount = 0; //paid_account
+        var cumulativeFlow = 0; //cumulative_flow
+        var spend = 0; //spend
+        var ROI = 0; //ROI
+        var dataLength = dataS.length;
+
+        //处理chartdata //先将数据清空
+        ad_click_dataS = [];
+        ad_action_dataS = [];
+        ad_action_new_dataS =[];
+        ad_account_new_dataS =[];
+        double_new_dataS = [];
+        back_user_dataS = [];
+        paid_account_dataS = [];
+        fufeilv_dataS = [];
+        spend_dataS = [];
+        CPA_dataS = [];
+        cumulative_flow_dataS = [];
+        dis_dataS = [];
+        cumulative_money_dataS = [];
+        ROI_dataS = [];
+
+        //单独增加pannel计算所需
+        pannel_ad_click_data=0;
+        pannel_ad_action_new_data=0;
+        pannel_ad_re_1=0;
+        pannel_ad_re_6=0;
+        pannel_ad_re_29=0;        
+        pannel_ad_account_new_data=0;
+        pannel_ad_role_31_data=0;
+        pannel_ad_AU_5_data=0;
+
+        pannel_cumulative_flow=0;
+        pannel_cumulative_money=0;
+        pannel_spend_data=0;
+        for(var i=0 ; i<dataLength;i++){
+
+
+
+
+            adActionNew = adActionNew + Number(dataS[i]["ad_action_new"]);
+            adAccountNew = adAccountNew + Number(dataS[i]["ad_account_new"]);
+            paidAccount = paidAccount + Number(dataS[i]["paid_account"]);
+            cumulativeFlow = cumulativeFlow + Number(dataS[i]["cumulative_flow"]);
+            spend = spend + Number(dataS[i]["spend"]);
+            ROI = ROI + Number(dataS[i]["ROI"]);
+
+            var UTCdata = Date.parse(new Date(dataS[i]["date_time"]));
+
+            var ad_click_data = Number(dataS[i]["ad_click"]);
+            ad_click_dataS.push([UTCdata,ad_click_data]);
+
+            var ad_action_data = Number(dataS[i]["ad_action"]);
+            ad_action_dataS.push([UTCdata,ad_action_data]);
+
+            var ad_action_new_data = Number(dataS[i]["ad_action_new"]);
+            ad_action_new_dataS.push([UTCdata,ad_action_new_data]);
+
+            var ad_account_new_data = Number(dataS[i]["ad_account_new"]);
+            ad_account_new_dataS.push([UTCdata,ad_account_new_data]);
+
+            var double_new_data = Number(dataS[i]["double_new"]);
+            double_new_dataS.push([UTCdata,double_new_data]);
+
+            var back_user_data = Number(dataS[i]["back_user"]);
+            back_user_dataS.push([UTCdata,back_user_data]);
+
+            var paid_account_data = Number(dataS[i]["paid_account"]);
+            paid_account_dataS.push([UTCdata,paid_account_data]);
+
+            var fufeilv_data = Number(dataS[i]["fufeilv"]);
+            fufeilv_dataS.push([UTCdata,fufeilv_data]);
+
+            var spend_data = Number(dataS[i]["spend"]);
+            spend_dataS.push([UTCdata,spend_data]);
+
+            var CPA_data = Number(dataS[i]["CPA"]);
+            CPA_dataS.push([UTCdata,CPA_data]);
+
+            var cumulative_flow_data = Number(dataS[i]["cumulative_flow"]);
+            cumulative_flow_dataS.push([UTCdata,cumulative_flow_data]);
+
+            var dis_data = Number(dataS[i]["dis"]);
+            dis_dataS.push([UTCdata,dis_data]);
+
+            var cumulative_money_data = Number(dataS[i]["cumulative_money"]);
+            cumulative_money_dataS.push([UTCdata,cumulative_money_data]);
+
+            var ROI_data = Number(dataS[i]["ROI"]);
+            ROI_dataS.push([UTCdata,ROI_data]);
+
+            pannel_ad_click_data+=Number(dataS[i]["ad_click"]);
+            pannel_ad_action_new_data+=Number(dataS[i]["ad_action"]);
+            pannel_ad_re_1+=Number(dataS[i]["r1"]);
+            pannel_ad_re_6+=Number(dataS[i]["r6"]);
+            pannel_ad_re_29+=Number(dataS[i]["r29"]);
+            pannel_ad_account_new_data+=Number(dataS[i]["ad_account_new"]);
+            pannel_ad_role_31_data+=Number(dataS[i]["ad_role_31"]);
+            pannel_ad_AU_5_data+=Number(dataS[i]["ad_AU_5"]);
+            pannel_cumulative_flow+=Number(dataS[i]["cumulative_flow"]);
+            pannel_cumulative_money+=Number(dataS[i]["cumulative_money"]);
+            pannel_spend_data+=Number(dataS[i]["spend"]);
+        }
+
+         $("#pannel_1").html(formatNumber(pannel_ad_action_new_data/pannel_ad_click_data*100,2,0)+"%");
+
+         $("#pannel_2_1").html(formatNumber(pannel_ad_re_1/pannel_ad_account_new_data*100,2,0)+"%");
+         $("#pannel_2_2").html(formatNumber(pannel_ad_re_6/pannel_ad_account_new_data*100,2,0)+"%");
+         $("#pannel_2_3").html(formatNumber(pannel_ad_re_29/pannel_ad_account_new_data*100,2,0)+"%");
+
+         if(pannel_ad_re_29==0 &&  pannel_ad_re_6==0) {$("#pannel_2").html(formatNumber(pannel_ad_re_1/pannel_ad_account_new_data*100,2,0)+"%");}
+         if(pannel_ad_re_29==0 &&  pannel_ad_re_6!=0) {$("#pannel_2").html(formatNumber((pannel_ad_re_1/pannel_ad_account_new_data*4+pannel_ad_re_6/pannel_ad_account_new_data*6)*10,2,0)+"%");}
+         if(pannel_ad_re_29!=0) {$("#pannel_2").html(formatNumber((pannel_ad_re_1/pannel_ad_account_new_data*3+pannel_ad_re_6/pannel_ad_account_new_data*3+pannel_ad_re_29/pannel_ad_account_new_data*4)*10,2,0)+"%");}
+         $("#pannel_3_1").html(formatNumber(pannel_ad_role_31_data/pannel_ad_account_new_data*100,2,0)+"%");
+         $("#pannel_3_2").html(formatNumber(pannel_ad_AU_5_data/pannel_ad_account_new_data*100,2,0)+"%");
+         $("#pannel_4").html(formatNumber(pannel_cumulative_flow/pannel_ad_account_new_data,2,0));
+         $("#pannel_5").html(formatNumber(pannel_cumulative_money/pannel_spend_data*100,2,0)+"%");
+        // $($("#widget-box-1").children("div").children("div")[1]).text("平均 " + toThousands((adActionNew/dataLength).toFixed(0)));
+
+        // $($("#widget-box-2").children("div").children("div")[0]).text("总计 " + toThousands(adAccountNew));
+        // $($("#widget-box-2").children("div").children("div")[1]).text("平均 " + toThousands((adAccountNew/dataLength).toFixed(0)));
+
+        // $($("#widget-box-3").children("div").children("div")[0]).text("总计 " + toThousands(paidAccount));
+        // $($("#widget-box-3").children("div").children("div")[1]).text("平均 " + toThousands((paidAccount/dataLength).toFixed(0)));
+
+        // $($("#widget-box-4").children("div").children("div")[0]).text("总计 " + formatNumber (cumulativeFlow, 2, 1));
+        // $($("#widget-box-4").children("div").children("div")[1]).text("平均 " + formatNumber ( (cumulativeFlow/dataLength), 2, 1));
+
+        // $($("#widget-box-5").children("div").children("div")[0]).text("总计 " + formatNumber (spend, 2, 1));
+        // $($("#widget-box-5").children("div").children("div")[1]).text("平均 " + formatNumber ( (spend/dataLength), 2, 1));
+
+        // $($("#widget-box-6").children("div").children("div")[0]).text("总计 " + formatNumber (ROI, 2, 1));
+        // $($("#widget-box-6").children("div").children("div")[1]).text("平均 " + formatNumber ( (ROI/dataLength), 2, 1));
+
+        $("#ad_click").trigger("click");
+
+    }
+
+    setTimeout("setPieceChart();",2000);
+
+    $("#ad_click").click(function(){
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
+        setChart("点击设备","单位:个",ad_click_dataS);
+    })
+
+    $("#ad_action").click(function(){
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
+        setChart("激活设备","单位:个",ad_action_dataS);
+    })
+
+    $("#ad_action_new").click(function(){
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
+        setChart("新增设备","单位:个",ad_action_new_dataS);
+    })
+
+    $("#ad_account_new").click(function(){
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
+        setChart("新增总账号","单位:个",ad_account_new_dataS);
+    })
+
+    $("#double_new").click(function(){
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
+        setChart("纯新增账号","单位:个",double_new_dataS);
+    })
+
+    $("#back_user").click(function(){
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
+        setChart("回流账号","单位:个",back_user_dataS);
+    })
+
+    $("#paid_account").click(function(){
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
+        setChart("付费账号","单位:个",paid_account_dataS);
+    })
+
+    $("#fufeilv").click(function(){
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
+        setChart("付费率","单位:百分百",fufeilv_dataS);
+    })
+
+    $("#spend").click(function(){
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
+        setChart("折后花费","单位:元",spend_dataS);
+    })
+
+    $("#CPA").click(function(){
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
+        setChart("C P A","单位:元",CPA_dataS);
+    })
+
+    $("#cumulative_flow").click(function(){
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
+        setChart("累计流水","单位:元",cumulative_flow_dataS);
+    })
+
+    $("#dis").click(function(){
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
+        setChart("分成比例","单位:百分百",dis_dataS);
+    })
+
+    $("#cumulative_money").click(function(){
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
+        setChart("累计净收入","单位:元",cumulative_money_dataS);
+    })
+
+    $("#ROI").click(function(){
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
+        setChart("R O I","单位:百分百",ROI_dataS);
+    })
+    $("#compare").click(function(){
+        //设置选择样式,和其他去掉选择样式
+        $(".chart-title").removeClass("select-title");
+        $(this).addClass("select-title");
+        setChartCompare();
+    })
+</script>
+
+
+<!--数字增加benchmark效果-->
+<script type="text/javascript">
+    
+    
+
+
+
+
+    function benchmark_bulid(){
+
+
+                list=$("#table").bootstrapTable('getData');
+
+                for (var i = list.length - 1; i >= 0; i--) {
+                    if (list[i]["CPA"]>60) {$("#table").bootstrapTable('updateRow', { index: i,row: { CPA:benchmark(list[i]["CPA"],"good") }});
+
+
+
+                    }
+                }
+
+    }
+
+    function bilibili(){
+     
+        $($(".my-parent-style-good").parent("td")).css({ color: "#FFFFFF", background: "#00d9b8" });
+        $($(".my-parent-style-normal").parent("td")).css({ color: "#FFFFFF", background: "#FFD306" });
+        $($(".my-parent-style-bad").parent("td")).css({ color: "#FFFFFF", background: "#C80017" });
+
+    }
+    t=window.setInterval(bilibili,100); 
+    $().ready(function(){
+          
+           setTimeout("setPieceChart();",2000);
+        
+        
+    });
+</script>
+
+
+{% endblock content %}

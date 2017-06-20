@@ -1,0 +1,411 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">首页</a>
+        </li>
+
+        <li>
+            <a href="#">投放分析</a>
+        </li>
+        <li class="active">iOS-渠道-明细</li>
+        <div class="nav-search">最后同步时间: <span id="sync_status"></span></div>
+    </ul><!-- /.breadcrumb -->
+</div>
+<div class="page-content">
+
+    <script type="text/javascript" src="/static/js/bootstrap-table.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap-table-multiple-sort.js"></script>
+    <script type="text/javascript" src="/static/js/src/load_json.js"></script>
+
+    <link rel="stylesheet" href="/static/css/bootstrap-table.css">
+
+    <!--<link rel="stylesheet" href="/static/css/bootstrap.min.css">-->
+
+                <div id="toolbar">
+                    <button id="button1" class="btn btn-info btn-sm ">概要显示</button>
+                    <button id="button2" class="btn btn-info btn-sm ">详细显示</button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-info btn-sm" data-toggle="dropdown">
+                            日期筛选
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#" id="button_7">显示七日内数据</a></li>
+                            <li><a href="#" id="button_all">显示全部数据</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn  btn-info btn-sm" data-toggle="dropdown">
+                            花费筛选
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#" id="button_money_">显示有花费</a></li>
+                            <li><a href="#" id="button_money_all">显示全部数据</a></li>
+                        </ul>
+                    </div>
+
+                    <input class="btn btn-sm "type="button" onclick="bilibili();" value="Benchmark">
+                    <!--button id="button3" class="btn btn-default">是/否分页显示</button-->
+                </div>
+
+                <script>document.write('<table id="table" class="table table-bordered table-hover" data-height=' + ($(window).height() - 100) + ' " ');</script>
+
+                       data-toggle="table"
+                       data-url="/channelIos600Json?{{sjs}}"
+                       data-flat="true"
+                       data-toolbar="#toolbar"
+
+                       data-page-size="100"
+                       data-page-list="[100, 200,500,1000,2000]"
+                       data-show-columns="false"
+
+                       data-show-pagination-switch="false"
+
+                       data-show-multi-sort="true"
+
+                       data-pagination="true"
+                       data-sort-priority='[{"sortName": "3","sortOrder":"asc"},{"sortName":"4","sortOrder":"asc"},{"sortName":"1","sortOrder":"desc"}]'
+                >
+                    <thead>
+
+
+                    <tr>
+                        <th data-field="1" data-sortable="true">
+                            　日期　
+                        </th>
+                        <th data-field="2" data-sortable="true">
+                            负责人
+                        </th>
+                        <th data-field="3" data-sortable="true">
+                            渠道名称
+                        </th>
+                        <th data-field="4" data-sortable="true">
+                            代理公司
+                        </th>
+                        <th data-field="8" data-sortable="true" data-align="right" >新增账号</th>
+                        <th data-field="9" data-sortable="true" data-align="right" >
+                            新增付费账号
+                        </th>
+                        <th data-field="10" data-sortable="true" data-align="right" >
+                            新增付费金额
+                        </th>
+                        <th data-field="ffl" data-sortable="true" data-align="right" data-formatter="ffl">
+                            付费率
+                        </th>
+                        <th data-field="cpa" data-sortable="true" data-align="right" data-formatter="cpa">
+                            CPA
+                        </th>
+                        <th data-field="mo_th" data-sortable="true" data-align="right" data-formatter="mo_th">
+                            花费金额
+                        </th>
+
+                        <th data-field="hs0" data-sortable="true" data-align="right" data-formatter="hs0">
+                            <font color="#F89406">+0回收</font>
+                        </th>
+                        <th data-field="hs1" data-sortable="true" data-align="right" data-formatter="hs1">
+                            <font color="#F89406">+1回收</font>
+                        </th>
+                        <th data-field="hs2" data-sortable="true" data-align="right" data-formatter="hs2">
+                            <font color="#F89406">+2回收</font>
+                        </th>
+                        <th data-field="hs3" data-sortable="true" data-align="right" data-formatter="hs3">
+                            <font color="#F89406">+3回收</font>
+                        </th>
+                        <th data-field="hs4" data-sortable="true" data-align="right" data-formatter="hs4">
+                            <font color="#F89406">+4回收</font>
+                        </th>
+                        <th data-field="hs5" data-sortable="true" data-align="right" data-formatter="hs5">
+                            <font color="#F89406">+5回收</font>
+                        </th>
+                        <th data-field="hs6" data-sortable="true" data-align="right" data-formatter="hs6">
+                            <font color="#F89406">+6回收</font>
+                        </th>
+
+                        <th data-field="lc1" data-sortable="true" data-align="right" data-formatter="lc1">
+                            <font color="#FA8072">+1留存</font>
+                        </th>
+                        <th data-field="lc2" data-sortable="true" data-align="right" data-formatter="lc2">
+                            <font color="#FA8072">+2留存</font>
+                        </th>
+                        <th data-field="lc3" data-sortable="true" data-align="right" data-formatter="lc3">
+                            <font color="#FA8072">+3留存</font>
+                        </th>
+                        <th data-field="lc4" data-sortable="true" data-align="right" data-formatter="lc4">
+                            <font color="#FA8072">+4留存</font>
+                        </th>
+                        <th data-field="lc5" data-sortable="true" data-align="right" data-formatter="lc5">
+                            <font color="#FA8072">+5留存</font>
+                        </th>
+                        <th data-field="lc6" data-sortable="true" data-align="right" data-formatter="lc6">
+                            <font color="#FA8072">+6留存</font>
+                        </th>
+                        <!--<th data-field="hs13" data-sortable="true" data-align="right" data-formatter="hs13">-->
+                            <!--<font color="#F89406">+13回收</font>-->
+                        <!--</th>-->
+                        <!--<th data-field="hs14" data-sortable="true" data-align="right" data-formatter="hs14">-->
+                            <!--<font color="#F89406">+14回收</font>-->
+                        <!--</th>-->
+
+                    </tr>
+                    </thead>
+                </table>
+    <script>
+        var $table = $('#table'),
+        $button1 = $('#button'),
+        $button2 = $('#button2');
+        $button4 = $('#button4'),
+        $button5 = $('#button5');
+        $button6 = $('#button_7');
+        $button7 = $('#button_all');
+        $button8= $('#button_money_');
+        $button9= $('#button_money_all');
+        $(function () {
+            $button1.click(function () {
+                for (var i = 20; i <=79; i++) {
+                    $table.bootstrapTable('showColumn', String(i));
+                };
+            });
+            $button2.click(function () {
+                for (var i = 20; i <=79; i++) {
+                    $table.bootstrapTable('hideColumn', String(i));
+                };
+            });
+
+            $button6.click(function () {
+                Date.prototype.Format = function (fmt) { //author: meizz
+                    var o = {
+                        "M+": this.getMonth() + 1, //月份
+                        "d+": this.getDate(), //日
+                        "h+": this.getHours(), //小时
+                        "m+": this.getMinutes(), //分
+                        "s+": this.getSeconds(), //秒
+                        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                        "S": this.getMilliseconds() //毫秒
+                    };
+                    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+                    for (var k in o)
+                        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                    return fmt;
+                }
+                var myDate=new Date();
+                var time1 = new Date().Format("yyyy-MM-dd");
+                var time2 = new Date(myDate.valueOf()-1*24*60*60*1000).Format("yyyy-MM-dd");
+                var time3 = new Date(myDate.valueOf()-2*24*60*60*1000).Format("yyyy-MM-dd");
+                var time4 = new Date(myDate.valueOf()-3*24*60*60*1000).Format("yyyy-MM-dd");
+                var time5 = new Date(myDate.valueOf()-4*24*60*60*1000).Format("yyyy-MM-dd");
+                var time6 = new Date(myDate.valueOf()-5*24*60*60*1000).Format("yyyy-MM-dd");
+                var time7 = new Date(myDate.valueOf()-6*24*60*60*1000).Format("yyyy-MM-dd");
+                var time8 = new Date(myDate.valueOf()-7*24*60*60*1000).Format("yyyy-MM-dd");
+
+
+                $table.bootstrapTable('filterBy', { "1": [time1,time2,time3,time4,time5,time6,time7,time8] });
+            });
+
+            $button7.click(function () {
+                $table.bootstrapTable('destroy');
+                $table.bootstrapTable();
+            });
+
+            $button9.click(function () {
+                $table.bootstrapTable('destroy');
+                $table.bootstrapTable();
+            });
+
+            $button8.click(function () {
+                $table.bootstrapTable('remove',{field:'mo_th',values:["0.0","","0"]});
+            });
+        });
+    </script>
+
+
+    <script>
+        function nameFormatter(value, row) {
+            var icon = row.id % 2 === 0 ? 'glyphicon-star' : 'glyphicon-star-empty'
+            return '<i class="glyphicon ' + icon + '"></i> ' + value;
+        }
+
+        function ffl(value, row){
+            if(row.ffl >= 4){
+                return '<div class="my-parent-style-F89406">' + toThousands(parseInt(value)).toString() + '%</div>';
+            }
+            else{
+                return toThousands(parseInt(value)).toString() + '%';
+            }
+        }
+        function cpa(value,row) {
+            if (row.cpa<=40 && row.cpa>0) {
+                return '<div class="my-parent-style-F89406">' +
+                    toThousands(parseInt(value)).toString() + '</div>';
+            }
+            else if (row.cpa>60) {
+                return '<div class="my-parent-style-191970">' + toThousands(parseInt(value)).toString() + '</div>';
+            }
+            else {
+                return toThousands(parseInt(value)).toString();
+            }
+        }
+
+        function mo_th(value,row) {
+                return toThousands(parseInt(value)).toString();
+        }
+
+        var formatStyle1 = '<div class="my-parent-style-F89406">'
+        var formatStyle2 = '%</div>'
+        var formatValue = 2
+        function hs0(value,row){
+            if ( row.hs0 >= formatValue*(1+0) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs0 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function hs1(value,row){
+            if ( row.hs1 >= formatValue*(1+1) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs1 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function hs2(value,row){
+            if ( row.hs2 >= formatValue*(1+2) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs2 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function hs3(value,row){
+            if ( row.hs3 >= formatValue*(1+3) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs3 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function hs4(value,row){
+            if ( row.hs4 >= formatValue*(1+4) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs4 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function hs5(value,row){
+            if ( row.hs5 >= formatValue*(1+5) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs5 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function hs6(value,row){
+            if ( row.hs6 >= formatValue*(1+6) ) {
+                return formatStyle1 + value + formatStyle2;
+            }else if( row.hs6 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+
+        var formatStyleLC1 = '<div class="my-parent-style-FA8072">'
+        var formatStyleLC2 = '%</div>'
+        function lc1(value,row){
+            if ( row.lc1 >= 35 ) {
+                return formatStyleLC1 + value + formatStyleLC2;
+            }else if( row.lc1 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function lc2(value,row){
+            if ( row.lc2 >= 22 ) {
+                return formatStyleLC1 + value + formatStyleLC2;
+            }else if( row.lc2 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function lc3(value,row){
+            if ( row.lc3 >= 18 ) {
+                return formatStyleLC1 + value + formatStyleLC2;
+            }else if( row.lc3 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function lc4(value,row){
+            if ( row.lc4 >= 15 ) {
+                return formatStyleLC1 + value + formatStyleLC2;
+            }else if( row.lc4 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function lc5(value,row){
+            if ( row.lc5 >= 12 ) {
+                return formatStyleLC1 + value + formatStyleLC2;
+            }else if( row.lc5 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+        function lc6(value,row){
+            if ( row.lc6 >= 10 ) {
+                return formatStyleLC1 + value + formatStyleLC2;
+            }else if( row.lc6 == ""){
+                return "-";
+            }else{
+                return value + "%";
+            }
+        }
+    </script>
+
+    <script>
+        $(function () {
+
+             $('#button_7').click();
+             setTimeout("$('#button_money_').click();",1000);
+        });
+    </script>
+
+    <script>
+        function toThousands(num) {
+            return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+        }
+
+        function bilibili(){
+            $($(".my-parent-style-F89406").parent("td")).css({ color: "#FFFFFF", background: "#F89406" });
+            $($(".my-parent-style-191970").parent("td")).css({ color: "#FFFFFF", background: "#191970" });
+            $($(".my-parent-style-FA8072").parent("td")).css({ color: "#FFFFFF", background: "#FA8072" });
+
+        }
+
+
+        <!--$("#navbar").hide();-->
+        <!--$("#sidebar").hide();-->
+        <!--setTimeout('$("#footerbar").hide();',3000);-->
+
+    </script>
+
+</div><!-- /.page-content -->
+
+{% endblock content %}

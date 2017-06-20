@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-content">
+
+    <script type="text/javascript" src="/static/js/bootstrap-table.js"></script>
+
+
+    <link rel="stylesheet" href="/static/css/bootstrap-table.css">
+
+    <!--<link rel="stylesheet" href="/static/css/bootstrap.min.css">-->
+
+ 
+
+
+ <table id="table" class="table table-bordered table-hover" 
+                       data-toggle="table"
+                       data-url="/spiderjson?{{sjs}}"
+                       data-page-size="100"
+                       data-page-list="[100, 200,500,1000,2000]"
+                                             data-pagination="true"
+                       data-show-columns="false" >
+                    <thead>
+
+
+                    <tr  >
+
+                        <th data-field="campaign_id" data-sortable="true" data-align="right">
+                            campaign_id
+                        </th>
+                        <th data-field="creative_id" data-sortable="true">
+                            creative_id
+                        </th>
+                        <th data-field="ad_id" data-sortable="true" data-align="right" >
+                            ad_id
+                        </th>
+                        <th data-field="create_time" data-sortable="true" data-align="right"  >
+                            创建时间
+                        </th>
+                        <th data-field="title" data-sortable="true" data-align="right"   >
+                              [________________________title______________________________]
+                        </th>
+                        <th   data-field="image_info" data-sortable="true" data-align="right" data-formatter="image_info">
+                              [________________________pic______________________________]
+                        </th>
+                        <th data-field="show" data-sortable="true">
+                            展示数
+                        </th>
+
+                        <th data-field="click" data-sortable="true" data-align="right">
+                           点击数 
+                        </th>
+                        <th data-field="convert_rate" data-sortable="true">
+                            转化率
+                        </th>
+
+                        <th data-field="convert_cost" data-sortable="true">
+                            安卓下载完成成本
+                        </th>
+                        <th data-field="click_install" data-sortable="true" data-align="right" >click_install</th>
+                        <th data-field="click_cost" data-sortable="true" data-align="right" >
+                            平均点击单价
+                        </th>
+
+                        <th data-field="external_action" data-sortable="true" data-align="right" >
+                            转化类型
+                        </th>
+                        <th data-field="inventory_str" data-sortable="true" data-align="right" >
+                            投放位置
+                        </th>
+                        <th data-field="campaign_name" data-sortable="true" data-align="right" >
+                              [__________广告计划 ___________]
+                        </th>
+
+                        <th data-field="install_finish_rate" data-sortable="true" data-align="right" >
+                            <font color="#F89406">安卓安装完成率</font>
+                        </th>
+
+                        <th data-field="inventory_type" data-sortable="true" data-align="right">
+                            <font color="#F89406">inventory_type</font>
+                        </th>
+                        <th data-field="install_finish_cost" data-sortable="true" data-align="right" >
+                            <font color="#F89406">安卓安装完成成本</font>
+                        </th>
+                        <th data-field="download_finish" data-sortable="true" data-align="right" >
+                            <font color="#F89406">安卓下载完成数</font>
+                        </th>
+                        <th data-field="download_finish_rate" data-sortable="true" data-align="right" >
+                            <font color="#F89406">安卓下载完成率</font>
+                        </th>
+
+                        <th data-field="stat_time" data-sortable="true" data-align="right">
+                            <font color="#FA8072">stat_time</font>
+                        </th>
+                        <th data-field="stat_cost" data-sortable="true" data-align="right" >
+                            <font color="#FA8072">总花费</font>
+                        </th>
+
+                        <th data-field="campaign_pricing_category" data-sortable="true" data-align="right">
+                            <font color="#FA8072">campaign_pricing_category</font>
+                        </th>
+
+                        <th data-field="click_start_rate" data-sortable="true" data-align="right" >
+                            <font color="#FA8072">安卓下载开始率</font>
+                        </th>
+                        <th data-field="click_start_cost" data-sortable="true" data-align="right" >
+                            <font color="#FA8072">安卓下载开始成本</font>
+                        </th>
+
+                        <th data-field="ad_name" data-sortable="true" data-align="right">
+                            <font color="#FA8072">[_______广告组名称_______]</font>
+                        </th>
+                                                <th data-field="click_start" data-sortable="true" data-align="right">
+                            <font color="#FA8072">安卓开始下载数</font>
+                        </th>
+                                                <th data-field="convert" data-sortable="true" data-align="right">
+                            <font color="#FA8072">安卓下载完成数</font>
+                        </th>
+                                                <th data-field="ctr" data-sortable="true" data-align="right" >
+                            <font color="#FA8072">点击率</font>
+                        </th>
+                                                <th data-field="download_cost" data-sortable="true" data-align="right">
+                            <font color="#FA8072">安卓下载完成成本</font>
+                        </th>
+                                                <th data-field="install_finish" data-sortable="true" data-align="right" >
+                            <font color="#FA8072">安卓安装完成数</font>
+                        </th>
+                                                <th data-field="ecpm" data-sortable="true" data-align="right" >
+                            <font color="#FA8072">ecpm</font>
+                        </th>
+                    
+                        <!--<th data-field="hs13" data-sortable="true" data-align="right" data-formatter="hs13">-->
+                            <!--<font color="#F89406">+13回收</font>-->
+                        <!--</th>-->
+                        <!--<th data-field="hs14" data-sortable="true" data-align="right" data-formatter="hs14">-->
+                            <!--<font color="#F89406">+14回收</font>-->
+                        <!--</th>-->
+
+                    </tr>
+                    </thead>
+                </table>
+
+
+
+
+</div><!-- /.page-content -->
+<script type="text/javascript">
+    
+    function image_info(value,row) {return '<img  height="50"  src="http://p2.pstatp.com/origin/'+ row["image_info"][0]["web_uri"]+'"/><img  height="50"  src="http://p2.pstatp.com/origin/'+ row["image_info"][1]["web_uri"]+'"/><img  height="50"  src="http://p2.pstatp.com/origin/'+ row["image_info"][2]["web_uri"]+'"/>';}
+
+
+</script>
+{% endblock content %}
