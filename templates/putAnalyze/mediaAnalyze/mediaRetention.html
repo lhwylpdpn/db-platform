@@ -1,0 +1,705 @@
+{% extends "base.html" %} {% block content %}
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">首页</a>
+        </li>
+        <li>
+            <a href="#">投放分析</a>
+        </li>
+        <li>
+            <a href="#">媒体分析</a>
+        </li>
+        <li class="active">媒体概览</li>
+    </ul>
+    <!-- /.breadcrumb -->
+</div>
+<div class="page-content">
+    <script type="text/javascript" src="/static/js/bootstrap-table.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap-table-multiple-sort.js"></script>
+    <link rel="stylesheet" href="/static/css/bootstrap-table.css">
+    <link rel="stylesheet" href="/static/css/Fliter.css">
+    <div class="btn-group">
+        <button id="time_1" type="button" class="data-filter btn btn-white btn-sm btn-primary">昨日</button>
+        <button id="time_2" type="button" class="data-filter btn btn-white btn-sm btn-primary">前日</button>
+        <button id="time_7" type="button" class="data-filter btn btn-white btn-sm btn-primary">近7天</button>
+        <button id="time_15" type="button" class="data-filter btn btn-white btn-sm btn-primary">近15天</button>
+        <button id="time_30" type="button" class="data-filter btn btn-white btn-sm btn-primary">近30天</button>
+        <button id="timeAll" type="button" class="data-filter btn btn-white btn-sm btn-primary">历史所有</button>
+        <!--<button id ="timeFromTo" type="button" class="btn btn-white btn-sm btn-primary">2017-02-01 -&#45;&#45; 2017-02-30</button>-->
+    </div>|
+    <input id="timeFrom" type="date" class="btn btn-white btn-sm btn-primary" value="" style="height:27px">--
+    <input id="timeTo" type="date" class="btn btn-white btn-sm btn-primary" value="" style="height:27px">
+    <p></p>
+    <div>
+        <!-- Filter by Silence Begin -->
+        <div id="FilterQuery" class="hotel-filter-list "><strong class="tit">已选</strong>
+            <div class="conF selected-query">
+                <ul id="FilterTagSelected">
+                    <li class="filter-query-clear"><a id="FilterQueryClear" href="javascript:;">全部清除</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="FilterQueryList">
+            <div id="List01" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="platform">
+                <strong class="tit">平台</strong>
+                <div class="conF checkboxF">
+                    <ul class="any">
+                        <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
+                    </ul>
+                    <ul class="initial"></ul>
+                    <ul class="list"></ul>
+                    <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
+                </div>
+            </div>
+            <div id="List02" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="channel">
+                <strong class="tit">媒体</strong>
+                <div class="conF checkboxF">
+                    <ul class="any">
+                        <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
+                    </ul>
+                    <ul class="initial"></ul>
+                    <ul class="list"></ul>
+                    <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
+                </div>
+            </div>
+            <div id="List03" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="agent">
+                <strong class="tit">代理</strong>
+                <div class="conF checkboxF">
+                    <ul class="any">
+                        <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
+                    </ul>
+                    <ul class="initial"></ul>
+                    <ul class="list"></ul>
+                    <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
+                </div>
+            </div>
+            <div id="List04" class="filterlist hotel-filter-list filter-list-has-more hotel-filter-list-min" data-value="staff">
+                <strong class="tit">负责</strong>
+                <div class="conF checkboxF">
+                    <ul class="any">
+                        <li><a class="filter-unlimit filter-tag selected" href="javascript:;">不限</a></li>
+                    </ul>
+                    <ul class="initial"></ul>
+                    <ul class="list"></ul>
+                    <span class="filter-more"><span class="open">更多</span><span class="closeF">收起</span><i></i></span>
+                </div>
+            </div>
+        </div>
+        <!-- Filter by Silence End -->
+        <div id="demo1"></div>
+        <div id="demo2"></div>
+        <div id="demo3"></div>
+        <div align="center">
+            <button id="chaxun" class="btn btn-white btn-sm btn-primary">查询</button>
+        </div>
+    </div>
+    <div class="hr hr-8 hr-dotted"></div>
+    <div id="main-widget-container">
+        <div class=" col-sm-6 widget-container-col ui-sortable" id="widget-container-col-1">
+            <div class="widget-box ui-sortable-handle" id="widget-box-1">
+                <div class="widget-header">
+                    <h5 class="widget-title">
+                                                                <button class="btn btn-sm btn-danger  btn-white btn-round" id="button1">
+                                                                    <i class="ace-icon fa fa-folder-o bigger-110 red"></i>
+                                                                    用户留存量
+                                                                </button>
+                                                                <button class="btn btn-sm btn-danger  btn-white btn-round"  id="button2">
+                                                                    <i class="ace-icon fa fa-folder-o bigger-110 red"></i>
+                                                                    用户留存率
+                                                                </button>
+                                                              <!--  <button class="btn btn-sm btn-danger  btn-white btn-round"  id="button3">
+                                                                    <i class="ace-icon fa fa-folder-o bigger-110 red"></i>
+                                                                    用户平均活跃时长
+                                                                </button>
+                                                                <button class="btn btn-sm btn-danger  btn-white btn-round"  id="button4">
+                                                                    <i class="ace-icon fa fa-folder-o bigger-110 red"></i>
+                                                                    用户平均登录次数
+                                                                </button>-->
+                                                                </h5>
+                    <div class="widget-toolbar">
+                        <!--<div class="widget-menu">
+                                                                        <a href="#" data-action="settings" data-toggle="dropdown" aria-expanded="false">
+                                                                            <i class="ace-icon fa fa-bars"></i>
+                                                                        </a>
+
+                                                                        <ul class="dropdown-menu dropdown-menu-right dropdown-light-blue dropdown-caret dropdown-closer">
+                                                                            <li class="active">
+                                                                                <a data-toggle="tab" href="#dropdown1" aria-expanded="true">留存量</a>
+                                                                            </li>
+
+                                                                            <li class="active">
+                                                                                <a data-toggle="tab" href="#dropdown2" aria-expanded="true">留存率</a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>-->
+                        <!--<a href="#" data-action="reload" onclick="javascript:$('#chaxun').click();">
+                                                                        <i class="ace-icon fa fa-refresh"></i>
+                                                                    </a>-->
+                        <a href="#" data-action="collapse">
+                            <i class="ace-icon fa fa-chevron-up"></i>
+                        </a>
+                        <a href="#" data-action="close">
+                            <i class="ace-icon fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="widget-body">
+                    <div id="div_table_1">
+                        <table id="table" data-sort-name="date_" data-sort-order="desc" class="table table-no-bordered " data-pagination="true" data-page-list="[10,20,50,100]" data-height="300">
+                            <thead>
+                                <tr>
+                                    <th data-field="game_id" data-sortable="true">游戏名称</th>
+                                    <th data-field="platform" data-sortable="true">平台</th>
+                                    <th data-field="channel_name" data-sortable="true">渠道</th>
+                                    <th data-field="agent" data-sortable="true">代理商</th>
+                                    <th data-field="staff" data-sortable="true">负责人</th>
+                                    <th data-field="date_" data-sortable="true">　日期　</th>
+                                    <th data-field="re_0" data-sortable="true">day0</th>
+                                    <th data-field="re_1" data-sortable="true">day1</th>
+                                    <th data-field="re_2" data-sortable="true">day2</th>
+                                    <th data-field="re_3" data-sortable="true">day3</th>
+                                    <th data-field="re_4" data-sortable="true">day4</th>
+                                    <th data-field="re_5" data-sortable="true">day5</th>
+                                    <th data-field="re_6" data-sortable="true">day6</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div id="div_table_2">
+                        <table id="table2" data-sort-name="date_" data-sort-order="desc" class="table table-no-bordered " data-pagination="true" data-page-list="[10,20,50,100]" data-height="300">
+                            <thead>
+                                <tr>
+                                    <th data-field="game_id" data-sortable="true">游戏名称</th>
+                                    <th data-field="platform" data-sortable="true">平台</th>
+                                    <th data-field="channel_name" data-sortable="true">渠道</th>
+                                    <th data-field="agent" data-sortable="true">代理商</th>
+                                    <th data-field="staff" data-sortable="true">负责人</th>
+                                    <th data-field="date_" data-sortable="true">　日期　</th>
+                                    <th data-field="re_0" data-sortable="true">day0</th>
+                                    <th data-field="re_1" data-sortable="true">day1</th>
+                                    <th data-field="re_2" data-sortable="true">day2</th>
+                                    <th data-field="re_3" data-sortable="true">day3</th>
+                                    <th data-field="re_4" data-sortable="true">day4</th>
+                                    <th data-field="re_5" data-sortable="true">day5</th>
+                                    <th data-field="re_6" data-sortable="true">day6</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" col-sm-6 widget-container-col ui-sortable" id="widget-container-col-1">
+            <div class="widget-box ui-sortable-handle" id="widget-box-1">
+                <div class="widget-header">
+                    <h5 class="widget-title">
+                                                                <button class="btn btn-sm btn-danger  btn-white btn-round" id="button3">
+                                                                    <i class="ace-icon fa fa-folder-o bigger-110 red"></i>
+                                                                    用户平均活跃时长(单位:分钟)
+                                                                </button>
+                                                                <button class="btn btn-sm btn-danger  btn-white btn-round"  id="button4">
+                                                                    <i class="ace-icon fa fa-folder-o bigger-110 red"></i>
+                                                                    用户平均登录次数
+                                                                </button>
+                                                              <!--  <button class="btn btn-sm btn-danger  btn-white btn-round"  id="button3">
+                                                                    <i class="ace-icon fa fa-folder-o bigger-110 red"></i>
+                                                                    用户平均活跃时长
+                                                                </button>
+                                                                <button class="btn btn-sm btn-danger  btn-white btn-round"  id="button4">
+                                                                    <i class="ace-icon fa fa-folder-o bigger-110 red"></i>
+                                                                    用户平均登录次数
+                                                                </button>-->
+                                                                </h5>
+                    <div class="widget-toolbar">
+                        <!--<div class="widget-menu">
+                                                                        <a href="#" data-action="settings" data-toggle="dropdown" aria-expanded="false">
+                                                                            <i class="ace-icon fa fa-bars"></i>
+                                                                        </a>
+
+                                                                        <ul class="dropdown-menu dropdown-menu-right dropdown-light-blue dropdown-caret dropdown-closer">
+                                                                            <li class="active">
+                                                                                <a data-toggle="tab" href="#dropdown1" aria-expanded="true"  >留存量</a>
+                                                                            </li>
+
+                                                                            <li class="active">
+                                                                                <a data-toggle="tab" href="#dropdown2" aria-expanded="true">留存率</a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>-->
+                        <!--<a href="#" data-action="reload" onclick="javascript:$('#chaxun').click();">
+                                                                        <i class="ace-icon fa fa-refresh"></i>
+                                                                    </a>-->
+                        <a href="#" data-action="collapse">
+                            <i class="ace-icon fa fa-chevron-up"></i>
+                        </a>
+                        <a href="#" data-action="close">
+                            <i class="ace-icon fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="widget-body">
+                    <div id='div_table_3'>
+        <div id='div_table_3'><table id="table3" data-sort-name="date_" data-sort-order="desc" class="table table-no-bordered "  
+        data-pagination="true"  
+        data-page-list="[10,20,50,100]"
+        data-height="300"
+        >
+            <thead>
+                <tr>
+                    <th data-field="game_id" data-sortable="true"  >游戏名称</th>
+                    <th data-field="platform" data-sortable="true" >平台</th>
+                    <th data-field="channel_name" data-sortable="true"  >渠道</th>
+                    <th data-field="agent" data-sortable="true" >代理商</th>
+                    <th data-field="staff" data-sortable="true"  >负责人</th>
+                    <th data-field="date_" data-sortable="true">　日期　</th>
+                    <th data-field="re_0" data-sortable="true">day0</th>
+                    <th data-field="re_1" data-sortable="true">day1</th>
+                    <th data-field="re_2" data-sortable="true">day2</th>
+                    <th data-field="re_3" data-sortable="true">day3</th>
+                    <th data-field="re_4" data-sortable="true">day4</th>
+                    <th data-field="re_5" data-sortable="true">day5</th>
+                    <th data-field="re_6" data-sortable="true">day6</th>
+
+
+                </tr>
+            </thead>
+        </table></div>
+                <div id='div_table_4'><table id="table4" data-sort-name="date_" data-sort-order="desc" class="table table-no-bordered "  
+        data-pagination="true"  
+        data-page-list="[10,20,50,100]"
+        data-height="300"
+        >
+            <thead>
+                <tr>
+                    <th data-field="game_id" data-sortable="true"  >游戏名称</th>
+                    <th data-field="platform" data-sortable="true" >平台</th>
+                    <th data-field="channel_name" data-sortable="true"  >渠道</th>
+                    <th data-field="agent" data-sortable="true" >代理商</th>
+                    <th data-field="staff" data-sortable="true"  >负责人</th>
+                    <th data-field="date_" data-sortable="true">　日期　</th>
+                    <th data-field="re_0" data-sortable="true">day0</th>
+                    <th data-field="re_1" data-sortable="true">day1</th>
+                    <th data-field="re_2" data-sortable="true">day2</th>
+                    <th data-field="re_3" data-sortable="true">day3</th>
+                    <th data-field="re_4" data-sortable="true">day4</th>
+                    <th data-field="re_5" data-sortable="true">day5</th>
+                    <th data-field="re_6" data-sortable="true">day6</th>
+
+
+                </tr>
+            </thead>
+        </table></div>
+
+
+       
+
+                                                            </div>
+                                                        </div>
+            </div><!--第二个table 外层div-->
+            
+
+
+
+
+
+
+
+</div>
+</div>
+
+</div><!-- /.page-content -->
+
+<script>
+$(function() {
+
+
+    $("#div_table_2").hide();
+    $("#div_table_4").hide();
+    $("#table").bootstrapTable({
+        url: "/analyze/mediaRetentionJson?{{sjs}}",
+        pagination: true, //开启分页
+        pageSize: 10
+    });
+
+
+             $("#table3").bootstrapTable({
+        url: "/analyze/mediaRetentionJson3?{{sjs}}",
+        pagination: true, //开启分页
+        pageSize: 10
+    });  
+
+              $("#table2").bootstrapTable({
+        url: "/analyze/mediaRetentionJson2?{{sjs}}",
+        pagination: true, //开启分页
+        pageSize: 10
+    }); 
+
+              $("#table4").bootstrapTable({
+        url: "/analyze/mediaRetentionJson4?{{sjs}}",
+        pagination: true, //开启分页
+        pageSize: 10
+    }); 
+           
+            $("#table").bootstrapTable('hideColumn', 'game_id');
+            $("#table").bootstrapTable('hideColumn', 'platform');
+            $("#table").bootstrapTable('hideColumn', 'channel_name');
+            $("#table").bootstrapTable('hideColumn', 'agent');
+            $("#table").bootstrapTable('hideColumn', 'staff');
+            $("#table2").bootstrapTable('hideColumn', 'game_id');
+            $("#table2").bootstrapTable('hideColumn', 'platform');
+            $("#table2").bootstrapTable('hideColumn', 'channel_name');
+            $("#table2").bootstrapTable('hideColumn', 'agent');
+            $("#table2").bootstrapTable('hideColumn', 'staff');
+            $("#table3").bootstrapTable('hideColumn', 'game_id');
+            $("#table3").bootstrapTable('hideColumn', 'platform');
+            $("#table3").bootstrapTable('hideColumn', 'channel_name');
+            $("#table3").bootstrapTable('hideColumn', 'agent');
+            $("#table3").bootstrapTable('hideColumn', 'staff');
+            $("#table4").bootstrapTable('hideColumn', 'game_id');
+            $("#table4").bootstrapTable('hideColumn', 'platform');
+            $("#table4").bootstrapTable('hideColumn', 'channel_name');
+            $("#table4").bootstrapTable('hideColumn', 'agent');
+            $("#table4").bootstrapTable('hideColumn', 'staff');
+
+    });
+
+
+    $("#button1").click(function(){
+         $("#div_table_2").hide();
+         $("#div_table_1").show();
+
+    });
+    $("#button2").click(function(){
+         $("#div_table_1").hide();
+         $("#div_table_2").show();
+
+    });
+    $("#button3").click(function(){
+         $("#div_table_4").hide();
+         $("#div_table_3").show();
+
+    });
+    $("#button4").click(function(){
+         $("#div_table_3").hide();
+         $("#div_table_4").show();
+
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript"> <!-- 日历筛选 -->
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+
+    //入参 2016-01-10格式的字符串
+    function filterTime(fromTime,toTime){
+        //先将条件筛选清空
+        $(".J_FilterQueryClear").trigger("click");
+
+        var fromTimeCuo = Date.parse(new Date(fromTime));
+        var toTimeCuo = Date.parse(new Date(toTime));
+        var tianshu = (toTimeCuo - fromTimeCuo)/1000/60/60/24;
+
+        var fromToTime = [fromTime];
+        var flag = fromTimeCuo
+        for (var i = 0 ; i < tianshu ; i++ ){
+            flag = flag+1000*60*60*24;
+            fromToTime.push( new Date(flag).Format("yyyy-MM-dd") );
+        }
+        //重新请求数据
+
+        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson?{{sjs}}&date_="+fromToTime+"&channel_name&agent&staff" } );
+        $("#table2").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson2?{{sjs}}&date_="+fromToTime+"&channel_name&agent&staff" } );
+        $("#table3").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson3?{{sjs}}&date_="+fromToTime+"&channel_name&agent&staff" } );
+        //日期筛选完成后,设置piece chartdata
+       // setTimeout("setPieceChart();",2000);
+    }
+
+$("#time_1").click(function() {
+    var time = new Date();
+    var timeTo = new Date(time - 1000 * 60 * 60 * 24).Format("yyyy-MM-dd");
+    console.log(timeTo);
+
+    $("#timeFrom").val(timeTo);
+    $("#timeTo").val(timeTo);
+    //设置背景颜色,和其他去掉背景颜色
+    $(".data-filter").addClass("btn-white");
+    $(this).removeClass("btn-white");
+    filterTime(timeTo, timeTo);
+});
+$("#time_2").click(function() {
+    var time = new Date();
+    var timeTo = new Date(time - 1000 * 60 * 60 * 24 * 2).Format("yyyy-MM-dd");
+    console.log(timeTo);
+    $("#timeFrom").val(timeTo);
+    $("#timeTo").val(timeTo);
+    //设置背景颜色,和其他去掉背景颜色
+    $(".data-filter").addClass("btn-white");
+    $(this).removeClass("btn-white");
+    filterTime(timeTo, timeTo);
+});
+$("#time_7").click(function() {
+    var time = new Date();
+    var timeTo = new Date(time - 1000 * 60 * 60 * 24).Format("yyyy-MM-dd");
+    var timeFrom = new Date(time - 1000 * 60 * 60 * 24 * 7).Format("yyyy-MM-dd");
+    console.log(timeTo, timeFrom);
+    $("#timeFrom").val(timeFrom);
+    $("#timeTo").val(timeTo);
+    //设置背景颜色,和其他去掉背景颜色
+    $(".data-filter").addClass("btn-white");
+    $(this).removeClass("btn-white");
+    filterTime(timeFrom, timeTo);
+});
+$("#time_15").click(function() {
+    var time = new Date();
+    var timeTo = new Date(time - 1000 * 60 * 60 * 24).Format("yyyy-MM-dd");
+    var timeFrom = new Date(time - 1000 * 60 * 60 * 24 * 15).Format("yyyy-MM-dd");
+    console.log(timeTo, timeFrom);
+    $("#timeFrom").val(timeFrom);
+    $("#timeTo").val(timeTo);
+    //设置背景颜色,和其他去掉背景颜色
+    $(".data-filter").addClass("btn-white");
+    $(this).removeClass("btn-white");
+    filterTime(timeFrom, timeTo);
+});
+$("#time_30").click(function() {
+    var time = new Date();
+    var timeTo = new Date(time - 1000 * 60 * 60 * 24).Format("yyyy-MM-dd");
+    var timeFrom = new Date(time - 1000 * 60 * 60 * 24 * 30).Format("yyyy-MM-dd");
+    console.log(timeTo, timeFrom);
+    $("#timeFrom").val(timeFrom);
+    $("#timeTo").val(timeTo);
+    //设置背景颜色,和其他去掉背景颜色
+    $(".data-filter").addClass("btn-white");
+    $(this).removeClass("btn-white");
+    filterTime(timeFrom, timeTo);
+});
+$("#timeAll").click(function() {
+    var time = new Date();
+    var timeTo = new Date(time - 1000 * 60 * 60 * 24).Format("yyyy-MM-dd");
+    var timeFrom = "2015-01-01";
+    console.log(timeTo, timeFrom);
+    $("#timeFrom").val(timeFrom);
+    $("#timeTo").val(timeTo);
+    //设置背景颜色,和其他去掉背景颜色
+    $(".data-filter").addClass("btn-white");
+    $(this).removeClass("btn-white");
+    filterTime(timeFrom, timeTo);
+});
+$("#timeFrom").change(function() {
+    var timeFrom = $(this).val();
+    var timeTo = $("#timeTo").val();
+    //设置背景颜色,和其他去掉背景颜色
+    $(".data-filter").addClass("btn-white");
+    $(this).removeClass("btn-white");
+    $("#timeTo").removeClass("btn-white");
+    filterTime(timeFrom, timeTo);
+
+});
+$("#timeTo").change(function() {
+    var timeTo = $(this).val();
+    var timeFrom = $("#timeFrom").val();
+    //设置背景颜色,和其他去掉背景颜色
+    $(".data-filter").addClass("btn-white");
+    $("#timeFrom").removeClass("btn-white");
+    $(this).removeClass("btn-white");
+    filterTime(timeFrom, timeTo);
+
+});
+
+//初始化From To
+$("#timeFrom").val("2015-01-01");
+
+var time = new Date();
+var timeTo = new Date(time - 1000 * 60 * 60 * 24).Format("yyyy-MM-dd");
+$("#timeTo").val(timeTo);
+</script>
+<!-- 日历筛选 -->
+<script src="/static/js/Filter_platform.js"></script>
+<!--筛选需要的js-->
+<script type="text/javascript">
+var demo1 = null;
+var demo2 = null;
+var demo3 = null;
+
+// $.getJSON("/analyze/mediaRetentionTJ", function(data) {
+//     demo1 = $('#demo1').comboboxfilter({
+//         url: '',
+//         text: "渠道",
+//         scope: 'FilterQuery3',
+//         multiple: true,
+//         data: data.channel_name,
+//         onChange: function(newValue) {
+//             $('#demo10').val(newValue);
+//             newValue1 = newValue;
+//         }
+//     });
+
+//     demo2 = $('#demo2').comboboxfilter({
+//         url: '',
+//         text: "代理商",
+//         scope: 'FilterQuery3',
+//         multiple: true,
+//         data: data.agent,
+//         onChange: function(newValue) {
+//             $('#demo20').val(newValue);
+//             newValue1 = newValue;
+//         }
+//     });
+
+
+//     demo3 = $('#demo3').comboboxfilter({
+//         url: '',
+//         text: "负责人",
+//         scope: 'FilterQuery3',
+//         multiple: true,
+//         data: data.staff,
+//         onChange: function(newValue) {
+//             $('#demo30').val(newValue);
+//             newValue1 = newValue;
+//         }
+//     });
+// });
+
+
+// 时间筛选+条件筛选
+$("#chaxun").click(function() {
+        var TJ_platform= new Array();
+        var TJ_staff= new Array();
+        var TJ_agnet =new Array();
+        var TJ_channel=new Array();
+
+    var fromTime = $("#timeFrom").val();
+    var toTime = $("#timeTo").val();
+
+    var fromTimeCuo = Date.parse(new Date(fromTime));
+    var toTimeCuo = Date.parse(new Date(toTime));
+    var tianshu = (toTimeCuo - fromTimeCuo) / 1000 / 60 / 60 / 24;
+
+    var fromToTime = [fromTime];
+    var flag = fromTimeCuo
+    for (var i = 0; i < tianshu; i++) {
+        flag = flag + 1000 * 60 * 60 * 24;
+        fromToTime.push(new Date(flag).Format("yyyy-MM-dd"));
+    }
+
+        $("#FilterTagSelected [data-platform]").each(function(){TJ_platform.push($(this).text());});
+        $("#FilterTagSelected [data-channel]").each(function(){TJ_channel.push($(this).text());});
+        $("#FilterTagSelected [data-agent]").each(function(){TJ_agnet.push($(this).text());});
+        $("#FilterTagSelected [data-staff]").each(function(){TJ_staff.push($(this).text());});
+
+
+        $("#table").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson?{{sjs}}&channel_name=" + TJ_channel.join(",") + "&platform=" + TJ_platform.join(",") + "&agent=" + TJ_agnet.join(",") + "&staff=" + TJ_staff.join(",")});
+        $("#table3").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson3?{{sjs}}&channel_name=" + TJ_channel.join(",") + "&platform=" + TJ_platform.join(",") + "&agent=" + TJ_agnet.join(",") + "&staff=" + TJ_staff.join(",")});
+        $("#table2").bootstrapTable('refresh',{url: "/analyze/mediaRetentionJson2?{{sjs}}&channel_name=" + TJ_channel.join(",") + "&platform=" + TJ_platform.join(",") + "&agent=" + TJ_agnet.join(",") + "&staff=" + TJ_staff.join(",")});
+        //条件筛选完成后,重新设置 piece chart
+      //  setTimeout("setPieceChart();",2000);
+         $("#table").bootstrapTable('filterBy',{
+                    date_  : fromToTime,
+                });
+         $("#table2").bootstrapTable('filterBy',{
+                    date_  : fromToTime,
+                });
+         $("#table3").bootstrapTable('filterBy',{
+                    date_ : fromToTime,
+                });
+    });
+
+
+</script>
+<script src="/static/js/highcharts.js"></script><!--图表需要的js-->
+<script type="text/javascript">//highchart
+    
+$(function () {
+    $('#container').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '媒体情况对比图'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+                '一月',
+                '二月',
+                '三月',
+                '四月',
+                '五月',
+                '六月',
+                '七月',
+                '八月',
+                '九月',
+                '十月',
+                '十一月',
+                '十二月',
+                'dddd'
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '降雨量 (mm)'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: '东京',
+            data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4,3]
+        }, {
+            name: '纽约',
+            data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3,3]
+        }, {
+            name: '伦敦',
+            data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2,3]
+        }, {
+            name: '柏林',
+            data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1,3]
+        }]
+    });
+});
+</script>
+{% endblock content %}
