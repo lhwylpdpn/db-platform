@@ -22,3 +22,4 @@ Config.py
 nohup.out
 app/routes/media_3.json
 *.csv
+*.xls

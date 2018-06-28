@@ -1,4 +1,8 @@
-# This Python file uses the following encoding: utf-8
+#!/usr/bin/python
+# -*- coding: UTF-8 -*- 
+#encoding=utf-8
+
+
 import sys
 import os
 import shutil
@@ -8,6 +12,7 @@ from app.db.dbBase import DBConnect
 from Config import Config
 import time
 import datetime
+import xlrd
 #非flask运行测试用 
 #coding=UTF-8
 # import sys
@@ -21,6 +26,93 @@ import datetime
 # import time
 # import datetime
 # import json
+
+############################################################################
+# 1、获取明细json
+# 2、获取汇总json
+# 3、登录、权限等
+# 4、
+##
+############################################################################
+
+def clac():
+	time1= time.time()
+	trade_id=88
+	trade_name=88
+	money_in=88
+ 	money_out=88
+	Transfer=88
+	commission=88
+	equity=88
+	test = []
+	pwd="\static\csv\\"
+	file="GN (1).xls"
+	newlist=[]
+	statinfo=[]
+	print(os.getcwd()+pwd+file)
+	sql=""
+	#time_tag=str(file_pwd.split("/")[-2])
+	time_tag=str(datetime.datetime.now().strftime('%Y-%m-%d  %H:%M:%S'))
+	date=str(datetime.datetime.now().strftime('%Y-%m-%d'));
+	print(pwd+file)
+	if  os.path.exists(os.getcwd()+pwd+file):
+		print(1)
+		filename=os.getcwd()+pwd+file
+		try:
+			data = xlrd.open_workbook(filename)
+		except:
+			return '{"status":"-1","body":"'+str(file)+' 文件无法打开"}'
+
+ 
+		sql='insert into data_detail values ' 
+
+		table = data.sheets()[0]
+
+	for x in xrange(0,table.ncols):
+		if table.cell(0,x).value=='交易商编号':
+			trade_id=x
+		if table.cell(0,x).value=='交易商名称':
+			trade_name=x
+		if table.cell(0,x).value=='入金':
+			money_in=x
+		if table.cell(0,x).value=='出金':
+			money_out=x
+		if table.cell(0,x).value=='转让盈亏':
+			Transfer=x
+		if table.cell(0,x).value=='交易手续费':
+			commission=x
+		if table.cell(0,x).value=='总权益':
+			equity=x
+	for x in xrange(0,table.nrows):
+
+		try:
+			sql+='("'+str(date)+'\","'+str(table.cell(x,trade_id).value).replace('"','')+'\\","'+str(table.cell(x,trade_name).value).replace('"','')+'\","'+str(table.cell(x,money_in).value).replace('"','')+'\","'+str(table.cell(x,commission).value).replace('"','')+'\","'+str(table.cell(x,Transfer).value).replace('"','')+'\","'+str(table.cell(x,equity).value).replace('"','')+'\","'+str(time_tag)+'\","'+str(file)+'\")'
+			
+		except:
+			return '{"status":"-1","body":"'+str(file)+' 的表头命名不正确"}'
+
+
+	
+
+	try:
+		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
+		cursor = conn.cursor()
+		print(sql)
+		cursor.execute(sql)
+		conn.commit()
+		cursor.close()
+		conn.close()
+	except Exception, e:
+		cursor.close()
+		conn.close()
+		print(str(e))
+		return '{"status":"-1","body":"数据库连接出错 "}'
+
+	return '{"status":"0","body":"'+str( time.time()-time1)+'"}'
+
+ 
+
+
 
 def login_in(username,password):
 	print("runlogin")
