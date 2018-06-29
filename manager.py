@@ -71,7 +71,8 @@ def data_clac_index():
 @app.route('/clac')
 def data_clac():
     jsons=json.loads(clac())
-    if json.dumps(jsons["status"])==0:
+   # print(json.dumps(jsons["status"]), json.dumps(jsons["status"])==0)
+    if json.dumps(jsons["status"])=="0":
 
         return render_template("data_clac.html", title=U"数据计算", time=json.dumps(jsons["body"]).decode('unicode_escape'),res=1)
     else:

@@ -34,71 +34,26 @@ import xlrd
 # 4、
 ##
 ############################################################################
-
+def file_name(file_dir): 
+	level_1_file=[]
+	for root, dirs, files in os.walk(file_dir):
+		#print(root) #当前目录路径
+		#print(dirs) #当前路径下所有子目录
+		#print(files) #当前路径下所有非目录子文件
+		if root==file_dir:
+			level_1_file=files
+			#print(3,level_1_file)
+	return level_1_file
 def clac():
+
 	time1= time.time()
-	trade_id=88
-	trade_name=88
-	money_in=88
- 	money_out=88
-	Transfer=88
-	commission=88
-	equity=88
-	test = []
-	pwd="\static\csv\\"
-	file="GN (1).xls"
-	newlist=[]
-	statinfo=[]
-	print(os.getcwd()+pwd+file)
-	sql=""
-	#time_tag=str(file_pwd.split("/")[-2])
-	time_tag=str(datetime.datetime.now().strftime('%Y-%m-%d  %H:%M:%S'))
-	date=str(datetime.datetime.now().strftime('%Y-%m-%d'));
-	print(pwd+file)
-	if  os.path.exists(os.getcwd()+pwd+file):
-		print(1)
-		filename=os.getcwd()+pwd+file
-		try:
-			data = xlrd.open_workbook(filename)
-		except:
-			return '{"status":"-1","body":"'+str(file)+' 文件无法打开"}'
 
- 
-		sql='insert into data_detail values ' 
-
-		table = data.sheets()[0]
-
-	for x in xrange(0,table.ncols):
-		if table.cell(0,x).value=='交易商编号':
-			trade_id=x
-		if table.cell(0,x).value=='交易商名称':
-			trade_name=x
-		if table.cell(0,x).value=='入金':
-			money_in=x
-		if table.cell(0,x).value=='出金':
-			money_out=x
-		if table.cell(0,x).value=='转让盈亏':
-			Transfer=x
-		if table.cell(0,x).value=='交易手续费':
-			commission=x
-		if table.cell(0,x).value=='总权益':
-			equity=x
-	for x in xrange(0,table.nrows):
-
-		try:
-			sql+='("'+str(date)+'\","'+str(table.cell(x,trade_id).value).replace('"','')+'\\","'+str(table.cell(x,trade_name).value).replace('"','')+'\","'+str(table.cell(x,money_in).value).replace('"','')+'\","'+str(table.cell(x,commission).value).replace('"','')+'\","'+str(table.cell(x,Transfer).value).replace('"','')+'\","'+str(table.cell(x,equity).value).replace('"','')+'\","'+str(time_tag)+'\","'+str(file)+'\")'
-			
-		except:
-			return '{"status":"-1","body":"'+str(file)+' 的表头命名不正确"}'
-
-
-	
 
 	try:
 		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
 		cursor = conn.cursor()
-		print(sql)
-		cursor.execute(sql)
+		#print(sql)
+		cursor.execute("delete from data_detail where date=LEFT(NOW(),10);")
 		conn.commit()
 		cursor.close()
 		conn.close()
@@ -106,9 +61,87 @@ def clac():
 		cursor.close()
 		conn.close()
 		print(str(e))
-		return '{"status":"-1","body":"数据库连接出错 "}'
+		return '{"status":"-1","body":"数据库初始清除出错 "}'
 
-	return '{"status":"0","body":"'+str( time.time()-time1)+'"}'
+
+	trade_id=""
+	trade_name=""
+	money_in=""
+ 	money_out=""
+	Transfer=""
+	commission=""
+	equity=""
+	test = []
+	pwd="\static\csv\\"
+	
+	filelist=file_name(os.getcwd()+pwd)
+	newlist=[]
+	statinfo=[]
+	sql=""
+	#time_tag=str(file_pwd.split("/")[-2])
+	time_tag=str(datetime.datetime.now().strftime('%Y-%m-%d  %H:%M:%S'))
+	date=str(datetime.datetime.now().strftime('%Y-%m-%d'));
+	for r in filelist:
+		if  os.path.exists(os.getcwd()+pwd+r):
+			file=r
+			filename=os.getcwd()+pwd+r
+			try:
+				data = xlrd.open_workbook(filename)
+			except:
+				return '{"status":"-1","body":"'+str(file)+' 文件无法打开"}'
+
+	 
+			sql='insert into data_detail values ' 
+
+			table = data.sheets()[0]
+
+		for x in xrange(0,table.ncols):
+			if table.cell(0,x).value=='交易商编号' or table.cell(0,x).value=='会员编号':
+				trade_id=x
+			if table.cell(0,x).value=='交易商名称' or table.cell(0,x).value=='会员名称':
+				trade_name=x
+			if table.cell(0,x).value=='入金':
+				money_in=x
+			if table.cell(0,x).value=='出金':
+				money_out=x
+			if table.cell(0,x).value=='转让盈亏':
+				Transfer=x
+			if table.cell(0,x).value=='交易手续费':
+				commission=x
+			if table.cell(0,x).value=='总权益':
+				equity=x
+		for x in xrange(1,table.nrows):
+
+			try:
+				sql+='("'+str(date)+'","'+str(table.cell(x,trade_id).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,trade_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_in).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_out).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,commission).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,Transfer).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,equity).value).replace('"','').replace(',','').decode()+'","'+str(time_tag)+'","'+str(file)+'"),'
+				
+			except:
+				return '{"status":"-1","body":"'+str(file)+' 的表头命名不正确"}'
+
+
+		
+
+		try:
+			conn = DBConnect.db_connect(Config.DATABASE_MAIN)
+			cursor = conn.cursor()
+			#print(sql)
+			cursor.execute(sql[:-1])
+			conn.commit()
+			cursor.close()
+			conn.close()
+		except Exception, e:
+			cursor.close()
+			conn.close()
+			print(str(e))
+			return '{"status":"-1","body":"数据库连接出错 "}'
+		trade_id=""
+		trade_name=""
+		money_in=""
+	 	money_out=""
+		Transfer=""
+		commission=""
+		equity=""
+	return '{"status":0,"body":"'+str( round(time.time()-time1,3))+'"}'
 
  
 
