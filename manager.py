@@ -61,7 +61,7 @@ def data_static():
     sjs = 0
     if len(request.args) != 0:
         sjs = random.random()
-    return render_template("data_static.html", title=U"汇总呈现", sjs=sjs)
+    return render_template("static_detail.html", title=U"汇总呈现", sjs=sjs)
 
 @app.route('/clac_index')
 def data_clac_index():

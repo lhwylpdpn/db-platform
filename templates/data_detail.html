@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% block content %}
+ 
+<link rel="stylesheet" href="/static/css/bootstrap-table.css">
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/bootstrap-table.js"></script>
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/clac">款项明细</a>
+        </li>
+
+        <!--<li>-->
+            <!--<a href="#">渠道明细</a>-->
+        <!--</li>-->
+        <!--<li class="active">iOS-渠道-明细</li>-->
+    </ul><!-- /.breadcrumb -->
+</div>
+
+<div class="col-xs-12">
+                                <!-- PAGE CONTENT BEGINS -->
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <h3 class="header smaller lighter green">款项明细报表</h3>
+ 
+                                                                           
+                                    </div>
+                                </div>
+</div><!-- PAGE CONTENT ENDS -->
+                
+<div class="col-xs-12 col-sm-12 widget-container-col ui-sortable" id="widget-container-col-8">
+                                            
+                                        <div class="widget-box widget-color-dark ui-sortable-handle" id="widget-box-8">
+                                                <div class="widget-header">
+                                                    <h5 class="widget-title bigger lighter">W.R</h5>
+
+                                                 
+
+                                                     
+                                                <div class="widget-toolbar">
+                                                        <a href="#" data-action="settings">
+                                                            <i class="ace-icon fa fa-cog"></i>
+                                                        </a>
+
+                                                        <a href="#" data-action="reload">
+                                                            <i class="ace-icon fa fa-refresh"></i>
+                                                        </a>
+
+                                                        <a href="#" data-action="collapse">
+                                                            <i class="ace-icon fa fa-chevron-up"></i>
+                                                        </a>
+
+ 
+                                                    </div>
+                                                    
+                                                </div>
+
+                                                <div class="widget-body">
+                                                    <div class="widget-toolbox" id="widget-toolbox-1">
+                                                        <div class="btn-toolbar">
+                                                             
+                                                                
+                                             <div class="btn-group">
+                                                <button class="btn btn-inverse">归属人</button>
+
+                                                <button data-toggle="dropdown" class="btn btn-inverse dropdown-toggle" aria-expanded="true">
+                                                    <span class="ace-icon fa fa-caret-down icon-only"></span>
+                                                </button>
+
+                                                <ul class="dropdown-menu dropdown-inverse">
+                                                    <li>
+                                                        <a href="#">刘浩</a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="#">陈哲</a>
+                                                    </li>
+ 
+                                                    <li class="divider"></li>
+
+                                                    <li>
+                                                        <a href="#">AAAA</a>
+                                                    </li>
+                                                </ul>
+                                            </div><!-- /.btn-group -->
+                                            
+
+                                             <div class="btn-group">
+                                                <button class="btn btn-inverse">日期</button>
+
+                                                <button data-toggle="dropdown" class="btn btn-inverse dropdown-toggle" aria-expanded="true">
+                                                    <span class="ace-icon fa fa-caret-down icon-only"></span>
+                                                </button>
+
+                                                <ul class="dropdown-menu dropdown-inverse">
+                                                    <li>
+                                                        <a href="#">2018-06-13</a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="#">2018-06-15</a>
+                                                    </li>
+ 
+                                                    <li class="divider"></li>
+
+                                                    <li>
+                                                        <a href="#">2018-06-14</a>
+                                                    </li>
+                                                </ul>
+                                            </div><!-- /.btn-group -->
+                                                            </div>
+ 
+                                                         
+                                                    </div>
+
+                                                    <div class="widget-main padding-16">
+                                                                                            <table id="table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th data-field="id">ID</th>
+                                                            <th data-field="name">Item Name</th>
+                                                            <th data-field="price">Item Price</th>
+                                                        </tr>
+                                                        </thead>
+                                                    </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+
+<script>
+    var $table = $('#table');
+
+    $(function () {
+        var data = [
+            {
+                "id": 0,
+                "name": "Item 0",
+                "price": "$0"
+            },
+            {
+                "id": 1,
+                "name": "Item 1",
+                "price": "$1"
+            },
+            {
+                "id": 2,
+                "name": "Item 2",
+                "price": "$2"
+            },
+            {
+                "id": 3,
+                "name": "Item 3",
+                "price": "$3"
+            },
+            {
+                "id": 4,
+                "name": "Item 4",
+                "price": "$4"
+            },
+            {
+                "id": 5,
+                "name": "Item 5",
+                "price": "$5"
+            }
+        ];
+        $table.bootstrapTable({data: data});
+    });
+</script>
+
+
+{% endblock content %}
