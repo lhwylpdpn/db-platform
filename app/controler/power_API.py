@@ -297,46 +297,40 @@ def power_list_update(usernames,poweritems):#usernames是一维数组传入用�
 
 #数据返回接口##############################################################################
 
-def get_business_json(filename,username):#usernames是一维数组传入用户名，poweritems是二维数组，传入每个用户名的权限数组
+def get_data_detail(username,date):#usernames是一维数组传入用户名，poweritems是二维数组，传入每个用户名的权限数组
 # 判断数据文剑名是否存在
 # 判断文件是否处于写状态
 # copy文件
 # 正则筛选
 # 返回json
-
+	user_=username
+	date_=date
 	result=""
-	pattern=[]
-	pwd="../../static/json/"+str(filename)
-	pwd="./static/json/"+str(filename)  # flask 项目当前目录是zilong根目录
-	if os.path.exists(pwd):
-		shutil.copyfile(pwd,str(filename))
-	f=open(str(filename))
 	try:
-		context=f.read()
-	except Exception, e:
-		return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
-	finally:
-		f.close()
+		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
+		cursor = conn.cursor()
+		sql="""
+		SELECT a.`trade_id`,a.`trade_name`,a.`commission`,c.`agent_name_1`,c.`agent_ratio_1`*a.`commission` AS m_1,c.`agent_name_2`,c.`agent_ratio_2`*a.`commission` AS m_2, c.`agent_name_3`,c.`agent_ratio_3`*a.`commission` AS m_3
+	,filename
 
-	os.remove(str(filename))
-	conn = DBConnect.db_connect(Config.DATABASE_MAIN)
-	cursor = conn.cursor()
-	sql="select power_user_list from power_info a ,user_info b where a.user_id=b.id and username in ('"+str(username)+"') and b.status in (0,1)"
-	cursor.execute(sql)
-	rs=cursor.fetchall()
-	if len(rs)!=1:
-		return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
-	else:
+	FROM `data_detail` a,`agent_relation` b,`agent_class` c WHERE a.`trade_id`=b.`trade_id` AND b.`class_id`=c.`class_id` AND a.`date`='"""+str(date_)+"""'  AND c.class_name ='"""+str(user_)+"""'
+
+
+
+	"""
+		cursor.execute(sql)
+		rs=cursor.fetchall()
+
 		for r in rs:
-			reg=re.split(",",r[0])
-			for x in xrange(0,len(reg)):
+			result+='{"trade_id":"'+str(r[0])+'","trade_name":"'+str(r[1])+'","commission":"'+str(r[2])+'","agent_name_1":"'+str(r[3])+'","m_1":"'+str(r[4])+'","agent_name_2":"'+str(r[5])+'","m_2":"'+str(r[6])+'","agent_name_3":"'+str(r[7])+'","m_3":"'+str(r[8])+'","filename":"'+str(r[9])+'"},'
+		
+		
+		result='{"status":"0","body":['+result[0:-1]+']}'
 
-				pattern=pattern+re.findall(r"{[^\}]*"+str(reg[x])+"[^\}]*.}",context)
-	
-	result=",".join(pattern)
-	result='{"status":"0","body":['+result+']}'
+		return result
+	except Exception, e:
 
-	return staff_rename(result)
+		return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
 
 #################################################
 

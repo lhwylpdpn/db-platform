@@ -16,7 +16,7 @@ app.register_blueprint(authBp)
 
 
 
-from app.controler.power_API import get_business_json
+from app.controler.power_API import get_data_detail
 from app.controler.power_API import clac
 
 
@@ -35,9 +35,12 @@ def index():
 @app.route('/detail_json')
 def data_detail_json():
 
-    jsons = json.loads(get_business_json("data_detail_json.json", session["username"]))  # 字符串传化为json 对象
-    print(jsons)
+    jsons = json.loads(get_data_detail("归属人测试名","2018-06-29"))  # 字符串传化为json 对象
+    #print(jsons)
+ 
+        
     return json.dumps(jsons["body"])
+
 
 @app.route('/static_json')
 def data_static_json():

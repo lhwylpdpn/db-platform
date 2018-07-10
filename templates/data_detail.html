@@ -86,13 +86,19 @@ vertical-align: middle!important;
                                                         </div>
                                             </div>
 
-
-                                          <div>
-                                                            <select multiple="" name="state" class="select2 tag-input-style select2-hidden-accessible" data-placeholder="请选择日期" style="min-width: 150px;" tabindex="-1" aria-hidden="true">
-                                                                
+                     <div class="btn-group">
+                                           <div>
+                                                            <select multiple="" name="state" class="select2 tag-input-style select2-hidden-accessible" data-placeholder="请选择归属人" style="min-width: 150px;" tabindex="-1" aria-hidden="true">
+                               
                                                                 <option value="刘浩">刘浩</option>
+                                                                
                                                             </select>
                                                         </div>
+                                            </div>
+                                           <div class="btn-group">
+                                           <button id="chaxun" class="btn btn-sm btn-inverse" onclick="chaxun();">查询</button>
+                                            </div>
+                                         
 
                                             </div>
 
@@ -114,15 +120,15 @@ vertical-align: middle!important;
                  
             </tr>
             <tr>
-                <th class="label-inverse"  ><font size="2" color="#FFD700" class="my-parent-style-good">交易商编号</font></th>
-                <th class="label-inverse" data-field="name" ><font size="2" color="#FFD700">交易商姓名</font></th>
-                <th class="label-inverse" data-field="price"><font size="2" color="#FFD700">手续费</font></th>
-                <th class="label-inverse"><font size="2" color="#FFD700">I级返佣人</font></th>
-                <th class="label-inverse"><font size="2" color="#FFD700">I级返佣金额</font></th>
-                <th class="label-inverse"><font size="2" color="#FFD700">II级返佣人</font></th>
-                <th class="label-inverse"><font size="2" color="#FFD700">II级返佣金额</font></th>
-                <th class="label-inverse"><font size="2" color="#FFD700">III级返佣人</font></th>
-                <th class="label-inverse" ><font size="2" color="#FFD700">III级返佣金额</font></th>
+                <th class="label-inverse" data-field="trade_id"  data-formatter="mark" ><font size="2" color="#FFD700" class="my-parent-style-good">交易商编号</font></th>
+                <th class="label-inverse" data-field="trade_name"  data-formatter="mark" ><font size="2" color="#FFD700">交易商姓名</font></th>
+                <th class="label-inverse" data-field="commission" data-formatter="mark" ><font size="2" color="#FFD700">手续费</font></th>
+                <th class="label-inverse" data-field="agent_name_1" data-formatter="mark" ><font size="2" color="#FFD700">I级返佣人</font></th>
+                <th class="label-inverse" data-field="m_1" data-formatter="mark" ><font size="2" color="#FFD700">I级返佣金额</font></th>
+                <th class="label-inverse" data-field="agent_name_2" data-formatter="mark" ><font size="2" color="#FFD700">II级返佣人</font></th>
+                <th class="label-inverse" data-field="m_2" data-formatter="mark" ><font size="2" color="#FFD700">II级返佣金额</font></th>
+                <th class="label-inverse" data-field="agent_name_3" data-formatter="mark" ><font size="2" color="#FFD700">III级返佣人</font></th>
+                <th class="label-inverse" data-field="m_3" data-formatter="mark" ><font size="2" color="#FFD700">III级返佣金额</font></th>
                
             </tr>
             </thead>
@@ -142,19 +148,26 @@ vertical-align: middle!important;
 });
 
 
-
-
-
-
-
     function rowStyle(row, index) {
     
     
             return {
-                classes: "warning"
+               css:{'background':'#FFFFFF'}
             };
   
     }
+
+
+    function mark(value,row) {
+
+     
+            if (value=="None") {return benchmark("".toString(),"normal")} 
+            return benchmark(value.toString(),"normal")
+ 
+
+    }
+
+
 </script>
 
 <script>
@@ -181,5 +194,79 @@ vertical-align: middle!important;
             });
         });
     });
+
+
+
+   function chaxun(){
+
+
+
+        // var TJ_platform= new Array();
+        // var TJ_staff= new Array();
+        // var TJ_agnet =new Array();
+        // var TJ_channel=new Array();
+        // var fromTime = $("#timeFrom").val();
+        // var toTime = $("#timeTo").val();
+
+        // var fromTimeCuo = Date.parse(new Date(fromTime));
+        // var toTimeCuo = Date.parse(new Date(toTime));
+        // var tianshu = (toTimeCuo - fromTimeCuo)/1000/60/60/24;
+
+        // var fromToTime = [fromTime];
+        // var flag = fromTimeCuo
+        // for (var i = 0 ; i < tianshu ; i++ ){
+        //     flag = flag+1000*60*60*24;
+        //     fromToTime.push( new Date(flag).Format("yyyy-MM-dd") );
+        // }
+
+        // $("#FilterTagSelected [data-platform]").each(function(){TJ_platform.push($(this).text());});
+        // $("#FilterTagSelected [data-channel]").each(function(){TJ_channel.push($(this).text());});
+        // $("#FilterTagSelected [data-agent]").each(function(){TJ_agnet.push($(this).text());});
+        // $("#FilterTagSelected [data-staff]").each(function(){TJ_staff.push($(this).text());});
+ 
+
+        $("#table").bootstrapTable('refresh',{url: "/detail_json"} );
+
+        // $("#table").bootstrapTable('filterBy',{
+        //     date_time : fromToTime,
+        // });
+
+        //条件筛选完成后,重新设置 piece chart
+
+       
+    }
+
+
+    function benchmark(context,type){
+
+
+        switch (type)
+        {
+        case "good":
+          return '<div class="my-parent-style-good"><b>' + context + '</b></div>'
+
+          break;
+        case "normal":
+          return '<div class="my-parent-style-normal"><b>' + context + '</b></div>'
+          break;
+        case "bad":
+         return '<div class="my-parent-style-bad"><b>' + context + '</b></div>'
+          break;
+        default:
+          return context;
+
+        }
+
+
+    }
+
+    window.onload=function bilibili(){
+     
+        $($(".my-parent-style-good").parent("td")).css({ color: "#FFFFFF", background: "#00d9b8" });
+        $($(".my-parent-style-normal").parent("td")).css({ color: "#000000", background: "#FFFFFF" });
+        $($(".my-parent-style-bad").parent("td")).css({ color: "#000000", background: "#FFFFFF" });
+
+    }
+   
 </script>
 {% endblock content %}
