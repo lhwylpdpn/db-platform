@@ -86,12 +86,12 @@ def data_detail():
     if len(request.args) != 0:
         sjs = random.random()
     jsons=json.loads(get_data_class_name())
-    jsons=json.dumps(jsons["body"]).decode('unicode_escape')
-    jsons = json.loads(jsons)
-    for x in xrange(0,len(jsons)):
-        class_name.append(jsons[x]["class_name"].decode('utf-8'))
-    print(class_name)
-    return render_template("data_detail.html", title=U"款项明细", sjs=sjs,jsons_=class_name)
+    jsons=json.dumps(jsons["body"],ensure_ascii=False)
+    # jsons = json.loads(jsons)
+    # for x in xrange(0,len(jsons)):
+    #     class_name.append(jsons[x]["class_name"])
+    # print(class_name)
+    return render_template("data_detail.html", title=U"款项明细", sjs=sjs,jsons_=jsons)
 
 
 @app.route('/static')
