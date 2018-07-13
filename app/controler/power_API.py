@@ -34,6 +34,12 @@ import xlrd
 # 4、
 ##
 ############################################################################
+
+
+
+
+
+
 def file_name(file_dir): 
 	level_1_file=[]
 	for root, dirs, files in os.walk(file_dir):
@@ -334,31 +340,34 @@ def get_data_detail(username,date):#usernames是一维数组传入用户名，po
 
 #################################################
 
-#人名替换部分
-def staff_rename(result):
 
-	result=result.replace("chenlin", "陈琳")
-	result=result.replace("hanpeng", "韩鹏")
-	result=result.replace("lisihan", "刘思涵")
-	result=result.replace("luojiaming", "罗家明")
-	result=result.replace("qinxuetao", "秦雪涛")
-	result=result.replace("tongfangfang", "陈琳")
-	result=result.replace("wangyaxin", "王雅馨")
-	result=result.replace("zhangmeng", "张萌")
-	result=result.replace("zhangshuang", "张爽")
-	result=result.replace("zhaojia", "赵佳")
-	result=result.replace("zhouhao", "周浩")
-	result=result.replace("zhangkaiwang", "张凯旺")
-	result=result.replace("zhangkaiwangg", "张凯旺")
-	result=result.replace("jinboxin", "金博鑫")
-	result=result.replace("sunyueqiao", "孙月乔")
-	result=result.replace("lijinquan", "李晋泉")
-	result=result.replace("qingxuetao", "秦雪涛")
-	result=result.replace("liusihan", "刘思涵")
-	result=result.replace("zhengcaitong", "郑彩彤")
-	result=result.replace("other", "其他")
-	result=result.replace("linxu", "林旭")
-	result=result.replace("weizhi_none", "未归类")
-	result=result.replace("zhangchi", "张弛")
-	return result
 
+
+def get_data_class_name():#usernames是一维数组传入用户名，poweritems是二维数组，传入每个用户名的权限数组
+# 判断数据文剑名是否存在
+# 判断文件是否处于写状态
+# copy文件
+# 正则筛选
+# 返回json
+
+	result=""
+	try:
+		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
+		cursor = conn.cursor()
+		sql="""
+    SELECT DISTINCT class_name  FROM `agent_class`
+
+	"""
+		cursor.execute(sql)
+		rs=cursor.fetchall()
+
+		for r in rs:
+			result+='{"class_name":"'+str(r[0])+'"},'
+		
+		
+		result='{"status":"0","body":['+result[0:-1]+']}'
+		#return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
+		return result
+	except Exception, e:
+
+		return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'

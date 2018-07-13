@@ -75,13 +75,13 @@ vertical-align: middle!important;
                                                         <div class="btn-toolbar">
                                                              
                             
-        
+                                            {{ jsons_}}
                                              <div class="btn-group">
                                            <div>
-                                                            <select multiple="" name="state" class="select2 tag-input-style select2-hidden-accessible" data-placeholder="请选择归属人" style="min-width: 150px;" tabindex="-1" aria-hidden="true">
+                                                            <select multiple="" name="state" class="select2 tag-input-style select2-hidden-accessible" data-placeholder="请选择归属人" style="min-width: 150px;" tabindex="-1" aria-hidden="true" >
                                
-                                                                <option value="刘浩">刘浩</option>
-                                                                
+                                                               <option value="">全部</option>
+                                                               <option value="">{{ jsons_ }}</option>
                                                             </select>
                                                         </div>
                                             </div>
@@ -90,11 +90,13 @@ vertical-align: middle!important;
                                            <div>
                                                             <select multiple="" name="state" class="select2 tag-input-style select2-hidden-accessible" data-placeholder="请选择归属人" style="min-width: 150px;" tabindex="-1" aria-hidden="true">
                                
-                                                                <option value="刘浩">刘浩</option>
+                                                               <option value="">全部</option>
                                                                 
                                                             </select>
                                                         </div>
                                             </div>
+
+                                           <select class="select2 tag-input-style select2-hidden-accessible js-example-data-array-selected"></select>
                                            <div class="btn-group">
                                            <button id="chaxun" class="btn btn-sm btn-inverse" onclick="chaxun();">查询</button>
                                             </div>
@@ -269,4 +271,7 @@ vertical-align: middle!important;
     }
    
 </script>
+
+
+
 {% endblock content %}

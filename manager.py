@@ -15,7 +15,7 @@ from app.routes.rAuth import authBp
 app.register_blueprint(authBp)
 
 
-
+from app.controler.power_API import get_data_class_name
 from app.controler.power_API import get_data_detail
 from app.controler.power_API import clac
 
@@ -41,22 +41,57 @@ def data_detail_json():
         
     return json.dumps(jsons["body"])
 
+@app.route('/test')
+def test():
 
-@app.route('/static_json')
-def data_static_json():
+    jsons = """
 
-    jsons = json.loads(get_business_json("data_static_json.json", session["username"]))  # 字符串传化为json 对象
+{
+  "results": [
+    {
+      "id": 1,
+      "text": "Option 1"
+    },
+    {
+      "id": 2,
+      "text": "Option 2"
+    }
+  ],
+  "pagination": {
+    "more": true
+  }
+}
+    """
+    #print(jsons)
     print(jsons)
-    return json.dumps(jsons["body"])
+        
+    return jsons
+
+
+
+
+# @app.route('/static_json')
+# def data_static_json():
+
+#     jsons = json.loads(get_business_json("data_static_json.json", session["username"]))  # 字符串传化为json 对象
+#     print(jsons)
+#     return json.dumps(jsons["body"])
 
 
 
 @app.route('/detail')
 def data_detail():
     sjs = 0
+    class_name=[]
     if len(request.args) != 0:
         sjs = random.random()
-    return render_template("data_detail.html", title=U"款项明细", sjs=sjs)
+    jsons=json.loads(get_data_class_name())
+    jsons=json.dumps(jsons["body"]).decode('unicode_escape')
+    jsons = json.loads(jsons)
+    for x in xrange(0,len(jsons)):
+        class_name.append(jsons[x]["class_name"].decode('utf-8'))
+    print(class_name)
+    return render_template("data_detail.html", title=U"款项明细", sjs=sjs,jsons_=class_name)
 
 
 @app.route('/static')
