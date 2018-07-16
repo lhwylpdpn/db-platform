@@ -5,6 +5,7 @@ from flask import render_template
 from Config import Config
 import random
 import time
+import chardet
 app = Flask(__name__)
 app.secret_key = Config().SECRET_KEY
 
@@ -13,12 +14,16 @@ app.register_blueprint(userBp)
 
 from app.routes.rAuth import authBp
 app.register_blueprint(authBp)
+import sys
+reload(sys)
+sys.setdefaultencoding('UTF-8')
+
 
 
 from app.controler.power_API import get_data_class_name
 from app.controler.power_API import get_data_detail
 from app.controler.power_API import clac
-
+from app.controler.power_API import get_data_class_date
 
 
 # @app.before_request
@@ -34,38 +39,14 @@ def index():
 
 @app.route('/detail_json')
 def data_detail_json():
-
-    jsons = json.loads(get_data_detail("归属人测试名","2018-06-29"))  # 字符串传化为json 对象
+    date=request.args.get('date')
+    person=request.args.get('person')
+    jsons = json.loads(get_data_detail(person,date))  # 字符串传化为json 对象
     #print(jsons)
  
         
     return json.dumps(jsons["body"])
 
-@app.route('/test')
-def test():
-
-    jsons = """
-
-{
-  "results": [
-    {
-      "id": 1,
-      "text": "Option 1"
-    },
-    {
-      "id": 2,
-      "text": "Option 2"
-    }
-  ],
-  "pagination": {
-    "more": true
-  }
-}
-    """
-    #print(jsons)
-    print(jsons)
-        
-    return jsons
 
 
 
@@ -85,13 +66,14 @@ def data_detail():
     class_name=[]
     if len(request.args) != 0:
         sjs = random.random()
-    jsons=json.loads(get_data_class_name())
-    jsons=json.dumps(jsons["body"],ensure_ascii=False)
-    # jsons = json.loads(jsons)
-    # for x in xrange(0,len(jsons)):
-    #     class_name.append(jsons[x]["class_name"])
-    # print(class_name)
-    return render_template("data_detail.html", title=U"款项明细", sjs=sjs,jsons_=jsons)
+    jsons=get_data_class_name()
+    jsons=jsons.split(u",")
+    dates=get_data_class_date()
+    dates=dates.split(u",")
+
+
+
+    return render_template("data_detail.html", title=U"款项明细", sjs=sjs, jsons_=jsons,dates_=dates)
 
 
 @app.route('/static')

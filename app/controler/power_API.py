@@ -35,7 +35,9 @@ import xlrd
 ##
 ############################################################################
 
-
+import sys
+reload(sys)
+sys.setdefaultencoding('UTF-8')
 
 
 
@@ -309,6 +311,7 @@ def get_data_detail(username,date):#usernames是一维数组传入用户名，po
 # copy文件
 # 正则筛选
 # 返回json
+
 	user_=username
 	date_=date
 	result=""
@@ -335,11 +338,35 @@ def get_data_detail(username,date):#usernames是一维数组传入用户名，po
 
 		return result
 	except Exception, e:
-
+		print e
 		return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
 
 #################################################
 
+
+
+
+def get_data_class_date():
+
+	result=""
+	try:
+		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
+		cursor = conn.cursor()
+		sql="""
+SELECT distinct date FROM DBplatform.data_detail;
+
+	"""
+		cursor.execute(sql)
+		rs=cursor.fetchall()
+ 		for r in rs:
+ 			 result+=str(r[0])+","
+		
+		
+		
+		return result[0:-1]
+	except Exception, e:
+		print e
+		return ""
 
 
 
@@ -360,14 +387,12 @@ def get_data_class_name():#usernames是一维数组传入用户名，poweritems�
 	"""
 		cursor.execute(sql)
 		rs=cursor.fetchall()
-
-		for r in rs:
-			result+='{"class_name":"'+str(r[0])+'"},'
+ 		for r in rs:
+ 			 result+=str(r[0])+","
 		
 		
-		result='{"status":"0","body":['+result[0:-1]+']}'
-		#return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
-		return result
+		
+		return result[0:-1]
 	except Exception, e:
-
-		return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
+		print e
+		return ""
