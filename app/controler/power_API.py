@@ -305,7 +305,7 @@ def power_list_update(usernames,poweritems):#usernames是一维数组传入用�
 
 #数据返回接口##############################################################################
 
-def get_data_detail(username,date):#usernames是一维数组传入用户名，poweritems是二维数组，传入每个用户名的权限数组
+def get_data_detail(username,date,filename):#usernames是一维数组传入用户名，poweritems是二维数组，传入每个用户名的权限数组
 # 判断数据文剑名是否存在
 # 判断文件是否处于写状态
 # copy文件
@@ -322,11 +322,12 @@ def get_data_detail(username,date):#usernames是一维数组传入用户名，po
 		SELECT a.`trade_id`,a.`trade_name`,a.`commission`,c.`agent_name_1`,c.`agent_ratio_1`*a.`commission` AS m_1,c.`agent_name_2`,c.`agent_ratio_2`*a.`commission` AS m_2, c.`agent_name_3`,c.`agent_ratio_3`*a.`commission` AS m_3
 	,filename
 
-	FROM `data_detail` a,`agent_relation` b,`agent_class` c WHERE a.`trade_id`=b.`trade_id` AND b.`class_id`=c.`class_id` AND a.`date`='"""+str(date_)+"""'  AND c.class_name ='"""+str(user_)+"""'
+	FROM `data_detail` a,`agent_relation` b,`agent_class` c WHERE a.`trade_id`=b.`trade_id` AND b.`class_id`=c.`class_id` AND a.`date`='"""+str(date_)+"""'  AND c.class_name ='"""+str(user_)+"""'  
 
-
+	and a.filename like '%"""+str(filename)+"""%'
 
 	"""
+		#print(sql)
 		cursor.execute(sql)
 		rs=cursor.fetchall()
 

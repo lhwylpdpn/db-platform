@@ -42,8 +42,8 @@ vertical-align: middle!important;
 <div class="col-xs-12 col-sm-12 widget-container-col ui-sortable" id="widget-container-col-8">
                                             
                                         <div class="widget-box widget-color-dark ui-sortable-handle" id="widget-box-8">
-                                                <div class="widget-header">
-                                                    <h5 class="widget-title bigger lighter">W.R</h5>
+                                                <div class="widget-header" style="margin:0px auto;text-align:center;">
+                                                    <h5 class="widget-title bigger lighter" ><a style="font-weight:bold;font-size:25px;color: #FFD700">W.R</a></h5>
 
                                                  
 
@@ -52,12 +52,10 @@ vertical-align: middle!important;
 
                                                 <span class="badge badge-danger">说明</span>
 
-                                                        <a href="#" data-action="settings">
-                                                            <i class="ace-icon fa fa-cog"></i>
-                                                        </a>
+                                                       
 
                                                         <a href="#" data-action="reload">
-                                                            <i class="ace-icon fa fa-refresh"></i>
+                                                            <i class="ace-icon fa fa-refresh" onclick="chaxun();"></i>
                                                         </a>
 
                                                         <a href="#" data-action="collapse">
@@ -127,7 +125,7 @@ vertical-align: middle!important;
             <thead>
             <tr>
                 <th colspan="9"   ><font size="3" >新疆汇宝</font></th>
-                 
+                 <!-- hb -->
             </tr>
             <tr>
                 <th class="label-inverse" data-field="trade_id"  data-formatter="mark" ><font size="2" color="#FFD700" class="my-parent-style-good">交易商编号</font></th>
@@ -143,6 +141,84 @@ vertical-align: middle!important;
             </tr>
             </thead>
         </table>
+
+                            <table id="table2"
+               data-toggle="table"
+               
+               data-row-style="rowStyle">
+            <thead>
+            <tr>
+                <th colspan="9"   ><font size="3" >贵州西部</font></th>
+                                 <!-- gn -->
+
+            </tr>
+            <tr>
+                <th class="label-inverse" data-field="trade_id"  data-formatter="mark" ><font size="2" color="#FFD700" class="my-parent-style-good">交易商编号</font></th>
+                <th class="label-inverse" data-field="trade_name"  data-formatter="mark" ><font size="2" color="#FFD700">交易商姓名</font></th>
+                <th class="label-inverse" data-field="commission" data-formatter="mark" ><font size="2" color="#FFD700">手续费</font></th>
+                <th class="label-inverse" data-field="agent_name_1" data-formatter="mark" ><font size="2" color="#FFD700">I级返佣人</font></th>
+                <th class="label-inverse" data-field="m_1" data-formatter="mark" ><font size="2" color="#FFD700">I级返佣金额</font></th>
+                <th class="label-inverse" data-field="agent_name_2" data-formatter="mark" ><font size="2" color="#FFD700">II级返佣人</font></th>
+                <th class="label-inverse" data-field="m_2" data-formatter="mark" ><font size="2" color="#FFD700">II级返佣金额</font></th>
+                <th class="label-inverse" data-field="agent_name_3" data-formatter="mark" ><font size="2" color="#FFD700">III级返佣人</font></th>
+                <th class="label-inverse" data-field="m_3" data-formatter="mark" ><font size="2" color="#FFD700">III级返佣金额</font></th>
+               
+            </tr>
+            </thead>
+        </table>
+
+                            <table id="table3"
+               data-toggle="table"
+               
+               data-row-style="rowStyle">
+            <thead>
+            <tr>
+                <th colspan="9"   ><font size="3" >寿光果蔬</font></th> 
+                    <!-- GS -->
+            </tr>
+            <tr>
+                <th class="label-inverse" data-field="trade_id"  data-formatter="mark" ><font size="2" color="#FFD700" class="my-parent-style-good">交易商编号</font></th>
+                <th class="label-inverse" data-field="trade_name"  data-formatter="mark" ><font size="2" color="#FFD700">交易商姓名</font></th>
+                <th class="label-inverse" data-field="commission" data-formatter="mark" ><font size="2" color="#FFD700">手续费</font></th>
+                <th class="label-inverse" data-field="agent_name_1" data-formatter="mark" ><font size="2" color="#FFD700">I级返佣人</font></th>
+                <th class="label-inverse" data-field="m_1" data-formatter="mark" ><font size="2" color="#FFD700">I级返佣金额</font></th>
+                <th class="label-inverse" data-field="agent_name_2" data-formatter="mark" ><font size="2" color="#FFD700">II级返佣人</font></th>
+                <th class="label-inverse" data-field="m_2" data-formatter="mark" ><font size="2" color="#FFD700">II级返佣金额</font></th>
+                <th class="label-inverse" data-field="agent_name_3" data-formatter="mark" ><font size="2" color="#FFD700">III级返佣人</font></th>
+                <th class="label-inverse" data-field="m_3" data-formatter="mark" ><font size="2" color="#FFD700">III级返佣金额</font></th>
+               
+            </tr>
+            </thead>
+        </table>
+
+
+
+                  <table id="table4"
+               data-toggle="table"
+               
+               data-row-style="rowStyle">
+            <thead>
+            <tr>
+                <th colspan="9"   ><font size="3" >青岛北方</font></th>
+                 <!-- QB -->
+            </tr>
+            <tr>
+                <th class="label-inverse" data-field="trade_id"  data-formatter="mark" ><font size="2" color="#FFD700" class="my-parent-style-good">交易商编号</font></th>
+                <th class="label-inverse" data-field="trade_name"  data-formatter="mark" ><font size="2" color="#FFD700">交易商姓名</font></th>
+                <th class="label-inverse" data-field="commission" data-formatter="mark" ><font size="2" color="#FFD700">手续费</font></th>
+                <th class="label-inverse" data-field="agent_name_1" data-formatter="mark" ><font size="2" color="#FFD700">I级返佣人</font></th>
+                <th class="label-inverse" data-field="m_1" data-formatter="mark" ><font size="2" color="#FFD700">I级返佣金额</font></th>
+                <th class="label-inverse" data-field="agent_name_2" data-formatter="mark" ><font size="2" color="#FFD700">II级返佣人</font></th>
+                <th class="label-inverse" data-field="m_2" data-formatter="mark" ><font size="2" color="#FFD700">II级返佣金额</font></th>
+                <th class="label-inverse" data-field="agent_name_3" data-formatter="mark" ><font size="2" color="#FFD700">III级返佣人</font></th>
+                <th class="label-inverse" data-field="m_3" data-formatter="mark" ><font size="2" color="#FFD700">III级返佣金额</font></th>
+               
+            </tr>
+            </thead>
+        </table>
+
+
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -198,8 +274,8 @@ vertical-align: middle!important;
             var sum_m1=0;
             var sum_m2=0;
             var sum_m3=0;
-
-            date_=$("#table").bootstrapTable('getData');
+            var table=$("#table");
+            date_=table.bootstrapTable('getData');
              
             for (var i = 0; i < date_.length; i++) {
                 
@@ -210,7 +286,7 @@ vertical-align: middle!important;
             };
             
 
-             $("#table").bootstrapTable('insertRow', {
+             table.bootstrapTable('insertRow', {
                 index: date_.length,
                 row: {
                     trade_id:'合计',
@@ -224,21 +300,138 @@ vertical-align: middle!important;
             });
 
 
-             $("#table").bootstrapTable('mergeCells', {
+             table.bootstrapTable('mergeCells', {
                 index: date_.length-1,
                 field:'trade_id',
                 colspan:4
             });
        
     });
-     
+ 
+
+
+$("#table2").on('load-success.bs.table',function heji(){
+            var sum_m1=0;
+            var sum_m2=0;
+            var sum_m3=0;
+            var table=$("#table2");
+            date_=table.bootstrapTable('getData');
+             
+            for (var i = 0; i < date_.length; i++) {
+                
+                sum_m1=sum_m1+parseFloat(date_[i]["m_1"]);
+                sum_m2=sum_m2+parseFloat(date_[i]["m_2"]);
+                sum_m3=sum_m3+parseFloat(date_[i]["m_3"]);
+
+            };
+            
+
+             table.bootstrapTable('insertRow', {
+                index: date_.length,
+                row: {
+                    trade_id:'合计',
+                    m_1:toDecimal(sum_m1),
+                    m_2:toDecimal(sum_m2),
+                    m_3:toDecimal(sum_m3),
+                    agent_name_1:'',
+                    agent_name_2:'',
+                    agent_name_3:''
+                }
+            });
+
+
+             table.bootstrapTable('mergeCells', {
+                index: date_.length-1,
+                field:'trade_id',
+                colspan:4
+            });
+       
+    });
+
+$("#table3").on('load-success.bs.table',function heji(){
+            var sum_m1=0;
+            var sum_m2=0;
+            var sum_m3=0;
+            var table=$("#table3");
+            date_=table.bootstrapTable('getData');
+             
+            for (var i = 0; i < date_.length; i++) {
+                
+                sum_m1=sum_m1+parseFloat(date_[i]["m_1"]);
+                sum_m2=sum_m2+parseFloat(date_[i]["m_2"]);
+                sum_m3=sum_m3+parseFloat(date_[i]["m_3"]);
+
+            };
+            
+
+             table.bootstrapTable('insertRow', {
+                index: date_.length,
+                row: {
+                    trade_id:'合计',
+                    m_1:toDecimal(sum_m1),
+                    m_2:toDecimal(sum_m2),
+                    m_3:toDecimal(sum_m3),
+                    agent_name_1:'',
+                    agent_name_2:'',
+                    agent_name_3:''
+                }
+            });
+
+
+             table.bootstrapTable('mergeCells', {
+                index: date_.length-1,
+                field:'trade_id',
+                colspan:4
+            });
+       
+    });
+$("#table4").on('load-success.bs.table',function heji(){
+            var sum_m1=0;
+            var sum_m2=0;
+            var sum_m3=0;
+            var table=$("#table4");
+            date_=table.bootstrapTable('getData');
+             
+            for (var i = 0; i < date_.length; i++) {
+                
+                sum_m1=sum_m1+parseFloat(date_[i]["m_1"]);
+                sum_m2=sum_m2+parseFloat(date_[i]["m_2"]);
+                sum_m3=sum_m3+parseFloat(date_[i]["m_3"]);
+
+            };
+            
+
+             table.bootstrapTable('insertRow', {
+                index: date_.length,
+                row: {
+                    trade_id:'合计',
+                    m_1:toDecimal(sum_m1),
+                    m_2:toDecimal(sum_m2),
+                    m_3:toDecimal(sum_m3),
+                    agent_name_1:'',
+                    agent_name_2:'',
+                    agent_name_3:''
+                }
+            });
+
+
+             table.bootstrapTable('mergeCells', {
+                index: date_.length-1,
+                field:'trade_id',
+                colspan:4
+            });
+       
+    });
    function chaxun(){
 
 
 
 
-        $("#table").bootstrapTable('refresh',{url: "/detail_json?person="+$("#person_").select2("data")[0].text+"&date="+$("#date_").select2("data")[0].text });
-         
+        $("#table").bootstrapTable('refresh',{url: "/detail_json?filename=HB&person="+$("#person_").select2("data")[0].text+"&date="+$("#date_").select2("data")[0].text });
+        $("#table2").bootstrapTable('refresh',{url: "/detail_json?filename=GN&person="+$("#person_").select2("data")[0].text+"&date="+$("#date_").select2("data")[0].text });
+        $("#table3").bootstrapTable('refresh',{url: "/detail_json?filename=GS&person="+$("#person_").select2("data")[0].text+"&date="+$("#date_").select2("data")[0].text }); 
+        $("#table4").bootstrapTable('refresh',{url: "/detail_json?filename=QB&person="+$("#person_").select2("data")[0].text+"&date="+$("#date_").select2("data")[0].text });
+
 }
 
 

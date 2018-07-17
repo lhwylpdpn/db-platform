@@ -41,7 +41,9 @@ def index():
 def data_detail_json():
     date=request.args.get('date')
     person=request.args.get('person')
-    jsons = json.loads(get_data_detail(person,date))  # 字符串传化为json 对象
+    filename=request.args.get('filename')
+    #print(filename)
+    jsons = json.loads(get_data_detail(person,date,filename))  # 字符串传化为json 对象
     #print(jsons)
  
         
