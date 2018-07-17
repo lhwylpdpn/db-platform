@@ -2,14 +2,23 @@
 {% block content %}
  
 <link rel="stylesheet" href="/static/css/bootstrap-table.css">
+<link rel="stylesheet" href="/static/css/select2.min.css">
 <script src="/static/js/jquery.min.js"></script>
- 
 <script src="/static/js/bootstrap-table.js"></script>
+<script src="/static/js/bootstrap-table-group-by.js"></script>
+
+<style type="text/css">
+.table th, .table td { 
+text-align: center;
+vertical-align: middle!important;
+}
+</style>
+<script src="/static/js/select2.min.js"></script>
 <div class="breadcrumbs ace-save-state" id="breadcrumbs">
     <ul class="breadcrumb">
         <li>
             <i class="ace-icon fa fa-home home-icon"></i>
-            <a href="/clac">款项明细</a>
+            <a href="/static">汇总呈现</a>
         </li>
 
         <!--<li>-->
@@ -23,38 +32,259 @@
                                 <!-- PAGE CONTENT BEGINS -->
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <h3 class="header smaller lighter green">款项明细报表</h3>
+                                        <h3 class="header smaller lighter green">汇总查询报表</h3>
  
-                                            <div class="btn-group">
-                                                <button class="btn btn-inverse">Inverse</button>
-
-                                                <button data-toggle="dropdown" class="btn btn-inverse dropdown-toggle" aria-expanded="true">
-                                                    <span class="ace-icon fa fa-caret-down icon-only"></span>
-                                                </button>
-
-                                                <ul class="dropdown-menu dropdown-inverse">
-                                                    <li>
-                                                        <a href="#">Action</a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="#">Another action</a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="#">Something else here</a>
-                                                    </li>
-
-                                                    <li class="divider"></li>
-
-                                                    <li>
-                                                        <a href="#">Separated link</a>
-                                                    </li>
-                                                </ul>
-                                            </div><!-- /.btn-group -->
-                                        </div>
-                        
+                                                                           
+                                    </div>
+                                </div>
 </div><!-- PAGE CONTENT ENDS -->
                 
-</div>
+<div class="col-xs-12 col-sm-12 widget-container-col ui-sortable" id="widget-container-col-8">
+                                            
+                                        <div class="widget-box widget-color-dark ui-sortable-handle" id="widget-box-8">
+                                                <div class="widget-header" style="margin:0px auto;text-align:center;">
+                                                    <h5 class="widget-title bigger lighter" ><a style="font-weight:bold;font-size:25px;color: #77FF55">W.R</a></h5>
+
+                                                 
+
+                                                     
+                                                <div class="widget-toolbar">
+
+                                                <span class="badge badge-danger">说明</span>
+
+                                                       
+
+                                                        <a href="#" data-action="reload">
+                                                            <i class="ace-icon fa fa-refresh" onclick="chaxun();"></i>
+                                                        </a>
+
+                                                        <a href="#" data-action="collapse">
+                                                            <i class="ace-icon fa fa-chevron-up"></i>
+                                                        </a>
+
+ 
+                                                    </div>
+                                                    
+                                                </div>
+
+                                                <div class="widget-body">
+                                                    <div class="widget-toolbox" id="widget-toolbox-1">
+                                                    
+                                                        <div class="btn-toolbar">
+                                                             
+                            
+                                              
+                                             <div class="btn-group">
+                                           <div>
+                                                            <select multiple="" name="state" class="select2 tag-input-style select2-hidden-accessible" data-placeholder="请选择归属人" style="min-width: 150px;" tabindex="-1" aria-hidden="true" id="person_">
+                                                                 {% for r in jsons_ -%}
+                                                                 <option value={{r}}>{{r}}</option>
+
+                                                                 {%- endfor %}
+                                                               
+                                                            </select>
+                                                        </div>
+                                            </div>
+
+                     <div class="btn-group">
+                                           <div>
+                                                            <select multiple="" name="state" class="select2 tag-input-style select2-hidden-accessible" data-placeholder="请选择日期" style="min-width: 150px;" tabindex="-1" aria-hidden="true" id="date_">
+                                                                {% for r in dates_ -%}
+                                                                 <option value={{r}}>{{r}}</option>
+
+                                                                 {%- endfor %}
+                                                               
+                                                            </select>
+                                                            </select>
+                                                        </div>
+                                            </div>
+
+                                           <select class="select2 tag-input-style select2-hidden-accessible js-example-data-array-selected"></select>
+                                           <div class="btn-group">
+                                           <button id="chaxun" class="btn btn-sm btn-inverse" onclick="chaxun();">查询</button>
+
+
+                                                                                     
+                                            </div>
+                                         
+
+                                            </div>
+
+
+  
+
+                                                            </div>
+    
+                                                         
+                                                    </div>
+
+                            <table id="table"
+               data-toggle="table"
+               
+               data-row-style="rowStyle">
+            <thead>
+            <tr>
+                <th colspan="10"   ><font size="3" >汇总数据</font></th>
+                 <!-- hb -->
+            </tr>
+            <tr>
+                <th class="label-inverse" data-field="class_id"  data-formatter="mark" ><font size="2" color="#FFD700" class="my-parent-style-good">归属编号</font></th>
+                <th class="label-inverse" data-field="class_name"  data-formatter="mark" ><font size="2" color="#FFD700">归属姓名</font></th>
+                <th class="label-inverse" data-field="filename" data-formatter="mark" ><font size="2" color="#FFD700">交易市场</font></th>
+                <th class="label-inverse" data-field="money_in" data-formatter="mark" ><font size="2" color="#FFD700">入金</font></th>
+                <th class="label-inverse" data-field="money_out" data-formatter="mark" ><font size="2" color="#FFD700">出金</font></th>
+                <th class="label-inverse" data-field="Transfer" data-formatter="mark" ><font size="2" color="#FFD700">转让盈亏</font></th>
+                <th class="label-inverse" data-field="commission" data-formatter="mark" ><font size="2" color="#FFD700">手续费</font></th>
+                <th class="label-inverse" data-field="equity" data-formatter="mark" ><font size="2" color="#FFD700">权益资金</font></th>
+                <th class="label-inverse" data-field="liushui" data-formatter="mark" ><font size="2" color="#FFD700">公司利润</font></th>
+                <th class="label-inverse" data-field="dianzi" data-formatter="mark" ><font size="2" color="#FFD700">公司垫资</font></th>
+            </tr>
+            </thead>
+        </table>
+
+               
+
+
+
+
+
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+
+<script>
+
+
+
+
+    $(document).ready(function() {
+    $('.select2').select2({multiple:false });
+});
+
+
+    function rowStyle(row, index) {
+    
+    
+            return {
+                css:{'background':'#393939','color':'#77FF55'}
+
+            };
+  
+    }
+
+
+    function mark(value,row) {
+
+     
+            if (value=="None") {return benchmark("","normal")} 
+            return benchmark(toDecimal(value),"normal")
+ 
+
+    }
+
+
+</script>
+
+<script>
+
+    function toDecimal(x){
+
+    var f=parseFloat(x);
+    if (isNaN(f) || f==""){return 0;}
+    f=Math.round(x*100)/100;
+    return f;
+
+    }
+
+    
+
+
+ 
+    // $("#table").on('load-success.bs.table',function heji(){
+    //         var sum_m1=0;
+    //         var sum_m2=0;
+    //         var sum_m3=0;
+    //         var table=$("#table");
+    //         date_=table.bootstrapTable('getData');
+             
+    //         for (var i = 0; i < date_.length; i++) {
+                
+    //             sum_m1=sum_m1+parseFloat(date_[i]["m_1"]);
+    //             sum_m2=sum_m2+parseFloat(date_[i]["m_2"]);
+    //             sum_m3=sum_m3+parseFloat(date_[i]["m_3"]);
+
+    //         };
+            
+
+    //          table.bootstrapTable('insertRow', {
+    //             index: date_.length,
+    //             row: {
+    //                 trade_id:'合计',
+    //                 m_1:toDecimal(sum_m1),
+    //                 m_2:toDecimal(sum_m2),
+    //                 m_3:toDecimal(sum_m3),
+    //                 agent_name_1:'',
+    //                 agent_name_2:'',
+    //                 agent_name_3:''
+    //             }
+    //         });
+
+
+    //          table.bootstrapTable('mergeCells', {
+    //             index: date_.length-1,
+    //             field:'class_name',
+    //             colspan:3
+    //         });
+       
+    // });
+
+   function chaxun(){
+
+
+
+
+        $("#table").bootstrapTable('refresh',{url: "/static_json?filename=HB&person="+$("#person_").select2("data")[0].text+"&date="+$("#date_").select2("data")[0].text });
+        
+
+}
+
+
+    function benchmark(context,type){
+
+
+        switch (type)
+        {
+        case "good":
+          return '<div class="my-parent-style-good"><b>' + context + '</b></div>'
+
+          break;
+        case "normal":
+          return '<div class="my-parent-style-normal"><b>' + context + '</b></div>'
+          break;
+        case "bad":
+         return '<div class="my-parent-style-bad"><b>' + context + '</b></div>'
+          break;
+        default:
+          return context;
+
+        }
+
+
+    }
+
+    window.onload=function bilibili(){
+     
+        $($(".my-parent-style-good").parent("td")).css({ color: "#FFFFFF", background: "#00d9b8" });
+        $($(".my-parent-style-normal").parent("td")).css({ color: "#FFFFFF", background: "#FFFFFF" });
+        $($(".my-parent-style-bad").parent("td")).css({ color: "#000000", background: "#FFFFFF" });
+
+    }
+   
+</script>
+
+
+
 {% endblock content %}

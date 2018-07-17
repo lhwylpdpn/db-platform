@@ -346,6 +346,52 @@ def get_data_detail(username,date,filename):#usernames是一维数组传入用�
 
 
 
+def get_data_static(username,date):#usernames是一维数组传入用户名，poweritems是二维数组，传入每个用户名的权限数组
+# 判断数据文剑名是否存在
+# 判断文件是否处于写状态
+# copy文件
+# 正则筛选
+# 返回json
+
+	user_=username
+	date_=date
+	result=""
+	try:
+		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
+		cursor = conn.cursor()
+		sql="""
+		SELECT a.date,c.class_id,c.class_name,
+        case when  filename like '%HB%' then '新疆汇宝' 
+        when filename like '%GN%' then '贵州西部'
+        when filename like '%GS%' then '寿光果蔬'
+        when filename like '%QB%' then '青岛北方'
+		else  filename end as filename2,sum(money_in) as money_in,sum(money_out) as money_out,
+        sum(a.Transfer) as Transfer,sum(a.commission) as commission,sum(a.equity) as equity,
+        sum((c.all_re_ratio-c.agent_ratio_1-c.agent_ratio_2-c.agent_ratio_3)*commission) as lirun,
+		sum(-(c.day_re_ratio-c.agent_ratio_1-c.agent_ratio_2-c.agent_ratio_3)*commission) as dianzi
+
+	FROM `data_detail` a,`agent_relation` b,`agent_class` c WHERE a.`trade_id`=b.`trade_id` AND b.`class_id`=c.`class_id` 
+
+
+	and date='"""+str(date_)+"""' and c.class_name ='"""+str(user_)+"""'    group by a.date,c.class_id,c.class_name,filename2
+	"""
+		#print(sql)
+		cursor.execute(sql)
+		rs=cursor.fetchall()
+
+		for r in rs:
+			result+='{"date":"'+str(r[0])+'","class_id":"'+str(r[1])+'","class_name":"'+str(r[2])+'","filename":"'+str(r[3])+'","money_in":"'+str(r[4])+'","money_out":"'+str(r[5])+'","Transfer":"'+str(r[6])+'","commission":"'+str(r[7])+'","equity":"'+str(r[8])+'","liushui":"'+str(r[9])+'","dianzi":"'+str(r[10])+'"},'
+		
+		
+		result='{"status":"0","body":['+result[0:-1]+']}'
+
+		return result
+	except Exception, e:
+		print e
+		return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
+
+#################################################
+
 
 def get_data_class_date():
 

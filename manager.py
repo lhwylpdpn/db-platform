@@ -24,6 +24,7 @@ from app.controler.power_API import get_data_class_name
 from app.controler.power_API import get_data_detail
 from app.controler.power_API import clac
 from app.controler.power_API import get_data_class_date
+from app.controler.power_API import get_data_static
 
 
 # @app.before_request
@@ -51,7 +52,17 @@ def data_detail_json():
 
 
 
-
+@app.route('/static_json')
+def data_static_json():
+    date=request.args.get('date')
+    person=request.args.get('person')
+    #filename=request.args.get('filename')
+    #print(filename)
+    jsons = json.loads(get_data_static(person,date))  # 字符串传化为json 对象
+    #print(jsons)
+ 
+        
+    return json.dumps(jsons["body"])
 
 # @app.route('/static_json')
 # def data_static_json():
@@ -81,9 +92,15 @@ def data_detail():
 @app.route('/static')
 def data_static():
     sjs = 0
+    class_name=[]
     if len(request.args) != 0:
         sjs = random.random()
-    return render_template("static_detail.html", title=U"汇总呈现", sjs=sjs)
+    jsons=get_data_class_name()
+    jsons=jsons.split(u",")
+    dates=get_data_class_date()
+    dates=dates.split(u",")
+
+    return render_template("static_detail.html", title=U"汇总呈现", sjs=sjs,jsons_=jsons,dates_=dates)
 
 @app.route('/clac_index')
 def data_clac_index():
