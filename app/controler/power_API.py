@@ -13,6 +13,7 @@ from Config import Config
 import time
 import datetime
 import xlrd
+import chardet
 #非flask运行测试用 
 #coding=UTF-8
 # import sys
@@ -79,12 +80,18 @@ def clac():
 	Transfer=""
 	commission=""
 	equity=""
+	jiqibaozhengjin=""
+	dinghuojingkuisun=""
+	dangrikeyongzijin=""
+	qichuzijin=""
+	Transfer_clac=""
 	test = []
 	pwd="\static\csv\\"
 	
 	filelist=file_name(os.getcwd()+pwd)
 	newlist=[]
 	statinfo=[]
+	file_mysql=""
 	sql=""
 	#time_tag=str(file_pwd.split("/")[-2])
 	time_tag=str(datetime.datetime.now().strftime('%Y-%m-%d  %H:%M:%S'))
@@ -102,7 +109,20 @@ def clac():
 			sql='insert into data_detail values ' 
 
 			table = data.sheets()[0]
-
+	#
+	#by 2018-7-19 lhwylp
+	#入库的市场规整一些,统一调整为一个代号
+	# 	
+		if 'GN' in file:
+			file_mysql="GN"
+		elif 'HB' in file:
+			file_mysql="HB"
+		elif 'GS' in file:
+			file_mysql="GS"
+		elif 'QB' in file:
+			file_mysql="QB"
+		else:
+			file_mysql=file
 		for x in xrange(0,table.ncols):
 			if table.cell(0,x).value=='交易商编号' or table.cell(0,x).value=='会员编号':
 				trade_id=x
@@ -118,12 +138,29 @@ def clac():
 				commission=x
 			if table.cell(0,x).value=='总权益':
 				equity=x
+			if table.cell(0,x).value=='即期保证金':
+				jiqibaozhengjin=x
+			if table.cell(0,x).value=='订货净亏损':
+				dinghuojingkuisun=x
+			if table.cell(0,x).value=='当日可用资金':
+				dangrikeyongzijin=x
+			if table.cell(0,x).value=='期初资金':
+				qichuzijin=x
+
 		for x in xrange(1,table.nrows):
 
 			try:
-				sql+='("'+str(date)+'","'+str(table.cell(x,trade_id).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,trade_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_in).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_out).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,commission).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,Transfer).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,equity).value).replace('"','').replace(',','').decode()+'","'+str(time_tag)+'","'+str(file)+'"),'
-				
-			except:
+				if Transfer=="":
+					print(table.cell(x,dinghuojingkuisun).value.replace('"','').replace(',','').decode())
+					print(chardet.detect(""+str(table.cell(x,jiqibaozhengjin).value).replace('"','').replace(',','').decode()))
+					Transfer_clac=table.cell(x,jiqibaozhengjin).value.replace('"','').replace(',','').decode()+table.cell(x,dinghuojingkuisun).value.replace('"','').replace(',','').decode()+table.cell(x,dangrikeyongzijin).value.replace('"','').replace(',','').decode()+table.cell(x,commission).value.replace('"','').replace(',','').decode()-table.cell(x,qichuzijin).value.replace('"','').replace(',','').decode()-table.cell(x,money_in).value.replace('"','').replace(',','').decode()
+					sql+='("'+str(date)+'","'+str(table.cell(x,trade_id).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,trade_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_in).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_out).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,commission).value).replace('"','').replace(',','').decode()+'","'+str(Transfer_clac).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,equity).value).replace('"','').replace(',','').decode()+'","'+str(time_tag)+'","'+str(file_mysql)+'"),'
+				else:
+					#print(chardet.detect(sql))
+					sql+='("'+str(date)+'","'+str(table.cell(x,trade_id).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,trade_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_in).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_out).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,commission).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,Transfer).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,equity).value).replace('"','').replace(',','').decode()+'","'+str(time_tag)+'","'+str(file_mysql)+'"),'
+
+			except Exception, e:
+				print(e)
 				return '{"status":"-1","body":"'+str(file)+' 的表头命名不正确"}'
 
 
@@ -149,6 +186,11 @@ def clac():
 		Transfer=""
 		commission=""
 		equity=""
+		jiqibaozhengjin=""
+		dinghuojingkuisun=""
+		dangrikeyongzijin=""
+		qichuzijin=""
+		Transfer_clac=""
 	return '{"status":0,"body":"'+str( round(time.time()-time1,3))+'"}'
 
  
