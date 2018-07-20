@@ -113,13 +113,13 @@ def clac():
 	#by 2018-7-19 lhwylp
 	#入库的市场规整一些,统一调整为一个代号
 	# 	
-		if 'GN' in file:
+		if 'GN' in file or 'gn' in file:
 			file_mysql="GN"
-		elif 'HB' in file:
+		elif 'HB' in file  or 'hb' in file:
 			file_mysql="HB"
-		elif 'GS' in file:
+		elif 'GS' in file  or 'gs' in file:
 			file_mysql="GS"
-		elif 'QB' in file:
+		elif 'QB' in file  or 'qb' in file:
 			file_mysql="QB"
 		else:
 			file_mysql=file
@@ -151,9 +151,13 @@ def clac():
 
 			try:
 				if Transfer=="":
-					print(table.cell(x,dinghuojingkuisun).value.replace('"','').replace(',','').decode())
-					print(chardet.detect(""+str(table.cell(x,jiqibaozhengjin).value).replace('"','').replace(',','').decode()))
-					Transfer_clac=table.cell(x,jiqibaozhengjin).value.replace('"','').replace(',','').decode()+table.cell(x,dinghuojingkuisun).value.replace('"','').replace(',','').decode()+table.cell(x,dangrikeyongzijin).value.replace('"','').replace(',','').decode()+table.cell(x,commission).value.replace('"','').replace(',','').decode()-table.cell(x,qichuzijin).value.replace('"','').replace(',','').decode()-table.cell(x,money_in).value.replace('"','').replace(',','').decode()
+
+					#print(float(table.cell(x,commission).value.replace('"','').replace(',','')) - float(table.cell(x,qichuzijin).value.replace('"','').replace(',','')));
+					#print(float(table.cell(x,commission).value.replace('"','').replace(',','')) ,float(table.cell(x,qichuzijin).value.replace('"','').replace(',','')))
+					Transfer_clac=float(table.cell(x,jiqibaozhengjin).value.replace('"','').replace(',',''))+float(table.cell(x,dinghuojingkuisun).value.replace('"','').replace(',',''))+float(table.cell(x,dangrikeyongzijin).value.replace('"','').replace(',',''))+float(table.cell(x,commission).value.replace('"','').replace(',','')) - float(table.cell(x,qichuzijin).value.replace('"','').replace(',','')) - float(table.cell(x,money_in).value.replace('"','').replace(',',''))
+
+
+
 					sql+='("'+str(date)+'","'+str(table.cell(x,trade_id).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,trade_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_in).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_out).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,commission).value).replace('"','').replace(',','').decode()+'","'+str(Transfer_clac).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,equity).value).replace('"','').replace(',','').decode()+'","'+str(time_tag)+'","'+str(file_mysql)+'"),'
 				else:
 					#print(chardet.detect(sql))
@@ -161,7 +165,7 @@ def clac():
 
 			except Exception, e:
 				print(e)
-				return '{"status":"-1","body":"'+str(file)+' 的表头命名不正确"}'
+				return '{"status":"-1","body":"'+str(file)+' 的excel文件可能有问题，常见可能问题：1、表头不对,不包含协定文字;2、各类价格字段中可能有非数字文字;"}'
 
 
 		

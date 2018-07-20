@@ -28,6 +28,86 @@ vertical-align: middle!important;
     </ul><!-- /.breadcrumb -->
 </div>
 
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">product backlog |  更新记录</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>user story</th>
+          <th>update time</th>
+          <th>status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1.0</th>
+          <td>用户可以在菜单中，查看汇总统计数据</td>
+          <td>-</td>
+          <td>waiting</td>
+        </tr>
+        <tr>
+          <th scope="row">1.0</th>
+          <td>用户可以在菜单中，查看明细数据</td>
+          <td>-</td>
+          <td style="color: green">done</td>
+        </tr>
+        <tr>
+          <th scope="row">1.0</th>
+          <td>用户可以在菜单中，选择计算菜单，点击计算，开始执行数据计算</td>
+          <td>-</td>
+          <td style="color: green">done</td>
+        </tr>
+        <tr>
+          <th scope="row">1.0</th>
+          <td>用户可以根据不同权限，登录系统，不同权限的人查看不同的菜单</td>
+          <td>-</td>
+          <td>waiting</td>
+        </tr>
+        <tr>
+          <th scope="row">1.0</th>
+          <td>一级返佣人如果是“账户”的情况下的特殊处理</td>
+          <td>-</td>
+          <td>waiting</td>
+        </tr>
+
+        <tr>
+          <th scope="row">1.0</th>
+          <td>需要确定每个excel应该的中文名，根据中文名写入库配置</td>
+          <td>-</td>
+          <td style="color: green">done</td>
+        </tr>
+        <tr>
+          <th scope="row">1.0</th>
+          <td>需要确定没有【转让权益】的excel文件中，转让权益如何计算？</td>
+          <td>-</td>
+          <td>waiting</td>
+        </tr>
+            <tr>
+          <th scope="row">1.0</th>
+          <td>数据的结构整体,改成市场和交易商编号,做主键配对其他信息</td>
+          <td>-</td>
+          <td>waiting</td>
+        </tr>
+      </tbody>
+    </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div class="col-xs-12">
                                 <!-- PAGE CONTENT BEGINS -->
                                 <div class="row">
@@ -50,7 +130,7 @@ vertical-align: middle!important;
                                                      
                                                 <div class="widget-toolbar">
 
-                                                <span class="badge badge-danger">说明</span>
+                                                <button class="badge badge-danger"  data-toggle="modal" data-target="#myModal">说明</button>
 
                                                        
 
