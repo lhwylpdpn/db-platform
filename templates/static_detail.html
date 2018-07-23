@@ -28,6 +28,68 @@ vertical-align: middle!important;
     </ul><!-- /.breadcrumb -->
 </div>
 
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">使用说明</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-condensed">
+      <thead>
+        <tr>
+          
+          <th>具体内容</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          
+          <td>归属人选项框内为所有目前记录的归属人合集,至少且只能选择某一个归属人进行查询</td>
+
+        </tr>
+        <tr>
+         
+          <td>日期为目前入库的记录的所有日期,至少且只能选择某一个日期进行查询</td>
+ 
+        </tr>
+        <tr>
+         
+          <td>所有数字以excel导入数据保留小数位为准，但是合计数字保留两位小数</td>
+       
+        </tr>
+        <tr>
+          
+          <td>归属人查询条件中有一条【待定】，选择后会查出所有记录中未能匹配归属人的总数</td>
+       
+        </tr>
+        <tr>
+         
+          <td>【待定】的条目，由于不存在归属和返佣配置，所有待定的条目公司利润和公司垫资为空</td>
+      
+      
+        </tr>
+ 
+    
+            <tr>
+        
+          <td> </td>
+ 
+        
+        </tr>
+      </tbody>
+    </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
 <div class="col-xs-12">
                                 <!-- PAGE CONTENT BEGINS -->
                                 <div class="row">
@@ -50,7 +112,9 @@ vertical-align: middle!important;
                                                      
                                                 <div class="widget-toolbar">
 
-                                                <span class="badge badge-danger">说明</span>
+                                           
+                                                <button class="badge badge-danger"  data-toggle="modal" data-target="#myModal">说明</button>
+
 
                                                        
 
@@ -128,9 +192,9 @@ vertical-align: middle!important;
                  <!-- hb -->
             </tr>
             <tr>
-                <th class="label-inverse" data-field="class_id"  data-formatter="mark" ><font size="2" color="#FFD700" class="my-parent-style-good">归属编号</font></th>
-                <th class="label-inverse" data-field="class_name"  data-formatter="mark" ><font size="2" color="#FFD700">归属姓名</font></th>
-                <th class="label-inverse" data-field="filename" data-formatter="mark" ><font size="2" color="#FFD700">交易市场</font></th>
+                <th class="label-inverse" data-field="date"  ><font size="2" color="#FFD700" class="my-parent-style-good">日期</font></th>
+                <th class="label-inverse" data-field="class_name"   ><font size="2" color="#FFD700">归属姓名</font></th>
+                <th class="label-inverse" data-field="filename" ><font size="2" color="#FFD700">交易市场</font></th>
                 <th class="label-inverse" data-field="money_in" data-formatter="mark" ><font size="2" color="#FFD700">入金</font></th>
                 <th class="label-inverse" data-field="money_out" data-formatter="mark" ><font size="2" color="#FFD700">出金</font></th>
                 <th class="label-inverse" data-field="Transfer" data-formatter="mark" ><font size="2" color="#FFD700">转让盈亏</font></th>
@@ -203,50 +267,61 @@ vertical-align: middle!important;
 
 
  
-    // $("#table").on('load-success.bs.table',function heji(){
-    //         var sum_m1=0;
-    //         var sum_m2=0;
-    //         var sum_m3=0;
-    //         var table=$("#table");
-    //         date_=table.bootstrapTable('getData');
+    $("#table").on('load-success.bs.table',function heji(){
+            var sum_money_in=0;
+            var sum_money_out=0;
+            var sum_Transfer=0;
+            var sum_commission=0;
+            var sum_equity=0;
+            var sum_liushui=0;
+            var sum_dianzi=0;
+            var table=$("#table");
+            date_=table.bootstrapTable('getData');
              
-    //         for (var i = 0; i < date_.length; i++) {
+            for (var i = 0; i < date_.length; i++) {
                 
-    //             sum_m1=sum_m1+parseFloat(date_[i]["m_1"]);
-    //             sum_m2=sum_m2+parseFloat(date_[i]["m_2"]);
-    //             sum_m3=sum_m3+parseFloat(date_[i]["m_3"]);
+                sum_money_in+=parseFloat(date_[i]["money_in"]);
+                sum_money_out+=parseFloat(date_[i]["money_out"]);
+                sum_Transfer+=parseFloat(date_[i]["Transfer"]);
+                sum_commission+=parseFloat(date_[i]["commission"]);
+                sum_equity+=parseFloat(date_[i]["equity"]);
+                sum_liushui+=parseFloat(date_[i]["liushui"]);
+                sum_dianzi+=parseFloat(date_[i]["dianzi"]);
 
-    //         };
+
+
+            };
             
 
-    //          table.bootstrapTable('insertRow', {
-    //             index: date_.length,
-    //             row: {
-    //                 trade_id:'合计',
-    //                 m_1:toDecimal(sum_m1),
-    //                 m_2:toDecimal(sum_m2),
-    //                 m_3:toDecimal(sum_m3),
-    //                 agent_name_1:'',
-    //                 agent_name_2:'',
-    //                 agent_name_3:''
-    //             }
-    //         });
+             table.bootstrapTable('insertRow', {
+                index: date_.length,
+                row: {
+                    date:'合计',
+                    money_in:toDecimal(sum_money_in),
+                    money_out:toDecimal(sum_money_out),
+                    Transfer:toDecimal(sum_Transfer),
+                    commission:toDecimal(sum_commission),
+                    equity:toDecimal(sum_equity),
+                    liushui:toDecimal(sum_liushui),
+                    dianzi:toDecimal(sum_dianzi),
+                }
+            });
 
 
-    //          table.bootstrapTable('mergeCells', {
-    //             index: date_.length-1,
-    //             field:'class_name',
-    //             colspan:3
-    //         });
+             table.bootstrapTable('mergeCells', {
+                index: date_.length-1,
+                field:'date',
+                colspan:3
+            });
        
-    // });
+    });
 
    function chaxun(){
 
 
 
 
-        $("#table").bootstrapTable('refresh',{url: "/static_json?filename=HB&person="+$("#person_").select2("data")[0].text+"&date="+$("#date_").select2("data")[0].text });
+        $("#table").bootstrapTable('refresh',{url: "/static_json?&person="+$("#person_").select2("data")[0].text+"&date="+$("#date_").select2("data")[0].text });
         
 
 }

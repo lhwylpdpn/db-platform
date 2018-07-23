@@ -365,12 +365,18 @@ def get_data_detail(username,date,filename):#usernames是一维数组传入用�
 		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
 		cursor = conn.cursor()
 		sql="""
-		SELECT a.`trade_id`,a.`trade_name`,a.`commission`,c.`agent_name_1`,c.`agent_ratio_1`*a.`commission` AS m_1,c.`agent_name_2`,c.`agent_ratio_2`*a.`commission` AS m_2, c.`agent_name_3`,c.`agent_ratio_3`*a.`commission` AS m_3
-	,filename
+	SELECT a.`trade_id`,a.`trade_name`,a.`commission`,b.`agent_name_1`,b.`agent_ratio_1`*a.`commission` AS m_1,b.`agent_name_2`,b.`agent_ratio_2`*a.`commission` AS m_2, b.`agent_name_3`,b.`agent_ratio_3`*a.`commission` AS m_3
+	,a.filename
 
-	FROM `data_detail` a,`agent_relation` b,`agent_class` c WHERE a.`trade_id`=b.`trade_id` AND b.`class_id`=c.`class_id` AND a.`date`='"""+str(date_)+"""'  AND c.class_name ='"""+str(user_)+"""'  
+	FROM `data_detail` a LEFT JOIN `agent_class` b ON a.`trade_id`=b.`trade_id` AND a.`filename`=b.`filename` 
+	WHERE a.`date`='"""+str(date_)+"""'  AND b.class_name ='"""+str(user_)+"""'  
+	AND a.filename LIKE '%"""+str(filename)+"""%'
 
-	and a.filename like '%"""+str(filename)+"""%'
+
+
+
+
+
 
 	"""
 		#print(sql)
@@ -382,7 +388,7 @@ def get_data_detail(username,date,filename):#usernames是一维数组传入用�
 		
 		
 		result='{"status":"0","body":['+result[0:-1]+']}'
-
+		#print(result)
 		return result
 	except Exception, e:
 		print e
@@ -406,20 +412,23 @@ def get_data_static(username,date):#usernames是一维数组传入用户名，po
 		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
 		cursor = conn.cursor()
 		sql="""
-		SELECT a.date,c.class_id,c.class_name,
-        case when  filename like '%HB%' then '新疆汇宝' 
-        when filename like '%GN%' then '贵州西部'
-        when filename like '%GS%' then '寿光果蔬'
-        when filename like '%QB%' then '青岛北方'
-		else  filename end as filename2,sum(money_in) as money_in,sum(money_out) as money_out,
-        sum(a.Transfer) as Transfer,sum(a.commission) as commission,sum(a.equity) as equity,
-        sum((c.all_re_ratio-c.agent_ratio_1-c.agent_ratio_2-c.agent_ratio_3)*commission) as lirun,
-		sum(-(c.day_re_ratio-c.agent_ratio_1-c.agent_ratio_2-c.agent_ratio_3)*commission) as dianzi
+	select * from (
+	SELECT a.date,'0',CASE WHEN c.class_name IS NULL THEN '待定' ELSE c.class_name END AS class_name,
+        CASE WHEN  a.filename LIKE '%HB%' THEN '新疆汇宝' 
+        WHEN a.filename LIKE '%GN%' THEN '贵州西部'
+        WHEN a.filename LIKE '%GS%' THEN '寿光果蔬'
+        WHEN a.filename LIKE '%QB%' THEN '青岛北方'
+		ELSE  a.filename END AS filename2,SUM(money_in) AS money_in,SUM(money_out) AS money_out,
+        SUM(a.Transfer) AS Transfer,SUM(a.commission) AS commission,SUM(a.equity) AS equity,
+        SUM((c.all_re_ratio-c.agent_ratio_1-c.agent_ratio_2-c.agent_ratio_3)*commission) AS lirun,
+		SUM(-(c.day_re_ratio-c.agent_ratio_1-c.agent_ratio_2-c.agent_ratio_3)*commission) AS dianzi
 
-	FROM `data_detail` a,`agent_relation` b,`agent_class` c WHERE a.`trade_id`=b.`trade_id` AND b.`class_id`=c.`class_id` 
+	
+	FROM `data_detail` a LEFT JOIN `agent_class` c ON a.`trade_id`=c.`trade_id` AND a.`filename`=c.`filename` 
 
 
-	and date='"""+str(date_)+"""' and c.class_name ='"""+str(user_)+"""'    group by a.date,c.class_id,c.class_name,filename2
+	WHERE DATE='"""+str(date_)+"""'     GROUP BY a.date,c.class_name,filename2 ) a 
+	where  class_name ='"""+str(user_)+"""'
 	"""
 		#print(sql)
 		cursor.execute(sql)
@@ -430,7 +439,7 @@ def get_data_static(username,date):#usernames是一维数组传入用户名，po
 		
 		
 		result='{"status":"0","body":['+result[0:-1]+']}'
-
+		#print(result)
 		return result
 	except Exception, e:
 		print e
@@ -475,7 +484,10 @@ def get_data_class_name():#usernames是一维数组传入用户名，poweritems�
 		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
 		cursor = conn.cursor()
 		sql="""
-    SELECT DISTINCT class_name  FROM `agent_class`
+    	
+	 SELECT DISTINCT  class_name  FROM `agent_class`
+	 UNION ALL
+	 SELECT "待定"
 
 	"""
 		cursor.execute(sql)

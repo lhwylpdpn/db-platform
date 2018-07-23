@@ -195,7 +195,8 @@
         <ul class="nav nav-list">
 
             <!--###################################################################    ########-->
-            <li class="">
+           {% if session['username'] in session['zhanshi']: %}
+             <li class="">
                 <a href="/static">
                     <i class="menu-icon fa fa-tachometer"></i>
                     <span class="menu-text"> 汇总呈现 </span>
@@ -203,6 +204,7 @@
 
                 <b class="arrow"></b>
             </li>
+          {% endif %}
             <li class="">
                 <a href="/detail">
                     <i class="menu-icon fa fa-tachometer"></i>
@@ -212,7 +214,7 @@
                 <b class="arrow"></b>
             </li>
  
-            {% if session['username'] in session['zhanshi']: %}
+         
             <!--###################################################################  执行计算  ########-->
            <li class="">
                 <a href="/clac_index">
@@ -222,7 +224,7 @@
 
                 <b class="arrow"></b>
             </li>
-            {% endif %}
+  
         </ul><!-- /.nav-list -->
 
         <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
