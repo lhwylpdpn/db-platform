@@ -182,7 +182,7 @@ def clac():
 			cursor.close()
 			conn.close()
 			print(str(e))
-			return '{"status":"-1","body":"数据库连接出错 "}'
+			return '{"status":"-1","body":"'+str(e)+' "}'
 		trade_id=""
 		trade_name=""
 		money_in=""
