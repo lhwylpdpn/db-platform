@@ -13,7 +13,7 @@ from Config import Config
 import time
 import datetime
 import xlrd
-import chardet
+
 #非flask运行测试用 
 #coding=UTF-8
 # import sys
@@ -398,7 +398,7 @@ def get_data_detail(username,date,filename):#usernames是一维数组传入用�
 
 
 
-def get_data_static(username,date):#usernames是一维数组传入用户名，poweritems是二维数组，传入每个用户名的权限数组
+def get_data_static(username,date,filename,allocation):#usernames是一维数组传入用户名，poweritems是二维数组，传入每个用户名的权限数组
 # 判断数据文剑名是否存在
 # 判断文件是否处于写状态
 # copy文件
@@ -407,13 +407,27 @@ def get_data_static(username,date):#usernames是一维数组传入用户名，po
 
 	user_=username
 	date_=date
+	file_=filename
+	all_=allocation
 	result=""
+	if file_!="全部市场":
+		file_=""" and filename2='"""+str(file_)+"""'"""
+	else :
+		file_=""
+
+
+	if all_=="配资":
+		all_=""" and trade_id is not null"""
+	elif  all_=="非配资":
+		all_=""" and trade_id is  null"""
+	else:
+		all_=""
 	try:
 		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
 		cursor = conn.cursor()
 		sql="""
-	select * from (
-	SELECT a.date,'0',CASE WHEN c.class_name IS NULL THEN '待定' ELSE c.class_name END AS class_name,
+	SELECT * FROM (
+	SELECT a.date,case when b.trade_id is not null then '配资' else b.trade_id end as trade_id,CASE WHEN c.class_name IS NULL THEN '待定' ELSE c.class_name END AS class_name,
         CASE WHEN  a.filename LIKE '%HB%' THEN '新疆汇宝' 
         WHEN a.filename LIKE '%GN%' THEN '贵州西部'
         WHEN a.filename LIKE '%GS%' THEN '寿光果蔬'
@@ -425,12 +439,15 @@ def get_data_static(username,date):#usernames是一维数组传入用户名，po
 
 	
 	FROM `data_detail` a LEFT JOIN `agent_class` c ON a.`trade_id`=c.`trade_id` AND a.`filename`=c.`filename` 
+	LEFT JOIN `trade_id_status` b ON a.trade_id=b.trade_id AND a.filename=b.filename
+	
+	WHERE DATE='"""+str(date_)+"""'
+	   GROUP BY a.date,c.class_name,filename2,b.trade_id  )  a
+	 
+	WHERE  class_name ='"""+str(user_)+"""' 
+	"""+file_+all_
 
-
-	WHERE DATE='"""+str(date_)+"""'     GROUP BY a.date,c.class_name,filename2 ) a 
-	where  class_name ='"""+str(user_)+"""'
-	"""
-		#print(sql)
+		 
 		cursor.execute(sql)
 		rs=cursor.fetchall()
 
@@ -504,3 +521,32 @@ def get_data_class_name():#usernames是一维数组传入用户名，poweritems�
 
 
 
+
+def get_data_class_filename():
+
+	result=""
+	try:
+		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
+		cursor = conn.cursor()
+		sql="""
+		select '全部市场'
+		union all
+		
+SELECT  DISTINCT CASE WHEN  filename LIKE '%HB%' THEN '新疆汇宝' 
+        WHEN filename LIKE '%GN%' THEN '贵州西部'
+        WHEN filename LIKE '%GS%' THEN '寿光果蔬'
+        WHEN filename LIKE '%QB%' THEN '青岛北方'
+		ELSE  filename END AS filename2  FROM `data_detail`
+
+	"""
+		cursor.execute(sql)
+		rs=cursor.fetchall()
+ 		for r in rs:
+ 			 result+=str(r[0])+","
+		
+		
+		
+		return result[0:-1]
+	except Exception, e:
+		print e
+		return ""

@@ -25,6 +25,7 @@ from app.controler.power_API import get_data_detail
 from app.controler.power_API import clac
 from app.controler.power_API import get_data_class_date
 from app.controler.power_API import get_data_static
+from app.controler.power_API import get_data_class_filename
 
 
 # @app.before_request
@@ -56,9 +57,10 @@ def data_detail_json():
 def data_static_json():
     date=request.args.get('date')
     person=request.args.get('person')
-    #filename=request.args.get('filename')
+    filename=request.args.get('filename')
+    all_=request.args.get('all_')
     #print(filename)
-    jsons = json.loads(get_data_static(person,date))  # 字符串传化为json 对象
+    jsons = json.loads(get_data_static(person,date,filename,all_))  # 字符串传化为json 对象
     #print(jsons)
  
         
@@ -99,8 +101,9 @@ def data_static():
     jsons=jsons.split(u",")
     dates=get_data_class_date()
     dates=dates.split(u",")
-
-    return render_template("static_detail.html", title=U"汇总呈现", sjs=sjs,jsons_=jsons,dates_=dates)
+    files=get_data_class_filename()
+    files=files.split(u",")
+    return render_template("static_detail.html", title=U"汇总呈现", sjs=sjs,jsons_=jsons,dates_=dates,files_=files)
 
 @app.route('/clac_index')
 def data_clac_index():
