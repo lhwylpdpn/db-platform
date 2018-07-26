@@ -365,12 +365,12 @@ def get_data_detail(username,date,filename):#usernames是一维数组传入用�
 		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
 		cursor = conn.cursor()
 		sql="""
-	SELECT a.`trade_id`,a.`trade_name`,a.`commission`,b.`agent_name_1`,b.`agent_ratio_1`*a.`commission` AS m_1,b.`agent_name_2`,b.`agent_ratio_2`*a.`commission` AS m_2, b.`agent_name_3`,b.`agent_ratio_3`*a.`commission` AS m_3
+	SELECT a.`trade_id`,a.`trade_name`,a.`commission`,b.`agent_name_1`,CONVERT(b.`agent_ratio_1`*a.`commission`,DECIMAL(20,2)) AS m_1,b.`agent_name_2`,CONVERT(b.`agent_ratio_2`*a.`commission`,DECIMAL(20,2)) AS m_2, b.`agent_name_3`,CONVERT(b.`agent_ratio_3`*a.`commission` ,DECIMAL(20,2)) AS m_3
 	,a.filename
 
 	FROM `data_detail` a LEFT JOIN `agent_class` b ON a.`trade_id`=b.`trade_id` AND a.`filename`=b.`filename` 
 	WHERE a.`date`='"""+str(date_)+"""'  AND b.class_name ='"""+str(user_)+"""'  
-	AND a.filename LIKE '%"""+str(filename)+"""%'
+	AND a.filename LIKE '%"""+str(filename)+"""%' AND CAST(a.commission AS SIGNED)>0 
 
 
 
@@ -501,3 +501,6 @@ def get_data_class_name():#usernames是一维数组传入用户名，poweritems�
 	except Exception, e:
 		print e
 		return ""
+
+
+
