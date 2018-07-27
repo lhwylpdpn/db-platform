@@ -13,7 +13,8 @@ from Config import Config
 import time
 import datetime
 import xlrd
-
+import shutil
+import random
 #非flask运行测试用 
 #coding=UTF-8
 # import sys
@@ -195,6 +196,13 @@ def clac():
 		dangrikeyongzijin=""
 		qichuzijin=""
 		Transfer_clac=""
+
+		time_tag=str(datetime.datetime.now().strftime('%Y%m%d%H%M%S'))
+		#os.mkdir(os.getcwd()+"\static\\"+time_tag)
+		#print(filelist)
+		#print(os.getcwd()+"\static\\"+time_tag+"\\")
+		shutil.move(os.getcwd()+pwd,os.getcwd()+"\static\\"+time_tag)  
+		os.mkdir(os.getcwd()+"\static\csv")
 	return '{"status":0,"body":"'+str( round(time.time()-time1,3))+'"}'
 
  
