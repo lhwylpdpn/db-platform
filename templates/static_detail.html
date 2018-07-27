@@ -152,8 +152,8 @@ vertical-align: middle!important;
                                               <select multiple="" name="state" class="select2 tag-input-style select2-hidden-accessible" data-placeholder="请选择是否配资" style="min-width: 150px;" tabindex="-1" aria-hidden="true" id="all_">
                                                                  
                                                                  <option value='all'>配资与非配资</option>
-                                                                 <option value='1'>配资</option>
-                                                                 <option value='0'>非配资</option>
+                                                                 <option value='配资'>配资</option>
+                                                                 <option value='非配资'>非配资</option>
                                                                
                                                             </select>
                                                         </div>
@@ -208,12 +208,13 @@ vertical-align: middle!important;
                data-row-style="rowStyle">
             <thead>
             <tr>
-                <th colspan="10"   ><font size="3" >汇总数据</font></th>
+                <th colspan="11"   ><font size="3" >汇总数据</font></th>
                  <!-- hb -->
             </tr>
             <tr>
                 <th class="label-inverse" data-field="date"  ><font size="2" color="#FFD700" class="my-parent-style-good">日期</font></th>
                 <th class="label-inverse" data-field="class_name"   ><font size="2" color="#FFD700">归属姓名</font></th>
+                <th class="label-inverse" data-field="all_"   ><font size="2" color="#FFD700">配资情况</font></th>
                 <th class="label-inverse" data-field="filename" ><font size="2" color="#FFD700">交易市场</font></th>
                 <th class="label-inverse" data-field="money_in" data-formatter="mark" ><font size="2" color="#FFD700">入金</font></th>
                 <th class="label-inverse" data-field="money_out" data-formatter="mark" ><font size="2" color="#FFD700">出金</font></th>
@@ -331,7 +332,7 @@ vertical-align: middle!important;
              table.bootstrapTable('mergeCells', {
                 index: date_.length-1,
                 field:'date',
-                colspan:3
+                colspan:4
             });
        
     });

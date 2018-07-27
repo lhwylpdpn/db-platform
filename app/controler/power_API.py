@@ -409,25 +409,26 @@ def get_data_static(username,date,filename,allocation):#usernames是一维数组
 	date_=date
 	file_=filename
 	all_=allocation
-	result=""
+ 	result=""
 	if file_!="全部市场":
 		file_=""" and filename2='"""+str(file_)+"""'"""
 	else :
 		file_=""
 
-
+	print(all_)
 	if all_=="配资":
-		all_=""" and trade_id is not null"""
+		all_=""" and trade_id2='配资' """
 	elif  all_=="非配资":
-		all_=""" and trade_id is  null"""
+		all_=""" and trade_id2!="配资" """
 	else:
 		all_=""
+	#print(all_)
 	try:
 		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
 		cursor = conn.cursor()
 		sql="""
 	SELECT * FROM (
-	SELECT a.date,case when b.trade_id is not null then '配资' else b.trade_id end as trade_id,CASE WHEN c.class_name IS NULL THEN '待定' ELSE c.class_name END AS class_name,
+	SELECT a.date,case when b.trade_id is not null then '配资' else '非配资' end as trade_id2,CASE WHEN c.class_name IS NULL THEN '待定' ELSE c.class_name END AS class_name,
         CASE WHEN  a.filename LIKE '%HB%' THEN '新疆汇宝' 
         WHEN a.filename LIKE '%GN%' THEN '贵州西部'
         WHEN a.filename LIKE '%GS%' THEN '寿光果蔬'
@@ -442,17 +443,17 @@ def get_data_static(username,date,filename,allocation):#usernames是一维数组
 	LEFT JOIN `trade_id_status` b ON a.trade_id=b.trade_id AND a.filename=b.filename
 	
 	WHERE DATE='"""+str(date_)+"""'
-	   GROUP BY a.date,c.class_name,filename2,b.trade_id  )  a
+	   GROUP BY a.date,c.class_name,filename2,trade_id2  )  a
 	 
 	WHERE  class_name ='"""+str(user_)+"""' 
 	"""+file_+all_
 
-		 
+		#print(sql)
 		cursor.execute(sql)
 		rs=cursor.fetchall()
 
 		for r in rs:
-			result+='{"date":"'+str(r[0])+'","class_id":"'+str(r[1])+'","class_name":"'+str(r[2])+'","filename":"'+str(r[3])+'","money_in":"'+str(r[4])+'","money_out":"'+str(r[5])+'","Transfer":"'+str(r[6])+'","commission":"'+str(r[7])+'","equity":"'+str(r[8])+'","liushui":"'+str(r[9])+'","dianzi":"'+str(r[10])+'"},'
+			result+='{"date":"'+str(r[0])+'","all_":"'+str(r[1])+'","class_name":"'+str(r[2])+'","filename":"'+str(r[3])+'","money_in":"'+str(r[4])+'","money_out":"'+str(r[5])+'","Transfer":"'+str(r[6])+'","commission":"'+str(r[7])+'","equity":"'+str(r[8])+'","liushui":"'+str(r[9])+'","dianzi":"'+str(r[10])+'"},'
 		
 		
 		result='{"status":"0","body":['+result[0:-1]+']}'
