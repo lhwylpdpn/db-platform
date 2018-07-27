@@ -100,6 +100,7 @@ def clac():
 	for r in filelist:
 		if  os.path.exists(os.getcwd()+pwd+r):
 			file=r
+			#print('3',file)
 			filename=os.getcwd()+pwd+r
 			try:
 				data = xlrd.open_workbook(filename)
@@ -108,7 +109,7 @@ def clac():
 
 	 
 			sql='insert into data_detail values ' 
-
+			#print('4',sql)
 			table = data.sheets()[0]
 	#
 	#by 2018-7-19 lhwylp
@@ -165,11 +166,9 @@ def clac():
 					sql+='("'+str(date)+'","'+str(table.cell(x,trade_id).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,trade_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_in).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_out).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,commission).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,Transfer).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,equity).value).replace('"','').replace(',','').decode()+'","'+str(time_tag)+'","'+str(file_mysql)+'"),'
 
 			except Exception, e:
-				print(e)
+				print("1",e)
 				return '{"status":"-1","body":"'+str(file)+' 的excel文件可能有问题，常见可能问题：1、表头不对,不包含协定文字;2、各类价格字段中可能有非数字文字;"}'
-
-
-		
+ 
 
 		try:
 			conn = DBConnect.db_connect(Config.DATABASE_MAIN)
@@ -179,11 +178,13 @@ def clac():
 			conn.commit()
 			cursor.close()
 			conn.close()
+
 		except Exception, e:
 			cursor.close()
 			conn.close()
-			print(str(e))
+			print("2",str(e))
 			return '{"status":"-1","body":"'+str(e)+' "}'
+		#sql=""
 		trade_id=""
 		trade_name=""
 		money_in=""
@@ -197,12 +198,12 @@ def clac():
 		qichuzijin=""
 		Transfer_clac=""
 
-		time_tag=str(datetime.datetime.now().strftime('%Y%m%d%H%M%S'))
+	time_tag=str(datetime.datetime.now().strftime('%Y%m%d%H%M%S'))
 		#os.mkdir(os.getcwd()+"\static\\"+time_tag)
 		#print(filelist)
 		#print(os.getcwd()+"\static\\"+time_tag+"\\")
-		shutil.move(os.getcwd()+pwd,os.getcwd()+"\static\\"+time_tag)  
-		os.mkdir(os.getcwd()+"\static\csv")
+	shutil.move(os.getcwd()+pwd,os.getcwd()+"\static\\"+time_tag)  
+	os.mkdir(os.getcwd()+"\static\csv")
 	return '{"status":0,"body":"'+str( round(time.time()-time1,3))+'"}'
 
  
