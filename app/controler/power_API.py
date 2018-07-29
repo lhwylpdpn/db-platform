@@ -424,6 +424,12 @@ def get_data_static(username,date,filename,allocation):#usernames是一维数组
 	else :
 		file_=""
 
+	if user_!="全部归属人":
+		user_=""" and class_name='"""+str(file_)+"""'"""
+	else :
+		user_=""
+
+
 	print(all_)
 	if all_=="配资":
 		all_=""" and trade_id2='配资' """
@@ -454,8 +460,8 @@ def get_data_static(username,date,filename,allocation):#usernames是一维数组
 	WHERE DATE='"""+str(date_)+"""'
 	   GROUP BY a.date,c.class_name,filename2,trade_id2  )  a
 	 
-	WHERE  class_name ='"""+str(user_)+"""' 
-	"""+file_+all_
+	WHERE  1=1  
+	"""+user_+file_+all_
 
 		#print(sql)
 		cursor.execute(sql)

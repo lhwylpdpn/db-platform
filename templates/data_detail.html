@@ -192,7 +192,7 @@ vertical-align: middle!important;
                data-row-style="rowStyle">
             <thead>
             <tr>
-                <th colspan="9"   ><font size="3" >新疆汇宝</font></th>
+                <th colspan="9"   ><font size="3" >全部市场</font></th>
                  <!-- hb -->
             </tr>
             <tr>
@@ -213,7 +213,7 @@ vertical-align: middle!important;
                             <table id="table2"
                data-toggle="table"
                
-               data-row-style="rowStyle">
+               data-row-style="rowStyle" style="display:none">
             <thead>
             <tr>
                 <th colspan="9"   ><font size="3" >贵州西部</font></th>
@@ -238,7 +238,7 @@ vertical-align: middle!important;
                             <table id="table3"
                data-toggle="table"
                
-               data-row-style="rowStyle">
+               data-row-style="rowStyle" style="display:none">
             <thead>
             <tr>
                 <th colspan="9"   ><font size="3" >寿光果蔬</font></th> 
@@ -264,7 +264,7 @@ vertical-align: middle!important;
                   <table id="table4"
                data-toggle="table"
                
-               data-row-style="rowStyle">
+               data-row-style="rowStyle" style="display:none">
             <thead>
             <tr>
                 <th colspan="9"   ><font size="3" >青岛北方</font></th>
@@ -495,12 +495,12 @@ $("#table4").on('load-success.bs.table',function heji(){
 
 
 
-        $("#table").bootstrapTable('refresh',{url: "/detail_json?filename=HB&person="+$("#person_").select2("data")[0].text+"&date="+$("#date_").select2("data")[0].text });
-        $("#table2").bootstrapTable('refresh',{url: "/detail_json?filename=GN&person="+$("#person_").select2("data")[0].text+"&date="+$("#date_").select2("data")[0].text });
-        $("#table3").bootstrapTable('refresh',{url: "/detail_json?filename=GS&person="+$("#person_").select2("data")[0].text+"&date="+$("#date_").select2("data")[0].text }); 
-        $("#table4").bootstrapTable('refresh',{url: "/detail_json?filename=QB&person="+$("#person_").select2("data")[0].text+"&date="+$("#date_").select2("data")[0].text });
+        $("#table").bootstrapTable('refresh',{url: "/detail_json?filename=&person="+$("#person_").select2("data")[0].text+"&date="+$("#date_").select2("data")[0].text });
+//         $("#table2").bootstrapTable('refresh',{url: "/detail_json?filename=GN&person="+$("#person_").select2("data")[0].text+"&date="+$("#date_").select2("data")[0].text });
+//         $("#table3").bootstrapTable('refresh',{url: "/detail_json?filename=GS&person="+$("#person_").select2("data")[0].text+"&date="+$("#date_").select2("data")[0].text }); 
+//         $("#table4").bootstrapTable('refresh',{url: "/detail_json?filename=QB&person="+$("#person_").select2("data")[0].text+"&date="+$("#date_").select2("data")[0].text });
 
-}
+ }
 
 
     function benchmark(context,type){
