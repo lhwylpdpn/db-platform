@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: UTF-8 -*- 
+# -*- coding: utf-8 -*-
 #encoding=utf-8
 
 
@@ -100,7 +100,7 @@ def clac():
 	for r in filelist:
 		if  os.path.exists(os.getcwd()+pwd+r):
 			file=r
-			#print('3',file)
+			print('3',file)
 			filename=os.getcwd()+pwd+r
 			try:
 				data = xlrd.open_workbook(filename)
@@ -405,6 +405,56 @@ def get_data_detail(username,date,filename):#usernames是一维数组传入用�
 
 #################################################
 
+#by lhwylpdpn 临时增加的合计功能 2018-8-1
+
+#数据返回接口##############################################################################
+
+def get_data_detail_heji(username,date):#usernames是一维数组传入用户名，poweritems是二维数组，传入每个用户名的权限数组
+# 判断数据文剑名是否存在
+# 判断文件是否处于写状态
+# copy文件
+# 正则筛选
+# 返回json
+
+	user_=username
+	date_=date
+	result=""
+	try:
+		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
+		cursor = conn.cursor()
+		sql="""
+	SELECT "合计",SUM(m_1) AS m_1,SUM(m_2) AS m_2, SUM(m_3) AS m_3 FROM (	
+	SELECT a.`trade_id`,a.`trade_name`,a.`commission`,b.`agent_name_1`,CONVERT(b.`agent_ratio_1`*a.`commission`,DECIMAL(20,2)) AS m_1,b.`agent_name_2`,CONVERT(b.`agent_ratio_2`*a.`commission`,DECIMAL(20,2)) AS m_2, b.`agent_name_3`,CONVERT(b.`agent_ratio_3`*a.`commission` ,DECIMAL(20,2)) AS m_3
+	,a.filename
+
+	FROM `data_detail` a LEFT JOIN `agent_class` b ON a.`trade_id`=b.`trade_id` AND a.`filename`=b.`filename` 
+	WHERE a.`date`='"""+str(date_)+"""'  AND b.class_name ='"""+str(user_)+"""'  
+	 AND CAST(a.commission AS SIGNED)>0 
+
+
+
+
+	 ) a
+
+
+
+	"""
+		#print(sql)
+		cursor.execute(sql)
+		rs=cursor.fetchall()
+
+		for r in rs:
+			result+='{"trade_id":"'+str(r[0])+'","m_1":"'+str(r[1])+'","m_2":"'+str(r[2])+'","m_3":"'+str(r[3])+'"},'
+		
+		
+		result='{"status":"0","body":['+result[0:-1]+']}'
+		#print(result)
+		return result
+	except Exception, e:
+		print e
+		return '{"status":"-1","body":"系统存在问题，暂时无法操作，请联系管理员"}'
+
+#################################################
 
 
 def get_data_static(username,date,filename,allocation):#usernames是一维数组传入用户名，poweritems是二维数组，传入每个用户名的权限数组

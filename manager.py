@@ -1,4 +1,7 @@
 # This Python file uses the following encoding: utf-8
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+#encoding=utf-8
 
 from flask import Flask, url_for, redirect, request, json, session
 from flask import render_template
@@ -22,11 +25,11 @@ sys.setdefaultencoding('UTF-8')
 
 from app.controler.power_API import get_data_class_name
 from app.controler.power_API import get_data_detail
+from app.controler.power_API import get_data_detail_heji
 from app.controler.power_API import clac
 from app.controler.power_API import get_data_class_date
 from app.controler.power_API import get_data_static
 from app.controler.power_API import get_data_class_filename
-
 
 # @app.before_request
 # # def before_request():
@@ -47,6 +50,18 @@ def data_detail_json():
     #print(filename)
     jsons = json.loads(get_data_detail(person,date,filename))  # 字符串传化为json 对象
     #print(jsons)
+ 
+        
+    return json.dumps(jsons["body"])
+
+@app.route('/detail_json_heji')
+def data_detail_json_heji():
+    date=request.args.get('date')
+    person=request.args.get('person')
+    
+    #print(filename)
+    jsons = json.loads(get_data_detail_heji(person,date))  # by lhwylp 临时加的合计功能
+   # print(jsons)
  
         
     return json.dumps(jsons["body"])
