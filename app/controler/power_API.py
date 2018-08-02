@@ -88,7 +88,7 @@ def clac():
 	Transfer_clac=""
 	test = []
 	pwd="\static\csv\\"
-	
+	fileimportDB=0
 	filelist=file_name(os.getcwd()+pwd)
 	newlist=[]
 	statinfo=[]
@@ -178,12 +178,12 @@ def clac():
 			conn.commit()
 			cursor.close()
 			conn.close()
-
+			fileimportDB+=1
 		except Exception, e:
 			cursor.close()
 			conn.close()
 			print("2",str(e))
-			return '{"status":"-1","body":"'+str(e)+' "}'
+			return '{"status":"-1","body":"'+str(e)+'，已经入库了'+str(fileimportDB)+' 个文件,当前出错的文件是'+str(r)+'"}'
 		#sql=""
 		trade_id=""
 		trade_name=""
@@ -204,9 +204,135 @@ def clac():
 		#print(os.getcwd()+"\static\\"+time_tag+"\\")
 	shutil.move(os.getcwd()+pwd,os.getcwd()+"\static\\"+time_tag)  
 	os.mkdir(os.getcwd()+"\static\csv")
-	return '{"status":0,"body":"'+str( round(time.time()-time1,3))+'"}'
+	return '{"status":0,"body":"'+str( round(time.time()-time1,3))+'秒,成功入库了'+str(fileimportDB)+' 个文件"}'
 
+ #  by lhwylpdpn 返佣信息入库表 2018-08-02
+def clac_config():
+
+	time1= time.time()
+
+
+	try:
+		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
+		cursor = conn.cursor()
+		#print(sql)
+		cursor.execute("truncate agent_class;")
+		conn.commit()
+		cursor.close()
+		conn.close()
+	except Exception, e:
+		cursor.close()
+		conn.close()
+		print(str(e))
+		return '{"status":"-1","body":"返佣配置信息初始清除出错 "}'
+
+
+	trade_id=""
+	market=""
+	class_name=""
+ 	agent_1=""
+	agent_1_name=""
+ 	agent_2=""
+	agent_2_name=""
+ 	agent_3=""
+	agent_3_name=""
+	zhifan=""
+	zongfan=""
+	test = []
+	pwd="\static\csv_config\\"
+	fileimportDB=0
+	filelist=file_name(os.getcwd()+pwd)
+	newlist=[]
+	statinfo=[]
+	file_mysql=""
+	sql=""
+	#time_tag=str(file_pwd.split("/")[-2])
+	time_tag=str(datetime.datetime.now().strftime('%Y-%m-%d  %H:%M:%S'))
+	date=str(datetime.datetime.now().strftime('%Y-%m-%d'));
+	for r in filelist:
+		if  r=='config.xls' or r=='config.xlsx':
+			file=r
+			
+			filename=os.getcwd()+pwd+r
+			try:
+				data = xlrd.open_workbook(filename)
+			except:
+				return '{"status":"-1","body":"'+str(file)+' 文件无法打开"}'
+
+	 
+			sql='insert into agent_class values ' 
+			#print('4',sql)
+			table = data.sheets()[0]
+
+		for x in xrange(0,table.ncols):
+			if table.cell(0,x).value=='交易账号':
+				trade_id=x
+			if table.cell(0,x).value=='市场' :
+				market=x
+			if table.cell(0,x).value=='归属':
+				class_name=x
+			if table.cell(0,x).value=='1返佣人':
+				agent_1_name=x
+			if table.cell(0,x).value=='1返比例':
+				agent_1=x
+			if table.cell(0,x).value=='2返佣人':
+				agent_2_name=x
+			if table.cell(0,x).value=='2返比例':
+				agent_2=x
+			if table.cell(0,x).value=='3返佣人':
+				agent_3_name=x
+			if table.cell(0,x).value=='3返比例':
+				agent_3=x
+			if table.cell(0,x).value=='直返比例':
+				zhifan=x
+			if table.cell(0,x).value=='总返比例':
+				zongfan=x
+
+		for x in xrange(1,table.nrows):
+
+			try:
+				
+
+				sql+='("'+str(int(table.cell(x,trade_id).value))+'","'+str(table.cell(x,market).value).replace('"','').replace(',','').strip().upper().decode()+'","'+str(table.cell(x,class_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,agent_1).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,agent_1_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,agent_2).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,agent_2_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,agent_3).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,agent_3_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,zhifan).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,zongfan).value).replace('"','').replace(',','').decode()+'","'+str(time_tag)+'"),'
+
+			except Exception, e:
+				print("1",e)
+				return '{"status":"-1","body":"'+str(file)+' 的excel文件可能有问题，常见可能问题：1、表头不对,不包含协定文字;2、各类价格字段中可能有非数字文字;"}'
  
+
+		try:
+			conn = DBConnect.db_connect(Config.DATABASE_MAIN)
+			cursor = conn.cursor()
+			#print(sql)
+			cursor.execute(sql[:-1])
+			conn.commit()
+			cursor.close()
+			conn.close()
+			fileimportDB+=1
+		except Exception, e:
+			cursor.close()
+			conn.close()
+			print("2",str(e))
+			return '{"status":"-1","body":"'+str(e)+'"}'
+		#sql=""
+		trade_id=""
+		market=""
+		class_name=""
+	 	agent_1=""
+		agent_1_name=""
+	 	agent_2=""
+		agent_2_name=""
+	 	agent_3=""
+		agent_3_name=""
+		zhifan=""
+		zongfan=""
+	time_tag=str(datetime.datetime.now().strftime('%Y%m%d%H%M%S'))
+		#os.mkdir(os.getcwd()+"\static\\"+time_tag)
+		#print(filelist)
+		#print(os.getcwd()+"\static\\"+time_tag+"\\")
+	shutil.move(os.getcwd()+pwd,os.getcwd()+"\static\\config"+time_tag)  
+	os.mkdir(os.getcwd()+"\static\csv_config")
+	return '{"status":0,"body":"'+str( round(time.time()-time1,3))+'秒,成功入库了'+str(fileimportDB)+' 个文件"}'
 
 
 
@@ -457,7 +583,7 @@ def get_data_detail_heji(username,date):#usernames是一维数组传入用户名
 #################################################
 
 
-def get_data_static(username,date,filename,allocation):#usernames是一维数组传入用户名，poweritems是二维数组，传入每个用户名的权限数组
+def get_data_static(username,date_start,date_end,filename,allocation):#usernames是一维数组传入用户名，poweritems是二维数组，传入每个用户名的权限数组
 # 判断数据文剑名是否存在
 # 判断文件是否处于写状态
 # copy文件
@@ -465,10 +591,25 @@ def get_data_static(username,date,filename,allocation):#usernames是一维数组
 # 返回json
 
 	user_=username
-	date_=date
+	date_s=date_start
+	date_e=date_end
 	file_=filename
 	all_=allocation
  	result=""
+
+
+	if date_s!="开始日期":
+		date_s=""" and  DATE>='"""+str(date_s)+"""'"""
+	else :
+		date_s=""
+
+
+	if date_e!="结束日期":
+		date_e=""" and  DATE <='"""+str(date_e)+"""'"""
+	else :
+		date_e=""
+  
+
 	if file_!="全部市场":
 		file_=""" and filename2='"""+str(file_)+"""'"""
 	else :
@@ -493,7 +634,7 @@ def get_data_static(username,date,filename,allocation):#usernames是一维数组
 		cursor = conn.cursor()
 		sql="""
 	SELECT * FROM (
-	SELECT a.date,case when b.trade_id is not null then '配资' else '非配资' end as trade_id2,CASE WHEN c.class_name IS NULL THEN '待定' ELSE c.class_name END AS class_name,
+	SELECT 1,case when b.trade_id is not null then '配资' else '非配资' end as trade_id2,CASE WHEN c.class_name IS NULL THEN '待定' ELSE c.class_name END AS class_name,
         CASE WHEN  a.filename LIKE '%HB%' THEN '新疆汇宝' 
         WHEN a.filename LIKE '%GN%' THEN '贵州西部'
         WHEN a.filename LIKE '%GS%' THEN '寿光果蔬'
@@ -507,8 +648,8 @@ def get_data_static(username,date,filename,allocation):#usernames是一维数组
 	FROM `data_detail` a LEFT JOIN `agent_class` c ON a.`trade_id`=c.`trade_id` AND a.`filename`=c.`filename` 
 	LEFT JOIN `trade_id_status` b ON a.trade_id=b.trade_id AND a.filename=b.filename
 	
-	WHERE DATE='"""+str(date_)+"""'
-	   GROUP BY a.date,c.class_name,filename2,trade_id2  )  a
+	WHERE 1=1 """+date_s+date_e+"""
+	   GROUP BY c.class_name,filename2,trade_id2  )  a
 	 
 	WHERE  1=1  
 	"""+user_+file_+all_

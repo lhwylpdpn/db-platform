@@ -5,7 +5,7 @@
     <ul class="breadcrumb">
         <li>
             <i class="ace-icon fa fa-home home-icon"></i>
-            <a href="/clac">执行计算</a>
+            <a href="/clac_config">执行计算_返佣人信息</a>
         </li>
 
         <!--<li>-->
@@ -30,7 +30,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">使用说明</h4>
+        <h4 class="modal-title" >使用说明</h4>
       </div>
       <div class="modal-body">
         <table class="table table-condensed">
@@ -107,7 +107,7 @@
 
                                                      
                                                 <div class="widget-toolbar">
-                                                        <button class="badge badge-danger"  data-toggle="modal" data-target="#myModal">说明</button>
+                                                        <button class="badge badge-danger"  >说明</button>
 
                                                        
 
@@ -123,13 +123,13 @@
                                         {% if res =="" %}
    
 
-                                        <a href="/clac"   class="btn btn-app btn-success" onclick="this.style.display='none';div1.style.display=''">
+                                        <a href="/clac_config"   class="btn btn-app btn-success" onclick="this.style.display='none';div1.style.display=''">
                                             <i class="ace-icon fa fa-refresh bigger-230"></i>
-                                            计算
+                                            导入
                                         </a>
-                                        <a href="/clac" id="div1" class="btn btn-default btn-app " readonly style="display: none">
+                                        <a href="/clac_config" id="div1" class="btn btn-default btn-app " readonly style="display: none">
                                             <i class="ace-icon fa fa-refresh bigger-230"></i>
-                                            计算中...
+                                            导入中...
                                         </a>
 
                                         {% elif res==1 %}

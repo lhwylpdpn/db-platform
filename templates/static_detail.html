@@ -48,12 +48,12 @@ vertical-align: middle!important;
       <tbody>
         <tr>
           
-          <td>归属人选项框内为所有目前记录的归属人合集,至少且只能选择某一个归属人进行查询</td>
+          <td>归属人选项框内为所有目前记录的归属人合集,可以选择全部</td>
 
         </tr>
         <tr>
          
-          <td>日期为目前入库的记录的所有日期,至少且只能选择某一个日期进行查询</td>
+          <td>开始日期和结束日期为目前入库的记录的所有日期,当不选的时候，为显示全部日期</td>
  
         </tr>
         <tr>
@@ -224,11 +224,11 @@ vertical-align: middle!important;
                data-row-style="rowStyle">
             <thead>
             <tr>
-                <th colspan="11"   ><font size="3" >汇总数据</font></th>
+                <th colspan="11"   ><font size="3" >汇总数据   </font>  <font size="3" id="date_show">   </font>  </th>
                  <!-- hb -->
             </tr>
             <tr>
-                <th class="label-inverse" data-field="date"  ><font size="2" color="#FFD700" class="my-parent-style-good">日期</font></th>
+         <!--        <th class="label-inverse" data-field="date"  ><font size="2" color="#FFD700" class="my-parent-style-good">日期</font></th> -->
                 <th class="label-inverse" data-field="class_name"   ><font size="2" color="#FFD700">归属姓名</font></th>
                 <th class="label-inverse" data-field="all_"   ><font size="2" color="#FFD700">配资情况</font></th>
                 <th class="label-inverse" data-field="filename" ><font size="2" color="#FFD700">交易市场</font></th>
@@ -359,7 +359,7 @@ vertical-align: middle!important;
 
 
         $("#table").bootstrapTable('refresh',{url: "/static_json?person="+$("#person_").select2("data")[0].text+"&date_start="+$("#date_start").select2("data")[0].text+"&date_end="+$("#date_end").select2("data")[0].text+"&filename="+$("#filename_").select2("data")[0].text+"&all_="+$("#all_").select2("data")[0].text});
-        
+        document.getElementById('date_show').innerHTML = $("#date_start").select2("data")[0].text +" ~ "+$("#date_end").select2("data")[0].text;
 
 }
 

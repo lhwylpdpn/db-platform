@@ -27,6 +27,7 @@ from app.controler.power_API import get_data_class_name
 from app.controler.power_API import get_data_detail
 from app.controler.power_API import get_data_detail_heji
 from app.controler.power_API import clac
+from app.controler.power_API import clac_config
 from app.controler.power_API import get_data_class_date
 from app.controler.power_API import get_data_static
 from app.controler.power_API import get_data_class_filename
@@ -70,12 +71,13 @@ def data_detail_json_heji():
 
 @app.route('/static_json')
 def data_static_json():
-    date=request.args.get('date')
+    date_start=request.args.get('date_start')
+    date_end=request.args.get('date_end')
     person=request.args.get('person')
     filename=request.args.get('filename')
     all_=request.args.get('all_')
     #print(filename)
-    jsons = json.loads(get_data_static(person,date,filename,all_))  # 字符串传化为json 对象
+    jsons = json.loads(get_data_static(person,date_start,date_end,filename,all_))  # 字符串传化为json 对象
     #print(jsons)
  
         
@@ -125,6 +127,11 @@ def data_clac_index():
     return render_template("data_clac.html", title=U"数据计算", res="")
 
 
+@app.route('/clac_index_config')
+def data_clac_index_config():
+    return render_template("data_clac_config.html", title=U"数据计算", res="")
+
+
 @app.route('/clac')
 def data_clac():
     jsons=json.loads(clac())
@@ -134,6 +141,17 @@ def data_clac():
         return render_template("data_clac.html", title=U"数据计算", time=json.dumps(jsons["body"]).decode('unicode_escape'),res=1)
     else:
         return render_template("data_clac.html", title=U"数据计算", time=json.dumps(jsons["body"]).decode('unicode_escape'),res=-1)
+
+@app.route('/clac_config')
+def data_clac_config():
+    jsons=json.loads(clac_config())
+   # print(json.dumps(jsons["status"]), json.dumps(jsons["status"])==0)
+    if json.dumps(jsons["status"])=="0":
+
+        return render_template("data_clac_config.html", title=U"数据计算", time=json.dumps(jsons["body"]).decode('unicode_escape'),res=1)
+    else:
+        return render_template("data_clac_config.html", title=U"数据计算", time=json.dumps(jsons["body"]).decode('unicode_escape'),res=-1)
+
 
 @app.route('/expecting')
 def expecting():
