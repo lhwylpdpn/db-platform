@@ -333,7 +333,7 @@ vertical-align: middle!important;
              table.bootstrapTable('insertRow', {
                 index: date_.length,
                 row: {
-                    date:'合计',
+                    class_name:'合计',
                     money_in:toDecimal(sum_money_in),
                     money_out:toDecimal(sum_money_out),
                     Transfer:toDecimal(sum_Transfer),
@@ -347,8 +347,8 @@ vertical-align: middle!important;
 
              table.bootstrapTable('mergeCells', {
                 index: date_.length-1,
-                field:'date',
-                colspan:4
+                field:'class_name',
+                colspan:3
             });
        
     });
