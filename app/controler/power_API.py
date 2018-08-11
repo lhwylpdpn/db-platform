@@ -55,136 +55,15 @@ def file_name(file_dir):
 			#print(3,level_1_file)
 	return level_1_file
 def clac():
-
 	time1= time.time()
-
-
-	try:
-		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
-		cursor = conn.cursor()
-		#print(sql)
-		cursor.execute("delete from data_detail where date=LEFT(NOW(),10);")
-		conn.commit()
-		cursor.close()
-		conn.close()
-	except Exception, e:
-		cursor.close()
-		conn.close()
-		print(str(e))
-		return '{"status":"-1","body":"数据库初始清除出错 "}'
-
-
-	trade_id=""
-	trade_name=""
-	money_in=""
- 	money_out=""
-	Transfer=""
-	commission=""
-	equity=""
-	jiqibaozhengjin=""
-	dinghuojingkuisun=""
-	dangrikeyongzijin=""
-	qichuzijin=""
-	Transfer_clac=""
-	test = []
-	pwd="\static\csv\\"
 	fileimportDB=0
-	filelist=file_name(os.getcwd()+pwd)
-	newlist=[]
-	statinfo=[]
-	file_mysql=""
-	sql=""
-	#time_tag=str(file_pwd.split("/")[-2])
-	time_tag=str(datetime.datetime.now().strftime('%Y-%m-%d  %H:%M:%S'))
-	date=str(datetime.datetime.now().strftime('%Y-%m-%d'));
-	for r in filelist:
-		if  os.path.exists(os.getcwd()+pwd+r):
-			file=r
-			print('3',file)
-			filename=os.getcwd()+pwd+r
-			try:
-				data = xlrd.open_workbook(filename)
-			except:
-				return '{"status":"-1","body":"'+str(file)+' 文件无法打开"}'
-
-	 
-			sql='insert into data_detail values ' 
-			#print('4',sql)
-			table = data.sheets()[0]
-	#
-	#by 2018-7-19 lhwylp
-	#入库的市场规整一些,统一调整为一个代号
-	# 	
-		if 'GN' in file or 'gn' in file:
-			file_mysql="GN"
-		elif 'HB' in file  or 'hb' in file:
-			file_mysql="HB"
-		elif 'GS' in file  or 'gs' in file:
-			file_mysql="GS"
-		elif 'QB' in file  or 'qb' in file:
-			file_mysql="QB"
-		else:
-			file_mysql=file
-		for x in xrange(0,table.ncols):
-			if table.cell(0,x).value=='交易商编号' or table.cell(0,x).value=='会员编号':
-				trade_id=x
-			if table.cell(0,x).value=='交易商名称' or table.cell(0,x).value=='会员名称':
-				trade_name=x
-			if table.cell(0,x).value=='入金':
-				money_in=x
-			if table.cell(0,x).value=='出金':
-				money_out=x
-			if table.cell(0,x).value=='转让盈亏':
-				Transfer=x
-			if table.cell(0,x).value=='交易手续费':
-				commission=x
-			if table.cell(0,x).value=='总权益':
-				equity=x
-			if table.cell(0,x).value=='即期保证金':
-				jiqibaozhengjin=x
-			if table.cell(0,x).value=='订货净亏损':
-				dinghuojingkuisun=x
-			if table.cell(0,x).value=='当日可用资金':
-				dangrikeyongzijin=x
-			if table.cell(0,x).value=='期初资金':
-				qichuzijin=x
-
-		for x in xrange(1,table.nrows):
-
-			try:
-				if Transfer=="":
-
-					#print(float(table.cell(x,commission).value.replace('"','').replace(',','')) - float(table.cell(x,qichuzijin).value.replace('"','').replace(',','')));
-					#print(float(table.cell(x,commission).value.replace('"','').replace(',','')) ,float(table.cell(x,qichuzijin).value.replace('"','').replace(',','')))
-					Transfer_clac=float(table.cell(x,jiqibaozhengjin).value.replace('"','').replace(',',''))+float(table.cell(x,dinghuojingkuisun).value.replace('"','').replace(',',''))+float(table.cell(x,dangrikeyongzijin).value.replace('"','').replace(',',''))+float(table.cell(x,commission).value.replace('"','').replace(',','')) - float(table.cell(x,qichuzijin).value.replace('"','').replace(',','')) - float(table.cell(x,money_in).value.replace('"','').replace(',',''))
+	datedirs=os.listdir(os.getcwd()+"\static\\csv\\")
+	for d in datedirs:
+		file_date=str(d)
+	
 
 
-
-					sql+='("'+str(date)+'","'+str(table.cell(x,trade_id).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,trade_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_in).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_out).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,commission).value).replace('"','').replace(',','').decode()+'","'+str(Transfer_clac).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,equity).value).replace('"','').replace(',','').decode()+'","'+str(time_tag)+'","'+str(file_mysql)+'"),'
-				else:
-					#print(chardet.detect(sql))
-					sql+='("'+str(date)+'","'+str(table.cell(x,trade_id).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,trade_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_in).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_out).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,commission).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,Transfer).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,equity).value).replace('"','').replace(',','').decode()+'","'+str(time_tag)+'","'+str(file_mysql)+'"),'
-
-			except Exception, e:
-				print("1",e)
-				return '{"status":"-1","body":"'+str(file)+' 的excel文件可能有问题，常见可能问题：1、表头不对,不包含协定文字;2、各类价格字段中可能有非数字文字;"}'
- 
-
-		try:
-			conn = DBConnect.db_connect(Config.DATABASE_MAIN)
-			cursor = conn.cursor()
-			#print(sql)
-			cursor.execute(sql[:-1])
-			conn.commit()
-			cursor.close()
-			conn.close()
-			fileimportDB+=1
-		except Exception, e:
-			cursor.close()
-			conn.close()
-			print("2",str(e))
-			return '{"status":"-1","body":"'+str(e)+'，已经入库了'+str(fileimportDB)+' 个文件,当前出错的文件是'+str(r)+'"}'
-		#sql=""
+		csv_date=""
 		trade_id=""
 		trade_name=""
 		money_in=""
@@ -197,12 +76,154 @@ def clac():
 		dangrikeyongzijin=""
 		qichuzijin=""
 		Transfer_clac=""
+		test = []
+		pwd="\static\csv\\"+file_date+'\\'
+		
+		filelist=file_name(os.getcwd()+pwd)
+		newlist=[]
+		statinfo=[]
+		file_mysql=""
+		sql=""
+		#time_tag=str(file_pwd.split("/")[-2])
+		time_tag=str(datetime.datetime.now().strftime('%Y-%m-%d  %H:%M:%S'))
+		date=str(datetime.datetime.now().strftime('%Y-%m-%d'));
+		sql='insert into data_detail values ' 
+		for r in filelist:
+			if  os.path.exists(os.getcwd()+pwd+r):
+				fileimportDB+=1
+				file=r
+				print('3',file)
+				filename=os.getcwd()+pwd+r
+				try:
+					data = xlrd.open_workbook(filename)
+				except:
+					return '{"status":"-1","body":"'+str(file)+' 文件无法打开"}'
+
+		 
+				
+				#print('4',sql)
+				table = data.sheets()[0]
+		#
+		#by 2018-7-19 lhwylp
+		#入库的市场规整一些,统一调整为一个代号
+		# 	
+			if 'GN' in file or 'gn' in file:
+				file_mysql="GN"
+			elif 'HB' in file  or 'hb' in file:
+				file_mysql="HB"
+			elif 'GS' in file  or 'gs' in file:
+				file_mysql="GS"
+			elif 'QB' in file  or 'qb' in file:
+				file_mysql="QB"
+			else:
+				file_mysql=file
+			for x in xrange(0,table.ncols):
+				if table.cell(0,x).value=='交易商编号' or table.cell(0,x).value=='会员编号':
+					trade_id=x
+				if table.cell(0,x).value=='交易商名称' or table.cell(0,x).value=='会员名称':
+					trade_name=x
+				if table.cell(0,x).value=='入金':
+					money_in=x
+				if table.cell(0,x).value=='出金':
+					money_out=x
+				if table.cell(0,x).value=='转让盈亏':
+					Transfer=x
+				if table.cell(0,x).value=='交易手续费':
+					commission=x
+				if table.cell(0,x).value=='总权益':
+					equity=x
+				if table.cell(0,x).value=='即期保证金':
+					jiqibaozhengjin=x
+				if table.cell(0,x).value=='订货净亏损':
+					dinghuojingkuisun=x
+				if table.cell(0,x).value=='当日可用资金':
+					dangrikeyongzijin=x
+				if table.cell(0,x).value=='期初资金':
+					qichuzijin=x
+				if table.cell(0,x).value=='日期':
+					csv_date=x
+
+			for x in xrange(1,table.nrows):#先检查所有日期是否符合
+				try:
+					if 	datetime.datetime.strptime(str(table.cell(x,csv_date).value).replace('"','').replace(',',''),'%Y%m%d').strftime('%Y-%m-%d')!=file_date:
+				
+						return '{"status":"-1","body":"'+str(file_date)+'的文件中'+str(file)+'文件第'+str(x)+'行的日期并不是'+str(file_date)+',此日期下文件并没入库，请处理完毕重新入库"}'
+				except Exception, e:
+					#print("1",e)
+					return '{"status":"-1","body":"'+str(file)+' 的抛出异常: '+str(e)+'"}'
+	 
+			for x in xrange(1,table.nrows):
+
+				try:
+				
+					if Transfer=="":
+
+						#print(float(table.cell(x,commission).value.replace('"','').replace(',','')) - float(table.cell(x,qichuzijin).value.replace('"','').replace(',','')));
+						#print(float(table.cell(x,commission).value.replace('"','').replace(',','')) ,float(table.cell(x,qichuzijin).value.replace('"','').replace(',','')))
+						Transfer_clac=float(table.cell(x,jiqibaozhengjin).value.replace('"','').replace(',',''))+float(table.cell(x,dinghuojingkuisun).value.replace('"','').replace(',',''))+float(table.cell(x,dangrikeyongzijin).value.replace('"','').replace(',',''))+float(table.cell(x,commission).value.replace('"','').replace(',','')) - float(table.cell(x,qichuzijin).value.replace('"','').replace(',','')) - float(table.cell(x,money_in).value.replace('"','').replace(',',''))
+
+
+
+						sql+='("'+str(file_date)+'","'+str(table.cell(x,trade_id).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,trade_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_in).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_out).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,commission).value).replace('"','').replace(',','').decode()+'","'+str(Transfer_clac).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,equity).value).replace('"','').replace(',','').decode()+'","'+str(time_tag)+'","'+str(file_mysql)+'"),'
+					else:
+						#print(chardet.detect(sql))
+						sql+='("'+str(file_date)+'","'+str(table.cell(x,trade_id).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,trade_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_in).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_out).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,commission).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,Transfer).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,equity).value).replace('"','').replace(',','').decode()+'","'+str(time_tag)+'","'+str(file_mysql)+'"),'
+
+				except Exception, e:
+					print("1",e)
+					return '{"status":"-1","body":"'+str(file)+' 的excel文件可能有问题，常见可能问题：1、表头不对,不包含协定文字;2、各类价格字段中可能有非数字文字;"}'
+	 		
+	 		
+			
+			trade_id=""
+			trade_name=""
+			money_in=""
+		 	money_out=""
+			Transfer=""
+			commission=""
+			equity=""
+			jiqibaozhengjin=""
+			dinghuojingkuisun=""
+			dangrikeyongzijin=""
+			qichuzijin=""
+			Transfer_clac=""
+
+	 	#这层for循环只为了拼出来 最终的sql  by 2018-08-07 lhwylp
+	 	#神奇的字符集问题，所以在这临时加一个单独删除
+		try:
+			conn = DBConnect.db_connect(Config.DATABASE_MAIN)
+			cursor = conn.cursor()
+			sql1234="delete from data_detail where date='"+file_date+"';"
+			cursor.execute(sql1234)
+			conn.commit()
+			cursor.close()
+			conn.close()
+		except Exception, e:
+			cursor.close()
+			conn.close()
+			print("2",str(e))
+
+			return '{"status":"-1","body":"'+str(e)+','+str(file_date)+' 下的文件入库环节出错，并未入库"}'
+
+
+		try:
+			conn = DBConnect.db_connect(Config.DATABASE_MAIN)
+			cursor = conn.cursor()
+			#sql="delete from data_detail where date='"+file_date+"';"+sql+";"
+			cursor.execute(sql[:-1])
+			conn.commit()
+			cursor.close()
+			conn.close()
+		except Exception, e:
+			cursor.close()
+			conn.close()
+			print("2",str(e))
+
+			return '{"status":"-1","body":"'+str(e)+','+str(file_date)+' 下的文件入库环节出错，并未入库"}'
 
 	time_tag=str(datetime.datetime.now().strftime('%Y%m%d%H%M%S'))
-		#os.mkdir(os.getcwd()+"\static\\"+time_tag)
-		#print(filelist)
-		#print(os.getcwd()+"\static\\"+time_tag+"\\")
-	shutil.move(os.getcwd()+pwd,os.getcwd()+"\static\\"+time_tag)  
+		
+	shutil.move(os.getcwd()+"\static\csv\\",os.getcwd()+"\static\\"+time_tag)  
 	os.mkdir(os.getcwd()+"\static\csv")
 	return '{"status":0,"body":"'+str( round(time.time()-time1,3))+'秒,成功入库了'+str(fileimportDB)+' 个文件"}'
 
@@ -271,17 +292,17 @@ def clac_config():
 				market=x
 			if table.cell(0,x).value=='归属':
 				class_name=x
-			if table.cell(0,x).value=='1返佣人':
+			if table.cell(0,x).value=='I级返佣人':
 				agent_1_name=x
-			if table.cell(0,x).value=='1返比例':
+			if table.cell(0,x).value=='I返比例':
 				agent_1=x
-			if table.cell(0,x).value=='2返佣人':
+			if table.cell(0,x).value=='II级返佣人':
 				agent_2_name=x
-			if table.cell(0,x).value=='2返比例':
+			if table.cell(0,x).value=='II返比例':
 				agent_2=x
-			if table.cell(0,x).value=='3返佣人':
+			if table.cell(0,x).value=='III级返佣人':
 				agent_3_name=x
-			if table.cell(0,x).value=='3返比例':
+			if table.cell(0,x).value=='III返比例':
 				agent_3=x
 			if table.cell(0,x).value=='直返比例':
 				zhifan=x

@@ -134,6 +134,7 @@ def data_clac_index_config():
 
 @app.route('/clac')
 def data_clac():
+    
     jsons=json.loads(clac())
    # print(json.dumps(jsons["status"]), json.dumps(jsons["status"])==0)
     if json.dumps(jsons["status"])=="0":
