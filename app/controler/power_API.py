@@ -143,16 +143,74 @@ def clac():
 				if table.cell(0,x).value=='日期':
 					csv_date=x
 
-			for x in xrange(1,table.nrows):#先检查所有日期是否符合
-				try:
-					if 	datetime.datetime.strptime(str(table.cell(x,csv_date).value).replace('"','').replace(',',''),'%Y%m%d').strftime('%Y-%m-%d')!=file_date:
+			# for x in xrange(1,table.nrows):#先检查所有日期是否符合
+			# 	try:
+			# 		if 	datetime.datetime.strptime(str(table.cell(x,csv_date).value).replace('"','').replace(',',''),'%Y%m%d').strftime('%Y-%m-%d')!=file_date:
 				
-						return '{"status":"-1","body":"'+str(file_date)+'的文件中'+str(file)+'文件第'+str(x)+'行的日期并不是'+str(file_date)+',此日期下文件并没入库，请处理完毕重新入库"}'
-				except Exception, e:
-					#print("1",e)
-					return '{"status":"-1","body":"'+str(file)+' 的抛出异常: '+str(e)+'"}'
+			# 			return '{"status":"-1","body":"'+str(file_date)+'的文件中'+str(file)+'文件第'+str(x)+'行的日期并不是'+str(file_date)+',此日期下文件并没入库，请处理完毕重新入库"}'
+			# 	except Exception, e:
+			# 		#print("1",e)
+			# 		return '{"status":"-1","body":"'+str(file)+' 的抛出异常: '+str(e)+'"}'
 	 
 			for x in xrange(1,table.nrows):
+
+				#增加了大区表内特定编号，不入库：
+				temp=str(table.cell(x,trade_id).value).replace('"','').replace(',','').decode()
+				spe_list=['5003']
+				spe_list.append('5006')
+				spe_list.append('5009')
+				spe_list.append('5010')
+				spe_list.append('5011')
+				spe_list.append('5012')
+				spe_list.append('5013')
+				spe_list.append('5015')
+				spe_list.append('5016')
+				spe_list.append('3220')
+				spe_list.append('3225')
+				spe_list.append('3229')
+				spe_list.append('3230')
+				spe_list.append('5018')
+				spe_list.append('5019')
+				spe_list.append('5021')
+				spe_list.append('5022')
+				spe_list.append('5060')
+				spe_list.append('5092')
+				spe_list.append('5138')
+				spe_list.append('5139')
+				spe_list.append('5805')
+				spe_list.append('5150')
+				spe_list.append('5153')
+				spe_list.append('5155')
+				spe_list.append('5285')
+				spe_list.append('5032')
+				spe_list.append('5630')
+				spe_list.append('5529')
+				spe_list.append('5581')
+				spe_list.append('5360')
+				spe_list.append('5583')
+				spe_list.append('5152')
+
+
+				if "HBD" in file and temp in spe_list:
+					continue
+				spe_list=[]
+				spe_list.append('2003')
+				spe_list.append('2336')
+				spe_list.append('2673')
+				spe_list.append('2977')
+				spe_list.append('5031')
+				spe_list.append('5037')
+
+				if "GND" in file and temp in spe_list:
+					continue				
+
+				spe_list=['1022001']
+
+				if "QBD" in file and temp in spe_list:
+					continue				
+
+				
+
 
 				try:
 				
@@ -164,10 +222,10 @@ def clac():
 
 
 
-						sql+='("'+str(file_date)+'","'+str(table.cell(x,trade_id).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,trade_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_in).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_out).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,commission).value).replace('"','').replace(',','').decode()+'","'+str(Transfer_clac).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,equity).value).replace('"','').replace(',','').decode()+'","'+str(time_tag)+'","'+str(file_mysql)+'"),'
+						sql+='("'+str(datetime.datetime.strptime(str(table.cell(x,csv_date).value).replace('"','').replace(',',''),'%Y%m%d').strftime('%Y-%m-%d'))+'","'+str(table.cell(x,trade_id).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,trade_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_in).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_out).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,commission).value).replace('"','').replace(',','').decode()+'","'+str(Transfer_clac).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,equity).value).replace('"','').replace(',','').decode()+'","'+str(time_tag)+'","'+str(file_mysql)+'"),'
 					else:
 						#print(chardet.detect(sql))
-						sql+='("'+str(file_date)+'","'+str(table.cell(x,trade_id).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,trade_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_in).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_out).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,commission).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,Transfer).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,equity).value).replace('"','').replace(',','').decode()+'","'+str(time_tag)+'","'+str(file_mysql)+'"),'
+						sql+='("'+str(datetime.datetime.strptime(str(table.cell(x,csv_date).value).replace('"','').replace(',',''),'%Y%m%d').strftime('%Y-%m-%d'))+'","'+str(table.cell(x,trade_id).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,trade_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_in).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_out).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,commission).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,Transfer).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,equity).value).replace('"','').replace(',','').decode()+'","'+str(time_tag)+'","'+str(file_mysql)+'"),'
 
 				except Exception, e:
 					print("1",e)
@@ -630,14 +688,15 @@ def get_data_static(username,date_start,date_end,filename,allocation):#usernames
 	else :
 		date_e=""
   
-
+	#print file_
+	#print str(file_)!="全部市场"
 	if file_!="全部市场":
 		file_=""" and filename2='"""+str(file_)+"""'"""
 	else :
 		file_=""
 
 	if user_!="全部归属人":
-		user_=""" and class_name='"""+str(file_)+"""'"""
+		user_=""" and class_name='"""+str(user_)+"""'"""
 	else :
 		user_=""
 
@@ -675,7 +734,7 @@ def get_data_static(username,date_start,date_end,filename,allocation):#usernames
 	WHERE  1=1  
 	"""+user_+file_+all_
 
-		#print(sql)
+		print(sql)
 		cursor.execute(sql)
 		rs=cursor.fetchall()
 
