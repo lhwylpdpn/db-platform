@@ -31,6 +31,7 @@ from app.controler.power_API import clac_config
 from app.controler.power_API import get_data_class_date
 from app.controler.power_API import get_data_static
 from app.controler.power_API import get_data_class_filename
+from app.controler.power_API import get_data_agent_all
 
 # @app.before_request
 # # def before_request():
@@ -98,7 +99,7 @@ def data_detail():
     class_name=[]
     if len(request.args) != 0:
         sjs = random.random()
-    jsons=get_data_class_name()
+    jsons=get_data_agent_all()
     jsons=jsons.split(u",")
     dates=get_data_class_date()
     dates=dates.split(u",")
@@ -165,5 +166,5 @@ def expecting():
 
 if __name__ == '__main__':
     # open debug model
-    app.debug = True
+    app.debug = False
     app.run(host='0.0.0.0', port=4900)
