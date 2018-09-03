@@ -316,14 +316,14 @@ vertical-align: middle!important;
             date_=table.bootstrapTable('getData');
              
             for (var i = 0; i < date_.length; i++) {
-                
-                sum_money_in+=parseFloat(date_[i]["money_in"]);
-                sum_money_out+=parseFloat(date_[i]["money_out"]);
-                sum_Transfer+=parseFloat(date_[i]["Transfer"]);
-                sum_commission+=parseFloat(date_[i]["commission"]);
-                sum_equity+=parseFloat(date_[i]["equity"]);
-                sum_liushui+=parseFloat(date_[i]["liushui"]);
-                sum_dianzi+=parseFloat(date_[i]["dianzi"]);
+            
+                sum_money_in+=toDecimal(date_[i]["money_in"]);
+                sum_money_out+=toDecimal(date_[i]["money_out"]);
+                sum_Transfer+=toDecimal(date_[i]["Transfer"]);
+                sum_commission+=toDecimal(date_[i]["commission"]);
+                sum_equity+=toDecimal(date_[i]["equity"]);
+                sum_liushui+=toDecimal(date_[i]["liushui"]);
+                sum_dianzi+=toDecimal(date_[i]["dianzi"]);
 
 
 
