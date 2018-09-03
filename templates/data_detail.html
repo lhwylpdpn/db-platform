@@ -302,9 +302,9 @@ vertical-align: middle!important;
                 <th class="label-inverse"   ><font size="2" color="#FFD700">I级返佣人</font></th>
                 <th class="label-inverse" data-field="m_1" data-formatter="mark" ><font size="2" color="#FFD700">I级返佣金额</font></th>
                 <th class="label-inverse"  ><font size="2" color="#FFD700">II级返佣人</font></th>
-                <th class="label-inverse" data-field="m_2" data-formatter="mark" ><font size="2" color="#FFD700">II级返佣金额</font></th>
+                <th class="label-inverse"   ><font size="2" color="#FFD700">II级返佣金额</font></th>
                 <th class="label-inverse"  ><font size="2" color="#FFD700">III级返佣人</font></th>
-                <th class="label-inverse" data-field="m_3" data-formatter="mark" ><font size="2" color="#FFD700">III级返佣金额</font></th>
+                <th class="label-inverse"   ><font size="2" color="#FFD700">III级返佣金额</font></th>
                
             </tr>
             </thead>
@@ -357,7 +357,7 @@ vertical-align: middle!important;
 
     }
 
-    
+    // 合计因为调整查询问123返人，所以合集整体调整
 
 
     $("#table").on('load-success.bs.table',function heji(){
@@ -366,12 +366,15 @@ vertical-align: middle!important;
             var sum_m3=0;
             var table=$("#table");
             date_=table.bootstrapTable('getData');
-             
+           
             for (var i = 0; i < date_.length; i++) {
-                
-                sum_m1=sum_m1+parseFloat(date_[i]["m_1"]);
-                sum_m2=sum_m2+parseFloat(date_[i]["m_2"]);
-                sum_m3=sum_m3+parseFloat(date_[i]["m_3"]);
+                if (date_[i]["agent_name_1"]==$("#person_").select2("data")[0].text)
+                    {sum_m1=sum_m1+parseFloat(date_[i]["m_1"]);}
+                if (date_[i]["agent_name_2"]==$("#person_").select2("data")[0].text)
+                    {sum_m2=sum_m2+parseFloat(date_[i]["m_2"]);}
+                if (date_[i]["agent_name_3"]==$("#person_").select2("data")[0].text  )         
+                 
+                    {sum_m3=sum_m3+parseFloat(date_[i]["m_3"]);}
 
             };
             
@@ -380,9 +383,9 @@ vertical-align: middle!important;
                 index: date_.length,
                 row: {
                     trade_id:'合计',
-                    m_1:toDecimal(sum_m1),
-                    m_2:toDecimal(sum_m2),
-                    m_3:toDecimal(sum_m3),
+                    m_1:toDecimal(sum_m3+sum_m2+sum_m1),
+                    m_2:'',
+                    m_3:'',
                     agent_name_1:'',
                     agent_name_2:'',
                     agent_name_3:''
@@ -395,7 +398,11 @@ vertical-align: middle!important;
                 field:'trade_id',
                 colspan:4
             });
-       
+             table.bootstrapTable('mergeCells', {
+                index: date_.length-1,
+                field:'m_1',
+                colspan:5
+            });     
     });
  
 
@@ -406,12 +413,14 @@ $("#table2").on('load-success.bs.table',function heji(){
             var sum_m3=0;
             var table=$("#table2");
             date_=table.bootstrapTable('getData');
-             
-            for (var i = 0; i < date_.length; i++) {
-                
-                sum_m1=sum_m1+parseFloat(date_[i]["m_1"]);
-                sum_m2=sum_m2+parseFloat(date_[i]["m_2"]);
-                sum_m3=sum_m3+parseFloat(date_[i]["m_3"]);
+          for (var i = 0; i < date_.length; i++) {
+                if (date_[i]["agent_name_1"]==$("#person_").select2("data")[0].text)
+                    {sum_m1=sum_m1+parseFloat(date_[i]["m_1"]);}
+                if (date_[i]["agent_name_2"]==$("#person_").select2("data")[0].text)
+                    {sum_m2=sum_m2+parseFloat(date_[i]["m_2"]);}
+                if (date_[i]["agent_name_3"]==$("#person_").select2("data")[0].text  )         
+                 
+                    {sum_m3=sum_m3+parseFloat(date_[i]["m_3"]);}
 
             };
             
@@ -420,9 +429,9 @@ $("#table2").on('load-success.bs.table',function heji(){
                 index: date_.length,
                 row: {
                     trade_id:'合计',
-                    m_1:toDecimal(sum_m1),
-                    m_2:toDecimal(sum_m2),
-                    m_3:toDecimal(sum_m3),
+                    m_1:toDecimal(sum_m3+sum_m2+sum_m1),
+                    m_2:'',
+                    m_3:'',
                     agent_name_1:'',
                     agent_name_2:'',
                     agent_name_3:''
@@ -435,7 +444,11 @@ $("#table2").on('load-success.bs.table',function heji(){
                 field:'trade_id',
                 colspan:4
             });
-       
+             table.bootstrapTable('mergeCells', {
+                index: date_.length-1,
+                field:'m_1',
+                colspan:5
+            });     
     });
 
 $("#table3").on('load-success.bs.table',function heji(){
@@ -444,23 +457,26 @@ $("#table3").on('load-success.bs.table',function heji(){
             var sum_m3=0;
             var table=$("#table3");
             date_=table.bootstrapTable('getData');
-             
-            for (var i = 0; i < date_.length; i++) {
-                
-                sum_m1=sum_m1+parseFloat(date_[i]["m_1"]);
-                sum_m2=sum_m2+parseFloat(date_[i]["m_2"]);
-                sum_m3=sum_m3+parseFloat(date_[i]["m_3"]);
+             for (var i = 0; i < date_.length; i++) {
+                if (date_[i]["agent_name_1"]==$("#person_").select2("data")[0].text)
+                    {sum_m1=sum_m1+parseFloat(date_[i]["m_1"]);}
+                if (date_[i]["agent_name_2"]==$("#person_").select2("data")[0].text)
+                    {sum_m2=sum_m2+parseFloat(date_[i]["m_2"]);}
+                if (date_[i]["agent_name_3"]==$("#person_").select2("data")[0].text  )         
+                 
+                    {sum_m3=sum_m3+parseFloat(date_[i]["m_3"]);}
 
             };
             
 
+       
              table.bootstrapTable('insertRow', {
                 index: date_.length,
                 row: {
                     trade_id:'合计',
-                    m_1:toDecimal(sum_m1),
-                    m_2:toDecimal(sum_m2),
-                    m_3:toDecimal(sum_m3),
+                    m_1:toDecimal(sum_m3+sum_m2+sum_m1),
+                    m_2:'',
+                    m_3:'',
                     agent_name_1:'',
                     agent_name_2:'',
                     agent_name_3:''
@@ -473,7 +489,11 @@ $("#table3").on('load-success.bs.table',function heji(){
                 field:'trade_id',
                 colspan:4
             });
-       
+             table.bootstrapTable('mergeCells', {
+                index: date_.length-1,
+                field:'m_1',
+                colspan:5
+            });     
     });
 $("#table4").on('load-success.bs.table',function heji(){
             var sum_m1=0;
@@ -481,23 +501,24 @@ $("#table4").on('load-success.bs.table',function heji(){
             var sum_m3=0;
             var table=$("#table4");
             date_=table.bootstrapTable('getData');
-             
             for (var i = 0; i < date_.length; i++) {
-                
-                sum_m1=sum_m1+parseFloat(date_[i]["m_1"]);
-                sum_m2=sum_m2+parseFloat(date_[i]["m_2"]);
-                sum_m3=sum_m3+parseFloat(date_[i]["m_3"]);
+                if (date_[i]["agent_name_1"]==$("#person_").select2("data")[0].text)
+                    {sum_m1=sum_m1+parseFloat(date_[i]["m_1"]);}
+                if (date_[i]["agent_name_2"]==$("#person_").select2("data")[0].text)
+                    {sum_m2=sum_m2+parseFloat(date_[i]["m_2"]);}
+                if (date_[i]["agent_name_3"]==$("#person_").select2("data")[0].text  )         
+                 
+                    {sum_m3=sum_m3+parseFloat(date_[i]["m_3"]);}
 
             };
-            
 
              table.bootstrapTable('insertRow', {
                 index: date_.length,
                 row: {
                     trade_id:'合计',
-                    m_1:toDecimal(sum_m1),
-                    m_2:toDecimal(sum_m2),
-                    m_3:toDecimal(sum_m3),
+                    m_1:toDecimal(sum_m3+sum_m2+sum_m1),
+                    m_2:'',
+                    m_3:'',
                     agent_name_1:'',
                     agent_name_2:'',
                     agent_name_3:''
@@ -510,10 +531,51 @@ $("#table4").on('load-success.bs.table',function heji(){
                 field:'trade_id',
                 colspan:4
             });
-       
+             table.bootstrapTable('mergeCells', {
+                index: date_.length-1,
+                field:'m_1',
+                colspan:5
+            });     
     });
+$("#table5").on('load-success.bs.table',function heji(){
+            var sum_m1=0;
+            var sum_m2=0;
+            var sum_m3=0;
+            var table=$("#table5");
+            date_1=$("#table").bootstrapTable('getData');
+            date_2=$("#table2").bootstrapTable('getData');
+            date_3=$("#table3").bootstrapTable('getData');
+            date_4=$("#table4").bootstrapTable('getData');
+            date_1=parseFloat(date_1[date_1.length-1]["m_1"]);
+            date_2=parseFloat(date_2[date_2.length-1]["m_1"]);
+            date_3=parseFloat(date_3[date_3.length-1]["m_1"]);
+            date_4=parseFloat(date_4[date_4.length-1]["m_1"]);
+             table.bootstrapTable('removeAll');
+             table.bootstrapTable('insertRow', {
+                index: date_.length,
+                row: {
+                    trade_id:'合计',
+                    m_1:toDecimal(date_1+date_2+date_4+date_3),
+                    m_2:'',
+                    m_3:'',
+                    agent_name_1:'',
+                    agent_name_2:'',
+                    agent_name_3:''
+                }
+            });
 
-
+             
+             table.bootstrapTable('mergeCells', {
+                index: date_.length-1,
+                field:'trade_id',
+                colspan:4
+            });
+             table.bootstrapTable('mergeCells', {
+                index: date_.length-1,
+                field:'m_1',
+                colspan:5
+            });     
+    });
 
    function chaxun(){
 
@@ -524,7 +586,7 @@ $("#table4").on('load-success.bs.table',function heji(){
         $("#table2").bootstrapTable('refresh',{url: "/detail_json?filename=GN&person="+$("#person_").select2("data")[0].text+"&date="+$("#date_").select2("data")[0].text });
         $("#table3").bootstrapTable('refresh',{url: "/detail_json?filename=GS&person="+$("#person_").select2("data")[0].text+"&date="+$("#date_").select2("data")[0].text }); 
         $("#table4").bootstrapTable('refresh',{url: "/detail_json?filename=QB&person="+$("#person_").select2("data")[0].text+"&date="+$("#date_").select2("data")[0].text });
-        $("#table5").bootstrapTable('refresh',{url: "/detail_json_heji?person="+$("#person_").select2("data")[0].text+"&date="+$("#date_").select2("data")[0].text });
+        $("#table5").bootstrapTable('refresh',{url: "/detail_json_heji" });
        
  }
 
