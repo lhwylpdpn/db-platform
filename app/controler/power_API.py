@@ -222,10 +222,10 @@ def clac():
 
 
 
-						sql+='("'+str(datetime.datetime.strptime(str(table.cell(x,csv_date).value).replace('"','').replace(',',''),'%Y%m%d').strftime('%Y-%m-%d'))+'","'+str(table.cell(x,trade_id).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,trade_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_in).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_out).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,commission).value).replace('"','').replace(',','').decode()+'","'+str(Transfer_clac).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,equity).value).replace('"','').replace(',','').decode()+'","'+str(time_tag)+'","'+str(file_mysql)+'"),'
+						sql+='("'+str(datetime.datetime.strptime(str(table.cell(x,csv_date).value).replace('"','').replace(',',''),'%Y%m%d').strftime('%Y-%m-%d'))+'","'+str(table.cell(x,trade_id).value).replace('.00','').replace('.0','').replace('"','').replace(',','').decode()+'","'+str(table.cell(x,trade_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_in).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_out).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,commission).value).replace('"','').replace(',','').decode()+'","'+str(Transfer_clac).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,equity).value).replace('"','').replace(',','').decode()+'","'+str(time_tag)+'","'+str(file_mysql)+'"),'
 					else:
 						#print(chardet.detect(sql))
-						sql+='("'+str(datetime.datetime.strptime(str(table.cell(x,csv_date).value).replace('"','').replace(',',''),'%Y%m%d').strftime('%Y-%m-%d'))+'","'+str(table.cell(x,trade_id).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,trade_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_in).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_out).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,commission).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,Transfer).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,equity).value).replace('"','').replace(',','').decode()+'","'+str(time_tag)+'","'+str(file_mysql)+'"),'
+						sql+='("'+str(datetime.datetime.strptime(str(table.cell(x,csv_date).value).replace('"','').replace(',',''),'%Y%m%d').strftime('%Y-%m-%d'))+'","'+str(table.cell(x,trade_id).value).replace('.00','').replace('.0','').replace('"','').replace(',','').decode()+'","'+str(table.cell(x,trade_name).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_in).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,money_out).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,commission).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,Transfer).value).replace('"','').replace(',','').decode()+'","'+str(table.cell(x,equity).value).replace('"','').replace(',','').decode()+'","'+str(time_tag)+'","'+str(file_mysql)+'"),'
 
 				except Exception, e:
 					print("1",e)
@@ -566,11 +566,7 @@ def power_list_update(usernames,poweritems):#usernames是一维数组传入用�
 #数据返回接口##############################################################################
 
 def get_data_detail(username,date,filename):#usernames是一维数组传入用户名，poweritems是二维数组，传入每个用户名的权限数组
-# 判断数据文剑名是否存在
-# 判断文件是否处于写状态
-# copy文件
-# 正则筛选
-# 返回json
+ #2018-08-13 by lhwylpdpn 修改为查一二三返人
 
 	user_=username
 	date_=date
@@ -579,15 +575,33 @@ def get_data_detail(username,date,filename):#usernames是一维数组传入用�
 		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
 		cursor = conn.cursor()
 		sql="""
-	SELECT a.`trade_id`,a.`trade_name`,a.`commission`,b.`agent_name_1`,CONVERT(b.`agent_ratio_1`*a.`commission`,DECIMAL(20,2)) AS m_1,b.`agent_name_2`,CONVERT(b.`agent_ratio_2`*a.`commission`,DECIMAL(20,2)) AS m_2, b.`agent_name_3`,CONVERT(b.`agent_ratio_3`*a.`commission` ,DECIMAL(20,2)) AS m_3
+
+
+
+	SELECT a.`trade_id`,a.`trade_name`,a.`commission`,b.`agent_name_1`,CONVERT(b.`agent_ratio_1`*a.`commission`,DECIMAL(20,2)) AS m_1,
+    case when b.`agent_name_2`= '"""+str(user_)+"""'  then b.agent_name_2 else "" end as agent_name_2,
+    
+    
+    case when b.`agent_name_2`= '"""+str(user_)+"""'  then CONVERT(b.`agent_ratio_2`*a.`commission`,DECIMAL(20,2)) else 0 end AS m_2,
+	case when b.`agent_name_3`= '"""+str(user_)+"""'  then b.agent_name_3 else "" end as agent_name_3,
+	case when b.`agent_name_3`= '"""+str(user_)+"""'  then CONVERT(b.`agent_ratio_3`*a.`commission` ,DECIMAL(20,2)) else 0 end  AS m_3
 	,a.filename
 
 	FROM `data_detail` a LEFT JOIN `agent_class` b ON a.`trade_id`=b.`trade_id` AND a.`filename`=b.`filename` 
-	WHERE a.`date`='"""+str(date_)+"""'  AND b.class_name ='"""+str(user_)+"""'  
-	AND a.filename LIKE '%"""+str(filename)+"""%' AND CAST(a.commission AS SIGNED)>0 
-
-
-
+	WHERE a.`date`='"""+str(date_)+"""' 
+    
+    
+   
+	
+    
+    and (b.agent_name_1='"""+str(user_)+"""'  or b.agent_name_2='"""+str(user_)+"""'  or b.agent_name_3='"""+str(user_)+"""' )
+    
+    AND a.filename LIKE '%"""+str(filename)+"""%'
+    
+    
+    
+    
+    AND CAST(a.commission AS SIGNED)>0 
 
 
 
@@ -734,7 +748,7 @@ def get_data_static(username,date_start,date_end,filename,allocation):#usernames
 	WHERE  1=1  
 	"""+user_+file_+all_
 
-		print(sql)
+		#print(sql)
 		cursor.execute(sql)
 		rs=cursor.fetchall()
 
@@ -837,3 +851,35 @@ SELECT  DISTINCT CASE WHEN  filename LIKE '%HB%' THEN '新疆汇宝'
 	except Exception, e:
 		print e
 		return ""
+
+def get_data_agent_all(): 
+
+
+	result=""
+	try:
+		conn = DBConnect.db_connect(Config.DATABASE_MAIN)
+		cursor = conn.cursor()
+		sql="""
+    select distinct a from 
+(
+
+select  agent_name_1  as a from agent_class
+union all
+select agent_name_2 as a  from agent_class
+union all
+select agent_name_3  as a from agent_class ) b
+where length(a)>0
+
+	"""
+		cursor.execute(sql)
+		rs=cursor.fetchall()
+ 		for r in rs:
+ 			 result+=str(r[0])+","
+		
+		
+		
+		return result[0:-1]
+	except Exception, e:
+		print e
+		return ""
+
